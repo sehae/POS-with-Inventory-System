@@ -14,7 +14,6 @@ class FullScreenApp(QMainWindow):
         script_dir = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(script_dir, '..', 'assets', 'logo1.png')
 
-        # Set up the main window
         self.setWindowTitle("Full Screen PyQt Example")
         self.setGeometry(100, 100, 800, 600)  # Initial dimensions (you can adjust these)
         self.showFullScreen()

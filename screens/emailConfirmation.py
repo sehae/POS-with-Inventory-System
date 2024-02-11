@@ -1,63 +1,125 @@
-import os.path
-
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QFont
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QLineEdit, QPushButton
+import os
 import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFrame, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, \
+    QLineEdit
+from PyQt5.QtGui import QColor, QPixmap
+from PyQt5.QtCore import Qt
+from styles.emailConStyles import EMAIL_TEXTBOX_STYLE, LABEL_STYLE, BUTTON_STYLE
 
-class emailConfirmation(QMainWindow):
+class FrameWithContent(QFrame):
+    def __init__(self, parent=None,
+                 color=QColor(255, 255, 255),
+                 image_path=None,
+                 label_text=None,
+                 button_text=None,
+                 placeholder_text=None,
+                 bellow_button_text=None,
+                 ):
+        super().__init__(parent)
+        self.setStyleSheet(f"background-color: {color.name()}")
+
+        layout = QVBoxLayout(self)
+
+        if image_path:
+            self.add_image(layout, image_path)
+            layout.addSpacing(50)
+
+        if label_text:
+            self.add_label(layout, label_text)
+            layout.addSpacing(10)
+
+        if placeholder_text:
+            self.add_label2(layout, "E-mail")
+            self.add_textbox(layout, placeholder_text)
+            layout.addSpacing(20)
+
+        if button_text:
+            self.add_button(layout, button_text)
+            layout.addSpacing(50)
+
+        if bellow_button_text:
+            self.add_label3(layout, bellow_button_text)
+
+        layout.setAlignment(Qt.AlignCenter)
+
+    def add_image(self, layout, image_path):
+        image_label = QLabel(self)
+        original_pixmap = QPixmap(image_path)
+        scaled_pixmap = original_pixmap.scaled(200, 200, Qt.KeepAspectRatio)
+        image_label.setPixmap(scaled_pixmap)
+        image_label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(image_label)
+
+    def add_label(self, layout, text):
+        label = QLabel(text, self)
+        label.setStyleSheet(LABEL_STYLE)
+        label.setWordWrap(True)
+        label.setFixedWidth(400)
+        layout.addWidget(label)
+
+    def add_label2(self, layout, text):
+        label2 = QLabel(text, self)
+        label2.setAlignment(Qt.AlignLeft)
+        label2.setStyleSheet(LABEL_STYLE)
+        layout.addWidget(label2)
+
+    def add_textbox(self, layout, placeholder_text):
+        textbox = QLineEdit(self)
+        textbox.setPlaceholderText(placeholder_text)
+        textbox.setFixedWidth(400)
+        textbox.setFixedHeight(46)
+        textbox.setStyleSheet(EMAIL_TEXTBOX_STYLE)
+        layout.addWidget(textbox)
+
+    def add_button(self, layout, text):
+        button = QPushButton(text, self)
+        button.clicked.connect(self.on_button_click)
+        button.setStyleSheet(BUTTON_STYLE)
+        button.setFixedWidth(400)
+        button.setFixedHeight(46)
+        layout.addWidget(button)
+
+    def add_label3(self, layout, text):
+        label3 = QLabel(text, self)
+        label3.setStyleSheet(LABEL_STYLE)
+        label3.setWordWrap(True)
+        label3.setFixedWidth(400)
+        layout.addWidget(label3)
+
+    def on_button_click(self):
+        print("Button clicked!")
+
+class FullScreenApp(QMainWindow):
     def __init__(self):
         super().__init__()
+
         script_dir = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(script_dir, '..', 'assets', 'logo1.png')
 
-        font = QFont("Lato", 12)
-
-        screen_resolution = app.desktop().screenGeometry()
-        width, height = screen_resolution.width(), screen_resolution.height()
-        self.setFixedSize(width, height)
-        self.main_layout = QVBoxLayout(self)
-
-        pixmap = QPixmap(image_path)
-        pixmap = pixmap.scaled(225, 225, Qt.KeepAspectRatio)
-
-        logo = QLabel(self)
-        logo.setPixmap(pixmap)
-        logo.resize(pixmap.width(), pixmap.height())
-        logo.move((width - pixmap.width()) // 2, (height - pixmap.height()) // 4)
-
-        label1 = QLabel("Enter the e-mail associated with your account and we’ll send you OTP to reset your password.", self)
-        label1.setAlignment(Qt.AlignCenter)
-        label1.setFont(font)
-
-        label1.setGeometry(0, logo.y() + logo.height() + 20, width, 50)
-
-        # Add email label below label1
-        email_label = QLabel("Email:", self)
-        email_label.setAlignment(Qt.AlignCenter)
-        email_label.setFont(font)
-
-        email_label.setGeometry(0, label1.y() + label1.height() + 10, width, 30)
-
-        email_textbox = QLineEdit(self)
-        email_textbox.setAlignment(Qt.AlignCenter)
-        email_textbox.setFont(font)
-
-        email_textbox.setGeometry((width - 200) // 2, email_label.y() + email_label.height() + 10, 200, 30)
-
-        submit_button = QPushButton("Submit", self)
-        submit_button.setFont(font)
-        submit_button.setGeometry((width - 100) // 2, email_textbox.y() + email_textbox.height() + 10, 100, 30)
-
-        result_label = QLabel("If you don’t have an account, please coordinate with your manager for registering an account through admin.", self)
-        result_label.setAlignment(Qt.AlignCenter)
-        result_label.setFont(font)
-
-        result_label.setGeometry(0, submit_button.y() + submit_button.height() + 10, width, 30)
-
+        self.setGeometry(100, 100, 800, 600)
         self.showFullScreen()
+        self.setStyleSheet("background-color: white;")
+
+        # Create three frames with different colors
+        frame1 = FrameWithContent(self, QColor(255, 255, 255))
+        frame2 = FrameWithContent(self, QColor(255, 255, 255), image_path,
+                                  "Enter the e-mail associated with your account and we’ll send you OTP to reset your password.",\
+                                  "Continue", "Enter your email",\
+                                  "If you don’t have an account, please coordinate with your manager for registering an account through admin.")
+        frame3 = FrameWithContent(self, QColor(255, 255, 255))
+
+        layout = QHBoxLayout()
+        layout.addWidget(frame1)
+        layout.addWidget(frame2)
+        layout.addWidget(frame3)
+
+        central_widget = QFrame(self)
+        central_widget.setLayout(layout)
+
+        self.setCentralWidget(central_widget)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = emailConfirmation()
+    mainWindow = FullScreenApp()
     sys.exit(app.exec_())
