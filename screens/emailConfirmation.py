@@ -6,7 +6,7 @@ from PyQt5.QtGui import QColor, QPixmap
 from PyQt5.QtCore import Qt
 from styles.emailConStyles import EMAIL_TEXTBOX_STYLE, LABEL_STYLE, BUTTON_STYLE
 
-class FrameWithContent(QFrame):
+class emailWidgets(QFrame):
     def __init__(self, parent=None,
                  color=QColor(255, 255, 255),
                  image_path=None,
@@ -45,7 +45,7 @@ class FrameWithContent(QFrame):
     def add_image(self, layout, image_path):
         image_label = QLabel(self)
         original_pixmap = QPixmap(image_path)
-        scaled_pixmap = original_pixmap.scaled(200, 200, Qt.KeepAspectRatio)
+        scaled_pixmap = original_pixmap.scaled(250, 250, Qt.KeepAspectRatio)
         image_label.setPixmap(scaled_pixmap)
         image_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(image_label)
@@ -89,7 +89,7 @@ class FrameWithContent(QFrame):
     def on_button_click(self):
         print("Button clicked!")
 
-class FullScreenApp(QMainWindow):
+class emailConfirmation(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -101,12 +101,12 @@ class FullScreenApp(QMainWindow):
         self.setStyleSheet("background-color: white;")
 
         # Create three frames with different colors
-        frame1 = FrameWithContent(self, QColor(255, 255, 255))
-        frame2 = FrameWithContent(self, QColor(255, 255, 255), image_path,
+        frame1 = emailWidgets(self, QColor(255, 255, 255))
+        frame2 = emailWidgets(self, QColor(255, 255, 255), image_path,
                                   "Enter the e-mail associated with your account and we’ll send you OTP to reset your password.",\
                                   "Continue", "Enter your email",\
                                   "If you don’t have an account, please coordinate with your manager for registering an account through admin.")
-        frame3 = FrameWithContent(self, QColor(255, 255, 255))
+        frame3 = emailWidgets(self, QColor(255, 255, 255))
 
         layout = QHBoxLayout()
         layout.addWidget(frame1)
@@ -121,5 +121,5 @@ class FullScreenApp(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    mainWindow = FullScreenApp()
+    mainWindow = emailConfirmation()
     sys.exit(app.exec_())
