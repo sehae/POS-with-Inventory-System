@@ -31,3 +31,12 @@ QPushButton:pressed {
     background-color: #024c4c;
 }
 """
+
+OTP_TEXTBOX_STYLE = """
+QLineEdit {
+        border: 2px solid #ADD8E6;
+        border-radius: 5px;
+        padding: 12px;
+        font-size: 16px;
+    }
+"""
