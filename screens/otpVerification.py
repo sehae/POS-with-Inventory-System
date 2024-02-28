@@ -1,3 +1,7 @@
+"""
+DONT USE THIS CODE. BBABAGUHIN KO TO, ang complicated neto
+at ako lang nakakaintindi.
+"""
 import os
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFrame, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, QLineEdit
