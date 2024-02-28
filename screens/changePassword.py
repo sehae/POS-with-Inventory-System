@@ -9,7 +9,8 @@ from PyQt5.QtWidgets import (
     QFrame,
     QLabel,
     QScrollArea,
-    QSizePolicy, QPushButton,
+    QSizePolicy, 
+    QPushButton,
 )
 from PyQt5.QtGui import QFontDatabase, QFont
 from styles.universalStyles import HEADER_TITLE, SYSTEM_LABEL
