@@ -76,6 +76,7 @@ class ChangePasswordUI(QWidget):
         frame.setFrameShadow(QFrame.Raised)
         frame.setFixedHeight(100)
         layout = QVBoxLayout(frame)
+        layout.setAlignment(Qt.AlignRight| Qt.AlignCenter)
 
         self.system_time_label = QLabel()
         self.system_time_label.setStyleSheet(SYSTEM_LABEL)
@@ -84,7 +85,7 @@ class ChangePasswordUI(QWidget):
         self.timer.timeout.connect(self.updateTime)
         self.timer.start(1000)
 
-        layout.addWidget(self.system_time_label, alignment=Qt.AlignRight)
+        layout.addWidget(self.system_time_label)
 
         if hasattr(self, 'system_time_label'):
             username = QLabel("User's Name Placeholder")
