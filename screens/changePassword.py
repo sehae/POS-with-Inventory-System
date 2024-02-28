@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QFrame,
     QLabel,
     QScrollArea,
-    QSizePolicy, 
+    QSizePolicy,
     QPushButton,
 )
 from PyQt5.QtGui import QFontDatabase, QFont
