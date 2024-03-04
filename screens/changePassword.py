@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtCore import Qt, QDateTime, QTimer
+from PyQt5.QtCore import Qt, QDateTime, QTimer, QSize
 from PyQt5.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -13,14 +13,16 @@ from PyQt5.QtWidgets import (
     QPushButton,
 )
 from PyQt5.QtGui import QFontDatabase, QFont
-from styles.universalStyles import HEADER_TITLE, SYSTEM_LABEL
 
-QUICKSAND = "assets/Quicksand-Regular.ttf"
+from assets.assetsDIR import get_navbar_button_icon
+from styles.universalStyles import HEADER_TITLE, SYSTEM_LABEL, NAVBAR_BUTTON_STYLE
+
+# Icons
+icon = get_navbar_button_icon()
 
 class ChangePasswordUI(QWidget):
     def __init__(self):
         super().__init__()
-        QFontDatabase.addApplicationFont(QUICKSAND)
 
         # Header Contents
         self.frame1 = self.setupTitleFrame()
@@ -105,33 +107,30 @@ class ChangePasswordUI(QWidget):
         frame = QFrame(self)
         frame.setFrameShape(QFrame.StyledPanel)
         frame.setFrameShadow(QFrame.Raised)
-        frame.setStyleSheet("background-color: red;")
-        frame.setFixedWidth(100)
-
+        frame.setFixedWidth(115)
         layout = QVBoxLayout(frame)
-        layout.setAlignment(Qt.AlignCenter)
+        layout.setAlignment(Qt.AlignLeft | Qt.AlignCenter)
 
-        button1 = QPushButton("Button 1", self)
-        button2 = QPushButton("Button 2", self)
+        button1 = QPushButton("CHANGE PASS")
+        button1.setStyleSheet(NAVBAR_BUTTON_STYLE)
+        button1.setIcon(icon)
+        button1.setIconSize(icon.actualSize(QSize(40, 40)))
+        button1.setFixedSize(96, 109)
+        button2 = QPushButton("BACK")
+        button2.setFixedSize(96, 109)
+        button2.setStyleSheet(NAVBAR_BUTTON_STYLE)
 
-        button1.clicked.connect(self.on_button_click)
-        button2.clicked.connect(self.on_button_click)
+        layout.addWidget(button1, alignment=Qt.AlignLeft)
+        layout.addWidget(button2, alignment=Qt.AlignLeft)
 
-        layout.addWidget(button1)
-        layout.addWidget(button2)
-
-        layout.setSpacing(0)
+        #layout.setSpacing(0)
 
         return frame
-
-    def on_button_click(self):
-        print("Button clicked!")
 
     def setupContentFrame(self):
         frame = QFrame(self)
         frame.setFrameShape(QFrame.StyledPanel)
         frame.setFrameShadow(QFrame.Raised)
-        frame.setStyleSheet("background-color: blue;")
 
         layout = QVBoxLayout(frame)
 
@@ -147,13 +146,14 @@ class ChangePassword(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        QFontDatabase.addApplicationFont(QUICKSAND)
-
         self.setGeometry(100, 100, 800, 600)
         self.showFullScreen()
 
         self.ui = ChangePasswordUI()
         self.setCentralWidget(self.ui)
+
+    def updateContentFrame(self, content):
+        self.ui.updateContentFrame(content)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
