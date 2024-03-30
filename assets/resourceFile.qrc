@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>entypo_back.png</file>
+    <file>logo1.png</file>
+  </qresource>
+</RCC>

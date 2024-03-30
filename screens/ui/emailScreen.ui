@@ -82,7 +82,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap resource="logo1.qrc">:/newPrefix/logo.png</pixmap>
+               <pixmap resource="../../assets/resourceFile.qrc">:/newPrefix/logo1.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -128,7 +128,6 @@
            <property name="font">
             <font>
              <pointsize>10</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
              <kerning>false</kerning>
             </font>
@@ -284,7 +283,6 @@ QPushButton:pressed {
            <property name="font">
             <font>
              <pointsize>10</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -337,6 +335,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
+  <include location="../../assets/resourceFile.qrc"/>
   <include location="logo1.qrc"/>
  </resources>
  <connections/>
