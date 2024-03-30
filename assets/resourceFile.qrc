@@ -2,5 +2,9 @@
     <qresource prefix="/logos">
         <file>Icons/logo1.png</file>
         <file>Icons/entypo_back.png</file>
+        <file>Icons/gridicons_dropdown.png</file>
+    </qresource>
+    <qresource prefix="/devCredits">
+        <file>Dev Credits/devCredits_VIllatura.jpg</file>
     </qresource>
 </RCC>
