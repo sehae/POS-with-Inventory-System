@@ -212,7 +212,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="logo1.qrc">
+             <iconset>
               <normaloff>:/newPrefix/entypo_back.png</normaloff>:/newPrefix/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -907,7 +907,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="logo1.qrc"/>
+  <include location="../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
