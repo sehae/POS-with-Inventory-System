@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QFrame" name="frame_2">
+     <widget class="QFrame" name="frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -25,7 +25,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="3" column="1">
-        <spacer name="verticalSpacer_12">
+        <spacer name="bottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -38,7 +38,7 @@
         </spacer>
        </item>
        <item row="2" column="0">
-        <spacer name="horizontalSpacer_3">
+        <spacer name="leftSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -51,9 +51,9 @@
         </spacer>
        </item>
        <item row="2" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="mainContent">
          <item>
-          <widget class="QFrame" name="frame">
+          <widget class="QFrame" name="logoFrame">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -62,7 +62,7 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="logo">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -82,7 +82,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap resource="../../assets/resourceFile.qrc">:/newPrefix/logo1.png</pixmap>
+               <pixmap resource="../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -99,7 +99,7 @@
           </widget>
          </item>
          <item>
-          <spacer name="verticalSpacer_8">
+          <spacer name="spacer1">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -112,7 +112,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="instructionLabel">
            <property name="minimumSize">
             <size>
              <width>400</width>
@@ -150,7 +150,7 @@
           </widget>
          </item>
          <item>
-          <spacer name="verticalSpacer_9">
+          <spacer name="spacer2">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -163,7 +163,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="emailLabel">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -175,7 +175,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2">
+          <widget class="QLineEdit" name="emailTextBox">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -200,7 +200,7 @@
           </widget>
          </item>
          <item>
-          <spacer name="verticalSpacer_10">
+          <spacer name="spacer3">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -213,7 +213,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="continueButton">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -248,7 +248,7 @@ QPushButton:pressed {
           </widget>
          </item>
          <item>
-          <spacer name="verticalSpacer_11">
+          <spacer name="spacer4">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -261,7 +261,7 @@ QPushButton:pressed {
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="label_8">
+          <widget class="QLabel" name="helpLabel">
            <property name="minimumSize">
             <size>
              <width>400</width>
@@ -303,7 +303,7 @@ QPushButton:pressed {
         </layout>
        </item>
        <item row="2" column="2">
-        <spacer name="horizontalSpacer_4">
+        <spacer name="rightSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -316,7 +316,7 @@ QPushButton:pressed {
         </spacer>
        </item>
        <item row="0" column="1">
-        <spacer name="verticalSpacer_7">
+        <spacer name="topSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -336,7 +336,7 @@ QPushButton:pressed {
  </widget>
  <resources>
   <include location="../../assets/resourceFile.qrc"/>
-  <include location="logo1.qrc"/>
+  <include location="../../../Downloads/logo1.qrc"/>
  </resources>
  <connections/>
 </ui>
