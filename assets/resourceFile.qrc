@@ -11,6 +11,8 @@
         <file>Icons/logoutIcon.png</file>
         <file>Icons/maintenanceIcon.png</file>
         <file>Icons/reportsIcon.png</file>
+        <file>Icons/visibilityOff.png</file>
+        <file>Icons/visibilityOn.png</file>
     </qresource>
     <qresource prefix="/devCredits">
         <file>Dev Credits/devCredits_VIllatura.jpg</file>
