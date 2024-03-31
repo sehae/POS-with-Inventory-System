@@ -3,6 +3,14 @@
         <file>Icons/logo1.png</file>
         <file>Icons/entypo_back.png</file>
         <file>Icons/gridicons_dropdown.png</file>
+        <file>Icons/posIcon.png</file>
+        <file>Icons/aboutIcon.png</file>
+        <file>Icons/changePassIcon.png</file>
+        <file>Icons/helpIcon.png</file>
+        <file>Icons/inventoryIcon.png</file>
+        <file>Icons/logoutIcon.png</file>
+        <file>Icons/maintenanceIcon.png</file>
+        <file>Icons/reportsIcon.png</file>
     </qresource>
     <qresource prefix="/devCredits">
         <file>Dev Credits/devCredits_VIllatura.jpg</file>
