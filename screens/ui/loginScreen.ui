@@ -256,6 +256,9 @@
     selection-background-color: darkgray;
 }</string>
                </property>
+               <property name="placeholderText">
+                <string>Enter Username</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -284,27 +287,86 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="password">
-               <property name="minimumSize">
-                <size>
-                 <width>325</width>
-                 <height>46</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>325</width>
-                 <height>46</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+              <widget class="QWidget" name="widget_2" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLineEdit" name="password">
+                  <property name="minimumSize">
+                   <size>
+                    <width>295</width>
+                    <height>46</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>295</width>
+                    <height>46</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
     padding: 5px;
     border-radius: 6px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
     background-color: #FFFFFF;
     selection-background-color: darkgray;
 }</string>
-               </property>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Enter Password</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>30</width>
+                    <height>46</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>30</width>
+                    <height>46</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    padding: 5px;
+    background-color: #FFFFFF;
+	border-radius: 6px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../../assets/resourceFile.qrc">
+                    <normaloff>:/logos/Icons/visibilityOff.png</normaloff>
+                    <normalon>:/logos/Icons/visibilityOn.png</normalon>:/logos/Icons/visibilityOff.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
@@ -376,11 +438,11 @@ QPushButton:pressed {
 }
 
 QPushButton:hover {
-    text-decoration: underline; /* Underline text on hover */
+    text-decoration: underline;
 }
 
 QPushButton:pressed {
-    color: #265C42; /* Change text color when pressed */
+    color: #265C42;
 }
 </string>
                </property>
