@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
         self.instructionLabel.setText(_translate("MainWindow", "Enter the e-mail associated with your account and we’ll send you OTP to reset your password."))
         self.emailLabel.setText(_translate("MainWindow", "E-mail"))
         self.continueButton.setText(_translate("MainWindow", "Continue"))
-        self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))
+        self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin_ui."))
 
 import assets.resourceFile_rc
 
