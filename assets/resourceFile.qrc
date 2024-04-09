@@ -17,4 +17,7 @@
     <qresource prefix="/devCredits">
         <file>Dev Credits/devCredits_VIllatura.jpg</file>
     </qresource>
+    <qresource prefix="/otherImages">
+        <file>Other Images/mapScreenshot.png</file>
+    </qresource>
 </RCC>
