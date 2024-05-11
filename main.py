@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from screens.loginScreen import Ui_MainWindow
+from screens.authentication_screens.loginScreen import Ui_MainWindow
 
 sys.path.append('path/to/Software-Engineering-Project')
 
