@@ -1,12 +1,14 @@
 from PyQt5 import QtWidgets
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
+from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 
-from PyQt5.QtWidgets import QMessageBox
 from setup.connector import conn
 
-class CustomLoginScreen(Ui_MainWindow):
+
+class myLoginScreen(Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.admin_dashboard = myAdminDashboard()
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
@@ -22,6 +24,7 @@ class CustomLoginScreen(Ui_MainWindow):
 
         if cursor.fetchone() is not None:
             print("Login successful as admin")
+            self.admin_dashboard.open_admin_dashboard()
             return
 
         query2 = "SELECT * FROM employeelogin WHERE username = %s AND password = %s"
