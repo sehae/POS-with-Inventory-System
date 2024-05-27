@@ -17,10 +17,18 @@ class CustomLoginScreen(Ui_MainWindow):
         password = self.password.text()
 
         cursor = conn.cursor()
-        query = "SELECT * FROM adminlogin WHERE username = %s AND password = %s"
-        cursor.execute(query, (username, password))
+        query1 = "SELECT * FROM adminlogin WHERE username = %s AND password = %s"
+        cursor.execute(query1, (username, password))
 
         if cursor.fetchone() is not None:
-            print("Login successful")
-        else:
-            print("Invalid Credentials")
+            print("Login successful as admin")
+            return
+
+        query2 = "SELECT * FROM employeelogin WHERE username = %s AND password = %s"
+        cursor.execute(query2, (username, password))
+
+        if cursor.fetchone() is not None:
+            print("Login successful as Employee")
+            return
+
+        print("Invalid Credentials")
