@@ -111,7 +111,7 @@
                 <enum>Qt::AutoText</enum>
                </property>
                <property name="pixmap">
-                <pixmap resource="../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
+                <pixmap resource="../../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -125,7 +125,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="adminLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -162,7 +162,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="username">
             <property name="font">
              <font>
               <pointsize>10</pointsize>
@@ -202,7 +202,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="date">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -232,7 +232,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="time">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -333,7 +333,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QPushButton" name="posButton">
+           <widget class="QPushButton" name="maintenanceButton">
             <property name="minimumSize">
              <size>
               <width>400</width>
@@ -555,7 +555,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="reportsButton">
             <property name="minimumSize">
              <size>
               <width>400</width>
@@ -614,6 +614,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
+  <include location="../../../assets/resourceFile.qrc"/>
   <include location="../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
