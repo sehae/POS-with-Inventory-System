@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -218,4 +217,5 @@ class Ui_MainWindow(object):
         self.password.setPlaceholderText(_translate("MainWindow", "Enter Password"))
         self.loginButton.setText(_translate("MainWindow", "Log In"))
         self.forgotButton.setText(_translate("MainWindow", "Forgot your password?"))
+
 import assets.resourceFile_rc
