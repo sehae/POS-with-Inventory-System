@@ -2,14 +2,14 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from screens.authentication_screens.loginScreen import Ui_MainWindow
+from screens.authentication_screens.login_screen.login_functions import CustomLoginScreen
 
 sys.path.append('path/to/Software-Engineering-Project')
 
 def show_login_screen():
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
+    ui = CustomLoginScreen()
     ui.setupUi(MainWindow)
     MainWindow.setWindowState(QtCore.Qt.WindowFullScreen)
     MainWindow.show()
