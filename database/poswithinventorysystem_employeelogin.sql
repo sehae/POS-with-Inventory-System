@@ -26,7 +26,8 @@ CREATE TABLE `employeelogin` (
   `Employee_ID` int NOT NULL,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Employee_ID`)
+  PRIMARY KEY (`Employee_ID`),
+  CONSTRAINT `fk_EmployeeID_employeeLogin` FOREIGN KEY (`Employee_ID`) REFERENCES `employee` (`Employee_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:46
+-- Dump completed on 2024-05-28 18:49:07

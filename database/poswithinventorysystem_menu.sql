@@ -26,7 +26,11 @@ CREATE TABLE `menu` (
   `Package_Type` int NOT NULL,
   `Order_ID` int DEFAULT NULL,
   `Add_On_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Package_Type`)
+  PRIMARY KEY (`Package_Type`),
+  KEY `fk_OrderID_menu` (`Order_ID`),
+  KEY `fk_AddOnID_menu` (`Add_On_ID`),
+  CONSTRAINT `fk_AddOnID_menu` FOREIGN KEY (`Add_On_ID`) REFERENCES `add_on` (`ADD_ON_ID`),
+  CONSTRAINT `fk_OrderID_menu` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:47
+-- Dump completed on 2024-05-28 18:49:06

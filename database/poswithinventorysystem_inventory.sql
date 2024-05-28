@@ -30,7 +30,11 @@ CREATE TABLE `inventory` (
   `Supplier_ID` int DEFAULT NULL,
   `Selling_Cost` varchar(45) DEFAULT NULL,
   `Buying_Cost` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Inventory_ID`)
+  PRIMARY KEY (`Inventory_ID`),
+  KEY `fk_ProductID_inventory` (`Product_ID`),
+  KEY `fk_SupplierID_inventory` (`Supplier_ID`),
+  CONSTRAINT `fk_ProductID_inventory` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
+  CONSTRAINT `fk_SupplierID_inventory` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:47
+-- Dump completed on 2024-05-28 18:49:07

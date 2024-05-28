@@ -28,7 +28,9 @@ CREATE TABLE `daily_report` (
   `Total_Sales` varchar(45) DEFAULT NULL,
   `Total_Items_Sold` int DEFAULT NULL,
   `Admin_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Daily_Report_ID`)
+  PRIMARY KEY (`Daily_Report_ID`),
+  KEY `Admin_ID_idx` (`Admin_ID`),
+  CONSTRAINT `fk_AdminID` FOREIGN KEY (`Admin_ID`) REFERENCES `admin` (`Admin_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:47
+-- Dump completed on 2024-05-28 18:49:07

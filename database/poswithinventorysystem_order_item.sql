@@ -28,7 +28,11 @@ CREATE TABLE `order_item` (
   `Product_ID` int DEFAULT NULL,
   `Quantity` int DEFAULT NULL,
   `Subtotal` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Order_Item_ID`)
+  PRIMARY KEY (`Order_Item_ID`),
+  KEY `fk_OrderID_OrderItem` (`Order_ID`),
+  KEY `fk_ProductID_OrderItem` (`Product_ID`),
+  CONSTRAINT `fk_OrderID_OrderItem` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
+  CONSTRAINT `fk_ProductID_OrderItem` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:46
+-- Dump completed on 2024-05-28 18:49:07

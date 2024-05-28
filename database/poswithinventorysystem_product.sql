@@ -16,32 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `weekly_report`
+-- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `weekly_report`;
+DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `weekly_report` (
-  `Weekly_Report_ID` int NOT NULL,
-  `Start_Date` varchar(45) DEFAULT NULL,
-  `End_Date` varchar(45) DEFAULT NULL,
-  `Total_Sale` varchar(45) DEFAULT NULL,
-  `Total_Items_Sold` varchar(45) DEFAULT NULL,
-  `Admin_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Weekly_Report_ID`),
-  KEY `fk_AdminID_weekly` (`Admin_ID`),
-  CONSTRAINT `fk_AdminID_weekly` FOREIGN KEY (`Admin_ID`) REFERENCES `admin` (`Admin_ID`)
+CREATE TABLE `product` (
+  `Product_ID` int NOT NULL,
+  `Name` varchar(45) DEFAULT NULL,
+  `Quantity` int DEFAULT NULL,
+  `Threshold_Value` int DEFAULT NULL,
+  `Expiry_Date` varchar(45) DEFAULT NULL,
+  `Availability` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Product_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `weekly_report`
+-- Dumping data for table `product`
 --
 
-LOCK TABLES `weekly_report` WRITE;
-/*!40000 ALTER TABLE `weekly_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `weekly_report` ENABLE KEYS */;
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 18:49:06
+-- Dump completed on 2024-05-28 18:49:07

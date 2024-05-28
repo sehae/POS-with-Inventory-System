@@ -29,9 +29,15 @@ CREATE TABLE `order` (
   `Table_Number` int DEFAULT NULL,
   `Total_Amount` varchar(45) DEFAULT NULL,
   `Payment_Status` varchar(45) DEFAULT NULL,
-  `Package_Type` varchar(45) DEFAULT NULL,
+  `Package_Type` int DEFAULT NULL,
   `Add_On_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Order_ID`)
+  PRIMARY KEY (`Order_ID`),
+  KEY `fk_TableNumber_order` (`Table_Number`),
+  KEY `fk_AddOnID_order` (`Add_On_ID`),
+  KEY `fk_PackageType_order` (`Package_Type`),
+  CONSTRAINT `fk_AddOnID_order` FOREIGN KEY (`Add_On_ID`) REFERENCES `add_on` (`ADD_ON_ID`),
+  CONSTRAINT `fk_PackageType_order` FOREIGN KEY (`Package_Type`) REFERENCES `menu` (`Package_Type`),
+  CONSTRAINT `fk_TableNumber_order` FOREIGN KEY (`Table_Number`) REFERENCES `table` (`Table_Number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:36:47
+-- Dump completed on 2024-05-28 18:49:07
