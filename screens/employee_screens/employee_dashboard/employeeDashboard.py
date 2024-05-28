@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/admin_ui/adminDashboard.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employeeDashboard.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,25 +14,25 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1202, 952)
-        self.mainwidget = QtWidgets.QWidget(MainWindow)
-        self.mainwidget.setObjectName("mainwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.mainwidget)
+        MainWindow.resize(1224, 974)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.stackedWidget = QtWidgets.QStackedWidget(self.mainwidget)
+        self.frame = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
-        self.stackedWidget.setSizePolicy(sizePolicy)
-        self.stackedWidget.setObjectName("stackedWidget")
-        self.stackedWidgetPage1 = QtWidgets.QWidget()
-        self.stackedWidgetPage1.setObjectName("stackedWidgetPage1")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.stackedWidgetPage1)
+        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.header = QtWidgets.QWidget(self.stackedWidgetPage1)
+        self.header = QtWidgets.QWidget(self.frame)
         self.header.setObjectName("header")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.header)
         self.horizontalLayout_2.setContentsMargins(25, 25, 25, 25)
@@ -59,18 +59,6 @@ class Ui_MainWindow(object):
         self.logo.setWordWrap(False)
         self.logo.setObjectName("logo")
         self.verticalLayout_2.addWidget(self.logo)
-        self.adminLabel = QtWidgets.QLabel(self.widget_3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.adminLabel.sizePolicy().hasHeightForWidth())
-        self.adminLabel.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.adminLabel.setFont(font)
-        self.adminLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.adminLabel.setObjectName("adminLabel")
-        self.verticalLayout_2.addWidget(self.adminLabel)
         self.horizontalLayout_2.addWidget(self.widget_3)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
@@ -112,9 +100,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.time)
         self.horizontalLayout_2.addWidget(self.widget)
         self.verticalLayout.addWidget(self.header)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 60, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem2)
-        self.buttonGroup = QtWidgets.QWidget(self.stackedWidgetPage1)
+        self.buttonGroup = QtWidgets.QWidget(self.frame)
         self.buttonGroup.setObjectName("buttonGroup")
         self.gridLayout = QtWidgets.QGridLayout(self.buttonGroup)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -122,7 +110,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setVerticalSpacing(25)
         self.gridLayout.setObjectName("gridLayout")
         self.inventoryButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.inventoryButton.setMinimumSize(QtCore.QSize(400, 240))
+        self.inventoryButton.setMinimumSize(QtCore.QSize(400, 280))
         self.inventoryButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
         font.setPointSize(15)
@@ -146,15 +134,15 @@ class Ui_MainWindow(object):
 "")
         self.inventoryButton.setObjectName("inventoryButton")
         self.gridLayout.addWidget(self.inventoryButton, 0, 1, 1, 1)
-        self.maintenanceButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.maintenanceButton.setMinimumSize(QtCore.QSize(400, 240))
-        self.maintenanceButton.setMaximumSize(QtCore.QSize(400, 280))
+        self.posButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.posButton.setMinimumSize(QtCore.QSize(400, 280))
+        self.posButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
-        self.maintenanceButton.setFont(font)
-        self.maintenanceButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/maintenanceIcon.png) center no-repeat;\n"
+        self.posButton.setFont(font)
+        self.posButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/posIcon.png) center no-repeat;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
@@ -170,86 +158,11 @@ class Ui_MainWindow(object):
 "    background-color: #058A84;\n"
 "}\n"
 "")
-        self.maintenanceButton.setIconSize(QtCore.QSize(200, 200))
-        self.maintenanceButton.setObjectName("maintenanceButton")
-        self.gridLayout.addWidget(self.maintenanceButton, 0, 0, 1, 1)
-        self.logoutButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.logoutButton.setMinimumSize(QtCore.QSize(400, 240))
-        self.logoutButton.setMaximumSize(QtCore.QSize(400, 280))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.logoutButton.setFont(font)
-        self.logoutButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/logoutIcon.png) center no-repeat;\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #5FCAC4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #058A84;\n"
-"}\n"
-"")
-        self.logoutButton.setObjectName("logoutButton")
-        self.gridLayout.addWidget(self.logoutButton, 2, 1, 1, 1)
-        self.aboutButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.aboutButton.setMinimumSize(QtCore.QSize(400, 240))
-        self.aboutButton.setMaximumSize(QtCore.QSize(400, 280))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.aboutButton.setFont(font)
-        self.aboutButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/aboutIcon.png) center no-repeat;\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #5FCAC4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #058A84;\n"
-"}\n"
-"")
-        self.aboutButton.setObjectName("aboutButton")
-        self.gridLayout.addWidget(self.aboutButton, 1, 2, 1, 1)
-        self.helpButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.helpButton.setMinimumSize(QtCore.QSize(400, 240))
-        self.helpButton.setMaximumSize(QtCore.QSize(400, 280))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.helpButton.setFont(font)
-        self.helpButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/helpIcon.png) center no-repeat;\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #5FCAC4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #058A84;\n"
-"}\n"
-"")
-        self.helpButton.setObjectName("helpButton")
-        self.gridLayout.addWidget(self.helpButton, 1, 1, 1, 1)
+        self.posButton.setIconSize(QtCore.QSize(200, 200))
+        self.posButton.setObjectName("posButton")
+        self.gridLayout.addWidget(self.posButton, 0, 0, 1, 1)
         self.changePassButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.changePassButton.setMinimumSize(QtCore.QSize(400, 240))
+        self.changePassButton.setMinimumSize(QtCore.QSize(400, 280))
         self.changePassButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
         font.setPointSize(15)
@@ -272,15 +185,16 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.changePassButton.setObjectName("changePassButton")
-        self.gridLayout.addWidget(self.changePassButton, 1, 0, 1, 1)
-        self.reportsButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.reportsButton.setMinimumSize(QtCore.QSize(400, 240))
+        self.gridLayout.addWidget(self.changePassButton, 0, 2, 1, 1)
+        self.helpButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.helpButton.setMinimumSize(QtCore.QSize(400, 280))
+        self.helpButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
-        self.reportsButton.setFont(font)
-        self.reportsButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/reportsIcon.png) center no-repeat;\n"
+        self.helpButton.setFont(font)
+        self.helpButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/helpIcon.png) center no-repeat;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
@@ -295,14 +209,63 @@ class Ui_MainWindow(object):
 "    background-color: #058A84;\n"
 "}\n"
 "")
-        self.reportsButton.setObjectName("reportsButton")
-        self.gridLayout.addWidget(self.reportsButton, 0, 2, 1, 1)
+        self.helpButton.setObjectName("helpButton")
+        self.gridLayout.addWidget(self.helpButton, 1, 0, 1, 1)
+        self.aboutButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.aboutButton.setMinimumSize(QtCore.QSize(400, 280))
+        self.aboutButton.setMaximumSize(QtCore.QSize(400, 280))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.aboutButton.setFont(font)
+        self.aboutButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/aboutIcon.png) center no-repeat;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    text-align: bottom center;\n"
+"    padding-bottom: 30px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5FCAC4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #058A84;\n"
+"}\n"
+"")
+        self.aboutButton.setObjectName("aboutButton")
+        self.gridLayout.addWidget(self.aboutButton, 1, 1, 1, 1)
+        self.logoutButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.logoutButton.setMinimumSize(QtCore.QSize(400, 280))
+        self.logoutButton.setMaximumSize(QtCore.QSize(400, 280))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.logoutButton.setFont(font)
+        self.logoutButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/logoutIcon.png) center no-repeat;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    text-align: bottom center;\n"
+"    padding-bottom: 30px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5FCAC4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #058A84;\n"
+"}\n"
+"")
+        self.logoutButton.setObjectName("logoutButton")
+        self.gridLayout.addWidget(self.logoutButton, 1, 2, 1, 1)
         self.verticalLayout.addWidget(self.buttonGroup)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
-        self.stackedWidget.addWidget(self.stackedWidgetPage1)
-        self.horizontalLayout.addWidget(self.stackedWidget)
-        MainWindow.setCentralWidget(self.mainwidget)
+        self.horizontalLayout.addWidget(self.frame)
+        MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -310,18 +273,16 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.adminLabel.setText(_translate("MainWindow", "Admin"))
-        self.username.setText(_translate("MainWindow", "John Doe"))
+        self.username.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.date.setText(_translate("MainWindow", "Wednesday, November 29, 2023 "))
         self.time.setText(_translate("MainWindow", "12:00:02 am"))
         self.inventoryButton.setText(_translate("MainWindow", "INVENTORY"))
-        self.maintenanceButton.setText(_translate("MainWindow", "MAINTENANCE"))
-        self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
-        self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
-        self.helpButton.setText(_translate("MainWindow", "HELP"))
+        self.posButton.setText(_translate("MainWindow", "POS"))
         self.changePassButton.setText(_translate("MainWindow", "CHANGE PASSWORD"))
-        self.reportsButton.setText(_translate("MainWindow", "REPORTS"))
-import assets.resourceFile_rc
+        self.helpButton.setText(_translate("MainWindow", "HELP"))
+        self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
+        self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
+import resourceFile_rc
 
 
 if __name__ == "__main__":

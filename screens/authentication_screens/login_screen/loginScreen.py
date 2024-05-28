@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/loginScreen.ui'
+# Form implementation generated from reading ui file 'screens/ui/authentication/loginScreen.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -10,19 +10,20 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 723)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.mainwdiget = QtWidgets.QWidget(MainWindow)
+        self.mainwdiget.setObjectName("mainwdiget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.mainwdiget)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.frame)
+        self.stackedWidget = QtWidgets.QStackedWidget(self.mainwdiget)
+        self.stackedWidget.setObjectName("stackedWidget")
+        self.stackedWidgetPage1 = QtWidgets.QWidget()
+        self.stackedWidgetPage1.setObjectName("stackedWidgetPage1")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.stackedWidgetPage1)
         self.gridLayout_3.setObjectName("gridLayout_3")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem, 3, 1, 1, 1)
@@ -32,7 +33,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addItem(spacerItem2, 2, 2, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem3, 0, 1, 1, 1)
-        self.widget = QtWidgets.QWidget(self.frame)
+        self.widget = QtWidgets.QWidget(self.stackedWidgetPage1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -135,23 +136,23 @@ class Ui_MainWindow(object):
 "}")
         self.password.setObjectName("password")
         self.horizontalLayout_3.addWidget(self.password)
-        self.pushButton = QtWidgets.QPushButton(self.widget_2)
-        self.pushButton.setMinimumSize(QtCore.QSize(30, 46))
-        self.pushButton.setMaximumSize(QtCore.QSize(30, 46))
-        self.pushButton.setStyleSheet("QPushButton {\n"
+        self.visibilityButton = QtWidgets.QPushButton(self.widget_2)
+        self.visibilityButton.setMinimumSize(QtCore.QSize(30, 46))
+        self.visibilityButton.setMaximumSize(QtCore.QSize(30, 46))
+        self.visibilityButton.setStyleSheet("QPushButton {\n"
 "    padding: 5px;\n"
 "    background-color: #FFFFFF;\n"
 "    border-radius: 6px;\n"
 "    border-top-left-radius: 0px;\n"
 "    border-bottom-left-radius: 0px;\n"
 "}")
-        self.pushButton.setText("")
+        self.visibilityButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logos/Icons/visibilityOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon.addPixmap(QtGui.QPixmap(":/logos/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.pushButton.setIcon(icon)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_3.addWidget(self.pushButton)
+        self.visibilityButton.setIcon(icon)
+        self.visibilityButton.setObjectName("visibilityButton")
+        self.horizontalLayout_3.addWidget(self.visibilityButton)
         self.verticalLayout_2.addWidget(self.widget_2)
         spacerItem7 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem7)
@@ -200,8 +201,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.forgotButton)
         self.verticalLayout.addWidget(self.loginForm)
         self.gridLayout_3.addWidget(self.widget, 2, 1, 1, 1)
-        self.horizontalLayout.addWidget(self.frame)
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.stackedWidget.addWidget(self.stackedWidgetPage1)
+        self.horizontalLayout.addWidget(self.stackedWidget)
+        MainWindow.setCentralWidget(self.mainwdiget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -217,5 +219,14 @@ class Ui_MainWindow(object):
         self.password.setPlaceholderText(_translate("MainWindow", "Enter Password"))
         self.loginButton.setText(_translate("MainWindow", "Log In"))
         self.forgotButton.setText(_translate("MainWindow", "Forgot your password?"))
-
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
