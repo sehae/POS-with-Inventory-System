@@ -282,7 +282,7 @@ class Ui_MainWindow(object):
         self.helpButton.setText(_translate("MainWindow", "HELP"))
         self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
         self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

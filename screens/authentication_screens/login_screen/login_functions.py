@@ -44,15 +44,21 @@ class myLoginScreen(Ui_MainWindow):
             fetch_query = "SELECT first_name FROM admin WHERE admin_id = %s"
             cursor.execute(fetch_query, (admin_id,))
             admin_first_name = cursor.fetchone()[0]
-            print(f"Login successful as admin {admin_first_name}")
+            print(f"Login successful as admin: Welcome {admin_first_name}!")
             self.admin_dashboard.open_admin_dashboard()
             return
 
-        query2 = "SELECT * FROM employeelogin WHERE username = %s AND password = %s"
+        query2 = "SELECT employee_id FROM employeelogin WHERE username = %s AND password = %s"
         cursor.execute(query2, (username, password))
 
-        if cursor.fetchone() is not None:
-            print("Login successful as Employee")
+        result = cursor.fetchone()
+        if result is not None:
+            employee_id = result[0]
+            fetch_query = "SELECT first_name FROM employee WHERE employee_id = %s"
+            cursor.execute(fetch_query, (employee_id,))
+            employee_first_name = cursor.fetchone()[0]
+            print(f"Login successful as Employee: Welcome {employee_first_name}!")
+
             return
 
         print("Invalid Credentials")
