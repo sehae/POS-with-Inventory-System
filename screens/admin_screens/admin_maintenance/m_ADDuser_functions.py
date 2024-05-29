@@ -29,13 +29,6 @@ class adminMaintenance(Ui_MainWindow):
         LoA = self.loaBOX.currentText()
         dept = self.deptBox.currentText()
 
-        print(f"First Name: {first_name}")
-        print(f"Last Name: {last_name}")
-        print(f"Email: {email}")
-        print(f"Contact Number: {contact_number}")
-        print(f"Level of Access: {LoA}")
-        print(f"Department: {dept}")
-
         cursor = conn.cursor()
         print("Cursor created")
 
