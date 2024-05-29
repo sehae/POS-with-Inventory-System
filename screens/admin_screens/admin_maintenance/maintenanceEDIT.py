@@ -502,7 +502,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "MAINTENANCE"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":
