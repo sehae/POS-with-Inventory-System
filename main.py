@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
+from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 
 sys.path.append('path/to/Software-Engineering-Project')
@@ -9,7 +10,7 @@ sys.path.append('path/to/Software-Engineering-Project')
 def show_login_screen():
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
-    ui = myLoginScreen()
+    ui = adminMaintenance()
     ui.setupUi(MainWindow)
     MainWindow.setWindowState(QtCore.Qt.WindowFullScreen)
     MainWindow.show()
