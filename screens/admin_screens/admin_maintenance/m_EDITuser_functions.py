@@ -18,31 +18,44 @@ class adminMaintenanceEDIT(Ui_MainWindow):
         self.cashierBTN.clicked.connect(self.activate_cashier)
         self.kitchenBTN.clicked.connect(self.activate_kitchen)
         self.userlogsBTN.clicked.connect(self.show_rightcontent)
+        self.deactBTN.clicked.connect(self.deactivate_user)
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
 
     def edit_user(self):
         # Get the current user's email
         email = self.emailDISPLAY.text()
+        department = self.get_department()
+        print(department)
 
         cursor = conn.cursor()
 
-        # Check if the staff button is active
-        if self.staffBTN.styleSheet() == self.active_button_style:
-            # The user is a staff, no need to move the user
-            print(f"{email} is a staff")
-        elif self.adminBTN.styleSheet() == self.active_button_style:
+        # Check if the admin button is active
+        if self.adminBTN.styleSheet() == self.active_button_style:
             # The user is an admin, move the user from the employee table to the admin table
             try:
-                # Insert the user into the admin table
                 cursor.execute(
-                    "INSERT INTO admin (first_name, last_name, email) SELECT first_name, last_name, email FROM employee WHERE email = %s",
+                    "SELECT * FROM admin WHERE email = %s",
                     (email,)
                 )
+                result = cursor.fetchone()
 
-                # Delete the user from the employee table
+                if result is None:
+                    # The user does not exist in the admin table, insert a new record
+                    cursor.execute(
+                        "INSERT INTO admin (first_name, last_name, contact_number, email) SELECT first_name, last_name, contact_number, email FROM employee WHERE email = %s AND is_active = True",
+                        (email,)
+                    )
+                else:
+                    # The user exists in the admin table, reactivate the user
+                    cursor.execute(
+                        "UPDATE admin SET is_active = True WHERE email = %s",
+                        (email,)
+                    )
+
+                # Set the user's status in the employee table to inactive
                 cursor.execute(
-                    "DELETE FROM employee WHERE email = %s",
+                    "UPDATE employee SET is_active = False WHERE email = %s",
                     (email,)
                 )
 
@@ -50,8 +63,48 @@ class adminMaintenanceEDIT(Ui_MainWindow):
                 print(f"{email} moved to admin table")
             except Exception as e:
                 print(f"An error occurred: {e}")
+        elif self.staffBTN.styleSheet() == self.active_button_style:
+            # The user is a staff, move the user from the admin table to the employee table
+            try:
+                cursor.execute(
+                    "SELECT * FROM employee WHERE email = %s",
+                    (email,)
+                )
+                result = cursor.fetchone()
+
+                if result is None:
+                    # The user does not exist in the employee table, insert a new record
+                    cursor.execute(
+                        "INSERT INTO employee (first_name, last_name, contact_number, email, department) SELECT first_name, last_name, contact_number, email, %s FROM admin WHERE email = %s AND is_active = True",
+                        (department, email,)
+                    )
+                else:
+                    # The user exists in the employee table, reactivate the user
+                    cursor.execute(
+                        "UPDATE employee SET is_active = True WHERE email = %s",
+                        (email,)
+                    )
+
+                # Set the user's status in the admin table to inactive
+                cursor.execute(
+                    "UPDATE admin SET is_active = False WHERE email = %s",
+                    (email,)
+                )
+
+                conn.commit()
+                print(f"{email} moved to employee table")
+            except Exception as e:
+                print(f"An error occurred: {e}")
         else:
             print("No role selected")
+
+    def get_department(self):
+        if self.cashierBTN.styleSheet() == self.active_button_style:
+            return 'Cashier'
+        elif self.kitchenBTN.styleSheet() == self.active_button_style:
+            return 'Kitchen'
+        else:
+            return None
 
     def search_user(self):
         try:
@@ -110,6 +163,17 @@ class adminMaintenanceEDIT(Ui_MainWindow):
     def activate_kitchen(self):
         self.kitchenBTN.setStyleSheet(self.active_button_style)
         self.cashierBTN.setStyleSheet(self.inactive_button_style)
+
+    def deactivate_user(self):
+        email = self.emailDISPLAY.text()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE admin SET is_active = False WHERE email = %s",
+            (email,)
+        )
+        self.rightcontent.hide()
+        self.edituserCONTENT.hide()
+        print(f"{email} deactivated")
 
     def show_rightcontent(self):
         self.rightcontent.show()
