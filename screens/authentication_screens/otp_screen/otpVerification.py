@@ -76,18 +76,18 @@ class Ui_MainWindow(object):
         self.emailDISPLAY.setAlignment(QtCore.Qt.AlignCenter)
         self.emailDISPLAY.setObjectName("emailDISPLAY")
         self.verticalLayout_2.addWidget(self.emailDISPLAY)
-        self.label = QtWidgets.QLabel(self.frame)
+        self.timer = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.label.setFont(font)
-        self.label.setStyleSheet("QLabel {\n"
+        self.timer.setFont(font)
+        self.timer.setStyleSheet("QLabel {\n"
 "    color: #ADD8E6;\n"
 "}\n"
 "")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.verticalLayout_2.addWidget(self.label)
+        self.timer.setAlignment(QtCore.Qt.AlignCenter)
+        self.timer.setObjectName("timer")
+        self.verticalLayout_2.addWidget(self.timer)
         spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.OTP = QtWidgets.QFrame(self.frame)
@@ -278,7 +278,7 @@ class Ui_MainWindow(object):
         self.titleLabel.setText(_translate("MainWindow", "OTP Verification"))
         self.instructionLabel.setText(_translate("MainWindow", "We will send you a one time password on this e-mail"))
         self.emailDISPLAY.setText(_translate("MainWindow", "jcmoonhey@gmail.com"))
-        self.label.setText(_translate("MainWindow", "0:00"))
+        self.timer.setText(_translate("MainWindow", "0:00"))
         self.resendBTN.setText(_translate("MainWindow", "Resend OTP"))
         self.submitButton.setText(_translate("MainWindow", "Submit"))
         self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))
