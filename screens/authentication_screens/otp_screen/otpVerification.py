@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'otpVerification.ui'
+# Form implementation generated from reading ui file 'screens/ui/authentication/otpVerification.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
 
 
 class Ui_MainWindow(object):
@@ -69,14 +68,26 @@ class Ui_MainWindow(object):
         self.instructionLabel.setIndent(-1)
         self.instructionLabel.setObjectName("instructionLabel")
         self.verticalLayout_2.addWidget(self.instructionLabel)
-        self.userEmail = QtWidgets.QLabel(self.frame)
+        self.emailDISPLAY = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.userEmail.setFont(font)
-        self.userEmail.setAlignment(QtCore.Qt.AlignCenter)
-        self.userEmail.setObjectName("userEmail")
-        self.verticalLayout_2.addWidget(self.userEmail)
+        self.emailDISPLAY.setFont(font)
+        self.emailDISPLAY.setAlignment(QtCore.Qt.AlignCenter)
+        self.emailDISPLAY.setObjectName("emailDISPLAY")
+        self.verticalLayout_2.addWidget(self.emailDISPLAY)
+        self.timer = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        self.timer.setFont(font)
+        self.timer.setStyleSheet("QLabel {\n"
+"    color: #ADD8E6;\n"
+"}\n"
+"")
+        self.timer.setAlignment(QtCore.Qt.AlignCenter)
+        self.timer.setObjectName("timer")
+        self.verticalLayout_2.addWidget(self.timer)
         spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.OTP = QtWidgets.QFrame(self.frame)
@@ -117,22 +128,22 @@ class Ui_MainWindow(object):
 "    }")
         self.otp2.setObjectName("otp2")
         self.horizontalLayout_2.addWidget(self.otp2)
-        self.top3 = QtWidgets.QLineEdit(self.OTP)
+        self.otp3 = QtWidgets.QLineEdit(self.OTP)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.top3.sizePolicy().hasHeightForWidth())
-        self.top3.setSizePolicy(sizePolicy)
-        self.top3.setMinimumSize(QtCore.QSize(50, 50))
-        self.top3.setMaximumSize(QtCore.QSize(50, 50))
-        self.top3.setStyleSheet("QLineEdit {\n"
+        sizePolicy.setHeightForWidth(self.otp3.sizePolicy().hasHeightForWidth())
+        self.otp3.setSizePolicy(sizePolicy)
+        self.otp3.setMinimumSize(QtCore.QSize(50, 50))
+        self.otp3.setMaximumSize(QtCore.QSize(50, 50))
+        self.otp3.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
 "        padding: 12px;\n"
 "        font-size: 16px;\n"
 "    }")
-        self.top3.setObjectName("top3")
-        self.horizontalLayout_2.addWidget(self.top3)
+        self.otp3.setObjectName("otp3")
+        self.horizontalLayout_2.addWidget(self.otp3)
         self.otp4 = QtWidgets.QLineEdit(self.OTP)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -184,9 +195,36 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.OTP)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem2)
-        self.submitButton = QtWidgets.QPushButton(self.frame)
+        self.widget = QtWidgets.QWidget(self.frame)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.resendBTN = QtWidgets.QPushButton(self.widget)
+        self.resendBTN.setMinimumSize(QtCore.QSize(0, 56))
+        self.resendBTN.setMaximumSize(QtCore.QSize(400, 56))
+        self.resendBTN.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border: 2px Solid #036666;\n"
+"    border-radius: 6px;\n"
+"    background-color: transparent;\n"
+"    color: #036666;\n"
+"    font-size: 20px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border-color: #049393;\n"
+"    color: #049393;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-color: #024c4c;\n"
+"    color: #024c4c;\n"
+"}\n"
+"")
+        self.resendBTN.setObjectName("resendBTN")
+        self.horizontalLayout_4.addWidget(self.resendBTN)
+        self.submitButton = QtWidgets.QPushButton(self.widget)
         self.submitButton.setMinimumSize(QtCore.QSize(0, 56))
-        self.submitButton.setMaximumSize(QtCore.QSize(400, 46))
+        self.submitButton.setMaximumSize(QtCore.QSize(400, 56))
         self.submitButton.setStyleSheet("QPushButton {\n"
 "    padding: 5px;\n"
 "    border: 1px solid #036666;\n"
@@ -202,7 +240,8 @@ class Ui_MainWindow(object):
 "    background-color: #024c4c;\n"
 "}")
         self.submitButton.setObjectName("submitButton")
-        self.verticalLayout_2.addWidget(self.submitButton)
+        self.horizontalLayout_4.addWidget(self.submitButton)
+        self.verticalLayout_2.addWidget(self.widget)
         spacerItem3 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem3)
         self.helpLabel = QtWidgets.QLabel(self.frame)
@@ -238,9 +277,13 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.titleLabel.setText(_translate("MainWindow", "OTP Verification"))
         self.instructionLabel.setText(_translate("MainWindow", "We will send you a one time password on this e-mail"))
-        self.userEmail.setText(_translate("MainWindow", "jcmoonhey@gmail.com"))
+        self.emailDISPLAY.setText(_translate("MainWindow", "jcmoonhey@gmail.com"))
+        self.timer.setText(_translate("MainWindow", "0:00"))
+        self.resendBTN.setText(_translate("MainWindow", "Resend OTP"))
         self.submitButton.setText(_translate("MainWindow", "Submit"))
         self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))
+import assets.resourceFile_rc
+
 
 if __name__ == "__main__":
     import sys

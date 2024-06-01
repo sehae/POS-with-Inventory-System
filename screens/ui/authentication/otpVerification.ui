@@ -50,7 +50,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap resource="../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
+               <pixmap resource="../../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -134,7 +134,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="userEmail">
+          <widget class="QLabel" name="emailDISPLAY">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -143,6 +143,28 @@
            </property>
            <property name="text">
             <string>jcmoonhey@gmail.com</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="timer">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    color: #ADD8E6;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>0:00</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -232,7 +254,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="top3">
+             <widget class="QLineEdit" name="otp3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -368,21 +390,74 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="submitButton">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>56</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>400</width>
-             <height>46</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
+          <widget class="QWidget" name="widget" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="resendBTN">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    padding: 5px;
+    border: 2px Solid #036666;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #036666;
+    font-size: 20px;
+}
+QPushButton:hover {
+    border-color: #049393;
+    color: #049393;
+}
+QPushButton:pressed {
+    border-color: #024c4c;
+    color: #024c4c;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Resend OTP</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="submitButton">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
     padding: 5px;
     border: 1px solid #036666;
     border-radius: 6px;
@@ -396,10 +471,13 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #024c4c;
 }</string>
-           </property>
-           <property name="text">
-            <string>Submit</string>
-           </property>
+              </property>
+              <property name="text">
+               <string>Submit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -516,9 +594,10 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
-  <include location="../../assets/resourceFile.qrc"/>
-  <include location="logo1.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
