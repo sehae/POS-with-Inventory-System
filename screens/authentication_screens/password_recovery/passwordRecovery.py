@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'passwordRecovery.ui'
+# Form implementation generated from reading ui file 'screens/ui/password/passwordRecovery.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -76,44 +76,44 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.mainLabel)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem2)
-        self.label = QtWidgets.QLabel(self.mainContent)
+        self.pwLabel = QtWidgets.QLabel(self.mainContent)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
-        self.verticalLayout_2.addWidget(self.label)
-        self.lineEdit = QtWidgets.QLineEdit(self.mainContent)
-        self.lineEdit.setMinimumSize(QtCore.QSize(400, 50))
-        self.lineEdit.setMaximumSize(QtCore.QSize(400, 50))
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
+        self.pwLabel.setFont(font)
+        self.pwLabel.setObjectName("pwLabel")
+        self.verticalLayout_2.addWidget(self.pwLabel)
+        self.passwordFIELD = QtWidgets.QLineEdit(self.mainContent)
+        self.passwordFIELD.setMinimumSize(QtCore.QSize(400, 50))
+        self.passwordFIELD.setMaximumSize(QtCore.QSize(400, 50))
+        self.passwordFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #67B99A;\n"
 "    border-radius: 6px;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
 "}")
-        self.lineEdit.setObjectName("lineEdit")
-        self.verticalLayout_2.addWidget(self.lineEdit)
+        self.passwordFIELD.setObjectName("passwordFIELD")
+        self.verticalLayout_2.addWidget(self.passwordFIELD)
         spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem3)
-        self.label_2 = QtWidgets.QLabel(self.mainContent)
+        self.retypeLabel = QtWidgets.QLabel(self.mainContent)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_2.addWidget(self.label_2)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.mainContent)
-        self.lineEdit_2.setMinimumSize(QtCore.QSize(400, 50))
-        self.lineEdit_2.setMaximumSize(QtCore.QSize(400, 50))
-        self.lineEdit_2.setStyleSheet("QLineEdit {\n"
+        self.retypeLabel.setFont(font)
+        self.retypeLabel.setObjectName("retypeLabel")
+        self.verticalLayout_2.addWidget(self.retypeLabel)
+        self.retypeFIELD = QtWidgets.QLineEdit(self.mainContent)
+        self.retypeFIELD.setMinimumSize(QtCore.QSize(400, 50))
+        self.retypeFIELD.setMaximumSize(QtCore.QSize(400, 50))
+        self.retypeFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #67B99A;\n"
 "    border-radius: 6px;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
 "}")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.verticalLayout_2.addWidget(self.lineEdit_2)
+        self.retypeFIELD.setObjectName("retypeFIELD")
+        self.verticalLayout_2.addWidget(self.retypeFIELD)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem4)
         self.buttonWidget = QtWidgets.QWidget(self.mainContent)
@@ -121,10 +121,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.buttonWidget)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.pushButton = QtWidgets.QPushButton(self.buttonWidget)
-        self.pushButton.setMinimumSize(QtCore.QSize(200, 50))
-        self.pushButton.setMaximumSize(QtCore.QSize(200, 50))
-        self.pushButton.setStyleSheet("QPushButton {\n"
+        self.saveBTN = QtWidgets.QPushButton(self.buttonWidget)
+        self.saveBTN.setMinimumSize(QtCore.QSize(200, 50))
+        self.saveBTN.setMaximumSize(QtCore.QSize(200, 50))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.saveBTN.setFont(font)
+        self.saveBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
@@ -139,20 +142,20 @@ class Ui_MainWindow(object):
 "    background-color: #4D9C7F;\n"
 "    border: 2px solid #4D9C7F;\n"
 "}")
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_5.addWidget(self.pushButton)
-        self.backButton = QtWidgets.QPushButton(self.buttonWidget)
+        self.saveBTN.setObjectName("saveBTN")
+        self.horizontalLayout_5.addWidget(self.saveBTN)
+        self.backBTN = QtWidgets.QPushButton(self.buttonWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.backButton.sizePolicy().hasHeightForWidth())
-        self.backButton.setSizePolicy(sizePolicy)
-        self.backButton.setMinimumSize(QtCore.QSize(200, 50))
-        self.backButton.setMaximumSize(QtCore.QSize(200, 50))
+        sizePolicy.setHeightForWidth(self.backBTN.sizePolicy().hasHeightForWidth())
+        self.backBTN.setSizePolicy(sizePolicy)
+        self.backBTN.setMinimumSize(QtCore.QSize(200, 50))
+        self.backBTN.setMaximumSize(QtCore.QSize(200, 50))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.backButton.setFont(font)
-        self.backButton.setStyleSheet("QPushButton {\n"
+        self.backBTN.setFont(font)
+        self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -168,8 +171,8 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.backButton.setObjectName("backButton")
-        self.horizontalLayout_5.addWidget(self.backButton)
+        self.backBTN.setObjectName("backBTN")
+        self.horizontalLayout_5.addWidget(self.backBTN)
         self.verticalLayout_2.addWidget(self.buttonWidget)
         self.horizontalLayout_4.addWidget(self.mainContent)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -188,10 +191,10 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.headerLabel.setText(_translate("MainWindow", "PASSWORD RECOVERY"))
         self.mainLabel.setText(_translate("MainWindow", "RESET PASSWORD"))
-        self.label.setText(_translate("MainWindow", "Enter new password"))
-        self.label_2.setText(_translate("MainWindow", "Retype New Password"))
-        self.pushButton.setText(_translate("MainWindow", "SAVE"))
-        self.backButton.setText(_translate("MainWindow", "CANCEL"))
+        self.pwLabel.setText(_translate("MainWindow", "Enter new password"))
+        self.retypeLabel.setText(_translate("MainWindow", "Retype New Password"))
+        self.saveBTN.setText(_translate("MainWindow", "SAVE"))
+        self.backBTN.setText(_translate("MainWindow", "CANCEL"))
 
 
 if __name__ == "__main__":

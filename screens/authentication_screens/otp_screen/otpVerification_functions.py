@@ -1,8 +1,10 @@
 import time
 
 from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QMainWindow
 
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
+from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
 from setup.connector import conn
 from styles.universalStyles import DISABLED_RESEND_BTN, ENABLED_RESEND_BTN
 from validator.otp_validator import send_otp
@@ -46,6 +48,14 @@ class OtpVerification(Ui_MainWindow):
             print("OTP expired")
         elif str(entered_otp) == str(self.sent_otp):
             print("OTP verification successful")
+            email = self.emailDISPLAY.text()
+            try:
+                password_recovery = PasswordRecovery(email)
+                self.password_recovery_window = QMainWindow()
+                password_recovery.setupUi(self.password_recovery_window)
+                self.password_recovery_window.show()
+            except Exception as e:
+                print(f"An error occurred: {e}")
         else:
             print("Incorrect OTP")
 
