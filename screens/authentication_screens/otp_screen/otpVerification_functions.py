@@ -21,6 +21,7 @@ class OtpVerification(Ui_MainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.submitButton.clicked.connect(self.verify_otp)
+        self.resendBTN.clicked.connect(self.resend_otp)
 
         self.otp1.textChanged.connect(lambda: self.focus_next_field(self.otp1, self.otp2))
         self.otp2.textChanged.connect(lambda: self.focus_next_field(self.otp2, self.otp3))
