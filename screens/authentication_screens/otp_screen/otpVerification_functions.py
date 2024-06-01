@@ -19,6 +19,8 @@ class OtpVerification(Ui_MainWindow):
         self.resend_timer.setInterval(1000)
         self.resend_timer.timeout.connect(self.update_timer_label)
         self.resend_timer.start()
+        self.password_recovery = None
+        self.password_recovery_window = None
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
@@ -50,9 +52,9 @@ class OtpVerification(Ui_MainWindow):
             print("OTP verification successful")
             email = self.emailDISPLAY.text()
             try:
-                password_recovery = PasswordRecovery(email)
+                self.password_recovery = PasswordRecovery(email)
                 self.password_recovery_window = QMainWindow()
-                password_recovery.setupUi(self.password_recovery_window)
+                self.password_recovery.setupUi(self.password_recovery_window)
                 self.password_recovery_window.show()
             except Exception as e:
                 print(f"An error occurred: {e}")

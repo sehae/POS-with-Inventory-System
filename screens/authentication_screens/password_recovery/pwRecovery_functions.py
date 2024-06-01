@@ -6,23 +6,12 @@ class PasswordRecovery(Ui_MainWindow):
     def __init__(self, email):
         super().__init__()
         self.email = email
-        print(f"Initializing with email: {email}")
         self.id, self.source_table = self.check_email_source(email)
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         print("Setting up UI")
-
-        try:
-            self.saveBTN.clicked.connect(self.save_password)
-        except Exception as e:
-            print(f"Error connecting save button: {e}")
-
-        try:
-            print(f"Password Field: {self.passwordFIELD}")
-            print(f"Retype Password Field: {self.retypeFIELD}")
-        except Exception as e:
-            print(f"Error accessing fields: {e}")
+        self.saveBTN.clicked.connect(self.save_password)
 
     def save_password(self):
         print("save_password method called")
@@ -84,4 +73,3 @@ class PasswordRecovery(Ui_MainWindow):
 
         print("Email not found")
         return None, None
-
