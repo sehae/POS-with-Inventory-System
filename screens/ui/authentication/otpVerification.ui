@@ -597,7 +597,7 @@ QPushButton:pressed {
   <include location="../../../assets/resourceFile.qrc"/>
   <include location="../../../assets/resourceFile.qrc"/>
   <include location="../../../assets/resourceFile.qrc"/>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
