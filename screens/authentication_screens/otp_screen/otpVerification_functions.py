@@ -48,6 +48,7 @@ class OtpVerification(Ui_MainWindow):
     def resend_otp(self):
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
+        self.sent_otp, self.sent_time = send_otp(self.to_mail)
         self.resend_timer.start()
 
     def enable_resend_button(self):
@@ -57,7 +58,7 @@ class OtpVerification(Ui_MainWindow):
 
     def update_timer_label(self):
         current_time = time.time()
-        remaining_time = 300 - (current_time - self.sent_time)  # 300 seconds = 5 minutes
+        remaining_time = 300 - (current_time - self.sent_time)
 
         if remaining_time > 0:
             minutes = int(remaining_time // 60)
