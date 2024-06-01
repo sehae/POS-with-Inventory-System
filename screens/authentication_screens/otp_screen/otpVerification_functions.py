@@ -34,6 +34,9 @@ class OtpVerification(Ui_MainWindow):
         if len(current_field.text()) == 1:
             next_field.setFocus()
 
+    def update_email(self, email):
+        self.emailDISPLAY.setText(email)
+
     def verify_otp(self):
         entered_otp = self.otp1.text() + self.otp2.text() + self.otp3.text() + self.otp4.text() + self.otp5.text() + self.otp6.text()
         current_time = time.time()
@@ -48,7 +51,7 @@ class OtpVerification(Ui_MainWindow):
     def resend_otp(self):
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
-        self.sent_otp, self.sent_time = send_otp(self.to_mail)
+        self.sent_otp, self.sent_time = send_otp(self.to_email)
         self.resend_timer.start()
 
     def enable_resend_button(self):

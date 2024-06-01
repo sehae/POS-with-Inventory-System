@@ -31,6 +31,7 @@ class EmailScreen(Ui_MainWindow):
             otp_verification.setupUi(self.otp_window)
             otp_verification.sent_otp, otp_verification.sent_time = send_otp(email)
             self.otp_window.show()
+            otp_verification.update_email(email)
 
         else:
             print("Email not found")

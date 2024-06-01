@@ -26,10 +26,43 @@ def send_otp(to_mail):
     print(otp)
     otp_time = time.time()
     msg = EmailMessage()
-    msg['Subject'] = 'OTP for password reset'
+    msg['Subject'] = 'MOON HEY HOTPOT OTP VERIFICATION CODE'
     msg['From'] = from_mail
     msg['To'] = to_mail
-    msg.set_content(f'Your OTP is {otp}')
+
+    message = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            .otp-box {{
+                border: 2px solid #036666;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }}
+            .otp-code {{
+                font-size: 24px;
+                color: #036666;
+            }}
+            p {{
+                color: black;
+            }}
+        </style>
+    </head>
+    <body>
+        <p>Your One-Time Password (OTP) is:</p>
+
+        <div class="otp-box">
+            <p class="otp-code">{otp}</p>
+        </div>
+
+        <p>This code is valid for the next 5 minutes. Please do not share this code with anyone. If you did not request this OTP, please contact your manager immediately.</p>
+    </body>
+    </html>
+    """
+
+    msg.add_alternative(message, subtype='html')
 
     server.send_message(msg)
     print('Email Sent')
