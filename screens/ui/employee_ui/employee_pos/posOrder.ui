@@ -89,7 +89,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="homeBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -126,7 +126,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="menuBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -163,7 +163,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="paymentBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -200,7 +200,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_11">
+           <widget class="QPushButton" name="orderBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -237,7 +237,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="backBTN">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -283,7 +283,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
+             <iconset resource="../../../../assets/resourceFile.qrc">
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -357,7 +357,7 @@ QPushButton:pressed {
            <widget class="QFrame" name="frame_2">
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="date">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -374,7 +374,7 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="time">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -421,7 +421,7 @@ QPushButton:pressed {
               <number>25</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="orderLabel">
                <property name="font">
                 <font>
                  <pointsize>15</pointsize>
@@ -513,7 +513,7 @@ QPushButton:pressed {
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="modifyBTN">
                  <property name="minimumSize">
                   <size>
                    <width>200</width>
@@ -546,7 +546,7 @@ QPushButton:pressed {
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_5">
+                <widget class="QPushButton" name="payOrderBTN">
                  <property name="minimumSize">
                   <size>
                    <width>200</width>
@@ -606,7 +606,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
