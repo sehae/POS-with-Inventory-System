@@ -1,14 +1,11 @@
 import random
 import string
 
-import mysql
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QMessageBox
-
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
+from shared.dialog import show_username_password
 
 from setup.connector import conn
-from shared.dialog import show_username_password
+
 
 
 class adminMaintenance(Ui_MainWindow):
