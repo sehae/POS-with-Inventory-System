@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QMessageBox
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 
 from setup.connector import conn
+from shared.dialog import show_username_password
 
 
 class adminMaintenance(Ui_MainWindow):
@@ -40,10 +41,12 @@ class adminMaintenance(Ui_MainWindow):
         if LoA == 'Admin':
             add_user_query = "INSERT INTO admin (last_name, first_name, contact_number, email) VALUES (%s, %s, %s, %s)"
             user_data = (last_name, first_name, contact_number, email)
+            dept_number = '01'
 
         else:
             add_user_query = "INSERT INTO employee (last_name, first_name, department, contact_number, email) VALUES (%s, %s, %s, %s, %s)"
             user_data = (last_name, first_name, dept, contact_number, email)
+            dept_number = '02'
 
         cursor.execute(add_user_query, user_data)
         conn.commit()
@@ -54,7 +57,6 @@ class adminMaintenance(Ui_MainWindow):
 
         # Generate username
         initials = first_name[0] + last_name[0]
-        dept_number = '01'  # replace with actual department number
         staff_number = str(user_id).zfill(2)
         username = initials.upper() + dept_number + staff_number
 
@@ -71,12 +73,12 @@ class adminMaintenance(Ui_MainWindow):
         cursor.execute(add_login_query, login_data)
         conn.commit()
         print("Login details added successfully.")
-
-        # Show username and password
-        self.show_username_password(username, password)
+        try:
+            show_username_password(username, password)
+        except Exception as e:
+            print(e)
 
     def generate_password(self):
-        # Generate a password that meets the criteria
         length = 8
         all_chars = string.ascii_letters + string.digits + string.punctuation
         while True:
@@ -86,9 +88,3 @@ class adminMaintenance(Ui_MainWindow):
                     any(c in string.punctuation for c in password)):
                 return password
 
-    def show_username_password(self, username, password):
-        # Show the generated username and password in a popup window/dialog box
-        msg = QMessageBox()
-        msg.setWindowTitle("User Added Successfully")
-        msg.setText(f"Username: {username}\nPassword: {password}")
-        msg.exec_()
