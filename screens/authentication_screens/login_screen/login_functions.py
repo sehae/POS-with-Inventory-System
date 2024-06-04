@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets, QtGui
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 from shared.dialog import show_error_message
-from setup.connector import conn
+from server.local_server import conn
 
 
 class myLoginScreen(Ui_MainWindow):
