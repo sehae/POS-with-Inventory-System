@@ -11,7 +11,7 @@ sys.path.append('path/to/Software-Engineering-Project')
 def show_login_screen():
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
-    ui = adminMaintenance()
+    ui = EmailScreen()
     ui.setupUi(MainWindow)
     MainWindow.setWindowState(QtCore.Qt.WindowFullScreen)
     MainWindow.show()
