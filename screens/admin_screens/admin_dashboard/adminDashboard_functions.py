@@ -1,7 +1,6 @@
 from PyQt5 import QtWidgets
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 
-from setup.connector import conn
 
 class myAdminDashboard(Ui_MainWindow):
     def __init__(self):

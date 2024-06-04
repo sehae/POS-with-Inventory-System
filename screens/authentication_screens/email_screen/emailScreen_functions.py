@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 
 from screens.authentication_screens.email_screen.emailScreen import Ui_MainWindow
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
-from setup.connector import conn
+from server.local_server import conn
 from validator.otp_validator import send_otp
 
 

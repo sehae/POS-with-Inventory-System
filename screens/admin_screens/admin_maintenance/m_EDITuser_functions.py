@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
-from setup.connector import conn
+from server.local_server import conn
 
 
 class adminMaintenanceEDIT(Ui_MainWindow):

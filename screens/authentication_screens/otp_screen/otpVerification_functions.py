@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QMainWindow
 
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
 from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
-from setup.connector import conn
 from styles.universalStyles import DISABLED_RESEND_BTN, ENABLED_RESEND_BTN
 from validator.otp_validator import send_otp
 

@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets, QtGui
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
-
-from setup.connector import conn
+from shared.dialog import show_error_message
+from server.local_server import conn
 
 
 class myLoginScreen(Ui_MainWindow):
@@ -62,12 +62,6 @@ class myLoginScreen(Ui_MainWindow):
             return
 
         print("Invalid Credentials")
-        self.show_error_message()
+        show_error_message("Invalid Credentials.")
 
-    def show_error_message(self):
-        error_dialog = QtWidgets.QMessageBox()
-        error_dialog.setIcon(QtWidgets.QMessageBox.Critical)
-        error_dialog.setWindowTitle("Error")
-        error_dialog.setText("Invalid Credentials")
-        error_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
-        error_dialog.exec_()
+

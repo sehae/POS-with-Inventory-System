@@ -1,5 +1,5 @@
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
-from setup.connector import conn
+from server.local_server import conn
 
 
 class PasswordRecovery(Ui_MainWindow):
