@@ -2,6 +2,9 @@ import random
 import socket
 import string
 
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QIntValidator, QRegExpValidator
+
 from automated.email_automation import send_username_password
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 from shared.dialog import show_username_password, show_error_message
@@ -27,6 +30,7 @@ class adminMaintenance(Ui_MainWindow):
         self.loaBOX.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
         self.deptBox.setStyleSheet(COMBOBOX_STYLE)
         self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
+        self.contactNum.setValidator(QRegExpValidator(QRegExp(r'^09\d{9}$')))
 
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':
@@ -50,19 +54,6 @@ class adminMaintenance(Ui_MainWindow):
                 not dept and LoA != 'Admin'):
             show_error_message("All fields must be filled. Please fill in the fields before adding a user.")
             return
-
-        if contact_number and not contact_number.isdigit():
-            show_error_message("Contact number must be a number.")
-            return
-
-        if not contact_number.startswith('09'):
-            show_error_message("Please follow this format \"09XXYYYYZZZZ\".")
-            return
-
-        if len(contact_number) != 11:
-            show_error_message("Contact number must be 11 digits.")
-            return
-
 
         cursor = conn.cursor()
         print("Cursor created")
