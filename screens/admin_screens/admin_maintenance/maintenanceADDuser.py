@@ -445,10 +445,10 @@ class Ui_MainWindow(object):
         self.loaBOX.setItemText(0, _translate("MainWindow", "Employee"))
         self.loaBOX.setItemText(1, _translate("MainWindow", "Admin"))
         self.deptBox.setItemText(0, _translate("MainWindow", "Cashier"))
-        self.deptBox.setItemText(1, _translate("MainWindow", "KItchen"))
+        self.deptBox.setItemText(1, _translate("MainWindow", "Kitchen"))
         self.saveBTN.setText(_translate("MainWindow", "SAVE"))
         self.cancelBTN.setText(_translate("MainWindow", "CANCEL"))
-import assets.resourceFile_rc
+import resourceFile_rc
 
 
 if __name__ == "__main__":
