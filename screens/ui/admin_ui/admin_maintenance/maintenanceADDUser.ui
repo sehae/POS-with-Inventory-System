@@ -209,7 +209,7 @@ QPushButton:pressed {
              <string>BACK</string>
             </property>
             <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
+             <iconset resource="../../../../assets/resourceFile.qrc">
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -686,7 +686,7 @@ QComboBox::down-arrow {
                      </item>
                      <item>
                       <property name="text">
-                       <string>KItchen</string>
+                       <string>Kitchen</string>
                       </property>
                      </item>
                     </widget>
@@ -856,7 +856,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
