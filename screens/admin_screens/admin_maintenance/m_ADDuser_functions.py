@@ -1,10 +1,13 @@
 import random
+import socket
 import string
 
+from automated.email_automation import send_username_password
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 from shared.dialog import show_username_password, show_error_message
 
 from server.local_server import conn
+from validator.internet_connection import is_connected
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
 
 
@@ -100,7 +103,10 @@ class adminMaintenance(Ui_MainWindow):
         conn.commit()
         print("Login details added successfully.")
         try:
-            show_username_password(username, password)
+            if is_connected():
+                send_username_password(username, password, email)
+            else:
+                show_username_password(username, password)
         except Exception as e:
             print(e)
 
@@ -113,4 +119,5 @@ class adminMaintenance(Ui_MainWindow):
                     any(c.isdigit() for c in password) and
                     any(c in string.punctuation for c in password)):
                 return password
+
 
