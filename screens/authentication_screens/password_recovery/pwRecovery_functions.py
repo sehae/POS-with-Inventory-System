@@ -1,5 +1,6 @@
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
+from validator.password_validator import isValidPassword
 
 
 class PasswordRecovery(Ui_MainWindow):
@@ -10,7 +11,6 @@ class PasswordRecovery(Ui_MainWindow):
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
-        print("Setting up UI")
         self.saveBTN.clicked.connect(self.save_password)
 
     def save_password(self):
@@ -18,11 +18,13 @@ class PasswordRecovery(Ui_MainWindow):
         new_password = self.passwordFIELD.text()
         retype_new_password = self.retypeFIELD.text()
 
-        print(f"New Password: {new_password}")
-        print(f"Retype New Password: {retype_new_password}")
-
         if new_password == retype_new_password:
             print("Passwords match!")
+
+            # Validate the new password
+            if not isValidPassword(new_password):
+                return
+
             cursor = conn.cursor()
             try:
                 if self.source_table == 'admin':
@@ -47,7 +49,6 @@ class PasswordRecovery(Ui_MainWindow):
 
     def check_email_source(self, email):
         cursor = conn.cursor()
-        print(f"Checking email source for email: {email}")
 
         # Query the employee table
         cursor.execute(
