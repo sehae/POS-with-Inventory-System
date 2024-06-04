@@ -51,7 +51,7 @@ class adminMaintenance(Ui_MainWindow):
         # Error handling
         if not first_name or not last_name or not email or not contact_number or not LoA or (
                 not dept and LoA != 'Admin'):
-            show_error_message("All fields must be filled. Please fill in the fields before adding a user.")
+            show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
             return
 
         cursor = conn.cursor()
