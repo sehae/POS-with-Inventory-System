@@ -1,9 +1,8 @@
 import random
-import socket
 import string
 
 from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QIntValidator, QRegExpValidator
+from PyQt5.QtGui import QRegExpValidator
 
 from automated.email_automation import send_username_password
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
