@@ -56,7 +56,7 @@ class adminMaintenance(Ui_MainWindow):
             show_error_message("Please follow this format \"09XXYYYYZZZZ\".")
             return
 
-        if not len(contact_number) != 11:
+        if len(contact_number) != 11:
             show_error_message("Contact number must be 11 digits.")
             return
 
