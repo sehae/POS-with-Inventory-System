@@ -2,10 +2,10 @@ import random
 import string
 
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
-from shared.dialog import show_username_password
+from shared.dialog import show_username_password, show_error_message
 
 from setup.connector import conn
-
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
 
 
 class adminMaintenance(Ui_MainWindow):
@@ -16,6 +16,14 @@ class adminMaintenance(Ui_MainWindow):
         super().setupUi(MainWindow)
         self.saveBTN.clicked.connect(self.add_user)
         self.loaBOX.currentTextChanged.connect(self.check_admin)
+
+        self.UIComponents()
+
+    def UIComponents(self):
+        self.loaBOX.setStyleSheet(COMBOBOX_STYLE)
+        self.loaBOX.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
+        self.deptBox.setStyleSheet(COMBOBOX_STYLE)
+        self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
 
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':
@@ -31,6 +39,12 @@ class adminMaintenance(Ui_MainWindow):
         contact_number = self.contactNum.text()
         LoA = self.loaBOX.currentText()
         dept = self.deptBox.currentText()
+
+        # Check if any field is empty
+        if not first_name or not last_name or not email or not contact_number or not LoA or (
+                not dept and LoA != 'Admin'):
+            show_error_message("All fields must be filled. Please fill in the fields before adding a user.")
+            return
 
         cursor = conn.cursor()
         print("Cursor created")
