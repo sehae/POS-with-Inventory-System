@@ -1,6 +1,6 @@
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QLineEdit, QAction
 
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
@@ -12,12 +12,15 @@ class PasswordRecovery(Ui_MainWindow):
         super().__init__()
         self.email = email
         self.id, self.source_table = self.check_email_source(email)
+        self.check_action = None
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
+        self.saveBTN.clicked.connect(self.save_password)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
         self.rp_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibilityBTN))
-
+        self.passwordFIELD.textChanged.connect(self.check_password_match)
+        self.retypeFIELD.textChanged.connect(self.check_password_match)
         self.UiComponents()
 
     def UiComponents(self):
@@ -37,6 +40,22 @@ class PasswordRecovery(Ui_MainWindow):
         else:
             field.setEchoMode(QtWidgets.QLineEdit.Password)
             button.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
+
+    def check_password_match(self):
+        # Compare the text in the password and retype fields
+        if self.passwordFIELD.text() == self.retypeFIELD.text():
+            # Create the check icon action
+            check_icon = QIcon("assets/Icons/check.png")
+            self.check_action = QAction(check_icon, "Passwords Match", self.passwordFIELD)
+
+            # Add the check icon action to the password fields
+            self.passwordFIELD.addAction(self.check_action, QLineEdit.TrailingPosition)
+            self.retypeFIELD.addAction(self.check_action, QLineEdit.TrailingPosition)
+        else:
+            # Remove the check icon action from the password fields
+            if self.check_action:
+                self.passwordFIELD.removeAction(self.check_action)
+                self.retypeFIELD.removeAction(self.check_action)
 
     def save_password(self):
         print("save_password method called")
