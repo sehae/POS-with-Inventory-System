@@ -13,11 +13,13 @@ class myLoginScreen(Ui_MainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.loginButton.clicked.connect(self.logs)
-        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
 
+        self.UiComponents()
+
+    def UiComponents(self):
         icon = QtGui.QIcon()
+        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.visibilityButton.setIcon(icon)
@@ -63,5 +65,3 @@ class myLoginScreen(Ui_MainWindow):
 
         print("Invalid Credentials")
         show_error_message("Invalid Credentials.")
-
-
