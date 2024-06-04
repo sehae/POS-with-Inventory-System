@@ -1,3 +1,7 @@
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QLineEdit
+
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
 from validator.password_validator import isValidPassword
@@ -11,7 +15,28 @@ class PasswordRecovery(Ui_MainWindow):
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
-        self.saveBTN.clicked.connect(self.save_password)
+        self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
+        self.rp_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibilityBTN))
+
+        self.UiComponents()
+
+    def UiComponents(self):
+        self.passwordFIELD.setEchoMode(QLineEdit.Password)
+        self.retypeFIELD.setEchoMode(QLineEdit.Password)
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
+        self.pw_visibilityBTN.setIcon(icon)
+        self.rp_visibilityBTN.setIcon(icon)
+
+    def toggle_visibility(self, field, button):
+        if field.echoMode() == QtWidgets.QLineEdit.Password:
+            field.setEchoMode(QtWidgets.QLineEdit.Normal)
+            button.setIcon(QtGui.QIcon("assets/Icons/visibilityOn.png"))
+        else:
+            field.setEchoMode(QtWidgets.QLineEdit.Password)
+            button.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
 
     def save_password(self):
         print("save_password method called")
@@ -74,3 +99,5 @@ class PasswordRecovery(Ui_MainWindow):
 
         print("Email not found")
         return None, None
+
+

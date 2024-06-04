@@ -82,18 +82,52 @@ class Ui_MainWindow(object):
         self.pwLabel.setFont(font)
         self.pwLabel.setObjectName("pwLabel")
         self.verticalLayout_2.addWidget(self.pwLabel)
-        self.passwordFIELD = QtWidgets.QLineEdit(self.mainContent)
+        self.widget_2 = QtWidgets.QWidget(self.mainContent)
+        self.widget_2.setObjectName("widget_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.passwordFIELD = QtWidgets.QLineEdit(self.widget_2)
         self.passwordFIELD.setMinimumSize(QtCore.QSize(400, 50))
         self.passwordFIELD.setMaximumSize(QtCore.QSize(400, 50))
         self.passwordFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
-"}")
+"}\n"
+"")
+        self.passwordFIELD.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.passwordFIELD.setObjectName("passwordFIELD")
-        self.verticalLayout_2.addWidget(self.passwordFIELD)
+        self.horizontalLayout_2.addWidget(self.passwordFIELD)
+        self.pw_visibilityBTN = QtWidgets.QPushButton(self.widget_2)
+        self.pw_visibilityBTN.setMinimumSize(QtCore.QSize(35, 50))
+        self.pw_visibilityBTN.setMaximumSize(QtCore.QSize(35, 50))
+        self.pw_visibilityBTN.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.pw_visibilityBTN.setText("")
+        self.pw_visibilityBTN.setObjectName("pw_visibilityBTN")
+        self.horizontalLayout_2.addWidget(self.pw_visibilityBTN)
+        self.verticalLayout_2.addWidget(self.widget_2)
         spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem3)
         self.retypeLabel = QtWidgets.QLabel(self.mainContent)
@@ -102,18 +136,56 @@ class Ui_MainWindow(object):
         self.retypeLabel.setFont(font)
         self.retypeLabel.setObjectName("retypeLabel")
         self.verticalLayout_2.addWidget(self.retypeLabel)
-        self.retypeFIELD = QtWidgets.QLineEdit(self.mainContent)
+        self.widget_3 = QtWidgets.QWidget(self.mainContent)
+        self.widget_3.setObjectName("widget_3")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_3)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.retypeFIELD = QtWidgets.QLineEdit(self.widget_3)
         self.retypeFIELD.setMinimumSize(QtCore.QSize(400, 50))
         self.retypeFIELD.setMaximumSize(QtCore.QSize(400, 50))
         self.retypeFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
-"}")
+"}\n"
+"")
         self.retypeFIELD.setObjectName("retypeFIELD")
-        self.verticalLayout_2.addWidget(self.retypeFIELD)
+        self.horizontalLayout_6.addWidget(self.retypeFIELD)
+        self.rp_visibilityBTN = QtWidgets.QPushButton(self.widget_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.rp_visibilityBTN.sizePolicy().hasHeightForWidth())
+        self.rp_visibilityBTN.setSizePolicy(sizePolicy)
+        self.rp_visibilityBTN.setMinimumSize(QtCore.QSize(35, 50))
+        self.rp_visibilityBTN.setMaximumSize(QtCore.QSize(35, 50))
+        self.rp_visibilityBTN.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.rp_visibilityBTN.setText("")
+        self.rp_visibilityBTN.setObjectName("rp_visibilityBTN")
+        self.horizontalLayout_6.addWidget(self.rp_visibilityBTN)
+        self.verticalLayout_2.addWidget(self.widget_3)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem4)
         self.buttonWidget = QtWidgets.QWidget(self.mainContent)
@@ -144,18 +216,18 @@ class Ui_MainWindow(object):
 "}")
         self.saveBTN.setObjectName("saveBTN")
         self.horizontalLayout_5.addWidget(self.saveBTN)
-        self.backBTN = QtWidgets.QPushButton(self.buttonWidget)
+        self.cancelBTN = QtWidgets.QPushButton(self.buttonWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.backBTN.sizePolicy().hasHeightForWidth())
-        self.backBTN.setSizePolicy(sizePolicy)
-        self.backBTN.setMinimumSize(QtCore.QSize(200, 50))
-        self.backBTN.setMaximumSize(QtCore.QSize(200, 50))
+        sizePolicy.setHeightForWidth(self.cancelBTN.sizePolicy().hasHeightForWidth())
+        self.cancelBTN.setSizePolicy(sizePolicy)
+        self.cancelBTN.setMinimumSize(QtCore.QSize(200, 50))
+        self.cancelBTN.setMaximumSize(QtCore.QSize(200, 50))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.backBTN.setFont(font)
-        self.backBTN.setStyleSheet("QPushButton {\n"
+        self.cancelBTN.setFont(font)
+        self.cancelBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -171,8 +243,8 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.backBTN.setObjectName("backBTN")
-        self.horizontalLayout_5.addWidget(self.backBTN)
+        self.cancelBTN.setObjectName("cancelBTN")
+        self.horizontalLayout_5.addWidget(self.cancelBTN)
         self.verticalLayout_2.addWidget(self.buttonWidget)
         self.horizontalLayout_4.addWidget(self.mainContent)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -192,9 +264,11 @@ class Ui_MainWindow(object):
         self.headerLabel.setText(_translate("MainWindow", "PASSWORD RECOVERY"))
         self.mainLabel.setText(_translate("MainWindow", "RESET PASSWORD"))
         self.pwLabel.setText(_translate("MainWindow", "Enter new password"))
+        self.passwordFIELD.setPlaceholderText(_translate("MainWindow", "New Password"))
         self.retypeLabel.setText(_translate("MainWindow", "Retype New Password"))
+        self.retypeFIELD.setPlaceholderText(_translate("MainWindow", "Confirm your Password"))
         self.saveBTN.setText(_translate("MainWindow", "SAVE"))
-        self.backBTN.setText(_translate("MainWindow", "CANCEL"))
+        self.cancelBTN.setText(_translate("MainWindow", "CANCEL"))
 
 
 if __name__ == "__main__":

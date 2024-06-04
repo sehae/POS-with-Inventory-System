@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtGui import QIcon
+
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 from shared.dialog import show_error_message
@@ -20,8 +22,8 @@ class myLoginScreen(Ui_MainWindow):
     def UiComponents(self):
         icon = QtGui.QIcon()
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
         self.visibilityButton.setIcon(icon)
 
     def toggle_password_visibility(self):
