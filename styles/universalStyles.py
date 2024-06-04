@@ -122,6 +122,11 @@ QComboBox::drop-down {
 """
 
 COMBOBOX_DISABLED_STYLE = """
+QComboBox::down-arrow {
+    image: url(assets/Icons/dropdown_disabled.png);
+    width: 20px;
+    height: 20px;
+}
 QComboBox {
     padding: 5px;
     border: 2px solid #A9A9A9;
@@ -135,11 +140,6 @@ QComboBox::drop-down {
     border-left: none;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-}
-QComboBox::down-arrow {
-    image: url(assets/Icons/dropdown.png);
-    width: 20px;
-    height: 20px;
 }
 """
 
