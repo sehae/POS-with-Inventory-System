@@ -3,7 +3,7 @@ from shared.dialog import show_error_message
 
 def isValidPassword(password):
     title = "Invalid Password"
-    
+
     if not 7 < len(password):
         show_error_message(title, "Password must have a minimum of 8 characters.")
         return False
