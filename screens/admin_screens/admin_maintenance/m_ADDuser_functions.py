@@ -38,15 +38,28 @@ class adminMaintenance(Ui_MainWindow):
         first_name = self.firstName.text()
         last_name = self.lastName.text()
         email = self.email.text()
-        contact_number = self.contactNum.text()
+        contact_number = self.contactNum.text().strip()
         LoA = self.loaBOX.currentText()
         dept = self.deptBox.currentText()
 
-        # Check if any field is empty
+        # Error handling
         if not first_name or not last_name or not email or not contact_number or not LoA or (
                 not dept and LoA != 'Admin'):
             show_error_message("All fields must be filled. Please fill in the fields before adding a user.")
             return
+
+        if contact_number and not contact_number.isdigit():
+            show_error_message("Contact number must be a number.")
+            return
+
+        if not contact_number.startswith('09'):
+            show_error_message("Please follow this format \"09XXYYYYZZZZ\".")
+            return
+
+        if not len(contact_number) != 11:
+            show_error_message("Contact number must be 11 digits.")
+            return
+
 
         cursor = conn.cursor()
         print("Cursor created")
