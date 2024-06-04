@@ -448,7 +448,7 @@ class Ui_MainWindow(object):
         self.deptBox.setItemText(1, _translate("MainWindow", "Kitchen"))
         self.saveBTN.setText(_translate("MainWindow", "SAVE"))
         self.cancelBTN.setText(_translate("MainWindow", "CANCEL"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":
