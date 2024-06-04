@@ -5,7 +5,7 @@ from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWi
 from shared.dialog import show_username_password, show_error_message
 
 from setup.connector import conn
-from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
 
 
 class adminMaintenance(Ui_MainWindow):
@@ -28,8 +28,10 @@ class adminMaintenance(Ui_MainWindow):
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':
             self.deptBox.setEnabled(False)
+            self.deptBox.setStyleSheet(COMBOBOX_DISABLED_STYLE)
         else:
             self.deptBox.setEnabled(True)
+            self.deptBox.setStyleSheet(COMBOBOX_STYLE)
 
     def add_user(self):
         print("add_user method called")
