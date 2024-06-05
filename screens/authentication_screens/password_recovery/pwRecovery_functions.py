@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QLineEdit, QAction
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
 from validator.password_validator import isValidPassword
+from security.encryption import generate_key, create_cipher, encrypt_data, decrypt_data
 
 
 class PasswordRecovery(Ui_MainWindow):
@@ -58,30 +59,29 @@ class PasswordRecovery(Ui_MainWindow):
                 self.retypeFIELD.removeAction(self.check_action)
 
     def save_password(self):
-        print("save_password method called")
         new_password = self.passwordFIELD.text()
         retype_new_password = self.retypeFIELD.text()
 
         if new_password == retype_new_password:
-            print("Passwords match!")
-
             # Validate the new password
             if not isValidPassword(new_password):
                 return
 
+            key = generate_key()
+            cipher = create_cipher(key)
+            encrypted_password = encrypt_data(cipher, new_password.encode())
+
             cursor = conn.cursor()
             try:
                 if self.source_table == 'admin':
-                    print("Updating password in adminlogin table")
                     cursor.execute(
                         "UPDATE adminlogin SET password = %s WHERE admin_id = %s",
-                        (new_password, self.id)
+                        (encrypted_password, self.id)
                     )
                 elif self.source_table == 'employee':
-                    print("Updating password in employeelogin table")
                     cursor.execute(
                         "UPDATE employeelogin SET password = %s WHERE employee_id = %s",
-                        (new_password, self.id)
+                        (encrypted_password, self.id)
                     )
 
                 conn.commit()
