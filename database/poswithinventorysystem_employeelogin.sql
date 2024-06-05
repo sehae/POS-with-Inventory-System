@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `employeelogin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employeelogin` (
-  `Employee_ID` int NOT NULL,
+  `Employee_ID` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Employee_ID`),
   CONSTRAINT `fk_EmployeeID_employeeLogin` FOREIGN KEY (`Employee_ID`) REFERENCES `employee` (`Employee_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `employeelogin` (
 
 LOCK TABLES `employeelogin` WRITE;
 /*!40000 ALTER TABLE `employeelogin` DISABLE KEYS */;
-INSERT INTO `employeelogin` VALUES (1,'emp','emp'),(2,'emp2','emp2'),(3,'emp3','emp3');
+INSERT INTO `employeelogin` VALUES (1,'emp','Table1234*'),(2,'emp2','emp2'),(3,'emp3','emp3'),(10,'PB0110','xk{{H,90'),(11,'NF0211','5)nH43-i'),(12,'TT0212','G3KaZ.!6'),(13,'MT0213','F4WSkn]L'),(14,'HS0214','Ptb0w?im'),(16,'AA0216','>:GV4!-^'),(17,'AA0217','YX:3Z]/@'),(18,'AA0218','dUw{}T9\\');
 /*!40000 ALTER TABLE `employeelogin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 18:49:07
+-- Dump completed on 2024-06-05 21:52:57

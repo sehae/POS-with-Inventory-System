@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `inventory`
+-- Table structure for table `user_logs`
 --
 
-DROP TABLE IF EXISTS `inventory`;
+DROP TABLE IF EXISTS `user_logs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `inventory` (
-  `Inventory_ID` int NOT NULL,
-  `Product_ID` int DEFAULT NULL,
-  `Stock_Count` int DEFAULT NULL,
-  `Reorder_ID` int DEFAULT NULL,
-  `Supplier_ID` int DEFAULT NULL,
-  `Selling_Cost` varchar(45) DEFAULT NULL,
-  `Buying_Cost` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Inventory_ID`),
-  KEY `fk_ProductID_inventory` (`Product_ID`),
-  KEY `fk_SupplierID_inventory` (`Supplier_ID`),
-  CONSTRAINT `fk_ProductID_inventory` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
-  CONSTRAINT `fk_SupplierID_inventory` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
+CREATE TABLE `user_logs` (
+  `log_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `user_type` enum('employee','admin') NOT NULL,
+  `log_date` date NOT NULL,
+  `log_time` time NOT NULL,
+  `action` varchar(255) NOT NULL,
+  PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inventory`
+-- Dumping data for table `user_logs`
 --
 
-LOCK TABLES `inventory` WRITE;
-/*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
+LOCK TABLES `user_logs` WRITE;
+/*!40000 ALTER TABLE `user_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
