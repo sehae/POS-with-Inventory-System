@@ -54,4 +54,30 @@ class ChangePassword(Ui_MainWindow):
                 self.retypeFIELD.removeAction(self.check_action)
 
     def change_password(self):
+        username = self.userName.text()
+        current_password = self.currentPassFIELD.text()
+        new_password = self.newPassFIELD.text()
+        retype_password = self.retypeFIELD.text()
+
+        if not username or not current_password or not new_password or not retype_password:
+            show_error_message("Error", "All fields must be filled. Please fill in the fields before changing your "
+                                        "password.")
+            return
+
+        if new_password != retype_password:
+            show_error_message("Error", "Passwords do not match. Please retype your new password.")
+            return
+
+        if new_password == current_password:
+            show_error_message("Error", "New password must be different from your current password.")
+            return
+
+        if new_password == retype_password:
+            if not isValidPassword(new_password):
+                return
+
+            hashed_password = hash_password(new_password)
+            cursor = conn.cursor()
+
+
 
