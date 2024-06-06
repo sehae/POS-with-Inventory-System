@@ -54,51 +54,57 @@ class adminMaintenance(Ui_MainWindow):
             show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
             return
 
-        cursor = conn.cursor()
-        print("Cursor created")
-
-        if LoA == 'Admin':
-            add_user_query = "INSERT INTO admin (last_name, first_name, contact_number, email) VALUES (%s, %s, %s, %s)"
-            user_data = (last_name, first_name, contact_number, email)
-            dept_number = '01'
-
-        else:
-            add_user_query = "INSERT INTO employee (last_name, first_name, department, contact_number, email) VALUES (%s, %s, %s, %s, %s)"
-            user_data = (last_name, first_name, dept, contact_number, email)
-            dept_number = '02'
-
-        cursor.execute(add_user_query, user_data)
-        conn.commit()
-        print("User added successfully.")
-
-        # Get the last inserted id
-        user_id = cursor.lastrowid
-
-        # Generate username
-        initials = first_name[0] + last_name[0]
-        staff_number = str(user_id).zfill(2)
-        username = initials.upper() + dept_number + staff_number
-
-        # Generate password
-        password = self.generate_password()
-
-        # Add username and password to the respective login table
-        if LoA == 'Admin':
-            add_login_query = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s)"
-        else:
-            add_login_query = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s)"
-
-        login_data = (user_id, username, password)
-        cursor.execute(add_login_query, login_data)
-        conn.commit()
-        print("Login details added successfully.")
         try:
-            if is_connected():
-                send_username_password(username, password, email)
+            cursor = conn.cursor()
+            print("Cursor created")
+
+            if LoA == 'Admin':
+                add_user_query = "INSERT INTO admin (last_name, first_name, contact_number, email) VALUES (%s, %s, %s, %s)"
+                user_data = (last_name, first_name, contact_number, email)
+                dept_number = '01'
             else:
-                show_username_password(username, password)
+                add_user_query = "INSERT INTO employee (last_name, first_name, department, contact_number, email) VALUES (%s, %s, %s, %s, %s)"
+                user_data = (last_name, first_name, dept, contact_number, email)
+                dept_number = '02'
+
+            cursor.execute(add_user_query, user_data)
+            conn.commit()
+            print("User added successfully.")
+
+            # Get the last inserted id
+            user_id = cursor.lastrowid
+
+            # Generate username
+            initials = first_name[0] + last_name[0]
+            staff_number = str(user_id).zfill(2)
+            username = initials.upper() + dept_number + staff_number
+
+            # Generate password
+            password = self.generate_password()
+
+            # Add username and password to the respective login table
+            if LoA == 'Admin':
+                add_login_query = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s)"
+            else:
+                add_login_query = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s)"
+
+            login_data = (user_id, username, password)
+            cursor.execute(add_login_query, login_data)
+            conn.commit()
+            print("Login details added successfully.")
+
+            try:
+                if is_connected():
+                    send_username_password(username, password, email)
+                else:
+                    show_username_password(username, password)
+            except Exception as e:
+                print("Error sending username and password: ", e)
+
         except Exception as e:
-            print(e)
+            show_error_message("Database Error", f"An error occurred while adding the user: {e}")
+        finally:
+            cursor.close()
 
     def generate_password(self):
         length = 8
@@ -109,5 +115,3 @@ class adminMaintenance(Ui_MainWindow):
                     any(c.isdigit() for c in password) and
                     any(c in string.punctuation for c in password)):
                 return password
-
-
