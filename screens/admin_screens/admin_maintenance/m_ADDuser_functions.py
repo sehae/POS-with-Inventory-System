@@ -88,9 +88,9 @@ class adminMaintenance(Ui_MainWindow):
 
             # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = "INSERT INTO adminlogin (admin_id, username, hashed_password) VALUES (%s, %s, %s)"
+                add_login_query = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s)"
             else:
-                add_login_query = "INSERT INTO employeelogin (employee_id, username, hashed_password) VALUES (%s, %s, %s)"
+                add_login_query = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s)"
 
             login_data = (user_id, username, hashed_password)
             cursor.execute(add_login_query, login_data)

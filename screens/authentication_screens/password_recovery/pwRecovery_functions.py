@@ -5,8 +5,7 @@ from PyQt5.QtWidgets import QLineEdit, QAction
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
 from validator.password_validator import isValidPassword
-from security.hash import generate_key, create_cipher, encrypt_data, decrypt_data
-
+from security.hash import hash_password
 
 class PasswordRecovery(Ui_MainWindow):
     def __init__(self, email):
@@ -67,21 +66,21 @@ class PasswordRecovery(Ui_MainWindow):
             if not isValidPassword(new_password):
                 return
 
-            key = generate_key()
-            cipher = create_cipher(key)
-            encrypted_password = encrypt_data(cipher, new_password.encode())
+
+            # Hash the new password
+            hashed_password = hash_password(new_password)
 
             cursor = conn.cursor()
             try:
                 if self.source_table == 'admin':
                     cursor.execute(
                         "UPDATE adminlogin SET password = %s WHERE admin_id = %s",
-                        (encrypted_password, self.id)
+                        (hashed_password, self.id)
                     )
                 elif self.source_table == 'employee':
                     cursor.execute(
                         "UPDATE employeelogin SET password = %s WHERE employee_id = %s",
-                        (encrypted_password, self.id)
+                        (hashed_password, self.id)
                     )
 
                 conn.commit()
