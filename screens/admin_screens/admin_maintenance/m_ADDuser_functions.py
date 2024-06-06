@@ -6,6 +6,7 @@ from PyQt5.QtGui import QRegExpValidator
 
 from automated.email_automation import send_username_password
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
+from security.hash import hash_password
 from shared.dialog import show_username_password, show_error_message
 
 from server.local_server import conn
@@ -82,13 +83,16 @@ class adminMaintenance(Ui_MainWindow):
             # Generate password
             password = self.generate_password()
 
+            # Hash the password
+            hashed_password = hash_password(password)
+
             # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s)"
+                add_login_query = "INSERT INTO adminlogin (admin_id, username, hashed_password) VALUES (%s, %s, %s)"
             else:
-                add_login_query = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s)"
+                add_login_query = "INSERT INTO employeelogin (employee_id, username, hashed_password) VALUES (%s, %s, %s)"
 
-            login_data = (user_id, username, password)
+            login_data = (user_id, username, hashed_password)
             cursor.execute(add_login_query, login_data)
             conn.commit()
             print("Login details added successfully.")

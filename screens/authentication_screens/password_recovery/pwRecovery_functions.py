@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QLineEdit, QAction
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
 from validator.password_validator import isValidPassword
-from security.encryption import generate_key, create_cipher, encrypt_data, decrypt_data
+from security.hash import generate_key, create_cipher, encrypt_data, decrypt_data
 
 
 class PasswordRecovery(Ui_MainWindow):
