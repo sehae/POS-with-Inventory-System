@@ -1,17 +1,4 @@
-import random
-import string
-
-from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QRegExpValidator
-
-from automated.email_automation import send_username_password
-from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
-from security.hash import hash_password
-from shared.dialog import show_username_password, show_error_message
-
-from server.local_server import conn
-from validator.internet_connection import is_connected
-from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
+from shared.imports import *
 
 
 class adminMaintenance(Ui_MainWindow):
@@ -60,11 +47,11 @@ class adminMaintenance(Ui_MainWindow):
             print("Cursor created")
 
             if LoA == 'Admin':
-                add_user_query = "INSERT INTO admin (last_name, first_name, contact_number, email) VALUES (%s, %s, %s, %s)"
+                add_user_query = ADD_ADMIN
                 user_data = (last_name, first_name, contact_number, email)
                 dept_number = '01'
             else:
-                add_user_query = "INSERT INTO employee (last_name, first_name, department, contact_number, email) VALUES (%s, %s, %s, %s, %s)"
+                add_user_query = ADD_EMPLOYEE
                 user_data = (last_name, first_name, dept, contact_number, email)
                 dept_number = '02'
 
@@ -88,9 +75,9 @@ class adminMaintenance(Ui_MainWindow):
 
             # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s)"
+                add_login_query = ADD_ADMIN_LOGIN
             else:
-                add_login_query = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s)"
+                add_login_query = ADD_EMPLOYEE_LOGIN
 
             login_data = (user_id, username, hashed_password)
             cursor.execute(add_login_query, login_data)
