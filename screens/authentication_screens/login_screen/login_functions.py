@@ -1,3 +1,5 @@
+from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
+from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 
 class myLoginScreen(Ui_MainWindow):
@@ -39,15 +41,19 @@ class myLoginScreen(Ui_MainWindow):
             result = cursor.fetchone()
 
             if result:
-                admin_id, stored_password = result
+                admin_id, stored_password, is_active = result
 
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
-                    cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
-                    admin_first_name = cursor.fetchone()[0]
-                    print(f"Login successful as admin: Welcome {admin_first_name}!")
-                    self.admin_dashboard.open_admin_dashboard()
-                    return
+                    if is_active:
+                        cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
+                        admin_first_name = cursor.fetchone()[0]
+                        print(f"Login successful as admin: Welcome {admin_first_name}!")
+                        self.admin_dashboard.open_admin_dashboard()
+                        return
+                    else:
+                        print("Account is disabled.")
+                        return
                 else:
                     print("Incorrect password.")
 
@@ -56,16 +62,21 @@ class myLoginScreen(Ui_MainWindow):
             result = cursor.fetchone()
 
             if result:
-                employee_id, stored_password = result
+                employee_id, stored_password, is_active = result
 
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
-                    cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
-                    employee_first_name = cursor.fetchone()[0]
-                    print(f"Login successful as Employee: Welcome {employee_first_name}!")
-                    return
+                    if is_active:
+                        cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
+                        employee_first_name = cursor.fetchone()[0]
+                        print(f"Login successful as Employee: Welcome {employee_first_name}!")
+                        return
+                    else:
+                        print("Account is disabled.")
+                        return
                 else:
                     print("Incorrect password.")
+
 
             print("Invalid Credentials")
             show_error_message("Invalid Credentials.", "Please check your username and password.")
