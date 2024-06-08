@@ -1,4 +1,5 @@
 from shared.imports import *
+from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
 
 
 class adminMaintenanceEDIT(Ui_MainWindow):
@@ -20,6 +21,7 @@ class adminMaintenanceEDIT(Ui_MainWindow):
         self.discardBTN.clicked.connect(self.discard)
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
+        self.userRESULTS.hide()
 
     def edit_user(self):
         email = self.emailDISPLAY.text()
@@ -82,31 +84,69 @@ class adminMaintenanceEDIT(Ui_MainWindow):
             cursor.execute(SEARCH_EMPLOYEE, (search_text, search_text, search_text))
             results = cursor.fetchall()
 
-            if results:
-                for result in results:
-                    self.edituserCONTENT.show()
-                    self.nameDISPLAY.setText(f"{result[0]} {result[1]}")
-                    self.emailDISPLAY.setText(result[2])
-                    self.activate_staff()
-                    if result[3] == 'Kitchen':
-                        self.activate_kitchen()
-                    elif result[3] == 'Cashier':
-                        self.activate_cashier()
-                return
+            print(f"Employee search results: {results}")  # Debug print
+
+            # Clear the table before adding new data
+            self.userRESULTS.setRowCount(len(results))
+            self.userRESULTS.setColumnCount(1)
+
+            row_position = 0
+
+            for result in results:
+                # Concatenate all fields of a result into a single string
+                result_string = ', '.join(map(str, result))
+                item = QtWidgets.QTableWidgetItem(result_string)
+                # Make the cell not editable
+                item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                self.userRESULTS.setItem(row_position, 0, item)
+                row_position += 1
+                self.userRESULTS.show()
 
             cursor.execute(SEARCH_ADMIN, (search_text, search_text, search_text))
             results = cursor.fetchall()
 
-            if results:
-                for result in results:
-                    self.edituserCONTENT.show()
-                    self.nameDISPLAY.setText(f"{result[0]} {result[1]}")
-                    self.emailDISPLAY.setText(result[2])
-                    self.activate_admin()
-            else:
-                create_dialog_box("No user found with the provided details.", "User Not Found")
+            print(f"Admin search results: {results}")  # Debug print
+
+            self.userRESULTS.setRowCount(self.userRESULTS.rowCount() + len(results))
+
+            for result in results:
+                # Concatenate all fields of a result into a single string
+                result_string = ', '.join(map(str, result))
+                item = QtWidgets.QTableWidgetItem(result_string)
+                # Make the cell not editable
+                item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                self.userRESULTS.setItem(row_position, 0, item)
+                row_position += 1
+                self.userRESULTS.show()
+
+            # Connect the cellClicked signal to a slot function
+            self.userRESULTS.cellClicked.connect(self.cell_clicked)
+
         except Exception as e:
             print(f"An error occurred: {e}")
+
+    # Slot function to handle cell click events
+    def cell_clicked(self, row, column):
+        item = self.userRESULTS.item(row, column)
+        print(f"You clicked on cell {row}, {column}. The cell contains: {item.text()}")
+
+        self.userRESULTS.hide()
+
+        # Split the cell data into a list of result data
+        result = item.text().split(', ')
+
+        # Show the edituserCONTENT and update the display with the result data
+        self.edituserCONTENT.show()
+        self.nameDISPLAY.setText(f"{result[0]} {result[1]}")
+        self.emailDISPLAY.setText(result[2])
+
+        # Check the department of the result and activate the corresponding button
+        if result[3] == 'Kitchen':
+            self.activate_kitchen()
+        elif result[3] == 'Cashier':
+            self.activate_cashier()
+        elif result[3] == 'Admin':
+            self.activate_admin()
 
     def activate_staff(self):
         self.staffBTN.setStyleSheet(self.active_button_style)

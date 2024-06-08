@@ -1,5 +1,5 @@
 from shared.imports import *
-
+from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 
 class adminMaintenance(Ui_MainWindow):
     def __init__(self):
