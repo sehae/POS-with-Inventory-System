@@ -1,13 +1,14 @@
 """ This file contains all the imports that are shared across multiple files. """
 
 # Python imports
+import sys
 import random
 import string
 
 # PyQt5 imports
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtGui import QIcon, QRegExpValidator
-from PyQt5.QtWidgets import QLineEdit, QAction
+from PyQt5.QtWidgets import QLineEdit, QAction, QApplication, QMainWindow
 from PyQt5.QtCore import QRegExp
 
 # Database
@@ -35,6 +36,7 @@ from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX
 # Authentication Screens
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
+from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 
 # Dashboard
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
