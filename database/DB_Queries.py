@@ -20,3 +20,28 @@ ADD_EMPLOYEE = ("INSERT INTO employee (last_name, first_name, department, contac
                 "%s, %s);")
 ADD_ADMIN_LOGIN = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s);"
 ADD_EMPLOYEE_LOGIN = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s);"
+
+# Retrieve data of the user
+GET_ADMIN_DATA = "SELECT * FROM admin WHERE email = %s;"
+GET_EMPLOYEE_DATA = "SELECT * FROM employee WHERE email = %s;"
+
+# Update User Data Queries (SPECIFICALLY FOR EDIT USER SCREEN)
+MOVE_TO_ADMIN = ("INSERT INTO admin (first_name, last_name, contact_number, email) SELECT first_name, last_name, "
+                 "contact_number, email FROM employee WHERE email = %s AND is_active = True;")
+MOVE_TO_EMPLOYEE = ("INSERT INTO employee (first_name, last_name, contact_number, email, department) SELECT"
+                    "first_name, last_name, contact_number, email, %s FROM admin WHERE email = %s AND is_active = True;")
+UPDATE_EMPLOYEE_DEPARTMENT = "UPDATE employee SET is_active = True, department = %s WHERE email = %s;"
+
+# Update _is_active_ column
+ENABLE_ADMIN = "UPDATE admin SET is_active = True WHERE email = %s;"
+ENABLE_EMPLOYEE = "UPDATE employee SET is_active = True WHERE email = %s;"
+DISABLE_ADMIN = "UPDATE admin SET is_active = False WHERE email = %s;"
+DISABLE_EMPLOYEE = "UPDATE employee SET is_active = False WHERE email = %s;"
+
+# Search User Query
+SEARCH_EMPLOYEE = ("SELECT first_name, last_name, email, department FROM employee WHERE (last_name LIKE %s OR "
+                   "first_name LIKE %s OR email LIKE %s) AND is_active = True;")
+SEARCH_ADMIN = ("SELECT first_name, last_name, email FROM admin WHERE (last_name LIKE %s OR first_name LIKE %s OR "
+                "email LIKE %s) AND is_active = True;")
+
+
