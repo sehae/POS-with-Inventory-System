@@ -79,7 +79,7 @@ class adminMaintenanceEDIT(Ui_MainWindow):
             search_text = self.searchFIELD.text()
             cursor = conn.cursor()
 
-            cursor.execute(SEARCH_EMPLOYEE(search_text, search_text, search_text))
+            cursor.execute(SEARCH_EMPLOYEE, (search_text, search_text, search_text))
             results = cursor.fetchall()
 
             if results:
@@ -94,7 +94,7 @@ class adminMaintenanceEDIT(Ui_MainWindow):
                         self.activate_cashier()
                 return
 
-            cursor.execute(SEARCH_ADMIN(search_text, search_text, search_text))
+            cursor.execute(SEARCH_ADMIN, (search_text, search_text, search_text))
             results = cursor.fetchall()
 
             if results:
