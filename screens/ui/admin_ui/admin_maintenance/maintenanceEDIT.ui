@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1791</width>
-    <height>703</height>
+    <width>1802</width>
+    <height>790</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -307,22 +307,6 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <spacer name="verticalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>30</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QFrame" name="edituserCONTENT">
                <layout class="QVBoxLayout" name="verticalLayout_7">
                 <property name="leftMargin">
@@ -334,6 +318,22 @@ QPushButton:pressed {
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <spacer name="verticalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
                 <item>
                  <widget class="QLabel" name="edituserLBL">
                   <property name="font">
@@ -733,6 +733,28 @@ QPushButton:pressed {
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="userRESULTS">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>800</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>800</width>
+                 <height>16777215</height>
+                </size>
+               </property>
               </widget>
              </item>
              <item>
