@@ -1,8 +1,8 @@
 """ This file contains all the queries that are used in the database """
 
 # Authentication Queries
-GET_ADMIN_LOGIN = "SELECT admin_id, password FROM adminlogin WHERE username = %s;"
-GET_EMPLOYEE_LOGIN = "SELECT employee_id, password FROM employeelogin WHERE username = %s;"
+GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM adminlogin WHERE username = %s;"
+GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employeelogin WHERE username = %s;"
 
 # User Information Retrieval Queries
 GET_ADMIN_FIRST_NAME = "SELECT first_name FROM admin WHERE admin_id = %s;"
@@ -37,6 +37,9 @@ ENABLE_ADMIN = "UPDATE admin SET is_active = True WHERE email = %s;"
 ENABLE_EMPLOYEE = "UPDATE employee SET is_active = True WHERE email = %s;"
 DISABLE_ADMIN = "UPDATE admin SET is_active = False WHERE email = %s;"
 DISABLE_EMPLOYEE = "UPDATE employee SET is_active = False WHERE email = %s;"
+DISABLE_ADMIN_ID = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
+DISABLE_ACCOUNT_EMPLOYEE = "UPDATE employeelogin SET is_active = FALSE WHERE employee_id = %s;"
+DISABLE_ACCOUNT_ADMIN = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
 
 # Search User Query
 SEARCH_EMPLOYEE = ("SELECT first_name, last_name, email, department FROM employee WHERE (last_name LIKE %s OR "
