@@ -1,11 +1,4 @@
-from PyQt5 import QtGui, QtWidgets
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLineEdit, QAction
-
-from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
-from server.local_server import conn
-from validator.password_validator import isValidPassword
-from security.hash import hash_password
+from shared.imports import *
 
 class PasswordRecovery(Ui_MainWindow):
     def __init__(self, email):
@@ -73,17 +66,11 @@ class PasswordRecovery(Ui_MainWindow):
             cursor = conn.cursor()
             try:
                 if self.source_table == 'admin':
-                    cursor.execute(
-                        "UPDATE adminlogin SET password = %s WHERE admin_id = %s",
-                        (hashed_password, self.id)
-                    )
+                    cursor.execute(UPDATE_ADMIN_PASSWORD, (hashed_password, self.id))
                 elif self.source_table == 'employee':
-                    cursor.execute(
-                        "UPDATE employeelogin SET password = %s WHERE employee_id = %s",
-                        (hashed_password, self.id)
-                    )
-
+                    cursor.execute(UPDATE_EMPLOYEE_PASSWORD, (hashed_password, self.id))
                 conn.commit()
+
                 print("Password reset successful!")
             except Exception as e:
                 print(f"An error occurred: {e}")
@@ -94,10 +81,7 @@ class PasswordRecovery(Ui_MainWindow):
         cursor = conn.cursor()
 
         # Query the employee table
-        cursor.execute(
-            "SELECT employee_id FROM employee WHERE email = %s",
-            (email,)
-        )
+        cursor.execute(GET_EMPLOYEE_ID, (email,))
         user = cursor.fetchone()
 
         if user:
@@ -105,10 +89,7 @@ class PasswordRecovery(Ui_MainWindow):
             return user[0], 'employee'
 
         # Query the admin table
-        cursor.execute(
-            "SELECT admin_id FROM admin WHERE email = %s",
-            (email,)
-        )
+        cursor.execute(GET_ADMIN_ID, (email,))
         user = cursor.fetchone()
 
         if user:
