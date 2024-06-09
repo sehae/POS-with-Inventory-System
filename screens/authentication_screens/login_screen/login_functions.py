@@ -1,9 +1,6 @@
-from PyQt5 import QtWidgets, QtGui
-from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
-from shared.dialog import show_error_message
-from server.local_server import conn
-
+from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
+from shared.imports import *
 
 class myLoginScreen(Ui_MainWindow):
     def __init__(self):
@@ -13,13 +10,15 @@ class myLoginScreen(Ui_MainWindow):
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)
         self.loginButton.clicked.connect(self.logs)
-        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
 
+        self.UiComponents()
+
+    def UiComponents(self):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
         self.visibilityButton.setIcon(icon)
 
     def toggle_password_visibility(self):
@@ -32,36 +31,58 @@ class myLoginScreen(Ui_MainWindow):
 
     def logs(self):
         username = self.userName.text()
-        password = self.password.text()
+        provided_password = self.password.text()
 
-        cursor = conn.cursor()
-        query1 = "SELECT admin_id FROM adminlogin WHERE username = %s AND password = %s"
-        cursor.execute(query1, (username, password))
+        try:
+            cursor = conn.cursor()
 
-        result = cursor.fetchone()
-        if result is not None:
-            admin_id = result[0]
-            fetch_query = "SELECT first_name FROM admin WHERE admin_id = %s"
-            cursor.execute(fetch_query, (admin_id,))
-            admin_first_name = cursor.fetchone()[0]
-            print(f"Login successful as admin: Welcome {admin_first_name}!")
-            self.admin_dashboard.open_admin_dashboard()
-            return
+            # Query the adminlogin table
+            cursor.execute(GET_ADMIN_LOGIN, (username,))
+            result = cursor.fetchone()
 
-        query2 = "SELECT employee_id FROM employeelogin WHERE username = %s AND password = %s"
-        cursor.execute(query2, (username, password))
+            if result:
+                admin_id, stored_password, is_active = result
 
-        result = cursor.fetchone()
-        if result is not None:
-            employee_id = result[0]
-            fetch_query = "SELECT first_name FROM employee WHERE employee_id = %s"
-            cursor.execute(fetch_query, (employee_id,))
-            employee_first_name = cursor.fetchone()[0]
-            print(f"Login successful as Employee: Welcome {employee_first_name}!")
+                # Verify the provided password against the stored password
+                if verify_password(stored_password, provided_password):
+                    if is_active:
+                        cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
+                        admin_first_name = cursor.fetchone()[0]
+                        print(f"Login successful as admin: Welcome {admin_first_name}!")
+                        self.admin_dashboard.open_admin_dashboard()
+                        return
+                    else:
+                        print("Account is disabled.")
+                        return
+                else:
+                    print("Incorrect password.")
 
-            return
+            # Query the employeelogin table
+            cursor.execute(GET_EMPLOYEE_LOGIN, (username,))
+            result = cursor.fetchone()
 
-        print("Invalid Credentials")
-        show_error_message("Invalid Credentials.")
+            if result:
+                employee_id, stored_password, is_active = result
+
+                # Verify the provided password against the stored password
+                if verify_password(stored_password, provided_password):
+                    if is_active:
+                        cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
+                        employee_first_name = cursor.fetchone()[0]
+                        print(f"Login successful as Employee: Welcome {employee_first_name}!")
+                        return
+                    else:
+                        print("Account is disabled.")
+                        return
+                else:
+                    print("Incorrect password.")
 
 
+            print("Invalid Credentials")
+            show_error_message("Invalid Credentials.", "Please check your username and password.")
+
+        except Exception as e:
+            print(f"An error occurred during login: {e}")
+            show_error_message("Error", f"An error occurred during login: {e}")
+        finally:
+            cursor.close()

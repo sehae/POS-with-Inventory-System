@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'changePassword.ui'
+# Form implementation generated from reading ui file 'screens/ui/password/changePassword.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,12 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1024, 768)
+        MainWindow.resize(1037, 768)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -60,46 +60,46 @@ class Ui_MainWindow(object):
         self.frame1.setObjectName("frame1")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.frame1)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.label_2 = QtWidgets.QLabel(self.frame1)
+        self.sysTimeDate = QtWidgets.QLabel(self.frame1)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
-        self.label_3 = QtWidgets.QLabel(self.frame1)
+        self.sysTimeDate.setFont(font)
+        self.sysTimeDate.setObjectName("sysTimeDate")
+        self.verticalLayout.addWidget(self.sysTimeDate)
+        self.userName = QtWidgets.QLabel(self.frame1)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_3.setFont(font)
-        self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
+        self.userName.setFont(font)
+        self.userName.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.userName.setObjectName("userName")
+        self.verticalLayout.addWidget(self.userName)
         self.horizontalLayout_2.addWidget(self.frame1)
         self.gridLayout.addWidget(self.widget_2, 0, 0, 1, 2)
-        self.widget_3 = QtWidgets.QWidget(self.frame)
+        self.navBar = QtWidgets.QWidget(self.frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_3.sizePolicy().hasHeightForWidth())
-        self.widget_3.setSizePolicy(sizePolicy)
-        self.widget_3.setStyleSheet("QWidget {\n"
+        sizePolicy.setHeightForWidth(self.navBar.sizePolicy().hasHeightForWidth())
+        self.navBar.setSizePolicy(sizePolicy)
+        self.navBar.setStyleSheet("QWidget {\n"
 "    border-right: 3px solid #D8DBD9;\n"
 "}\n"
 "")
-        self.widget_3.setObjectName("widget_3")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_3)
+        self.navBar.setObjectName("navBar")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.navBar)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.pushButton = QtWidgets.QPushButton(self.widget_3)
+        self.backBTN = QtWidgets.QPushButton(self.navBar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton.setMaximumSize(QtCore.QSize(100, 100))
+        sizePolicy.setHeightForWidth(self.backBTN.sizePolicy().hasHeightForWidth())
+        self.backBTN.setSizePolicy(sizePolicy)
+        self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("QPushButton {\n"
+        self.backBTN.setFont(font)
+        self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -117,11 +117,11 @@ class Ui_MainWindow(object):
 "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/newPrefix/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon)
-        self.pushButton.setAutoRepeat(False)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
-        self.gridLayout.addWidget(self.widget_3, 1, 0, 1, 1)
+        self.backBTN.setIcon(icon)
+        self.backBTN.setAutoRepeat(False)
+        self.backBTN.setObjectName("backBTN")
+        self.verticalLayout_2.addWidget(self.backBTN)
+        self.gridLayout.addWidget(self.navBar, 1, 0, 1, 1)
         self.Content = QtWidgets.QWidget(self.frame)
         self.Content.setObjectName("Content")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
@@ -145,6 +145,8 @@ class Ui_MainWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem1)
         self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setHorizontalSpacing(25)
+        self.formLayout.setVerticalSpacing(15)
         self.formLayout.setObjectName("formLayout")
         self.label_5 = QtWidgets.QLabel(self.maincontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
@@ -159,89 +161,6 @@ class Ui_MainWindow(object):
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_5)
-        self.lineEdit = QtWidgets.QLineEdit(self.maincontent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(350, 46))
-        self.lineEdit.setMaximumSize(QtCore.QSize(350, 46))
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}")
-        self.lineEdit.setObjectName("lineEdit")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.lineEdit)
-        self.label_6 = QtWidgets.QLabel(self.maincontent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy)
-        self.label_6.setMinimumSize(QtCore.QSize(300, 0))
-        self.label_6.setMaximumSize(QtCore.QSize(300, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.maincontent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
-        self.lineEdit_2.setSizePolicy(sizePolicy)
-        self.lineEdit_2.setMinimumSize(QtCore.QSize(350, 46))
-        self.lineEdit_2.setMaximumSize(QtCore.QSize(350, 46))
-        self.lineEdit_2.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.lineEdit_2)
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.maincontent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
-        self.lineEdit_3.setSizePolicy(sizePolicy)
-        self.lineEdit_3.setMinimumSize(QtCore.QSize(350, 46))
-        self.lineEdit_3.setMaximumSize(QtCore.QSize(350, 46))
-        self.lineEdit_3.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}")
-        self.lineEdit_3.setText("")
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_3)
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.maincontent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_4.sizePolicy().hasHeightForWidth())
-        self.lineEdit_4.setSizePolicy(sizePolicy)
-        self.lineEdit_4.setMinimumSize(QtCore.QSize(350, 46))
-        self.lineEdit_4.setMaximumSize(QtCore.QSize(350, 46))
-        self.lineEdit_4.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}")
-        self.lineEdit_4.setText("")
-        self.lineEdit_4.setObjectName("lineEdit_4")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_4)
         self.label_7 = QtWidgets.QLabel(self.maincontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -255,6 +174,19 @@ class Ui_MainWindow(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.label_7)
+        self.label_6 = QtWidgets.QLabel(self.maincontent)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+        self.label_6.setMinimumSize(QtCore.QSize(300, 0))
+        self.label_6.setMaximumSize(QtCore.QSize(300, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_6)
         self.label_8 = QtWidgets.QLabel(self.maincontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -268,24 +200,241 @@ class Ui_MainWindow(object):
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.label_8)
+        self.widget = QtWidgets.QWidget(self.maincontent)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setSpacing(0)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.usernameFIELD = QtWidgets.QLineEdit(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.usernameFIELD.sizePolicy().hasHeightForWidth())
+        self.usernameFIELD.setSizePolicy(sizePolicy)
+        self.usernameFIELD.setMinimumSize(QtCore.QSize(350, 46))
+        self.usernameFIELD.setMaximumSize(QtCore.QSize(350, 46))
+        self.usernameFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.usernameFIELD.setObjectName("usernameFIELD")
+        self.horizontalLayout_4.addWidget(self.usernameFIELD)
+        self.un_visibility = QtWidgets.QPushButton(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.un_visibility.sizePolicy().hasHeightForWidth())
+        self.un_visibility.setSizePolicy(sizePolicy)
+        self.un_visibility.setMinimumSize(QtCore.QSize(35, 46))
+        self.un_visibility.setMaximumSize(QtCore.QSize(35, 46))
+        self.un_visibility.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.un_visibility.setText("")
+        self.un_visibility.setObjectName("un_visibility")
+        self.horizontalLayout_4.addWidget(self.un_visibility)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.widget)
+        self.widget_4 = QtWidgets.QWidget(self.maincontent)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_4.sizePolicy().hasHeightForWidth())
+        self.widget_4.setSizePolicy(sizePolicy)
+        self.widget_4.setObjectName("widget_4")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.widget_4)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.newPassFIELD = QtWidgets.QLineEdit(self.widget_4)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.newPassFIELD.sizePolicy().hasHeightForWidth())
+        self.newPassFIELD.setSizePolicy(sizePolicy)
+        self.newPassFIELD.setMinimumSize(QtCore.QSize(350, 46))
+        self.newPassFIELD.setMaximumSize(QtCore.QSize(350, 46))
+        self.newPassFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.newPassFIELD.setText("")
+        self.newPassFIELD.setObjectName("newPassFIELD")
+        self.horizontalLayout_5.addWidget(self.newPassFIELD)
+        self.np_visibility = QtWidgets.QPushButton(self.widget_4)
+        self.np_visibility.setMinimumSize(QtCore.QSize(35, 46))
+        self.np_visibility.setMaximumSize(QtCore.QSize(35, 46))
+        self.np_visibility.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.np_visibility.setText("")
+        self.np_visibility.setObjectName("np_visibility")
+        self.horizontalLayout_5.addWidget(self.np_visibility)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.widget_4)
+        self.widget_5 = QtWidgets.QWidget(self.maincontent)
+        self.widget_5.setObjectName("widget_5")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_5)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.currentPassFIELD = QtWidgets.QLineEdit(self.widget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.currentPassFIELD.sizePolicy().hasHeightForWidth())
+        self.currentPassFIELD.setSizePolicy(sizePolicy)
+        self.currentPassFIELD.setMinimumSize(QtCore.QSize(350, 46))
+        self.currentPassFIELD.setMaximumSize(QtCore.QSize(350, 46))
+        self.currentPassFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.currentPassFIELD.setObjectName("currentPassFIELD")
+        self.horizontalLayout_6.addWidget(self.currentPassFIELD)
+        self.cp_visibility = QtWidgets.QPushButton(self.widget_5)
+        self.cp_visibility.setMinimumSize(QtCore.QSize(35, 46))
+        self.cp_visibility.setMaximumSize(QtCore.QSize(35, 46))
+        self.cp_visibility.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.cp_visibility.setText("")
+        self.cp_visibility.setObjectName("cp_visibility")
+        self.horizontalLayout_6.addWidget(self.cp_visibility)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.widget_5)
+        self.widget_7 = QtWidgets.QWidget(self.maincontent)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
+        self.widget_7.setSizePolicy(sizePolicy)
+        self.widget_7.setObjectName("widget_7")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.widget_7)
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_7.setSpacing(0)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.retypeFIELD = QtWidgets.QLineEdit(self.widget_7)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.retypeFIELD.sizePolicy().hasHeightForWidth())
+        self.retypeFIELD.setSizePolicy(sizePolicy)
+        self.retypeFIELD.setMinimumSize(QtCore.QSize(350, 46))
+        self.retypeFIELD.setMaximumSize(QtCore.QSize(350, 46))
+        self.retypeFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: 2px solid #67B99A;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: none;\n"
+"    border-top-left-radius: 6px;\n"
+"    border-bottom-left-radius: 6px;\n"
+"    border-top-right-radius: 0;\n"
+"    border-bottom-right-radius: 0;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.retypeFIELD.setText("")
+        self.retypeFIELD.setObjectName("retypeFIELD")
+        self.horizontalLayout_7.addWidget(self.retypeFIELD)
+        self.rp_visibility = QtWidgets.QPushButton(self.widget_7)
+        self.rp_visibility.setMinimumSize(QtCore.QSize(35, 46))
+        self.rp_visibility.setMaximumSize(QtCore.QSize(35, 46))
+        self.rp_visibility.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border-top: 2px solid #67B99A;\n"
+"    border-left: none;\n"
+"    border-bottom: 2px solid #67B99A;\n"
+"    border-right: 2px solid #67B99A;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 6px;\n"
+"    border-bottom-right-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"")
+        self.rp_visibility.setText("")
+        self.rp_visibility.setObjectName("rp_visibility")
+        self.horizontalLayout_7.addWidget(self.rp_visibility)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.widget_7)
         self.verticalLayout_3.addLayout(self.formLayout)
         self.widget_6 = QtWidgets.QWidget(self.maincontent)
         self.widget_6.setObjectName("widget_6")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget_6)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem2 = QtWidgets.QSpacerItem(275, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem2 = QtWidgets.QSpacerItem(360, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem2)
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget_6)
+        self.saveBTN = QtWidgets.QPushButton(self.widget_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(200, 43))
+        sizePolicy.setHeightForWidth(self.saveBTN.sizePolicy().hasHeightForWidth())
+        self.saveBTN.setSizePolicy(sizePolicy)
+        self.saveBTN.setMinimumSize(QtCore.QSize(200, 43))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
+        self.saveBTN.setFont(font)
+        self.saveBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    border: none;\n"
 "    color: white;\n"
@@ -299,21 +448,21 @@ class Ui_MainWindow(object):
 "    background-color: #4D9C7F;\n"
 "}\n"
 "")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_3.addWidget(self.pushButton_2)
-        spacerItem3 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.saveBTN.setObjectName("saveBTN")
+        self.horizontalLayout_3.addWidget(self.saveBTN)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem3)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widget_6)
+        self.cancelBTN = QtWidgets.QPushButton(self.widget_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(200, 43))
+        sizePolicy.setHeightForWidth(self.cancelBTN.sizePolicy().hasHeightForWidth())
+        self.cancelBTN.setSizePolicy(sizePolicy)
+        self.cancelBTN.setMinimumSize(QtCore.QSize(200, 43))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setStyleSheet("QPushButton {\n"
+        self.cancelBTN.setFont(font)
+        self.cancelBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -329,14 +478,14 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_3.addWidget(self.pushButton_3)
+        self.cancelBTN.setObjectName("cancelBTN")
+        self.horizontalLayout_3.addWidget(self.cancelBTN)
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem4)
         self.verticalLayout_3.addWidget(self.widget_6)
-        self.verticalLayout_4.addWidget(self.maincontent)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem5)
+        self.verticalLayout_3.addItem(spacerItem5)
+        self.verticalLayout_4.addWidget(self.maincontent)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -348,16 +497,18 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "CHANGE PASSWORD"))
-        self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
-        self.pushButton.setText(_translate("MainWindow", "Back"))
+        self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
+        self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
+        self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label_4.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.label_5.setText(_translate("MainWindow", "Username"))
-        self.label_6.setText(_translate("MainWindow", "Enter Your Current Password"))
         self.label_7.setText(_translate("MainWindow", "Enter new password"))
+        self.label_6.setText(_translate("MainWindow", "Enter Your Current Password"))
         self.label_8.setText(_translate("MainWindow", "Retype New Password"))
-        self.pushButton_2.setText(_translate("MainWindow", "SAVE"))
-        self.pushButton_3.setText(_translate("MainWindow", "CANCEL"))
+        self.saveBTN.setText(_translate("MainWindow", "SAVE"))
+        self.cancelBTN.setText(_translate("MainWindow", "CANCEL"))
+import resourceFile_rc
+
 
 if __name__ == "__main__":
     import sys

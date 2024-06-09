@@ -2,6 +2,7 @@ from email.message import EmailMessage
 from server.email_server import server, from_mail
 
 
+# Account Creation
 def send_username_password(username, password, email):
     msg = EmailMessage()
     msg['Subject'] = 'MOON HEY HOTPOT - WELCOME TO THE TEAM!'
