@@ -625,7 +625,8 @@ class Ui_MainWindow(object):
         self.label_24.setText(_translate("MainWindow", "PAID IN E-WALLET"))
         self.label_23.setText(_translate("MainWindow", "ENTER REFERENCE #"))
         self.pushButton_2.setText(_translate("MainWindow", "PAY NOW"))
-import resourceFile_rc
+
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

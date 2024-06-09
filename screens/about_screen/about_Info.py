@@ -21,12 +21,12 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.mainwidget = QtWidgets.QWidget(MainWindow)
+        self.mainwidget.setObjectName("mainwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.mainwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame = QtWidgets.QFrame(self.mainwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -254,7 +254,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout_2.addWidget(self.scrollArea, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
-        MainWindow.setCentralWidget(self.centralwidget)
+        MainWindow.setCentralWidget(self.mainwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -281,7 +281,8 @@ class Ui_MainWindow(object):
 " voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."))
         self.label_6.setText(_translate("MainWindow", "Location"))
         self.label_7.setText(_translate("MainWindow", "Banawe St. Quezon City. 848A Banawe St., Siena, Quezon City, Philippines."))
-import resourceFile_rc
+
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

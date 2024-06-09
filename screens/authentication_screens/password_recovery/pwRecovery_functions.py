@@ -1,5 +1,6 @@
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from server.local_server import conn
+from PyQt5 import QtWidgets, QtCore
 
 
 class PasswordRecovery(Ui_MainWindow):
@@ -12,6 +13,12 @@ class PasswordRecovery(Ui_MainWindow):
         super().setupUi(MainWindow)
         print("Setting up UI")
         self.saveBTN.clicked.connect(self.save_password)
+
+    def open_password_recovery(self):
+        self.password_recovery = QtWidgets.QMainWindow()  # Create a new QMainWindow
+        self.setupUi(self.password_recovery)  # Call setupUi to setup the admin dashboard
+        self.password_recovery.setWindowState(QtCore.Qt.WindowFullScreen)  # Set fullscreen mode
+        self.password_recovery.show()
 
     def save_password(self):
         print("save_password method called")

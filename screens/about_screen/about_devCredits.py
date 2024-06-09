@@ -15,12 +15,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(963, 749)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.mainwidget = QtWidgets.QWidget(MainWindow)
+        self.mainwidget.setObjectName("mainwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.mainwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame = QtWidgets.QFrame(self.mainwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -309,7 +309,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addItem(spacerItem3)
         self.gridLayout_2.addWidget(self.mainContent, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
-        MainWindow.setCentralWidget(self.centralwidget)
+        MainWindow.setCentralWidget(self.mainwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -338,7 +338,8 @@ class Ui_MainWindow(object):
 " labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco\n"
 " laboris nisi ut aliquip ex ea commodo consequat. "))
         self.label_4.setText(_translate("MainWindow", "Dev 2"))
-import resourceFile_rc
+
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -321,8 +320,6 @@ class Ui_MainWindow(object):
         self.helpButton.setText(_translate("MainWindow", "HELP"))
         self.changePassButton.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.reportsButton.setText(_translate("MainWindow", "REPORTS"))
-import assets.resourceFile_rc
-
 
 if __name__ == "__main__":
     import sys

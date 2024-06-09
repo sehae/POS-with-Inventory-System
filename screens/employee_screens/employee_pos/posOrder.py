@@ -15,12 +15,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 659)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.mainwidget = QtWidgets.QWidget(MainWindow)
+        self.mainwidget.setObjectName("mainwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.mainwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame = QtWidgets.QFrame(self.mainwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -305,7 +305,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.widget)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
-        MainWindow.setCentralWidget(self.centralwidget)
+        MainWindow.setCentralWidget(self.mainwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -341,7 +341,8 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.modifyBTN.setText(_translate("MainWindow", "Modify Order"))
         self.payOrderBTN.setText(_translate("MainWindow", "Pay Order"))
-import resourceFile_rc
+
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

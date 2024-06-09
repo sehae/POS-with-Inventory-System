@@ -1,38 +1,44 @@
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
+from screens.employee_screens.employee_dashboard.employeeDashboard_functions import myEmployeeDashboard
 from shared.dialog import show_error_message
 from server.local_server import conn
 
 
-class myLoginScreen(Ui_MainWindow):
+class myLoginScreen(QtWidgets.QMainWindow):
+    login_successful = QtCore.pyqtSignal()
+    login_successful_employee = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
         self.admin_dashboard = myAdminDashboard()
+        self.employee_dashboard = myEmployeeDashboard()
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
-        self.loginButton.clicked.connect(self.logs)
-        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.ui.loginButton.clicked.connect(self.logs)
+        self.ui.password.setEchoMode(QtWidgets.QLineEdit.Password)
 
-        self.visibilityButton.clicked.connect(self.toggle_password_visibility)
+        self.ui.visibilityButton.clicked.connect(self.toggle_password_visibility)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.visibilityButton.setIcon(icon)
+        self.ui.visibilityButton.setIcon(icon)
+
 
     def toggle_password_visibility(self):
-        if self.password.echoMode() == QtWidgets.QLineEdit.Password:
-            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)
-            self.visibilityButton.setIcon(QtGui.QIcon("assets/Icons/visibilityOn.png"))
+        if self.ui.password.echoMode() == QtWidgets.QLineEdit.Password:
+            self.ui.password.setEchoMode(QtWidgets.QLineEdit.Normal)
+            self.ui.visibilityButton.setIcon(QtGui.QIcon("assets/Icons/visibilityOn.png"))
         else:
-            self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-            self.visibilityButton.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
+            self.ui.password.setEchoMode(QtWidgets.QLineEdit.Password)
+            self.ui.visibilityButton.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
 
     def logs(self):
-        username = self.userName.text()
-        password = self.password.text()
+        username = self.ui.userName.text()
+        password = self.ui.password.text()
 
         cursor = conn.cursor()
         query1 = "SELECT admin_id FROM adminlogin WHERE username = %s AND password = %s"
@@ -45,7 +51,7 @@ class myLoginScreen(Ui_MainWindow):
             cursor.execute(fetch_query, (admin_id,))
             admin_first_name = cursor.fetchone()[0]
             print(f"Login successful as admin: Welcome {admin_first_name}!")
-            self.admin_dashboard.open_admin_dashboard()
+            self.login_successful.emit()
             return
 
         query2 = "SELECT employee_id FROM employeelogin WHERE username = %s AND password = %s"
@@ -58,10 +64,8 @@ class myLoginScreen(Ui_MainWindow):
             cursor.execute(fetch_query, (employee_id,))
             employee_first_name = cursor.fetchone()[0]
             print(f"Login successful as Employee: Welcome {employee_first_name}!")
-
+            self.login_successful_employee.emit()
             return
 
         print("Invalid Credentials")
         show_error_message("Invalid Credentials.")
-
-
