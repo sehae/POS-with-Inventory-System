@@ -101,6 +101,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard.changepass_signal.connect(self.show_change_password)
         self.change_password.back_signal.connect(self.show_admin_dashboard)
 
+        self.help_manual.back_employee_signal.connect(self.show_employee_dashboard)
+        self.help_support.back_employee_signal.connect(self.show_employee_dashboard)
+
         self.login_screen.login_successful_employee.connect(self.show_employee_dashboard)
         self.employee_dashboard.pos_signal.connect(self.show_pos_order)
         self.employee_dashboard.logout_signal.connect(self.show_login_screen)
@@ -121,6 +124,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_barcode.back_signal.connect(self.show_employee_dashboard)
         self.inventory_barcode.modify_signal.connect(self.show_employee_inventory)
         self.employee_dashboard.help_signal.connect(self.show_help_faq)
+
+        self.employee_dashboard.about_signal.connect(self.show_about_devcredits)
+        self.about_devCredits.back_employee_signal.connect(self.show_employee_dashboard)
+        self.about_info.back_employee_signal.connect(self.show_employee_dashboard)
+        self.employee_dashboard.changepass_signal.connect(self.show_change_password)
+        self.change_password.back_employee_signal.connect(self.show_employee_dashboard)
 
 
     def show_login_screen(self):

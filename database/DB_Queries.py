@@ -47,4 +47,6 @@ SEARCH_EMPLOYEE = ("SELECT first_name, last_name, email, department FROM employe
 SEARCH_ADMIN = ("SELECT first_name, last_name, email FROM admin WHERE (last_name LIKE %s OR first_name LIKE %s OR "
                 "email LIKE %s) AND is_active = True;")
 
+# User Logs
+LOGIN_LOG = LOGIN_LOG = ("INSERT INTO user_logs (user_id, user_type, log_date, log_time, action) VALUES (%s, %s, %s, %s, %s);")
 
