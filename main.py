@@ -91,6 +91,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.help_FAQ.support_signal.connect(self.show_help_support)
         self.help_FAQ.back_signal.connect(self.show_admin_dashboard)
         self.help_FAQ.back_employee_signal.connect(self.show_employee_dashboard)
+        self.help_manual.back_employee_signal.connect(self.show_employee_dashboard)
+        self.help_support.back_employee_signal.connect(self.show_employee_dashboard)
         self.help_FAQ.manual_signal.connect(self.show_user_manual)
         self.help_support.back_signal.connect(self.show_admin_dashboard)
         self.help_support.manual_signal.connect(self.show_user_manual)
@@ -122,6 +124,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_barcode.modify_signal.connect(self.show_employee_inventory)
         self.employee_dashboard.help_signal.connect(self.show_help_faq)
 
+        self.employee_dashboard.about_signal.connect(self.show_about_devcredits)
+        self.about_devCredits.back_employee_signal.connect(self.show_employee_dashboard)
+        self.about_info.back_employee_signal.connect(self.show_employee_dashboard)
+        self.employee_dashboard.changepass_signal.connect(self.show_change_password)
+        self.change_password.back_employee_signal.connect(self.show_employee_dashboard)
 
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)
@@ -176,9 +183,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_inventory_barcode(self):
         self.stacked_widget.setCurrentWidget(self.inventory_barcode)
-
-
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

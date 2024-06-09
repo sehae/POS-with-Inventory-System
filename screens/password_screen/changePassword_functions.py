@@ -5,15 +5,20 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.password_screen.changePassword import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from validator.user_manager import userManager
 
 class changePassword(QMainWindow, Ui_MainWindow):
     back_signal = pyqtSignal()
+    back_employee_signal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
         self.pushButton.clicked.connect(self.back)
+
+        # Create an instance of userManager
+        self.user_manager = userManager()
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -26,7 +31,13 @@ class changePassword(QMainWindow, Ui_MainWindow):
 
 
     def back(self):
-        self.back_signal.emit()
+        updated_user_type = self.user_manager.updated_userType
+        if updated_user_type == "admin":
+            print("You clicked back as an admin")
+            self.back_signal.emit()
+        elif updated_user_type == "employee":
+            print("You clicked back as an employee")
+            self.back_employee_signal.emit()
 
     def updateDateTime(self):
         # Get the current date and time

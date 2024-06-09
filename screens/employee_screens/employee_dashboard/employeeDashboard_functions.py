@@ -4,6 +4,10 @@ from screens.employee_screens.employee_dashboard.employeeDashboard import Ui_Mai
 from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.help_screen.help_FAQ_functions import helpFAQ
+from screens.about_screen.about_devCredits_functions import aboutdevCredits
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class myEmployeeDashboard(QtWidgets.QMainWindow):
 
@@ -11,6 +15,8 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
     pos_signal = QtCore.pyqtSignal()
     inventoryModify_signal = QtCore.pyqtSignal()
     help_signal = QtCore.pyqtSignal()
+    about_signal = QtCore.pyqtSignal()
+    changepass_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -24,6 +30,8 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.ui.logoutButton.clicked.connect(self.logout)
         self.ui.inventoryButton.clicked.connect(self.navigate_inventory)
         self.ui.helpButton.clicked.connect(self.navigate_help)
+        self.ui.aboutButton.clicked.connect(self.navigate_about)
+        self.ui.changePassButton.clicked.connect(self.navigate_changepw)
 
         # Update date and time labels
         self.update_datetime()
@@ -43,6 +51,12 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
 
+    def navigate_changepw(self):
+        self.changepass_signal.emit()
+
+    def navigate_about(self):
+        self.about_signal.emit()
+
     def navigate_pos(self):
         self.pos_signal.emit()
 
@@ -53,5 +67,6 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.help_signal.emit()
 
     def logout(self):
+        user_manager.reset_user_type()
         self.logout_signal.emit()
 

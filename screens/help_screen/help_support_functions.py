@@ -5,9 +5,11 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.help_screen.help_support import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from validator.user_manager import userManager
 
 class helpSupport(QMainWindow, Ui_MainWindow):
     back_signal = pyqtSignal()
+    back_employee_signal = pyqtSignal()
     manual_signal = pyqtSignal()
     faq_signal = pyqtSignal()
 
@@ -18,6 +20,9 @@ class helpSupport(QMainWindow, Ui_MainWindow):
         self.backButton_3.clicked.connect(self.back)
         self.editUserButton_3.clicked.connect(self.navigate_manual)
         self.addUserButton.clicked.connect(self.navigate_faq)
+
+        # Create an instance of userManager
+        self.user_manager = userManager()
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -32,7 +37,13 @@ class helpSupport(QMainWindow, Ui_MainWindow):
         self.faq_signal.emit()
 
     def back(self):
-        self.back_signal.emit()
+        updated_user_type = self.user_manager.updated_userType
+        if updated_user_type == "admin":
+            print("You clicked back as an admin")
+            self.back_signal.emit()
+        elif updated_user_type == "employee":
+            print("You clicked back as an employee")
+            self.back_employee_signal.emit()
 
     def navigate_manual(self):
         self.manual_signal.emit()

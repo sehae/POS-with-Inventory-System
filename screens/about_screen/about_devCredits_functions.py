@@ -5,10 +5,12 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.about_screen.about_devCredits import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from validator.user_manager import userManager
 
 class aboutdevCredits(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
     info_signal = QtCore.pyqtSignal()
+    back_employee_signal = QtCore.pyqtSignal()
 
 
     def __init__(self):
@@ -17,6 +19,9 @@ class aboutdevCredits(QMainWindow, Ui_MainWindow):
 
         self.backButton.clicked.connect(self.back)
         self.editUserButton.clicked.connect(self.navigate_info)
+
+        # Create an instance of userManager
+        self.user_manager = userManager()
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -28,7 +33,14 @@ class aboutdevCredits(QMainWindow, Ui_MainWindow):
         self.timer.start(1000)  # Update every second
 
     def back(self):
-        self.back_signal.emit()
+        updated_user_type = self.user_manager.updated_userType
+        if updated_user_type == "admin":
+            print("You clicked back as an admin")
+            self.back_signal.emit()
+        elif updated_user_type == "employee":
+            print("You clicked back as an employee")
+            self.back_employee_signal.emit()
+
 
     def navigate_info(self):
         self.info_signal.emit()

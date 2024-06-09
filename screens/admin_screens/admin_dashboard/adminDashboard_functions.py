@@ -6,6 +6,9 @@ from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import 
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.password_screen.changePassword_functions import changePassword
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class myAdminDashboard(QtWidgets.QMainWindow):
     logout_signal = QtCore.pyqtSignal()
@@ -70,6 +73,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.about_signal.emit()
 
     def logout(self):
+        user_manager.reset_user_type()
         self.logout_signal.emit()
 
 

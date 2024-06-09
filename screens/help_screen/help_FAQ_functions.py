@@ -4,9 +4,8 @@ from PyQt5.QtCore import QDateTime, QTimer, pyqtSignal
 from screens.help_screen.help_FAQ import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
-from validator.user_manager import userManager  # Import userManager
+from validator.user_manager import userManager
 
-user_manager_instance = userManager()
 
 class helpFAQ(QMainWindow, Ui_MainWindow):
     support_signal = pyqtSignal()
@@ -18,14 +17,12 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.user_manager = user_manager_instance
-
-        # Connect the user_type_updated signal to update_user_type slot
-        self.user_manager.user_type_updated.connect(self.update_user_type)
-
         self.pushButton_3.clicked.connect(self.navigate_support)
         self.backButton_3.clicked.connect(self.back)
         self.editUserButton_3.clicked.connect(self.navigate_manual)
+
+        # Create an instance of userManager
+        self.user_manager = userManager()
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -43,10 +40,11 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
         self.support_signal.emit()
 
     def back(self):
-        if self.user_type == "admin":
+        updated_user_type = self.user_manager.updated_userType
+        if updated_user_type == "admin":
             print("You clicked back as an admin")
             self.back_signal.emit()
-        elif self.user_type == "employee":
+        elif updated_user_type == "employee":
             print("You clicked back as an employee")
             self.back_employee_signal.emit()
 
