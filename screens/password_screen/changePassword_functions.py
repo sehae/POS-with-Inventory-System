@@ -7,16 +7,59 @@ from server.local_server import conn
 from security.hash import hash_password
 from shared.dialog import show_error_message
 from validator.password_validator import isValidPassword
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtCore import QDateTime, QTimer, Qt, pyqtSignal
+from PyQt5.QtWidgets import QMainWindow
+from screens.password_screen.changePassword import Ui_MainWindow
+from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
+from server.local_server import conn
+from validator.user_manager import userManager
 
 
-class ChangePassword(Ui_MainWindow):
+class changePassword(QMainWindow, Ui_MainWindow):
+    back_signal = pyqtSignal()
+    back_employee_signal = pyqtSignal()
+
     def __init__(self):
         super().__init__()
-        self.check_action = None
+        self.setupUi(self)
+        self.backBTN.clicked.connect(self.back)
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
+        # Create an instance of userManager
+        self.user_manager = userManager()
+
+        # Create a QTimer object
+        self.timer = QTimer()
+
+        # Connect the timeout signal of the timer to the updateDateTime slot
+        self.timer.timeout.connect(self.updateDateTime)
+
+        # Set the interval for the timer (in milliseconds)
+        self.timer.start(1000)  # Update every second
+
+        self.check_action = None
         self.saveBTN.clicked.connect(self.change_password)
+        self.UiComponents()
+
+    def back(self):
+        updated_user_type = self.user_manager.updated_userType
+        if updated_user_type == "admin":
+            print("You clicked back as an admin")
+            self.back_signal.emit()
+        elif updated_user_type == "employee":
+            print("You clicked back as an employee")
+            self.back_employee_signal.emit()
+
+    def updateDateTime(self):
+        # Get the current date and time
+        currentDateTime = QDateTime.currentDateTime()
+
+        # Format the date and time together as desired
+        formattedDateTime = currentDateTime.toString("MMMM d, yyyy, hh:mm:ss AP")
+
+        # Set the text of dateLabel to the formatted date and time
+        self.sysTimeDate.setText(formattedDateTime)
 
     def UiComponents(self):
         self.currentPassFIELD.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -31,7 +74,6 @@ class ChangePassword(Ui_MainWindow):
         self.np_visibility.setIcon(icon)
         self.rp_visibility.setIcon(icon)
 
-
     def toggle_visibility(self, field, button):
         if field.echoMode() == QtWidgets.QLineEdit.Password:
             field.setEchoMode(QtWidgets.QLineEdit.Normal)
@@ -39,7 +81,6 @@ class ChangePassword(Ui_MainWindow):
         else:
             field.setEchoMode(QtWidgets.QLineEdit.Password)
             button.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
-
 
     def check_password_match(self):
         if self.newPassFIELD.text() == self.retypeFIELD.text():
@@ -78,6 +119,3 @@ class ChangePassword(Ui_MainWindow):
 
             hashed_password = hash_password(new_password)
             cursor = conn.cursor()
-
-
-

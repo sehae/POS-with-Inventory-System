@@ -2,17 +2,29 @@ from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdm
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 
-class myLoginScreen(Ui_MainWindow):
+
+from validator.user_manager import userManager
+
+user_manager_instance = userManager()
+
+
+class myLoginScreen(QMainWindow, Ui_MainWindow):
+    login_successful = QtCore.pyqtSignal()
+    login_successful_employee = QtCore.pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.admin_dashboard = myAdminDashboard()
+        self.setupUi(self)
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
+        # Pass the userManager instance
+        self.user_manager = user_manager_instance
+        self.user_type = None
+        self.user_manager.user_type_updated.connect(self.print_user_type)  # Connect signal to slot
+
+        self.loginButton.clicked.connect(self.logs)
         self.loginButton.clicked.connect(self.logs)
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
-
         self.UiComponents()
+
 
     def UiComponents(self):
         icon = QtGui.QIcon()
@@ -20,6 +32,10 @@ class myLoginScreen(Ui_MainWindow):
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
         self.visibilityButton.setIcon(icon)
+
+    def print_user_type(self, user_type):
+        print(f"MYLOGINSCREEN: User type set to: {user_type}")
+
 
     def toggle_password_visibility(self):
         if self.password.echoMode() == QtWidgets.QLineEdit.Password:
@@ -49,7 +65,10 @@ class myLoginScreen(Ui_MainWindow):
                         cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
-                        self.admin_dashboard.open_admin_dashboard()
+                        self.user_type = "admin"
+                        print(self.user_type)
+                        self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
+                        self.login_successful.emit()
                         return
                     else:
                         print("Account is disabled.")
@@ -70,13 +89,16 @@ class myLoginScreen(Ui_MainWindow):
                         cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
                         employee_first_name = cursor.fetchone()[0]
                         print(f"Login successful as Employee: Welcome {employee_first_name}!")
+                        self.user_type = "employee"
+                        print(self.user_type)
+                        self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
+                        self.login_successful_employee.emit()
                         return
                     else:
                         print("Account is disabled.")
                         return
                 else:
                     print("Incorrect password.")
-
 
             print("Invalid Credentials")
             show_error_message("Invalid Credentials.", "Please check your username and password.")

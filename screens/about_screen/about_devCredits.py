@@ -338,7 +338,7 @@ class Ui_MainWindow(object):
 " labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco\n"
 " laboris nisi ut aliquip ex ea commodo consequat. "))
         self.label_4.setText(_translate("MainWindow", "Dev 2"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

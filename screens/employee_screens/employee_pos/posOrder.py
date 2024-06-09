@@ -341,7 +341,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setSortingEnabled(__sortingEnabled)
         self.modifyBTN.setText(_translate("MainWindow", "Modify Order"))
         self.payOrderBTN.setText(_translate("MainWindow", "Pay Order"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":
