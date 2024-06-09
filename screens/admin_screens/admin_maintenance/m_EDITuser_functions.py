@@ -101,6 +101,7 @@ class adminMaintenanceEDIT(Ui_MainWindow):
                 self.userRESULTS.setItem(row_position, 0, item)
                 row_position += 1
                 self.userRESULTS.show()
+                self.edituserCONTENT.hide()
 
             cursor.execute(SEARCH_ADMIN, (search_text, search_text, search_text))
             results = cursor.fetchall()
@@ -118,6 +119,8 @@ class adminMaintenanceEDIT(Ui_MainWindow):
                 self.userRESULTS.setItem(row_position, 0, item)
                 row_position += 1
                 self.userRESULTS.show()
+                self.edituserCONTENT.hide()
+
 
             # Connect the cellClicked signal to a slot function
             self.userRESULTS.cellClicked.connect(self.cell_clicked)
@@ -137,6 +140,7 @@ class adminMaintenanceEDIT(Ui_MainWindow):
 
         # Show the edituserCONTENT and update the display with the result data
         self.edituserCONTENT.show()
+        self.searchFIELD.clear()
         self.nameDISPLAY.setText(f"{result[0]} {result[1]}")
         self.emailDISPLAY.setText(result[2])
 
