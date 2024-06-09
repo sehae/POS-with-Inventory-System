@@ -1,10 +1,12 @@
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QDateTime, QTimer, Qt, pyqtSignal
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMessageBox, QMainWindow
+from PyQt5.QtCore import QDateTime, QTimer, pyqtSignal
 from screens.help_screen.help_FAQ import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from validator.user_manager import userManager  # Import userManager
+
+user_manager_instance = userManager()
 
 class helpFAQ(QMainWindow, Ui_MainWindow):
     support_signal = pyqtSignal()
@@ -15,6 +17,11 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        self.user_manager = user_manager_instance
+
+        # Connect the user_type_updated signal to update_user_type slot
+        self.user_manager.user_type_updated.connect(self.update_user_type)
 
         self.pushButton_3.clicked.connect(self.navigate_support)
         self.backButton_3.clicked.connect(self.back)
@@ -29,29 +36,24 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
 
+    def update_user_type(self, user_type):
+        self.user_type = user_type
+
     def navigate_support(self):
         self.support_signal.emit()
 
     def back(self):
-        self.back_signal.emit()
-        """
-        # Accessing user_type from UserManager instance
-        if user_type == "admin":
+        if self.user_type == "admin":
             print("You clicked back as an admin")
             self.back_signal.emit()
-        elif user_type == "employee":
+        elif self.user_type == "employee":
             print("You clicked back as an employee")
-            self.back_employee_signal.emit()"""
+            self.back_employee_signal.emit()
 
     def navigate_manual(self):
         self.manual_signal.emit()
 
     def updateDateTime(self):
-        # Get the current date and time
         currentDateTime = QDateTime.currentDateTime()
-
-        # Format the date and time together as desired
         formattedDateTime = currentDateTime.toString("MMMM d, yyyy, hh:mm:ss AP")
-
-        # Set the text of dateLabel to the formatted date and time
         self.sysTimeDate_3.setText(formattedDateTime)

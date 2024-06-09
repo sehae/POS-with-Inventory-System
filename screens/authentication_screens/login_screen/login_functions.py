@@ -5,6 +5,9 @@ from screens.employee_screens.employee_dashboard.employeeDashboard_functions imp
 from shared.dialog import show_error_message
 from server.local_server import conn
 
+from validator.user_manager import userManager
+
+user_manager_instance = userManager()
 
 class myLoginScreen(QtWidgets.QMainWindow):
     login_successful = QtCore.pyqtSignal()
@@ -17,6 +20,11 @@ class myLoginScreen(QtWidgets.QMainWindow):
         self.admin_dashboard = myAdminDashboard()
         self.employee_dashboard = myEmployeeDashboard()
 
+        # Pass the userManager instance
+        self.user_manager = user_manager_instance
+        self.user_type = None
+        self.user_manager.user_type_updated.connect(self.print_user_type)  # Connect signal to slot
+
         self.ui.loginButton.clicked.connect(self.logs)
         self.ui.password.setEchoMode(QtWidgets.QLineEdit.Password)
 
@@ -27,6 +35,8 @@ class myLoginScreen(QtWidgets.QMainWindow):
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ui.visibilityButton.setIcon(icon)
 
+    def print_user_type(self, user_type):
+        print(f"MYLOGINSCREEN: User type set to: {user_type}")
 
     def toggle_password_visibility(self):
         if self.ui.password.echoMode() == QtWidgets.QLineEdit.Password:
@@ -51,6 +61,9 @@ class myLoginScreen(QtWidgets.QMainWindow):
             cursor.execute(fetch_query, (admin_id,))
             admin_first_name = cursor.fetchone()[0]
             print(f"Login successful as admin: Welcome {admin_first_name}!")
+            self.user_type = "admin"
+            print(self.user_type)
+            self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
             self.login_successful.emit()
             return
 
@@ -64,6 +77,9 @@ class myLoginScreen(QtWidgets.QMainWindow):
             cursor.execute(fetch_query, (employee_id,))
             employee_first_name = cursor.fetchone()[0]
             print(f"Login successful as Employee: Welcome {employee_first_name}!")
+            self.user_type = "employee"
+            print(self.user_type)
+            self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
             self.login_successful_employee.emit()
             return
 
