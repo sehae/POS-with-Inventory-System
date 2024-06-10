@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `adminlogin`;
 CREATE TABLE `adminlogin` (
   `Admin_ID` int NOT NULL,
   `Username` varchar(45) DEFAULT NULL,
-  `Password` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Admin_ID`),
-  CONSTRAINT `fk_AdminID_adminLogin` FOREIGN KEY (`Admin_ID`) REFERENCES `admin` (`Admin_ID`)
+  `password` varchar(255) DEFAULT NULL,
+  `is_active` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Admin_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,7 +37,7 @@ CREATE TABLE `adminlogin` (
 
 LOCK TABLES `adminlogin` WRITE;
 /*!40000 ALTER TABLE `adminlogin` DISABLE KEYS */;
-INSERT INTO `adminlogin` VALUES (1,'admin','admin'),(2,'admin2','admin2');
+INSERT INTO `adminlogin` VALUES (1,'admin','admin',1),(2,'admin2','admin2',1),(9,'LV0109','F\\)^1!tX',1),(11,'AA0111','Z0=kx+y-',1),(12,'TA0112','3e1fdc33337537d44f013325df9b61033852d007e4300bb0668afd60eb02e83551a031ca33b03f951fd79f8afcf95809b730ccc8c272b7d99c9edf0048016148302300ac4b84fee6c4b4baf8808e590aed3098141c2fdcf7c4c7d6874b48a44f',1);
 /*!40000 ALTER TABLE `adminlogin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 18:49:07
+-- Dump completed on 2024-06-09 14:31:07

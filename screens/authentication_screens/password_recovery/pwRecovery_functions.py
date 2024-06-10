@@ -1,4 +1,5 @@
 from shared.imports import *
+from passwordRecovery import Ui_MainWindow
 
 class PasswordRecovery(Ui_MainWindow):
     def __init__(self, email):

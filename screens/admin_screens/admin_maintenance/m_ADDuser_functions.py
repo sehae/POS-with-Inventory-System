@@ -1,16 +1,50 @@
-from shared.imports import *
-from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
+from PyQt5.QtCore import QDateTime, QTimer
 
-class adminMaintenance(Ui_MainWindow):
+from shared.imports import *
+from PyQt5.QtWidgets import QMainWindow  # Import QMainWindow
+from automated.email_automation import send_username_password
+from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
+from shared.dialog import show_username_password, show_error_message
+
+from server.local_server import conn
+from validator.internet_connection import is_connected
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
+
+class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
+    back_signal = QtCore.pyqtSignal()
+    edit_signal = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
+        self.setupUi(self)  # Call the setupUi method to initialize the UI
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
         self.saveBTN.clicked.connect(self.add_user)
         self.loaBOX.currentTextChanged.connect(self.check_admin)
-
+        self.editUserButton.clicked.connect(self.navigate_edit)
+        self.backButton.clicked.connect(self.back)
         self.UIComponents()
+
+        # Create a QTimer object
+        self.timer = QTimer()
+
+        # Connect the timeout signal of the timer to the updateDateTime slot
+        self.timer.timeout.connect(self.updateDateTime)
+
+        # Set the interval for the timer (in milliseconds)
+        self.timer.start(1000)  # Update every second
+
+    def updateDateTime(self):
+        # Get the current date and time
+        currentDateTime = QDateTime.currentDateTime()
+
+        # Format the date and time together as desired
+        formattedDateTime = currentDateTime.toString("MMMM d, yyyy, hh:mm:ss AP")
+
+        # Set the text of dateLabel to the formatted date and time
+        self.sysTimeDate.setText(formattedDateTime)
+
+    def navigate_edit(self):
+        self.edit_signal.emit()
 
     def UIComponents(self):
         self.loaBOX.setStyleSheet(COMBOBOX_STYLE)
@@ -18,6 +52,9 @@ class adminMaintenance(Ui_MainWindow):
         self.deptBox.setStyleSheet(COMBOBOX_STYLE)
         self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
         self.contactNum.setValidator(QRegExpValidator(QRegExp(r'^09\d{9}$')))
+
+    def back(self):
+        self.back_signal.emit()
 
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':

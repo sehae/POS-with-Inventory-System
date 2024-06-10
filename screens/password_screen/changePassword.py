@@ -507,7 +507,7 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "Retype New Password"))
         self.saveBTN.setText(_translate("MainWindow", "SAVE"))
         self.cancelBTN.setText(_translate("MainWindow", "CANCEL"))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

@@ -281,7 +281,7 @@ class Ui_MainWindow(object):
 " voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."))
         self.label_6.setText(_translate("MainWindow", "Location"))
         self.label_7.setText(_translate("MainWindow", "Banawe St. Quezon City. 848A Banawe St., Siena, Quezon City, Philippines."))
-import resourceFile_rc
+import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

@@ -64,6 +64,11 @@ class Ui_MainWindow(object):
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem4)
         self.loginForm = QtWidgets.QWidget(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.loginForm.sizePolicy().hasHeightForWidth())
+        self.loginForm.setSizePolicy(sizePolicy)
         self.loginForm.setStyleSheet("QWidget {\n"
 "    background-color: #07BEB8;\n"
 "    border-radius: 25px;\n"
@@ -154,9 +159,21 @@ class Ui_MainWindow(object):
         self.visibilityButton.setObjectName("visibilityButton")
         self.horizontalLayout_3.addWidget(self.visibilityButton)
         self.verticalLayout_2.addWidget(self.widget_2)
+        self.errorLBL = QtWidgets.QLabel(self.loginForm)
+        self.errorLBL.setStyleSheet("QLabel {\n"
+"    color: red;\n"
+"}")
+        self.errorLBL.setObjectName("errorLBL")
+        self.verticalLayout_2.addWidget(self.errorLBL)
+        self.widget_3 = QtWidgets.QWidget(self.loginForm)
+        self.widget_3.setObjectName("widget_3")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_3)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         spacerItem7 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem7)
-        self.loginButton = QtWidgets.QPushButton(self.loginForm)
+        self.verticalLayout_3.addItem(spacerItem7)
+        self.loginButton = QtWidgets.QPushButton(self.widget_3)
         self.loginButton.setMinimumSize(QtCore.QSize(325, 46))
         self.loginButton.setMaximumSize(QtCore.QSize(325, 46))
         font = QtGui.QFont()
@@ -177,7 +194,8 @@ class Ui_MainWindow(object):
 "    background-color: #024c4c;\n"
 "}")
         self.loginButton.setObjectName("loginButton")
-        self.verticalLayout_2.addWidget(self.loginButton)
+        self.verticalLayout_3.addWidget(self.loginButton)
+        self.verticalLayout_2.addWidget(self.widget_3)
         self.forgotButton = QtWidgets.QPushButton(self.loginForm)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -217,6 +235,7 @@ class Ui_MainWindow(object):
         self.userName.setPlaceholderText(_translate("MainWindow", "Enter Username"))
         self.passLBL.setText(_translate("MainWindow", "Password"))
         self.password.setPlaceholderText(_translate("MainWindow", "Enter Password"))
+        self.errorLBL.setText(_translate("MainWindow", "error label"))
         self.loginButton.setText(_translate("MainWindow", "Log In"))
         self.forgotButton.setText(_translate("MainWindow", "Forgot your password?"))
 import assets.resourceFile_rc
