@@ -40,10 +40,15 @@ class changePassword(QMainWindow, Ui_MainWindow):
 
         self.check_action = None
         self.saveBTN.clicked.connect(self.change_password)
+        self.cp_visibility.clicked.connect(lambda: self.toggle_visibility(self.currentPassFIELD, self.cp_visibility))
+        self.np_visibility.clicked.connect(lambda: self.toggle_visibility(self.newPassFIELD, self.np_visibility))
+        self.rp_visibility.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibility))
+
         self.UiComponents()
 
     def back(self):
         updated_user_type = self.user_manager.updated_userType
+        print(f"Updated user type: {updated_user_type}")
         if updated_user_type == "admin":
             print("You clicked back as an admin")
             self.back_signal.emit()
@@ -69,7 +74,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
-        self.un_visibility.setIcon(icon)
         self.cp_visibility.setIcon(icon)
         self.np_visibility.setIcon(icon)
         self.rp_visibility.setIcon(icon)
@@ -107,6 +111,7 @@ class changePassword(QMainWindow, Ui_MainWindow):
 
         if new_password != retype_password:
             show_error_message("Error", "Passwords do not match. Please retype your new password.")
+
             return
 
         if new_password == current_password:
