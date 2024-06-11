@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QDateTime, QTimer
 
+from database.DB_Queries import GET_NEXT_ADMIN_ID, GET_NEXT_EMPLOYEE_ID
 from shared.imports import *
 from PyQt5.QtWidgets import QMainWindow  # Import QMainWindow
 from automated.email_automation import send_username_password
@@ -84,25 +85,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             print("Cursor created")
 
             if LoA == 'Admin':
-                add_user_query = ADD_ADMIN
-                user_data = (last_name, first_name, contact_number, email)
                 dept_number = '01'
             else:
-                add_user_query = ADD_EMPLOYEE
-                user_data = (last_name, first_name, dept, contact_number, email)
                 dept_number = '02'
-
-            cursor.execute(add_user_query, user_data)
-            conn.commit()
-            print("User added successfully.")
-
-            # Get the last inserted id
-            user_id = cursor.lastrowid
-
-            # Generate username
-            initials = first_name[0] + last_name[0]
-            staff_number = str(user_id).zfill(2)
-            username = initials.upper() + dept_number + staff_number
 
             # Generate password
             password = self.generate_password()
@@ -110,16 +95,31 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             # Hash the password
             hashed_password = hash_password(password)
 
+            if LoA == 'Admin':
+                cursor.execute(GET_NEXT_ADMIN_ID)
+            else:
+                cursor.execute(GET_NEXT_EMPLOYEE_ID)
+
+            max_id = cursor.fetchone()[0]
+            next_id = max_id + 1 if max_id else 1
+
+            # Generate username
+            initials = first_name[0] + last_name[0]
+            staff_number = str(next_id).zfill(2)
+            username = initials.upper() + dept_number + staff_number
+
             # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = ADD_ADMIN_LOGIN
+                add_login_query = ADD_ADMIN
+                user_data = (last_name, first_name, contact_number, email, username, hashed_password)
             else:
-                add_login_query = ADD_EMPLOYEE_LOGIN
+                add_login_query = ADD_EMPLOYEE
+                user_data = (last_name, first_name, dept, contact_number, email, username, hashed_password)
 
-            login_data = (user_id, username, hashed_password)
-            cursor.execute(add_login_query, login_data)
+            cursor.execute(add_login_query, user_data)
             conn.commit()
-            print("Login details added successfully.")
+
+            print("User added successfully")
 
             try:
                 if is_connected():

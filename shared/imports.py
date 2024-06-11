@@ -15,7 +15,7 @@ from PyQt5.QtCore import QRegExp
 from server.local_server import conn
 from database.DB_Queries import (GET_ADMIN_LOGIN, GET_ADMIN_FIRST_NAME, GET_EMPLOYEE_LOGIN,
                                  GET_EMPLOYEE_FIRST_NAME, GET_ADMIN_ID, GET_EMPLOYEE_ID, UPDATE_ADMIN_PASSWORD,
-                                 UPDATE_EMPLOYEE_PASSWORD, ADD_ADMIN, ADD_EMPLOYEE, ADD_ADMIN_LOGIN, ADD_EMPLOYEE_LOGIN,
+                                 UPDATE_EMPLOYEE_PASSWORD, ADD_ADMIN, ADD_EMPLOYEE,
                                  GET_ADMIN_DATA, GET_EMPLOYEE_DATA, MOVE_TO_ADMIN, MOVE_TO_EMPLOYEE,
                                  UPDATE_EMPLOYEE_DEPARTMENT, ENABLE_ADMIN, ENABLE_EMPLOYEE, DISABLE_ADMIN,
                                  DISABLE_EMPLOYEE, SEARCH_EMPLOYEE, SEARCH_ADMIN, DISABLE_ADMIN_ID,
