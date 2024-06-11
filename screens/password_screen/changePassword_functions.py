@@ -1,18 +1,14 @@
-from PyQt5 import QtGui, QtWidgets
+from PyQt5 import QtGui
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction
-
-from screens.password_screen.changePassword import Ui_MainWindow
-from server.local_server import conn
 from security.hash import hash_password
 from shared.dialog import show_error_message
+from shared.navigation_signal import auth_back
 from validator.password_validator import isValidPassword
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QDateTime, QTimer, Qt, pyqtSignal
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QDateTime, QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 from screens.password_screen.changePassword import Ui_MainWindow
-from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from validator.user_manager import userManager
 
@@ -24,7 +20,7 @@ class changePassword(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.backBTN.clicked.connect(self.back)
+        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_employee_signal))
 
         # Create an instance of userManager
         self.user_manager = userManager()
@@ -45,16 +41,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.rp_visibility.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibility))
 
         self.UiComponents()
-
-    def back(self):
-        updated_user_type = self.user_manager.updated_userType
-        print(f"Updated user type: {updated_user_type}")
-        if updated_user_type == "admin":
-            print("You clicked back as an admin")
-            self.back_signal.emit()
-        elif updated_user_type == "employee":
-            print("You clicked back as an employee")
-            self.back_employee_signal.emit()
 
     def updateDateTime(self):
         # Get the current date and time

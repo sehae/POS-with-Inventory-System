@@ -15,7 +15,7 @@ class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.pushButton_2.clicked.connect(self.navigate_add)
-        self.pushButton.clicked.connect(self.back)
+        self.pushButton.clicked.connect(self.back_signal)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -39,5 +39,3 @@ class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
         # Set the text of dateLabel to the formatted date and time
         self.label_2.setText(formattedDateTime)
 
-    def back(self):
-        self.back_signal.emit()
