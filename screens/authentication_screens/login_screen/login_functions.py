@@ -20,9 +20,9 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
         # Pass the userManager instance
         self.user_manager = user_manager_instance
         self.user_type = None
-        self.user_id = None
         self.user_manager.user_type_updated.connect(self.print_user_type)  # Connect signal to slot
 
+        self.user_id = None
         self.loginButton.clicked.connect(self.logs)
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
         self.UiComponents()
@@ -68,7 +68,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
-                        self.set_user_info(admin_id, "Admin")
+                        self.user_type = "admin"
+                        self.set_user_info(admin_id, self.user_type)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.login_successful.emit()
                         return
@@ -91,7 +92,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
                         employee_first_name = cursor.fetchone()[0]
                         print(f"Login successful as Employee: Welcome {employee_first_name}!")
-                        self.set_user_info(employee_id, "Employee")
+                        self.user_type = "employee"
+                        self.set_user_info(employee_id, self.user_type)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.login_successful_employee.emit()
                         return
