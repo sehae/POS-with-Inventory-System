@@ -41,9 +41,6 @@ ENABLE_ADMIN = "UPDATE admin SET is_active = True WHERE email = %s;"
 ENABLE_EMPLOYEE = "UPDATE employee SET is_active = True WHERE email = %s;"
 DISABLE_ADMIN = "UPDATE admin SET is_active = False WHERE email = %s;"
 DISABLE_EMPLOYEE = "UPDATE employee SET is_active = False WHERE email = %s;"
-DISABLE_ADMIN_ID = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
-DISABLE_ACCOUNT_EMPLOYEE = "UPDATE employeelogin SET is_active = FALSE WHERE employee_id = %s;"
-DISABLE_ACCOUNT_ADMIN = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
 
 # Search User Query
 SEARCH_EMPLOYEE = ("SELECT first_name, last_name, email, department FROM employee WHERE (last_name LIKE %s OR "
