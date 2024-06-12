@@ -100,8 +100,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             else:
                 cursor.execute(GET_NEXT_EMPLOYEE_ID)
 
-            max_id = cursor.fetchone()[0]
-            next_id = max_id + 1 if max_id else 1
+            result = cursor.fetchone()
+            max_id = result[0] if result is not None else 0
+            next_id = max_id + 1
 
             # Generate username
             initials = first_name[0] + last_name[0]

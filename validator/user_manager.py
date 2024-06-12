@@ -1,9 +1,11 @@
 from PyQt5 import QtCore
 
+
 class userManager(QtCore.QObject):
     _instance = None  # Singleton instance
 
     user_type_updated = QtCore.pyqtSignal(str)  # Create a signal
+    username_updated = QtCore.pyqtSignal(str)
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -13,6 +15,7 @@ class userManager(QtCore.QObject):
     def __init__(self):
         super().__init__()
         self.updated_userType = None  # Initialize updated_userType to None
+        self.current_username = None
 
     def set_user_type(self, user_type):
         # Validate user_type (optional)
@@ -27,3 +30,14 @@ class userManager(QtCore.QObject):
     def reset_user_type(self):
         self.updated_userType = None
         print("USERMANAGER: User type reset to None")  # Print within userManager
+
+    def get_user_type(self):
+        return self.updated_userType
+
+    def set_current_username(self, username):
+        self.current_username = username
+        print(f"USERMANAGER: Current username set to: {self.current_username}")
+        self.username_updated.emit(username)
+
+    def get_current_username(self):
+        return self.current_username

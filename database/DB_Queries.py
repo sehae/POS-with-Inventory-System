@@ -4,8 +4,8 @@
 GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM admin WHERE username = %s;"
 GET_ADMIN_ID = "SELECT admin_id FROM admin WHERE username = %s;"
 GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employeelogin WHERE username = %s;"
-GET_ADMIN_PASSWORD = "SELECT password FROM adminlogin WHERE admin_id = %s;"
-GET_EMPLOYEE_PASSWORD = "SELECT password FROM employeelogin WHERE employee_id = %s;"
+GET_ADMIN_PASSWORD = "SELECT password FROM admin WHERE username = %s;"
+GET_EMPLOYEE_PASSWORD = "SELECT password FROM employee WHERE username = %s;"
 
 # User Information Retrieval Queries
 GET_ADMIN_FIRST_NAME = "SELECT first_name FROM admin WHERE admin_id = %s;"
@@ -14,8 +14,8 @@ GET_NEXT_ADMIN_ID = "SELECT MAX(admin_id) FROM admin;"
 GET_NEXT_EMPLOYEE_ID = "SELECT MAX(employee_id) FROM employee;"
 
 # Update Queries
-UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE admin_id = %s;"
-UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE employee_id = %s;"
+UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE username = %s;"
+UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE username = %s;"
 
 # Add User Queries
 ADD_ADMIN = ("INSERT INTO admin (last_name, first_name, contact_number, email, username, password) VALUES (%s, %s, %s, "

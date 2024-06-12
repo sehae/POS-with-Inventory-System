@@ -18,6 +18,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
     help_signal = QtCore.pyqtSignal()
     changepass_signal = QtCore.pyqtSignal()
 
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()

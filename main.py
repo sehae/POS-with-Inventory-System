@@ -21,6 +21,7 @@ from screens.employee_screens.employee_pos.posTable_functions import posTable
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -131,7 +132,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard.changepass_signal.connect(self.show_change_password)
         self.change_password.back_employee_signal.connect(self.show_employee_dashboard)
 
-
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)
 
@@ -185,8 +185,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_inventory_barcode(self):
         self.stacked_widget.setCurrentWidget(self.inventory_barcode)
-
-
 
 
 if __name__ == "__main__":

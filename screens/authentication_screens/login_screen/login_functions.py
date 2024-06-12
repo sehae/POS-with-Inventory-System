@@ -13,6 +13,7 @@ user_manager_instance = userManager()
 class myLoginScreen(QMainWindow, Ui_MainWindow):
     login_successful = QtCore.pyqtSignal()
     login_successful_employee = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -27,7 +28,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
         self.UiComponents()
 
-
     def UiComponents(self):
         self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
         icon = QtGui.QIcon()
@@ -38,7 +38,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
 
     def print_user_type(self, user_type):
         print(f"MYLOGINSCREEN: User type set to: {user_type}")
-
 
     def toggle_password_visibility(self):
         if self.password.echoMode() == QtWidgets.QLineEdit.Password:
@@ -71,6 +70,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         self.user_type = "admin"
                         self.set_user_info(admin_id, self.user_type)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
+                        self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful.emit()
                         return
                     else:
@@ -95,6 +95,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         self.user_type = "employee"
                         self.set_user_info(employee_id, self.user_type)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
+                        self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful_employee.emit()
                         return
                     else:
@@ -128,7 +129,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
         login_time = login_datetime.time()
         login_date = login_datetime.date()
         action = "Login"
-        print(self.user_type)
 
         # Execute the SQL query to log the user's login activity
         try:
