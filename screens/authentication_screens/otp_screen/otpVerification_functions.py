@@ -13,10 +13,11 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
     cancel_signal = pyqtSignal()
     otp_verified = pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self,):
         super().__init__()
         self.setupUi(self)
 
+        self.supplied_email = None
         self.sent_otp = None
         self.sent_time = time.time()
         self.resend_timer = QTimer()
@@ -38,15 +39,28 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
 
+    def setOTP(self, otp):
+        self.sent_otp = otp
+
     def back(self):
+        self.clearField()
         self.cancel_signal.emit()
+
+    def clearField(self):
+        self.otp1.clear()
+        self.otp2.clear()
+        self.otp3.clear()
+        self.otp4.clear()
+        self.otp5.clear()
+        self.otp6.clear()
 
     def focus_next_field(self, current_field, next_field):
         if len(current_field.text()) == 1:
             next_field.setFocus()
 
     def update_email(self, email):
-        self.emailDISPLAY.setText(email)
+        self.supplied_email = email
+        self.emailDISPLAY.setText(self.supplied_email)
 
     def verify_otp(self):
         entered_otp = self.otp1.text() + self.otp2.text() + self.otp3.text() + self.otp4.text() + self.otp5.text() + self.otp6.text()
@@ -59,10 +73,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
             email = self.emailDISPLAY.text()
             try:
                 self.otp_verified.emit(email)
-                # self.password_recovery = PasswordRecovery(email)
-                # self.password_recovery_window = QMainWindow()
-                # self.password_recovery.setupUi(self.password_recovery_window)
-                # self.password_recovery_window.show()
+                self.clearField()
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -92,4 +103,3 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
             self.enable_resend_button()
 
         self.timer.setText(time_string)
-

@@ -75,5 +75,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
 
     def logout(self):
         user_manager.reset_user_type()
+        
         self.logout_signal.emit()
 
