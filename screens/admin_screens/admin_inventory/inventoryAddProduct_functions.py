@@ -1,9 +1,9 @@
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QDateTime, QTimer, Qt
+from PyQt5 import QtCore
+from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMessageBox
+
 from screens.admin_screens.admin_inventory.inventoryAddProduct import Ui_MainWindow
-from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 
 
@@ -94,8 +94,8 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
 
             # Insert into product table
             product_query = """
-                INSERT INTO product (Name, Quantity, Category, Expiry_Date, Threshold_Value, Availability) 
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO product (Name, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status) 
+                VALUES (%s, %s, %s, %s, %s, %s, 'Active')
             """
             product_values = (name, quantity, category, expiry_date, threshold_value, availability)
             cursor.execute(product_query, product_values)
