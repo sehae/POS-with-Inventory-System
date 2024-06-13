@@ -50,7 +50,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap resource="../../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
+               <pixmap>:/logos/Icons/logo1.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -142,7 +142,7 @@
             </font>
            </property>
            <property name="text">
-            <string>jcmoonhey@gmail.com</string>
+            <string>email display</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -193,6 +193,21 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QLineEdit" name="otp1">
               <property name="sizePolicy">
@@ -377,6 +392,104 @@
           </widget>
          </item>
          <item>
+          <widget class="QWidget" name="widget_2" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>Didn't get the code?</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="resendBTN">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <bold>true</bold>
+                <underline>false</underline>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	border: none;
+	color: #036666;
+	background: transparent;
+}
+
+QPushButton:hover {
+    color: #049393;
+}
+
+QPushButton:pressed {
+    color: #024c4c;
+}</string>
+              </property>
+              <property name="text">
+               <string>Click to resend</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -384,7 +497,7 @@
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>20</height>
+             <height>40</height>
             </size>
            </property>
           </spacer>
@@ -405,7 +518,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="resendBTN">
+             <widget class="QPushButton" name="cancelBTN">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -421,24 +534,22 @@
               <property name="styleSheet">
                <string notr="true">QPushButton {
     padding: 5px;
-    border: 2px Solid #036666;
+    border: 1px solid #E6E6E6;
     border-radius: 6px;
-    background-color: transparent;
+    background-color: #FFFFFF;
     color: #036666;
     font-size: 20px;
 }
 QPushButton:hover {
-    border-color: #049393;
-    color: #049393;
+    background-color: #E6E6E6;
 }
 QPushButton:pressed {
-    border-color: #024c4c;
-    color: #024c4c;
+    background-color: #CCCCCC;
 }
 </string>
               </property>
               <property name="text">
-               <string>Resend OTP</string>
+               <string>Cancel</string>
               </property>
              </widget>
             </item>

@@ -1,15 +1,16 @@
+from database.DB_Queries import GET_EMPLOYEE_ID
 from shared.imports import *
-from passwordRecovery import Ui_MainWindow
+from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 
-class PasswordRecovery(Ui_MainWindow):
+
+class PasswordRecovery(QMainWindow, Ui_MainWindow):
     def __init__(self, email):
         super().__init__()
+        self.setupUi(self)
         self.email = email
-        self.id, self.source_table = self.check_email_source(email)
+        # self.id, self.source_table = self.check_email_source(email)
         self.check_action = None
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
         self.saveBTN.clicked.connect(self.save_password)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
         self.rp_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibilityBTN))
@@ -60,7 +61,6 @@ class PasswordRecovery(Ui_MainWindow):
             if not isValidPassword(new_password):
                 return
 
-
             # Hash the new password
             hashed_password = hash_password(new_password)
 
@@ -78,26 +78,24 @@ class PasswordRecovery(Ui_MainWindow):
         else:
             print("Passwords do not match!")
 
-    def check_email_source(self, email):
-        cursor = conn.cursor()
-
-        # Query the employee table
-        cursor.execute(GET_EMPLOYEE_ID, (email,))
-        user = cursor.fetchone()
-
-        if user:
-            print(f"Email found in employee table with ID {user[0]}")
-            return user[0], 'employee'
-
-        # Query the admin table
-        cursor.execute(GET_ADMIN_ID, (email,))
-        user = cursor.fetchone()
-
-        if user:
-            print(f"Email found in admin table with ID {user[0]}")
-            return user[0], 'admin'
-
-        print("Email not found")
-        return None, None
-
-
+    # def check_email_source(self, email):
+    #     cursor = conn.cursor()
+    #
+    #     # Query the employee table
+    #     cursor.execute(GET_EMPLOYEE_ID, (email,))
+    #     user = cursor.fetchone()
+    #
+    #     if user:
+    #         print(f"Email found in employee table with ID {user[0]}")
+    #         return user[0], 'employee'
+    #
+    #     # Query the admin table
+    #     cursor.execute(GET_ADMIN_ID, (email,))
+    #     user = cursor.fetchone()
+    #
+    #     if user:
+    #         print(f"Email found in admin table with ID {user[0]}")
+    #         return user[0], 'admin'
+    #
+    #     print("Email not found")
+    #     return None, None

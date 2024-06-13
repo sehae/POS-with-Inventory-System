@@ -95,6 +95,8 @@ class Ui_MainWindow(object):
         self.OTP.setFrameShadow(QtWidgets.QFrame.Raised)
         self.OTP.setObjectName("OTP")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.OTP)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.otp1 = QtWidgets.QLineEdit(self.OTP)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -193,35 +195,86 @@ class Ui_MainWindow(object):
         self.otp6.setObjectName("otp6")
         self.horizontalLayout_2.addWidget(self.otp6)
         self.verticalLayout_2.addWidget(self.OTP)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.widget_2 = QtWidgets.QWidget(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
+        self.widget_2.setSizePolicy(sizePolicy)
+        self.widget_2.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_2.setObjectName("widget_2")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_2)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.label = QtWidgets.QLabel(self.widget_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label.setFont(font)
+        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.horizontalLayout_6.addWidget(self.label)
+        self.resendBTN = QtWidgets.QPushButton(self.widget_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.resendBTN.sizePolicy().hasHeightForWidth())
+        self.resendBTN.setSizePolicy(sizePolicy)
+        self.resendBTN.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setUnderline(False)
+        self.resendBTN.setFont(font)
+        self.resendBTN.setStyleSheet("QPushButton {\n"
+"    border: none;\n"
+"    color: #036666;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #049393;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #024c4c;\n"
+"}")
+        self.resendBTN.setObjectName("resendBTN")
+        self.horizontalLayout_6.addWidget(self.resendBTN)
+        self.verticalLayout_2.addWidget(self.widget_2)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem2)
         self.widget = QtWidgets.QWidget(self.frame)
         self.widget.setObjectName("widget")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.resendBTN = QtWidgets.QPushButton(self.widget)
-        self.resendBTN.setMinimumSize(QtCore.QSize(0, 56))
-        self.resendBTN.setMaximumSize(QtCore.QSize(400, 56))
-        self.resendBTN.setStyleSheet("QPushButton {\n"
+        self.cancelBTN = QtWidgets.QPushButton(self.widget)
+        self.cancelBTN.setMinimumSize(QtCore.QSize(0, 56))
+        self.cancelBTN.setMaximumSize(QtCore.QSize(400, 56))
+        self.cancelBTN.setStyleSheet("QPushButton {\n"
 "    padding: 5px;\n"
-"    border: 2px Solid #036666;\n"
+"    border: 1px solid #E6E6E6;\n"
 "    border-radius: 6px;\n"
-"    background-color: transparent;\n"
+"    background-color: #FFFFFF;\n"
 "    color: #036666;\n"
 "    font-size: 20px;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    border-color: #049393;\n"
-"    color: #049393;\n"
+"    background-color: #E6E6E6;\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    border-color: #024c4c;\n"
-"    color: #024c4c;\n"
+"    background-color: #CCCCCC;\n"
 "}\n"
 "")
-        self.resendBTN.setObjectName("resendBTN")
-        self.horizontalLayout_4.addWidget(self.resendBTN)
+        self.cancelBTN.setObjectName("cancelBTN")
+        self.horizontalLayout_4.addWidget(self.cancelBTN)
         self.submitButton = QtWidgets.QPushButton(self.widget)
         self.submitButton.setMinimumSize(QtCore.QSize(0, 56))
         self.submitButton.setMaximumSize(QtCore.QSize(400, 56))
@@ -277,9 +330,11 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.titleLabel.setText(_translate("MainWindow", "OTP Verification"))
         self.instructionLabel.setText(_translate("MainWindow", "We will send you a one time password on this e-mail"))
-        self.emailDISPLAY.setText(_translate("MainWindow", "jcmoonhey@gmail.com"))
+        self.emailDISPLAY.setText(_translate("MainWindow", "email display"))
         self.timer.setText(_translate("MainWindow", "0:00"))
-        self.resendBTN.setText(_translate("MainWindow", "Resend OTP"))
+        self.label.setText(_translate("MainWindow", "Didn\'t get the code?"))
+        self.resendBTN.setText(_translate("MainWindow", "Click to resend"))
+        self.cancelBTN.setText(_translate("MainWindow", "Cancel"))
         self.submitButton.setText(_translate("MainWindow", "Submit"))
         self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))
 import assets.resourceFile_rc

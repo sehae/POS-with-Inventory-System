@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/emailScreen.ui'
+# Form implementation generated from reading ui file 'screens/ui/authentication/emailScreen.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -107,8 +107,30 @@ class Ui_MainWindow(object):
 "}")
         self.continueButton.setObjectName("continueButton")
         self.mainContent.addWidget(self.continueButton)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.mainContent.addItem(spacerItem5)
+        self.backBTN = QtWidgets.QPushButton(self.frame)
+        self.backBTN.setMinimumSize(QtCore.QSize(0, 46))
+        self.backBTN.setMaximumSize(QtCore.QSize(16777215, 46))
+        self.backBTN.setStyleSheet("QPushButton {\n"
+"    padding: 5px;\n"
+"    border: 1px solid #E6E6E6;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    color: #036666;\n"
+"    font-size: 20px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #E6E6E6;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #CCCCCC;\n"
+"}\n"
+"")
+        self.backBTN.setObjectName("backBTN")
+        self.mainContent.addWidget(self.backBTN)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.mainContent.addItem(spacerItem6)
         self.helpLabel = QtWidgets.QLabel(self.frame)
         self.helpLabel.setMinimumSize(QtCore.QSize(400, 0))
         self.helpLabel.setMaximumSize(QtCore.QSize(400, 16777215))
@@ -123,10 +145,10 @@ class Ui_MainWindow(object):
         self.helpLabel.setObjectName("helpLabel")
         self.mainContent.addWidget(self.helpLabel)
         self.gridLayout_3.addLayout(self.mainContent, 2, 1, 1, 1)
-        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem6, 2, 2, 1, 1)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem7, 0, 1, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem7, 2, 2, 1, 1)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_3.addItem(spacerItem8, 0, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -139,8 +161,8 @@ class Ui_MainWindow(object):
         self.instructionLabel.setText(_translate("MainWindow", "Enter the e-mail associated with your account and we’ll send you OTP to reset your password."))
         self.emailLabel.setText(_translate("MainWindow", "E-mail"))
         self.continueButton.setText(_translate("MainWindow", "Continue"))
-        self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin_ui."))
-
+        self.backBTN.setText(_translate("MainWindow", "Back"))
+        self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))
 import assets.resourceFile_rc
 
 
@@ -150,6 +172,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.setWindowState(QtCore.Qt.WindowFullScreen)
     MainWindow.show()
     sys.exit(app.exec_())

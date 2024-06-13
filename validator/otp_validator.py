@@ -16,7 +16,7 @@ def generate_otp():
 
 def send_otp(to_mail):
     otp = generate_otp()
-    print(otp)
+    print(f"SENT OTP FROM OTP_VALIDATOR: {otp}")
     otp_time = time.time()
     msg = EmailMessage()
     msg['Subject'] = 'MOON HEY HOTPOT OTP VERIFICATION CODE'

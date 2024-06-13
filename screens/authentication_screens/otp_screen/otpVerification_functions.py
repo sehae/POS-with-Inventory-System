@@ -1,6 +1,6 @@
 import time
 
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
@@ -9,11 +9,16 @@ from styles.universalStyles import DISABLED_RESEND_BTN, ENABLED_RESEND_BTN
 from validator.otp_validator import send_otp
 
 
-class OtpVerification(Ui_MainWindow):
+class OtpVerification(QMainWindow, Ui_MainWindow):
+    cancel_signal = pyqtSignal()
+    otp_verified = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
+        self.setupUi(self)
+
         self.sent_otp = None
-        self.sent_time = None
+        self.sent_time = time.time()
         self.resend_timer = QTimer()
         self.resend_timer.setInterval(1000)
         self.resend_timer.timeout.connect(self.update_timer_label)
@@ -21,10 +26,9 @@ class OtpVerification(Ui_MainWindow):
         self.password_recovery = None
         self.password_recovery_window = None
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
         self.submitButton.clicked.connect(self.verify_otp)
         self.resendBTN.clicked.connect(self.resend_otp)
+        self.cancelBTN.clicked.connect(self.back)
 
         self.otp1.textChanged.connect(lambda: self.focus_next_field(self.otp1, self.otp2))
         self.otp2.textChanged.connect(lambda: self.focus_next_field(self.otp2, self.otp3))
@@ -33,6 +37,9 @@ class OtpVerification(Ui_MainWindow):
         self.otp5.textChanged.connect(lambda: self.focus_next_field(self.otp5, self.otp6))
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
+
+    def back(self):
+        self.cancel_signal.emit()
 
     def focus_next_field(self, current_field, next_field):
         if len(current_field.text()) == 1:
@@ -51,10 +58,11 @@ class OtpVerification(Ui_MainWindow):
             print("OTP verification successful")
             email = self.emailDISPLAY.text()
             try:
-                self.password_recovery = PasswordRecovery(email)
-                self.password_recovery_window = QMainWindow()
-                self.password_recovery.setupUi(self.password_recovery_window)
-                self.password_recovery_window.show()
+                self.otp_verified.emit(email)
+                # self.password_recovery = PasswordRecovery(email)
+                # self.password_recovery_window = QMainWindow()
+                # self.password_recovery.setupUi(self.password_recovery_window)
+                # self.password_recovery_window.show()
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:

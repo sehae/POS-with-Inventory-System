@@ -13,6 +13,7 @@ user_manager_instance = userManager()
 class myLoginScreen(QMainWindow, Ui_MainWindow):
     login_successful = QtCore.pyqtSignal()
     login_successful_employee = QtCore.pyqtSignal()
+    show_email_screen_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -26,6 +27,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
         self.user_id = None
         self.loginButton.clicked.connect(self.logs)
         self.visibilityButton.clicked.connect(self.toggle_password_visibility)
+        self.forgotButton.clicked.connect(self.show_email_screen)
         self.UiComponents()
 
     def UiComponents(self):
@@ -38,6 +40,9 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
 
     def print_user_type(self, user_type):
         print(f"MYLOGINSCREEN: User type set to: {user_type}")
+
+    def show_email_screen(self):
+        self.show_email_screen_signal.emit()
 
     def toggle_password_visibility(self):
         if self.password.echoMode() == QtWidgets.QLineEdit.Password:

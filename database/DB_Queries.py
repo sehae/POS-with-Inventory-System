@@ -3,6 +3,7 @@
 # Authentication Queries
 GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM admin WHERE username = %s;"
 GET_ADMIN_ID = "SELECT admin_id FROM admin WHERE username = %s;"
+GET_EMPLOYEE_ID = "SELECT employee_id FROM employee WHERE username = %s;"
 GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employeelogin WHERE username = %s;"
 GET_ADMIN_PASSWORD = "SELECT password FROM admin WHERE username = %s;"
 GET_EMPLOYEE_PASSWORD = "SELECT password FROM employee WHERE username = %s;"
