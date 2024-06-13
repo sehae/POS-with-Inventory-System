@@ -1,6 +1,6 @@
 import time
 
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
@@ -9,11 +9,17 @@ from styles.universalStyles import DISABLED_RESEND_BTN, ENABLED_RESEND_BTN
 from validator.otp_validator import send_otp
 
 
-class OtpVerification(Ui_MainWindow):
-    def __init__(self):
+class OtpVerification(QMainWindow, Ui_MainWindow):
+    cancel_signal = pyqtSignal()
+    otp_verified = pyqtSignal(str)
+
+    def __init__(self,):
         super().__init__()
+        self.setupUi(self)
+
+        self.supplied_email = None
         self.sent_otp = None
-        self.sent_time = None
+        self.sent_time = time.time()
         self.resend_timer = QTimer()
         self.resend_timer.setInterval(1000)
         self.resend_timer.timeout.connect(self.update_timer_label)
@@ -21,10 +27,9 @@ class OtpVerification(Ui_MainWindow):
         self.password_recovery = None
         self.password_recovery_window = None
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
         self.submitButton.clicked.connect(self.verify_otp)
         self.resendBTN.clicked.connect(self.resend_otp)
+        self.cancelBTN.clicked.connect(self.back)
 
         self.otp1.textChanged.connect(lambda: self.focus_next_field(self.otp1, self.otp2))
         self.otp2.textChanged.connect(lambda: self.focus_next_field(self.otp2, self.otp3))
@@ -34,12 +39,28 @@ class OtpVerification(Ui_MainWindow):
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
 
+    def setOTP(self, otp):
+        self.sent_otp = otp
+
+    def back(self):
+        self.clearField()
+        self.cancel_signal.emit()
+
+    def clearField(self):
+        self.otp1.clear()
+        self.otp2.clear()
+        self.otp3.clear()
+        self.otp4.clear()
+        self.otp5.clear()
+        self.otp6.clear()
+
     def focus_next_field(self, current_field, next_field):
         if len(current_field.text()) == 1:
             next_field.setFocus()
 
     def update_email(self, email):
-        self.emailDISPLAY.setText(email)
+        self.supplied_email = email
+        self.emailDISPLAY.setText(self.supplied_email)
 
     def verify_otp(self):
         entered_otp = self.otp1.text() + self.otp2.text() + self.otp3.text() + self.otp4.text() + self.otp5.text() + self.otp6.text()
@@ -51,10 +72,8 @@ class OtpVerification(Ui_MainWindow):
             print("OTP verification successful")
             email = self.emailDISPLAY.text()
             try:
-                self.password_recovery = PasswordRecovery(email)
-                self.password_recovery_window = QMainWindow()
-                self.password_recovery.setupUi(self.password_recovery_window)
-                self.password_recovery_window.show()
+                self.otp_verified.emit(email)
+                self.clearField()
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -84,4 +103,3 @@ class OtpVerification(Ui_MainWindow):
             self.enable_resend_button()
 
         self.timer.setText(time_string)
-

@@ -1,21 +1,29 @@
+from database.DB_Queries import GET_EMPLOYEE_ID, CHECK_EMAIL_ADMIN, CHECK_EMAIL_EMPLOYEE
 from shared.imports import *
-from passwordRecovery import Ui_MainWindow
+from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 
-class PasswordRecovery(Ui_MainWindow):
+
+class PasswordRecovery(QMainWindow, Ui_MainWindow):
+    cancel_signal = QtCore.pyqtSignal()
+    save_signal = QtCore.pyqtSignal()
+
     def __init__(self, email):
         super().__init__()
+        self.setupUi(self)
         self.email = email
-        self.id, self.source_table = self.check_email_source(email)
         self.check_action = None
+        self.source_table = None
 
-    def setupUi(self, MainWindow):
-        super().setupUi(MainWindow)
         self.saveBTN.clicked.connect(self.save_password)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
         self.rp_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibilityBTN))
         self.passwordFIELD.textChanged.connect(self.check_password_match)
         self.retypeFIELD.textChanged.connect(self.check_password_match)
         self.UiComponents()
+
+    def update_email(self, email):
+        self.email = email
+        self.source_table = self.check_email_source(self.email)
 
     def UiComponents(self):
         self.passwordFIELD.setEchoMode(QLineEdit.Password)
@@ -26,6 +34,11 @@ class PasswordRecovery(Ui_MainWindow):
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
         self.pw_visibilityBTN.setIcon(icon)
         self.rp_visibilityBTN.setIcon(icon)
+
+    def cancel(self):
+        self.passwordFIELD.clear()
+        self.retypeFIELD.clear()
+        self.cancel_signal.emit()
 
     def toggle_visibility(self, field, button):
         if field.echoMode() == QtWidgets.QLineEdit.Password:
@@ -60,19 +73,26 @@ class PasswordRecovery(Ui_MainWindow):
             if not isValidPassword(new_password):
                 return
 
-
             # Hash the new password
             hashed_password = hash_password(new_password)
 
             cursor = conn.cursor()
-            try:
-                if self.source_table == 'admin':
-                    cursor.execute(UPDATE_ADMIN_PASSWORD, (hashed_password, self.id))
-                elif self.source_table == 'employee':
-                    cursor.execute(UPDATE_EMPLOYEE_PASSWORD, (hashed_password, self.id))
-                conn.commit()
 
+            print(f"self.source_table: {self.source_table}")
+
+            try:
+                print("Updating password")
+                if self.source_table == 'admin':
+                    cursor.execute(UPDATE_ADMIN_PASSWORD, (hashed_password, self.email))
+                    print(hashed_password)
+                elif self.source_table == 'employee':
+                    cursor.execute(UPDATE_EMPLOYEE_PASSWORD, (hashed_password, self.email))
+                    print(hashed_password)
+                conn.commit()
                 print("Password reset successful!")
+                self.passwordFIELD.clear()
+                self.retypeFIELD.clear()
+                self.save_signal.emit()
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -81,23 +101,16 @@ class PasswordRecovery(Ui_MainWindow):
     def check_email_source(self, email):
         cursor = conn.cursor()
 
-        # Query the employee table
-        cursor.execute(GET_EMPLOYEE_ID, (email,))
-        user = cursor.fetchone()
+        cursor.execute(CHECK_EMAIL_ADMIN, (email,))
+        result = cursor.fetchone()
 
-        if user:
-            print(f"Email found in employee table with ID {user[0]}")
-            return user[0], 'employee'
+        if result:
+            return 'admin'
 
-        # Query the admin table
-        cursor.execute(GET_ADMIN_ID, (email,))
-        user = cursor.fetchone()
+        cursor.execute(CHECK_EMAIL_EMPLOYEE, (email,))
+        result = cursor.fetchone()
 
-        if user:
-            print(f"Email found in admin table with ID {user[0]}")
-            return user[0], 'admin'
+        if result:
+            return 'employee'
 
-        print("Email not found")
-        return None, None
-
-
+        return None

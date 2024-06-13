@@ -1,6 +1,8 @@
 import sys
 from PyQt5 import QtWidgets
 
+from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
+from screens.authentication_screens.email_screen.emailScreen_functions import EmailScreen
 from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
@@ -9,18 +11,21 @@ from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import 
 from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.about_screen.about_Info_functions import aboutInfo
+from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
+from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
+from screens.employee_screens.employee_inventory.inventory_Table_functions import inventoryTable
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.help_screen.help_support_functions import helpSupport
 from screens.help_screen.help_usermanual_functions import helpManual
 from screens.password_screen.changePassword_functions import changePassword
+
 from screens.employee_screens.employee_dashboard.employeeDashboard_functions import myEmployeeDashboard
 from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from screens.employee_screens.employee_pos.posPayment_functions import posPayment
 from screens.employee_screens.employee_pos.posTable_functions import posTable
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
-from screens.employee_screens.employee_inventory.inventory_Table_functions import inventoryTable
-from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
+
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -33,6 +38,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.stacked_widget)
 
         self.login_screen = myLoginScreen()
+        self.otp_screen = OtpVerification()
+        self.email_screen = EmailScreen(self.otp_screen)
+        self.password_recovery = PasswordRecovery(self.otp_screen.supplied_email)
         self.admin_dashboard = myAdminDashboard()
         self.admin_maintenance = adminMaintenance()
         self.admin_maintenanceEDIT = adminMaintenanceEDIT()
@@ -55,6 +63,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_view = adminInventoryViewProduct()
 
         self.stacked_widget.addWidget(self.login_screen)
+        self.stacked_widget.addWidget(self.email_screen)
+        self.stacked_widget.addWidget(self.otp_screen)
+        self.stacked_widget.addWidget(self.password_recovery)
         self.stacked_widget.addWidget(self.admin_dashboard)
         self.stacked_widget.addWidget(self.admin_maintenance)
         self.stacked_widget.addWidget(self.admin_maintenanceEDIT)
@@ -86,6 +97,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_table.modify_signal.connect(self.show_employee_inventory)
         self.inventory_table.barcode_signal.connect(self.show_inventory_barcode)
         self.login_screen.login_successful.connect(self.show_admin_dashboard)
+        self.login_screen.show_email_screen_signal.connect(self.show_email_screen)
+        self.email_screen.back_signal.connect(self.show_login_screen)
+        self.email_screen.email_verified.connect(self.show_otp_verification)
+        self.otp_screen.cancel_signal.connect(self.show_login_screen)
+        self.otp_screen.otp_verified.connect(self.show_password_recovery)
+        self.password_recovery.cancel_signal.connect(self.show_login_screen)
+        self.password_recovery.save_signal.connect(self.show_login_screen)
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
         self.admin_dashboard.about_signal.connect(self.show_about_devcredits)
@@ -170,9 +188,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_table.admin_inventory = self.admin_inventory
         self.admin_inventory.admin_product_update_signal.connect(self.inventory_table.populate_table)
 
-
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)
+
+    def show_email_screen(self):
+        print("show_email_screen method called")
+        self.stacked_widget.setCurrentWidget(self.email_screen)
+
+    def show_otp_verification(self):
+        self.stacked_widget.setCurrentWidget(self.otp_screen)
+
+    def show_password_recovery(self):
+        self.password_recovery.update_email(self.otp_screen.supplied_email)
+        self.stacked_widget.setCurrentWidget(self.password_recovery)
+
+    def receive_email(self, email):
+        print(f"Received email: {email}")
 
     def show_admin_dashboard(self):
         self.stacked_widget.setCurrentWidget(self.admin_dashboard)
@@ -230,6 +261,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_view_product(self):
         self.stacked_widget.setCurrentWidget(self.inventory_view)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

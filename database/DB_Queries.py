@@ -1,7 +1,7 @@
 """ This file contains all the queries that are used in the database """
 
 # Authentication Queries
-GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM adminlogin WHERE username = %s;"
+GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM admin WHERE username = %s;"
 GET_ADMIN_ID = "SELECT admin_id FROM admin WHERE username = %s;"
 GET_EMPLOYEE_ID = "SELECT employee_id FROM employee WHERE username = %s;"
 GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employee WHERE username = %s;"
@@ -17,8 +17,8 @@ GET_NEXT_ADMIN_ID = "SELECT MAX(admin_id) FROM admin;"
 GET_NEXT_EMPLOYEE_ID = "SELECT MAX(employee_id) FROM employee;"
 
 # Update Queries
-UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE username = %s;"
-UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE username = %s;"
+UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE email = %s;"
+UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE email = %s;"
 
 # Add User Queries
 ADD_ADMIN = ("INSERT INTO admin (last_name, first_name, contact_number, email, username, password) VALUES (%s, %s, %s, "
@@ -52,6 +52,6 @@ SEARCH_ADMIN = ("SELECT first_name, last_name, email FROM admin WHERE (last_name
                 "email LIKE %s) AND is_active = True;")
 
 # User Logs
-LOGIN_LOG = ("INSERT INTO user_logs (user_id, action_id, user_type, log_date, log_time, parameter) VALUES (%s, %s, %s, "
+LOG = ("INSERT INTO user_logs (user_id, action_id, user_type, log_date, log_time, parameter) VALUES (%s, %s, %s, "
              "%s, %s, %s);")
 GET_ACTION_BY_ID = "SELECT action FROM user_actions WHERE action_id = %s;"
