@@ -2,24 +2,31 @@
 
 # Authentication Queries
 GET_ADMIN_LOGIN = "SELECT admin_id, password, is_active FROM adminlogin WHERE username = %s;"
-GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employeelogin WHERE username = %s;"
+GET_ADMIN_ID = "SELECT admin_id FROM admin WHERE username = %s;"
+GET_EMPLOYEE_ID = "SELECT employee_id FROM employee WHERE username = %s;"
+GET_EMPLOYEE_LOGIN = "SELECT employee_id, password, is_active FROM employee WHERE username = %s;"
+GET_ADMIN_PASSWORD = "SELECT password FROM admin WHERE username = %s;"
+GET_EMPLOYEE_PASSWORD = "SELECT password FROM employee WHERE username = %s;"
+CHECK_EMAIL_ADMIN = "SELECT email FROM admin WHERE email = %s;"
+CHECK_EMAIL_EMPLOYEE = "SELECT email FROM employee WHERE email = %s;"
 
 # User Information Retrieval Queries
 GET_ADMIN_FIRST_NAME = "SELECT first_name FROM admin WHERE admin_id = %s;"
 GET_EMPLOYEE_FIRST_NAME = "SELECT first_name FROM employee WHERE employee_id = %s;"
-GET_ADMIN_ID = "SELECT admin_id FROM admin WHERE email = %s;"
-GET_EMPLOYEE_ID = "SELECT employee_id FROM employee WHERE email = %s;"
+GET_NEXT_ADMIN_ID = "SELECT MAX(admin_id) FROM admin;"
+GET_NEXT_EMPLOYEE_ID = "SELECT MAX(employee_id) FROM employee;"
 
 # Update Queries
-UPDATE_ADMIN_PASSWORD = "UPDATE adminlogin SET password = %s WHERE admin_id = %s;"
-UPDATE_EMPLOYEE_PASSWORD = "UPDATE employeelogin SET password = %s WHERE employee_id = %s;"
+UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE username = %s;"
+UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE username = %s;"
 
 # Add User Queries
-ADD_ADMIN = "INSERT INTO admin (last_name, first_name, contact_number, email) VALUES (%s, %s, %s, %s);"
-ADD_EMPLOYEE = ("INSERT INTO employee (last_name, first_name, department, contact_number, email) VALUES (%s, %s, %s, "
-                "%s, %s);")
-ADD_ADMIN_LOGIN = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s);"
-ADD_EMPLOYEE_LOGIN = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s);"
+ADD_ADMIN = ("INSERT INTO admin (last_name, first_name, contact_number, email, username, password) VALUES (%s, %s, %s, "
+             "%s, %s, %s);")
+ADD_EMPLOYEE = ("INSERT INTO employee (last_name, first_name, department, contact_number, email, username, password) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s);")
+# ADD_ADMIN_LOGIN = "INSERT INTO adminlogin (admin_id, username, password) VALUES (%s, %s, %s);"
+# ADD_EMPLOYEE_LOGIN = "INSERT INTO employeelogin (employee_id, username, password) VALUES (%s, %s, %s);"
 
 # Retrieve data of the user
 GET_ADMIN_DATA = "SELECT * FROM admin WHERE email = %s;"
@@ -37,9 +44,6 @@ ENABLE_ADMIN = "UPDATE admin SET is_active = True WHERE email = %s;"
 ENABLE_EMPLOYEE = "UPDATE employee SET is_active = True WHERE email = %s;"
 DISABLE_ADMIN = "UPDATE admin SET is_active = False WHERE email = %s;"
 DISABLE_EMPLOYEE = "UPDATE employee SET is_active = False WHERE email = %s;"
-DISABLE_ADMIN_ID = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
-DISABLE_ACCOUNT_EMPLOYEE = "UPDATE employeelogin SET is_active = FALSE WHERE employee_id = %s;"
-DISABLE_ACCOUNT_ADMIN = "UPDATE adminlogin SET is_active = FALSE WHERE admin_id = %s;"
 
 # Search User Query
 SEARCH_EMPLOYEE = ("SELECT first_name, last_name, email, department FROM employee WHERE (last_name LIKE %s OR "
@@ -48,5 +52,6 @@ SEARCH_ADMIN = ("SELECT first_name, last_name, email FROM admin WHERE (last_name
                 "email LIKE %s) AND is_active = True;")
 
 # User Logs
-LOGIN_LOG = LOGIN_LOG = ("INSERT INTO user_logs (user_id, user_type, log_date, log_time, action) VALUES (%s, %s, %s, %s, %s);")
-
+LOGIN_LOG = ("INSERT INTO user_logs (user_id, action_id, user_type, log_date, log_time, parameter) VALUES (%s, %s, %s, "
+             "%s, %s, %s);")
+GET_ACTION_BY_ID = "SELECT action FROM user_actions WHERE action_id = %s;"

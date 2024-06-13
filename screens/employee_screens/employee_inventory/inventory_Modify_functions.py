@@ -9,7 +9,9 @@ from server.local_server import conn
 class inventoryModify(QMainWindow, Ui_MainWindow):
     barcode_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
-
+    inventory_table = QtCore.pyqtSignal()
+    product_update_signal = QtCore.pyqtSignal()
+    employee_update_signal = QtCore.pyqtSignal()
 
 
     def __init__(self):
@@ -18,6 +20,8 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
 
         self.pushButton_10.clicked.connect(self.navigate_barcode)
         self.pushButton.clicked.connect(self.back)
+        self.pushButton_3.clicked.connect(self.navigate_inventory)
+        self.pushButton_4.clicked.connect(self.save_product)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -27,6 +31,8 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
+
+        self.comboBox.addItems(["Ingredient", "Beverage"])
 
     def updateDateTime(self):
         # Get the current date and time
@@ -41,6 +47,45 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
     def navigate_barcode(self):
         self.barcode_signal.emit()
 
+    def navigate_inventory(self):
+        self.inventory_table.emit()
+
     def back(self):
         self.back_signal.emit()
 
+    def save_product(self):
+        name = self.lineEdit_2.text()
+        category = self.comboBox.currentText()
+        quantity = self.lineEdit_4.text()
+        expiry_date = self.lineEdit_3.text()
+        threshold_value = self.lineEdit_5.text()
+
+        # Check if any field is empty
+        if not name or not category or not quantity or not expiry_date or not threshold_value:
+            QMessageBox.warning(self, "Warning", "Please fill in all fields.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute(f"""
+                UPDATE product 
+                SET 
+                    Quantity={quantity}, 
+                    Threshold_Value={threshold_value}, 
+                    Category='{category}', 
+                    Expiry_Date='{expiry_date}', 
+                    Availability = 
+                        CASE 
+                            WHEN {quantity} = 0 THEN 'Out of Stock' 
+                            WHEN {quantity} <= {threshold_value} THEN 'Low Stock' 
+                            ELSE 'In Stock' 
+                        END 
+                WHERE Name='{name}'
+            """)
+            conn.commit()
+            QMessageBox.information(self, "Success", "Product updated successfully.")
+            self.product_update_signal.emit()
+            self.employee_update_signal.emit()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Error occurred: {str(e)}")

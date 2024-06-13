@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `supplier`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supplier` (
-  `Supplier_ID` int NOT NULL,
+  `Supplier_ID` int NOT NULL AUTO_INCREMENT,
   `Supplier_Name` varchar(45) DEFAULT NULL,
   `Contact_Number` varchar(45) DEFAULT NULL,
   `Email` varchar(45) DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `supplier` (
   PRIMARY KEY (`Supplier_ID`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   UNIQUE KEY `Address_UNIQUE` (`Address`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
+INSERT INTO `supplier` VALUES (1,'Fresh Foods Inc.','123-456-7890','info@freshfoods.com','123 Main St'),(2,'Farm Fresh Produce','987-654-3210','sales@farmfreshproduce.com','456 Elm St'),(3,'Gourmet Grocers','555-555-5555','orders@gourmetgrocers.com','789 Oak St'),(4,'Global Food Distributors','111-222-3333','info@globalfooddist.com','321 Maple Ave'),(5,'Organic Harvest','444-555-6666','info@organicharvest.com','567 Pine St'),(6,'Cocacococo',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-09 14:31:07
+-- Dump completed on 2024-06-13  8:20:31
