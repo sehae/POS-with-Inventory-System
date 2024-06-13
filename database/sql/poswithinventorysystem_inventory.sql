@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,19 +23,17 @@ DROP TABLE IF EXISTS `inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventory` (
-  `Inventory_ID` int NOT NULL,
+  `Inventory_ID` int NOT NULL AUTO_INCREMENT,
   `Product_ID` int DEFAULT NULL,
-  `Stock_Count` int DEFAULT NULL,
-  `Reorder_ID` int DEFAULT NULL,
   `Supplier_ID` int DEFAULT NULL,
-  `Selling_Cost` varchar(45) DEFAULT NULL,
-  `Buying_Cost` varchar(45) DEFAULT NULL,
+  `Selling_Cost` decimal(10,2) DEFAULT NULL,
+  `Buying_cost` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`Inventory_ID`),
   KEY `fk_ProductID_inventory` (`Product_ID`),
   KEY `fk_SupplierID_inventory` (`Supplier_ID`),
   CONSTRAINT `fk_ProductID_inventory` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   CONSTRAINT `fk_SupplierID_inventory` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +42,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+INSERT INTO `inventory` VALUES (1,1,4,50.00,35.00),(2,2,4,100.00,50.00),(3,3,4,100.00,50.00),(4,4,4,100.00,50.00),(5,5,1,NULL,NULL),(6,6,1,NULL,NULL),(7,7,4,NULL,NULL),(8,8,4,NULL,NULL),(9,9,3,NULL,NULL),(10,10,4,55.00,35.00),(11,11,4,60.00,35.00),(12,12,3,200.00,90.00),(13,13,4,180.00,150.00),(14,14,4,95.00,50.00);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-09 14:31:06
+-- Dump completed on 2024-06-13  8:20:32

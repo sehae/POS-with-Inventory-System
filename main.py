@@ -13,13 +13,14 @@ from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.help_screen.help_support_functions import helpSupport
 from screens.help_screen.help_usermanual_functions import helpManual
 from screens.password_screen.changePassword_functions import changePassword
-
 from screens.employee_screens.employee_dashboard.employeeDashboard_functions import myEmployeeDashboard
 from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from screens.employee_screens.employee_pos.posPayment_functions import posPayment
 from screens.employee_screens.employee_pos.posTable_functions import posTable
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
+from screens.employee_screens.employee_inventory.inventory_Table_functions import inventoryTable
+from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -50,6 +51,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_table = posTable()
         self.inventory_modify = inventoryModify()
         self.inventory_barcode = inventoryBarcode()
+        self.inventory_table = inventoryTable()
+        self.inventory_view = adminInventoryViewProduct()
 
         self.stacked_widget.addWidget(self.login_screen)
         self.stacked_widget.addWidget(self.admin_dashboard)
@@ -69,7 +72,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.pos_table)
         self.stacked_widget.addWidget(self.inventory_modify)
         self.stacked_widget.addWidget(self.inventory_barcode)
+        self.stacked_widget.addWidget(self.inventory_table)
+        self.stacked_widget.addWidget(self.inventory_view)
 
+        self.admin_inventoryMODIFY.view_signal.connect(self.show_view_product)
+        self.admin_inventory.view_signal.connect(self.show_view_product)
+        self.inventory_view.back_signal.connect(self.show_admin_dashboard)
+        self.inventory_view.modify_signal.connect(self.show_admin_inventory_modify)
+        self.inventory_view.add_signal.connect(self.show_admin_inventory)
+        self.inventory_modify.inventory_table.connect(self.show_inventory_table)
+        self.inventory_barcode.inventory_table.connect(self.show_inventory_table)
+        self.inventory_table.back_signal.connect(self.show_employee_dashboard)
+        self.inventory_table.modify_signal.connect(self.show_employee_inventory)
+        self.inventory_table.barcode_signal.connect(self.show_inventory_barcode)
         self.login_screen.login_successful.connect(self.show_admin_dashboard)
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
@@ -131,6 +146,30 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard.changepass_signal.connect(self.show_change_password)
         self.change_password.back_employee_signal.connect(self.show_employee_dashboard)
 
+        # Ensure the inventoryTable instance uses the inventoryModify instance from MainWindow
+        self.inventory_table.inventory_modify = self.inventory_modify
+        self.inventory_modify.product_update_signal.connect(self.inventory_table.populate_table)
+
+        # Repopulate table
+        self.inventory_view.admin_inventoryMODIFY = self.admin_inventoryMODIFY
+        self.admin_inventoryMODIFY.product_update_signal.connect(self.inventory_view.populate_table)
+
+        # Repopulate admin inventory table from modification changes by employee
+        self.inventory_view.inventory_modify = self.inventory_modify
+        self.inventory_modify.employee_update_signal.connect(self.inventory_view.populate_table)
+
+        # Repopulate table from inventoryAddProduct
+        self.inventory_view.admin_inventory = self.admin_inventory
+        self.admin_inventory.product_update_signal.connect(self.inventory_view.populate_table)
+
+        # Repopulate table from modify changes in admin to employee
+        self.inventory_table.admin_inventoryMODIFY = self.admin_inventoryMODIFY
+        self.admin_inventoryMODIFY.admin_product_update_signal.connect(self.inventory_table.populate_table)
+
+        # Repopulate table from add changes in admin to employee
+        self.inventory_table.admin_inventory = self.admin_inventory
+        self.admin_inventory.admin_product_update_signal.connect(self.inventory_table.populate_table)
+
 
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)
@@ -186,8 +225,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def show_inventory_barcode(self):
         self.stacked_widget.setCurrentWidget(self.inventory_barcode)
 
+    def show_inventory_table(self):
+        self.stacked_widget.setCurrentWidget(self.inventory_table)
 
-
+    def show_view_product(self):
+        self.stacked_widget.setCurrentWidget(self.inventory_view)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

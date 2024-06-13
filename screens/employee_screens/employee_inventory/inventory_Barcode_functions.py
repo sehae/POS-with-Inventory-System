@@ -9,6 +9,7 @@ from server.local_server import conn
 class inventoryBarcode(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
+    inventory_table = QtCore.pyqtSignal()
 
 
 
@@ -18,6 +19,7 @@ class inventoryBarcode(QMainWindow, Ui_MainWindow):
 
         self.pushButton_2.clicked.connect(self.navigate_modify)
         self.pushButton.clicked.connect(self.back)
+        self.pushButton_3.clicked.connect(self.navigate_inventory)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -40,6 +42,9 @@ class inventoryBarcode(QMainWindow, Ui_MainWindow):
 
     def navigate_modify(self):
         self.modify_signal.emit()
+
+    def navigate_inventory(self):
+        self.inventory_table.emit()
 
     def back(self):
         self.back_signal.emit()
