@@ -11,8 +11,8 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.email = email
-        self.source_table = self.check_email_source(email)
         self.check_action = None
+        self.source_table = None
 
         self.saveBTN.clicked.connect(self.save_password)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
@@ -20,6 +20,10 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         self.passwordFIELD.textChanged.connect(self.check_password_match)
         self.retypeFIELD.textChanged.connect(self.check_password_match)
         self.UiComponents()
+
+    def update_email(self, email):
+        self.email = email
+        self.source_table = self.check_email_source(self.email)
 
     def UiComponents(self):
         self.passwordFIELD.setEchoMode(QLineEdit.Password)
@@ -74,12 +78,16 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
 
             cursor = conn.cursor()
 
+            print(f"self.source_table: {self.source_table}")
+
             try:
                 print("Updating password")
                 if self.source_table == 'admin':
                     cursor.execute(UPDATE_ADMIN_PASSWORD, (hashed_password, self.email))
+                    print(hashed_password)
                 elif self.source_table == 'employee':
                     cursor.execute(UPDATE_EMPLOYEE_PASSWORD, (hashed_password, self.email))
+                    print(hashed_password)
                 conn.commit()
                 print("Password reset successful!")
                 self.passwordFIELD.clear()
@@ -97,14 +105,12 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         result = cursor.fetchone()
 
         if result:
-            print(f"Email found in admin table with ID {result[0]}")
-            return result[0], 'admin'
+            return 'admin'
 
         cursor.execute(CHECK_EMAIL_EMPLOYEE, (email,))
         result = cursor.fetchone()
 
         if result:
-            print(f"Email found in employee table with ID {result[0]}")
-            return result[0], 'employee'
+            return 'employee'
 
         return None

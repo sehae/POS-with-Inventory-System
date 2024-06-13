@@ -159,6 +159,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.setCurrentWidget(self.otp_screen)
 
     def show_password_recovery(self):
+        self.password_recovery.update_email(self.otp_screen.supplied_email)
         self.stacked_widget.setCurrentWidget(self.password_recovery)
 
     def receive_email(self, email):
