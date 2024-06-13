@@ -1,10 +1,9 @@
 from datetime import datetime
 
-from database.DB_Queries import LOGIN_LOG, GET_ACTION_BY_ID
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
-
+from maintenance.user_logs import user_log
 from validator.user_manager import userManager
 
 user_manager_instance = userManager()
@@ -79,7 +78,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
                         self.user_type = "admin"
-                        self.user_log(admin_id, login_action, self.user_type, username)
+                        user_log(admin_id, login_action, self.user_type, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful.emit()
@@ -89,7 +88,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         return
                 else:
                     print("Incorrect password.")
-                    self.user_log(admin_id, failed_login_action, self.user_type, username)
+                    self.user_type = "system"
+                    user_log(admin_id, failed_login_action, self.user_type, username)
                     self.invalidCredentials()
 
             # Query the employeelogin table
@@ -106,7 +106,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         employee_first_name = cursor.fetchone()[0]
                         print(f"Login successful as Employee: Welcome {employee_first_name}!")
                         self.user_type = "employee"
-                        self.user_log(employee_id, login_action, self.user_type, username)
+                        user_log(employee_id, login_action, self.user_type, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful_employee.emit()
@@ -116,7 +116,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         return
                 else:
                     print("Incorrect password.")
-                    self.user_log(employee_id, failed_login_action, self.user_type, username)
+                    self.user_type = "system"
+                    user_log(employee_id, failed_login_action, self.user_type, username)
                     self.invalidCredentials()
 
             print("Invalid Credentials")
@@ -135,33 +136,3 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
     def invalidCredentials(self):
         self.errorLBL.setText("Invalid Credentials. Check your username and password.")
         self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
-
-    def user_log(self, user_id, user_action, user_type, username):
-        self.user_id = user_id
-        self.parameter = user_type
-        self.user_action = user_action
-        self.username = username
-        login_datetime = datetime.now()
-        login_time = login_datetime.time()
-        login_date = login_datetime.date()
-
-        try:
-            cursor = conn.cursor()
-            cursor.execute(GET_ACTION_BY_ID, (self.user_action,))
-            action = cursor.fetchone()[0]
-        except Exception as e:
-            print(f"An error occurred while getting the action: {e}")
-        finally:
-            cursor.close()
-
-        self.parameter = f"{username} {action} {self.parameter}"
-
-        # Execute the SQL query to log the user's login activity
-        try:
-            cursor = conn.cursor()
-            cursor.execute(LOGIN_LOG, (self.user_id, self.user_action, self.user_type, login_date, login_time, self.parameter))
-            conn.commit()
-        except Exception as e:
-            print(f"An error occurred while logging the user's login activity: {e}")
-        finally:
-            cursor.close()

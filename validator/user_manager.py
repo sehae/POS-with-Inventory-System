@@ -31,6 +31,12 @@ class userManager(QtCore.QObject):
         self.updated_userType = None
         print("USERMANAGER: User type reset to None")  # Print within userManager
 
+    def reset_user_data(self):
+        self.updated_userType = None
+        self.current_username = None
+        print("USERMANAGER: User type reset to None")
+        print("USERMANAGER: Username reset to None")
+
     def get_user_type(self):
         return self.updated_userType
 

@@ -52,6 +52,6 @@ SEARCH_ADMIN = ("SELECT first_name, last_name, email FROM admin WHERE (last_name
                 "email LIKE %s) AND is_active = True;")
 
 # User Logs
-LOGIN_LOG = ("INSERT INTO user_logs (user_id, action_id, user_type, log_date, log_time, parameter) VALUES (%s, %s, %s, "
+LOG = ("INSERT INTO user_logs (user_id, action_id, user_type, log_date, log_time, parameter) VALUES (%s, %s, %s, "
              "%s, %s, %s);")
 GET_ACTION_BY_ID = "SELECT action FROM user_actions WHERE action_id = %s;"
