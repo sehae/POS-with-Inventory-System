@@ -7,8 +7,9 @@ from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 
 class posPayment(QMainWindow, Ui_MainWindow):
-    order_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
+    order_signal = QtCore.pyqtSignal()
+    home_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
 
 
@@ -16,9 +17,10 @@ class posPayment(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.orderBTN_2.clicked.connect(self.navigate_order)
-        self.backBTN_2.clicked.connect(self.back)
-        self.menuBTN_2.clicked.connect(self.navigate_menu)
+        self.orderBTN_2.clicked.connect(self.goOrder)
+        self.backBTN_2.clicked.connect(self.goBack)
+        self.menuBTN_2.clicked.connect(self.goMenu)
+        self.homeBTN_2.clicked.connect(self.goHome)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -28,6 +30,8 @@ class posPayment(QMainWindow, Ui_MainWindow):
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
+
+
 
     def updateDateTime(self):
         # Get the current date and time
@@ -39,11 +43,17 @@ class posPayment(QMainWindow, Ui_MainWindow):
         # Set the text of dateLabel to the formatted date and time
         self.label_11.setText(formattedDateTime)
 
-    def navigate_order(self):
+    def goHome(self):
+        self.home_signal.emit()
+
+    def goMenu(self):
+        self.menu_signal.emit()
+
+    def goPayment(self):
+        self.payment_signal.emit()
+
+    def goOrder(self):
         self.order_signal.emit()
 
-    def back(self):
+    def goBack(self):
         self.back_signal.emit()
-
-    def navigate_menu(self):
-        self.menu_signal.emit()
