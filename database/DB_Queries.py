@@ -17,8 +17,8 @@ GET_NEXT_ADMIN_ID = "SELECT MAX(admin_id) FROM admin;"
 GET_NEXT_EMPLOYEE_ID = "SELECT MAX(employee_id) FROM employee;"
 
 # Update Queries
-UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE username = %s;"
-UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE username = %s;"
+UPDATE_ADMIN_PASSWORD = "UPDATE admin SET password = %s WHERE email = %s;"
+UPDATE_EMPLOYEE_PASSWORD = "UPDATE employee SET password = %s WHERE email = %s;"
 
 # Add User Queries
 ADD_ADMIN = ("INSERT INTO admin (last_name, first_name, contact_number, email, username, password) VALUES (%s, %s, %s, "
