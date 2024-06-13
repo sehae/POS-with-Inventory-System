@@ -89,10 +89,10 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             else:
                 dept_number = '02'
 
-            # Generate password
+                # Generate password
             password = self.generate_password()
 
-            # Hash the password
+                # Hash the password
             hashed_password = hash_password(password)
 
             if LoA == 'Admin':
@@ -101,17 +101,17 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
                 cursor.execute(GET_NEXT_EMPLOYEE_ID)
 
             result = cursor.fetchone()
-            max_id = result[0] if result is not None else int(0)
+            max_id = 0 if result[0] is None else result[0]
             print("Max ID: ", max_id)
-            print(result[0])
+            print(result)
             next_id = max_id + 1
 
-            # Generate username
+                # Generate username
             initials = first_name[0] + last_name[0]
             staff_number = str(next_id).zfill(2)
             username = initials.upper() + dept_number + staff_number
 
-            # Add username and password to the respective login table
+                # Add username and password to the respective login table
             if LoA == 'Admin':
                 add_login_query = ADD_ADMIN
                 user_data = (last_name, first_name, contact_number, email, username, hashed_password)
