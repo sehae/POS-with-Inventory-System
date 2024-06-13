@@ -38,4 +38,3 @@ from shared.dialog import (show_error_message, show_username_password, confirmat
 from styles.universalStyles import (COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE,
                                     ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE, )
 
-
