@@ -180,7 +180,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         elif result[3] == 'Cashier':
             self.activate_cashier()
         elif result[3] == 'Admin':
-            self.activate_admin()
+            self.is_admin()
 
     def activate_staff(self):
         self.staffBTN.setStyleSheet(self.active_button_style)
@@ -189,6 +189,10 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.restrictionBUTTONGRP.setEnabled(True)
         self.cashierBTN.setStyleSheet(self.active_button_style)
         self.kitchenBTN.setStyleSheet(self.inactive_button_style)
+
+    def is_admin(self):
+        self.adminBTN.setStyleSheet(self.active_button_style)
+        self.staffBTN.setStyleSheet(self.inactive_button_style)
 
     def activate_admin(self):
         returnValue = confirmation_dialog("Are you sure you want to make this user as an admin?")

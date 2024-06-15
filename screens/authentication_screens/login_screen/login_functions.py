@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
