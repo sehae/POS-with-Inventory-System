@@ -225,9 +225,3 @@ class posHome(QtWidgets.QWidget, Ui_Form):
 
                 self.calculatePayableAmount()
                 self.receipt.takeItem(self.receipt.row(item))
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    mainWin = posHome()
-    mainWin.show()
-    sys.exit(app.exec_())

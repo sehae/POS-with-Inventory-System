@@ -162,10 +162,3 @@ class posTable(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             QtWidgets.QMessageBox.information(self, "Table Unavailable",
                                               f"Table {table_number} is currently unavailable.")
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    mainWin = posTable()
-    mainWin.show()
-    sys.exit(app.exec_())
