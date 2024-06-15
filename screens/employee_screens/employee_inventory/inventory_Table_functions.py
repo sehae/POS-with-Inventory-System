@@ -1,7 +1,7 @@
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtCore import QDateTime, QTimer, Qt, pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_inventory.inventory_Table import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
@@ -31,6 +31,9 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
         self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
 
         self.populate_table()
+
+        # Connect search field
+        self.searchFIELD.returnPressed.connect(self.search_table)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -66,23 +69,27 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                 cursor = conn.cursor()
 
                 # Execute the query to retrieve data for specific columns
-                cursor.execute("SELECT Name, Quantity, Threshold_Value, Expiry_Date, Category, \
-                                CASE \
-                                    WHEN Quantity = 0 THEN 'Out of Stock' \
-                                    WHEN Quantity <= Threshold_Value THEN 'Low Stock' \
-                                    ELSE 'In Stock' \
-                                END AS Availability \
-                                FROM product")
+                query = """
+                    SELECT Name, Quantity, Threshold_Value, Expiry_Date, Category,
+                        CASE
+                            WHEN Quantity = 0 THEN 'Out of Stock'
+                            WHEN Quantity <= Threshold_Value THEN 'Low Stock'
+                            ELSE 'In Stock'
+                        END AS Availability
+                    FROM product
+                    WHERE Status = 'active'
+                """
+                cursor.execute(query)
 
                 # Fetch column names
                 column_names = [i[0].replace('_', ' ') for i in cursor.description]  # Replace '_' with ' '
 
                 # Fetch all the records
-                records = cursor.fetchall()
+                self.records = cursor.fetchall()
 
-                if records:  # Check if records is not empty
+                if self.records:  # Check if records is not empty
                     # Set the number of rows and columns in the table widget
-                    self.tableWidget_2.setRowCount(len(records))
+                    self.tableWidget_2.setRowCount(len(self.records))
                     self.tableWidget_2.setColumnCount(len(column_names))
 
                     # Populate the column names
@@ -91,10 +98,24 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                         self.tableWidget_2.setHorizontalHeaderItem(j, item)
 
                     # Populate the table widget with data
-                    for i, row in enumerate(records):
+                    for i, row in enumerate(self.records):
                         for j, col in enumerate(row):
                             item = QTableWidgetItem(str(col))
+                            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)  # Make cell non-clickable
+
+                            # Apply conditional formatting for the "Availability" column
+                            if column_names[j] == "Availability":
+                                if col == "In Stock":
+                                    item.setBackground(QtGui.QColor(144, 238, 144))  # Light green
+                                elif col == "Low Stock":
+                                    item.setBackground(QtGui.QColor(255, 165, 0))   # Light orange
+                                elif col == "Out of Stock":
+                                    item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
+
                             self.tableWidget_2.setItem(i, j, item)
+
+                    name_column_index = column_names.index("Name")
+                    self.tableWidget_2.setColumnWidth(name_column_index, 200)
 
                 else:
                     print("No records found in the inventory table.")
@@ -105,3 +126,25 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
+
+    def search_table(self):
+        search_text = self.searchFIELD.text().lower()
+        filtered_records = [row for row in self.records if search_text in str(row).lower()]
+
+        self.tableWidget_2.setRowCount(len(filtered_records))
+
+        for i, row in enumerate(filtered_records):
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)  # Make cell non-clickable
+
+                # Apply conditional formatting for the "Availability" column
+                if self.tableWidget_2.horizontalHeaderItem(j).text() == "Availability":
+                    if col == "In Stock":
+                        item.setBackground(QtGui.QColor(144, 238, 144))  # Light green
+                    elif col == "Low Stock":
+                        item.setBackground(QtGui.QColor(255, 165, 0))   # Light orange
+                    elif col == "Out of Stock":
+                        item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
+
+                self.tableWidget_2.setItem(i, j, item)

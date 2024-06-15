@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: poswithinventorysystem
+-- Host: localhost    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.4.0
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,11 +28,13 @@ CREATE TABLE `admin` (
   `First_Name` varchar(45) NOT NULL,
   `Contact_Number` varchar(15) NOT NULL,
   `Email` varchar(45) NOT NULL,
+  `Username` varchar(45) NOT NULL,
+  `Password` longtext NOT NULL,
   `is_active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`Admin_ID`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'Casa','Cynthia','2991245977','ccasa1@altervista.org',0),(2,'Swaine','Brien','5593165731','bswaine2@google.com.br',0),(3,'testa','testa','12345','testa',0),(6,'test','test','123','et',0),(7,'Winsom','Gerhard','4568640866','gwinsom0@who.int',0),(8,'','','','',1),(9,'villatura','leah','09423123432','feaw@gmail.com',1),(11,'adminz','admintest','09721831831','admintestets@fkpeoafa.com',1),(12,'aaaa','tryaga','09548367547','tgeae@gmaifea.com',1);
+INSERT INTO `admin` VALUES (1,'Villatura','Leah Desiree','09563847921','ld.kirbble@gmail.com','LV0101','ac7ba9d9b0617a982aec4921a7f3e3315a132bb0e67c19435603e04c902a4d62ebefb6fdfa94e96dd840c657b00364c88ac13c86412e8e65935067935d394b95b436f2e97cdcc58b1e9ba5a76bfbf1a2889ddcf9a190a7a65ea1cf53d67457dc',1),(2,'Faurillo','Ymnwl Jan','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6',1),(3,'Tiamzon','Bryan Dominick','09317543534','ewareraw@geaw.comeg','BT0103','51ff5902359ee83a44c10a0c9d02458409bfee94efb1f5ebc1106cdd870e5f8ba74f7e8d5f072c10440b36926400b7df9172dfd4c91543f6dc32ef332cd083b7f085ebdf7febf885bf3b992a977660b62a2d42e72478aa036e3fb09ab10217ac',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-13  8:20:32
+-- Dump completed on 2024-06-14 10:53:05

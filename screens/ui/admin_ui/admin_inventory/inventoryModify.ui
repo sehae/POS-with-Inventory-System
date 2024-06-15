@@ -431,23 +431,7 @@ QPushButton:pressed {
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_5">
                   <property name="text">
-                   <string>Product ID/Name</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
+                   <string>Product Name</string>
                   </property>
                  </widget>
                 </item>
@@ -474,21 +458,21 @@ QPushButton:pressed {
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>Selling Price</string>
+                   <string>Selling Cost</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_8">
                   <property name="text">
                    <string>Status</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QComboBox" name="comboBox">
                   <property name="minimumSize">
                    <size>
@@ -514,7 +498,7 @@ QPushButton:pressed {
                   </item>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="QWidget" name="widget_3" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -639,8 +623,50 @@ QPushButton:pressed {
                   </layout>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QLineEdit" name="lineEdit_4">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="comboBox_3">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Buying Cost</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="lineEdit_5">
                   <property name="minimumSize">
                    <size>
                     <width>400</width>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -246,7 +246,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../../assets/resourceFile.qrc">
+             <iconset resource="../../../../assets/resourceFile.qrc">
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -431,23 +431,7 @@ QPushButton:pressed {
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_5">
                   <property name="text">
-                   <string>Product ID/Name</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
+                   <string>Product Name</string>
                   </property>
                  </widget>
                 </item>
@@ -501,22 +485,6 @@ QPushButton:pressed {
                  <widget class="QLabel" name="label_8">
                   <property name="text">
                    <string>Expiry Date</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="lineEdit_3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
                   </property>
                  </widget>
                 </item>
@@ -668,6 +636,54 @@ QPushButton:pressed {
                   </layout>
                  </widget>
                 </item>
+                <item row="4" column="1">
+                 <widget class="QDateEdit" name="dateEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="displayFormat">
+                   <string>yyyy/MM/dd</string>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
+                  </property>
+                  <property name="date">
+                   <date>
+                    <year>2024</year>
+                    <month>1</month>
+                    <day>1</day>
+                   </date>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="comboBox_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
@@ -697,7 +713,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

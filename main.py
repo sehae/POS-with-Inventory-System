@@ -183,10 +183,16 @@ class MainWindow(QtWidgets.QMainWindow):
         # Repopulate table from modify changes in admin to employee
         self.inventory_table.admin_inventoryMODIFY = self.admin_inventoryMODIFY
         self.admin_inventoryMODIFY.admin_product_update_signal.connect(self.inventory_table.populate_table)
+        self.admin_inventoryMODIFY.admin_product_update_signal.connect(self.inventory_modify.populate_comboBox_2)
 
         # Repopulate table from add changes in admin to employee
         self.inventory_table.admin_inventory = self.admin_inventory
         self.admin_inventory.admin_product_update_signal.connect(self.inventory_table.populate_table)
+        self.admin_inventory.admin_product_update_signal.connect(self.inventory_modify.populate_comboBox_2)
+        self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
+
+
+
 
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)

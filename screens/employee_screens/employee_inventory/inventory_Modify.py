@@ -9,12 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(800, 528)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -222,11 +222,6 @@ class Ui_MainWindow(object):
         self.label_5 = QtWidgets.QLabel(self.widget_2)
         self.label_5.setObjectName("label_5")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_5)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.widget_2)
-        self.lineEdit_2.setMinimumSize(QtCore.QSize(400, 35))
-        self.lineEdit_2.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_2)
         self.label_6 = QtWidgets.QLabel(self.widget_2)
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_6)
@@ -246,11 +241,6 @@ class Ui_MainWindow(object):
         self.label_8 = QtWidgets.QLabel(self.widget_2)
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_8)
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.widget_2)
-        self.lineEdit_3.setMinimumSize(QtCore.QSize(400, 35))
-        self.lineEdit_3.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_3)
         self.label_9 = QtWidgets.QLabel(self.widget_2)
         self.label_9.setObjectName("label_9")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_9)
@@ -324,6 +314,19 @@ class Ui_MainWindow(object):
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem3)
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.widget_3)
+        self.dateEdit = QtWidgets.QDateEdit(self.widget_2)
+        self.dateEdit.setMinimumSize(QtCore.QSize(400, 35))
+        self.dateEdit.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.dateEdit.setCalendarPopup(True)
+        self.dateEdit.setDate(QtCore.QDate(2024, 1, 1))
+        self.dateEdit.setObjectName("dateEdit")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.dateEdit)
+        self.comboBox_2 = QtWidgets.QComboBox(self.widget_2)
+        self.comboBox_2.setMinimumSize(QtCore.QSize(400, 35))
+        self.comboBox_2.setMaximumSize(QtCore.QSize(400, 35))
+        self.comboBox_2.setCurrentText("")
+        self.comboBox_2.setObjectName("comboBox_2")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.comboBox_2)
         self.horizontalLayout_4.addWidget(self.widget_2)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem4)
@@ -346,19 +349,12 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.label_4.setText(_translate("MainWindow", "Modify Product"))
-        self.label_5.setText(_translate("MainWindow", "Product ID/Name"))
+        self.label_5.setText(_translate("MainWindow", "Product Name"))
         self.label_6.setText(_translate("MainWindow", "Category"))
         self.label_7.setText(_translate("MainWindow", "Quantity"))
         self.label_8.setText(_translate("MainWindow", "Expiry Date"))
         self.label_9.setText(_translate("MainWindow", "Threshold Value"))
         self.pushButton_4.setText(_translate("MainWindow", "Update Product"))
         self.pushButton_5.setText(_translate("MainWindow", "Discard"))
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.dateEdit.setDisplayFormat(_translate("MainWindow", "yyyy/MM/dd"))
+import assets.resourceFile_rc

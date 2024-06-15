@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: poswithinventorysystem
+-- Host: localhost    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.4.0
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,11 +29,14 @@ CREATE TABLE `employee` (
   `Department` enum('Cashier','Kitchen') NOT NULL,
   `Contact_Number` varchar(15) NOT NULL,
   `Email` varchar(45) NOT NULL,
+  `Username` varchar(45) NOT NULL,
+  `Password` longtext NOT NULL,
   `is_active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`Employee_ID`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
-  UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`),
+  UNIQUE KEY `Username_UNIQUE` (`Username`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +45,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'Winsom','Gerhard','Cashier','4568640866','ld.kirbble@gmail.com',0),(2,'Moger','Adelina','Kitchen','1395629063','amoger1@shutterfly.com',1),(3,'Wain','Adelina','Kitchen','7632214950','gwain2@mysql.com',1),(4,'test','test','Cashier','123','et',0),(7,'Casa','Cynthia','Kitchen','2991245977','ccasa1@altervista.org',1),(8,'Swaine','Brien','Kitchen','5593165731','bswaine2@google.com.br',1),(9,'Villatura','Leah','Kitchen','123456','feafafafea@gmail.com',1),(10,'Bautista','Patrick','Cashier','0988843','patrickb@gmail.com',1),(11,'F','Nicole','Cashier','09111233','poop@gmail.com',1),(12,'testtest','test','Cashier','12335345','testttt@gmail.com',1),(13,'ta','mon','Cashier','2146','yuo@yahu',1),(14,'s','hyy','Cashier','3141','pop@gmail.com',1),(15,'','','Cashier','','',1),(16,'a','a','Cashier','09','a',1),(17,'a','a','Cashier','09123456722','a@gmail.com',1),(18,'a','a','Cashier','09123433322','b@gmail.com',1),(20,'villatura','leah','Cashier','09563921848','why@gmail.com',1),(21,'Pal','Pro','Cashier','09124356789','poorpal@gmail.com',1),(22,'Pofewajp','NIcole','Cashier','09213456765','hi@gmail.com',1),(25,'Pofewajp','NIcole','Cashier','09213452342','rwerfwehi@gmail.com',1),(26,'laxamana','jun','Cashier','09123568790','jownjown@gmail.com',1);
+INSERT INTO `employee` VALUES (1,'Laxamana','Junell','Cashier','09435345234','junlaxy@gmailll.com','JL0201','7868bf998a5e40a87b6c0a9784b276c2379fc242f86be0350739c12a053795ccddd4819d5294354ce1d1a54b70abfa583c2da5d3a3add66a1901fe394acfc01b5016faa3c6ec8860957daf4c83859f7879b2bb4d40de7d8d5052b0c7e21911b5',1),(2,'Gebala','Zek','Kitchen','09435345443','zekgebala@gmail.com','ZG0202','1a981aaf63405d7b1c67680c13f206161247d34f4fbd4ba87af1dae6bac335eaf30882a43aadacb54daf4b9f605c6673763183506ee2e3525c099048f04e198441c847addcac15f719ac931e787b1d0a53a68032da38123e9a80fab0415be2ae',1),(3,'Dom','Bry','Cashier','096544545','00@g.c','BD0203','c25a91878ced8a9d80012a5ffaeee44fd9401e656415a545dcdd76ccdec1b7fd2618508009c9adb9bbb9f93666eac437efa678c0d89e3a39f1c79b7e86751621b7686d62d8d4fd5599c65f46bd92689b24a0f3f2d78cc216afb20109481d7334',1);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-13  8:20:31
+-- Dump completed on 2024-06-14 10:53:07

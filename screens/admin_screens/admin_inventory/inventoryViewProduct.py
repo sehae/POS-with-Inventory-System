@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 708)
+        MainWindow.resize(968, 708)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -200,6 +200,33 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
         self.verticalLayout_4.setContentsMargins(25, 25, 25, 25)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.searchLBL = QtWidgets.QLabel(self.Content)
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.searchLBL.setFont(font)
+        self.searchLBL.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
+        self.searchLBL.setIndent(15)
+        self.searchLBL.setObjectName("searchLBL")
+        self.verticalLayout_4.addWidget(self.searchLBL)
+        self.searchFIELD = QtWidgets.QLineEdit(self.Content)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.searchFIELD.sizePolicy().hasHeightForWidth())
+        self.searchFIELD.setSizePolicy(sizePolicy)
+        self.searchFIELD.setMinimumSize(QtCore.QSize(800, 46))
+        self.searchFIELD.setMaximumSize(QtCore.QSize(800, 46))
+        self.searchFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
+        self.searchFIELD.setObjectName("searchFIELD")
+        self.verticalLayout_4.addWidget(self.searchFIELD)
+        spacerItem3 = QtWidgets.QSpacerItem(17, 27, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_4.addItem(spacerItem3)
         self.widget = QtWidgets.QWidget(self.Content)
         self.widget.setObjectName("widget")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget)
@@ -229,14 +256,5 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
+        self.searchLBL.setText(_translate("MainWindow", "Search for Product"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
