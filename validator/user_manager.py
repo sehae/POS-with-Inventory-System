@@ -50,7 +50,7 @@ class userManager(QtCore.QObject):
         self.username_updated.emit(username)
 
     def get_current_username(self):
-        return self.current_username        return self.current_username
+        return self.current_username
 
     def set_current_fullname(self, fullname):
         self.current_fullname = fullname

@@ -1,6 +1,9 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class myAdminDashboard(QtWidgets.QMainWindow):
     logout_signal = QtCore.pyqtSignal()
@@ -61,7 +64,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.about_signal.emit()
 
     def logout(self):
-        user_manager.reset_user_type()
         user_manager.reset_user_data()
         self.logout_signal.emit()
 
