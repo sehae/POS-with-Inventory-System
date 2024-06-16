@@ -5,6 +5,9 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_pos.posPayment import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class posPayment(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -31,7 +34,15 @@ class posPayment(QMainWindow, Ui_MainWindow):
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
 
+        # Connect the fullname_updated signal to the slot
+        user_manager.fullname_updated.connect(self.update_fullname_label)
 
+        # Set initial fullname if already set
+        if user_manager.get_current_fullname():
+            self.update_fullname_label(user_manager.get_current_fullname())
+
+    def update_fullname_label(self, fullname):
+        self.label_12.setText(fullname)  # Update the label with the fullname
 
     def updateDateTime(self):
         # Get the current date and time

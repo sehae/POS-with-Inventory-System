@@ -23,6 +23,8 @@ class aboutdevCredits(QMainWindow, Ui_MainWindow):
         # Create an instance of userManager
         self.user_manager = userManager()
 
+        self.user_manager.fullname_updated.connect(self.on_fullname_updated)
+
         # Create a QTimer object
         self.timer = QTimer()
 
@@ -31,6 +33,9 @@ class aboutdevCredits(QMainWindow, Ui_MainWindow):
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
+
+    def on_fullname_updated(self, fullname):
+        self.userName.setText(fullname)
 
     def back(self):
         updated_user_type = self.user_manager.updated_userType

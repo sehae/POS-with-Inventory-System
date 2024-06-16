@@ -77,10 +77,15 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
+                        cursor.execute(GET_ADMIN_LAST_NAME, (admin_id,))
+                        admin_last_name = cursor.fetchone()[0]
+                        admin_full_name = f"{admin_first_name} {admin_last_name}"
+                        print(f"Login successful as admin: Welcome {admin_full_name}!")
                         self.user_type = "admin"
                         user_log(admin_id, login_action, self.user_type, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
+                        self.user_manager.set_current_fullname(admin_full_name)  # Update current full name in userManager
                         self.login_successful.emit()
                         return
                     else:
@@ -105,10 +110,15 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
                         employee_first_name = cursor.fetchone()[0]
                         print(f"Login successful as Employee: Welcome {employee_first_name}!")
+                        cursor.execute(GET_EMPLOYEE_LAST_NAME, (employee_id,))
+                        employee_last_name = cursor.fetchone()[0]
+                        employee_full_name = f"{employee_first_name} {employee_last_name}"
+                        print(f"Login successful as Employee: Welcome {employee_full_name}!")
                         self.user_type = "employee"
                         user_log(employee_id, login_action, self.user_type, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
+                        self.user_manager.set_current_fullname(employee_full_name)  # Update current full name in userManager
                         self.login_successful_employee.emit()
                         return
                     else:
