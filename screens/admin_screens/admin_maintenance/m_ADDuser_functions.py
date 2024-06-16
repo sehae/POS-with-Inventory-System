@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QDateTime, QTimer
 
-from database.DB_Queries import GET_NEXT_ADMIN_ID, GET_NEXT_EMPLOYEE_ID
+from database.DB_Queries import GET_NEXT_ADMIN_ID, GET_NEXT_EMPLOYEE_ID, GET_NEXT_ID, ADD_USER, LOG_ACTIVITY
+from maintenance.user_logs import user_log
 from shared.imports import *
 from PyQt5.QtWidgets import QMainWindow  # Import QMainWindow
 from automated.email_automation import send_username_password
@@ -10,6 +11,8 @@ from shared.dialog import show_username_password, show_error_message
 from server.local_server import conn
 from validator.internet_connection import is_connected
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
+from validator.user_manager import userManager
+
 
 class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
     back_signal = QtCore.pyqtSignal()
@@ -66,7 +69,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             self.deptBox.setStyleSheet(COMBOBOX_STYLE)
 
     def add_user(self):
-        print("add_user method called")
         first_name = self.firstName.text()
         last_name = self.lastName.text()
         email = self.email.text()
@@ -82,56 +84,66 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
 
         try:
             cursor = conn.cursor()
-            print("Cursor created")
+            print("Maintenance - Add: Cursor created")
 
             if LoA == 'Admin':
                 dept_number = '01'
             else:
                 dept_number = '02'
 
-                # Generate password
+            # Generate password
             password = self.generate_password()
 
-                # Hash the password
+            # Hash the password
             hashed_password = hash_password(password)
 
-            if LoA == 'Admin':
-                cursor.execute(GET_NEXT_ADMIN_ID)
-            else:
-                cursor.execute(GET_NEXT_EMPLOYEE_ID)
-
+            # Get the next ID
+            cursor.execute(GET_NEXT_ID)
             result = cursor.fetchone()
             max_id = 0 if result[0] is None else result[0]
             print("Max ID: ", max_id)
             print(result)
             next_id = max_id + 1
 
-                # Generate username
+            # Generate username
             initials = first_name[0] + last_name[0]
             staff_number = str(next_id).zfill(2)
             username = initials.upper() + dept_number + staff_number
 
-                # Add username and password to the respective login table
+            # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = ADD_ADMIN
-                user_data = (last_name, first_name, contact_number, email, username, hashed_password)
+                add_query = ADD_USER
+                print("Adding user...")
+                user_data = (last_name, first_name, LoA, 'Admin', contact_number, email, username, hashed_password)
             else:
-                add_login_query = ADD_EMPLOYEE
-                user_data = (last_name, first_name, dept, contact_number, email, username, hashed_password)
+                add_query = ADD_USER
+                print("Adding user...")
+                user_data = (last_name, first_name, LoA, dept, contact_number, email, username, hashed_password)
 
-            cursor.execute(add_login_query, user_data)
+            cursor.execute(add_query, user_data)
             conn.commit()
 
             print("User added successfully")
 
+            # User Log
+            user_manager = userManager()
+            current_username = user_manager.get_current_username()
+            current_id = user_manager.get_current_user_id()
+            user_action = 10
+            specific_action = username
+            user_log(current_id, user_action, current_username, specific_action)
+
+            # Send username and password
             try:
                 if is_connected():
+                    print("Sending username and password...")
                     send_username_password(username, password, email)
                 else:
                     show_username_password(username, password)
             except Exception as e:
                 print("Error sending username and password: ", e)
 
+            print("Username and password sent successfully")
         except Exception as e:
             show_error_message("Database Error", f"An error occurred while adding the user: {e}")
         finally:
