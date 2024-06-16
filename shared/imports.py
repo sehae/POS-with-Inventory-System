@@ -13,8 +13,6 @@ from PyQt5.QtCore import QRegExp
 
 # Database
 from server.local_server import conn
-from database.DB_Queries import (GET_ADMIN_LOGIN, GET_ADMIN_FIRST_NAME, GET_EMPLOYEE_LOGIN,
-                                 GET_EMPLOYEE_FIRST_NAME, GET_ADMIN_ID, UPDATE_ADMIN_PASSWORD,
 from database.DB_Queries import (GET_ADMIN_LOGIN, GET_ADMIN_FIRST_NAME, GET_ADMIN_LAST_NAME, GET_EMPLOYEE_LOGIN,
                                  GET_EMPLOYEE_FIRST_NAME, GET_EMPLOYEE_LAST_NAME, GET_ADMIN_ID, UPDATE_ADMIN_PASSWORD,
                                  UPDATE_EMPLOYEE_PASSWORD, ADD_ADMIN, ADD_EMPLOYEE,
