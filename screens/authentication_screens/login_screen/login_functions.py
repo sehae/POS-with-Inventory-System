@@ -76,7 +76,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                     if is_active:
                         cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
                         admin_first_name = cursor.fetchone()[0]
-                        print(f"Login successful as admin: Welcome {admin_first_name}!")
                         cursor.execute(GET_ADMIN_LAST_NAME, (admin_id,))
                         admin_last_name = cursor.fetchone()[0]
                         admin_full_name = f"{admin_first_name} {admin_last_name}"
@@ -109,7 +108,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                     if is_active:
                         cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
                         employee_first_name = cursor.fetchone()[0]
-                        print(f"Login successful as Employee: Welcome {employee_first_name}!")
                         cursor.execute(GET_EMPLOYEE_LAST_NAME, (employee_id,))
                         employee_last_name = cursor.fetchone()[0]
                         employee_full_name = f"{employee_first_name} {employee_last_name}"
