@@ -84,7 +84,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
 
         try:
             cursor = conn.cursor()
-            print("Maintenance - Add: Cursor created")
 
             if LoA == 'Admin':
                 dept_number = '01'
@@ -101,8 +100,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             cursor.execute(GET_NEXT_ID)
             result = cursor.fetchone()
             max_id = 0 if result[0] is None else result[0]
-            print("Max ID: ", max_id)
-            print(result)
             next_id = max_id + 1
 
             # Generate username
@@ -126,12 +123,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             print("User added successfully")
 
             # User Log
-            user_manager = userManager()
-            current_username = user_manager.get_current_username()
-            current_id = user_manager.get_current_user_id()
             user_action = 10
             specific_action = username
-            user_log(current_id, user_action, current_username, specific_action)
+            self.log_add(user_action, specific_action)
 
             # Send username and password
             try:
@@ -158,3 +152,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
                     any(c.isdigit() for c in password) and
                     any(c in string.punctuation for c in password)):
                 return password
+
+    def log_add(self, user_action, specific_action):
+        user_manager = userManager._instance
+        current_id = user_manager.get_current_user_id()
+        current_username = user_manager.get_current_username()
+        user_log(current_id, user_action, current_username, specific_action)

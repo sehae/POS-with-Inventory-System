@@ -1,7 +1,8 @@
 from datetime import datetime
-from database.DB_Queries import LOG, GET_ACTION_BY_ID, LOG_ACTIVITY
+from database.DB_Queries import GET_ACTION_BY_ID, LOG_ACTIVITY
 from maintenance.pc_details import get_pc_name
 from shared.imports import conn
+
 
 def user_log(user_id, user_action, username, specific_action=None):
     log_datetime = datetime.now()
@@ -28,7 +29,9 @@ def user_log(user_id, user_action, username, specific_action=None):
         cursor = conn.cursor()
         cursor.execute(LOG_ACTIVITY, (user_id, user_action, log_date, log_time, parameter))
         conn.commit()
+        print("User log created successfully")
     except Exception as e:
         print(f"An error occurred while logging the user's login activity: {e}")
     finally:
         cursor.close()
+

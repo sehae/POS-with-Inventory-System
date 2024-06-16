@@ -428,7 +428,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.header = QtWidgets.QWidget(self.frame)
         self.header.setStyleSheet("QWidget {\n"
-"    border-bottom: 3px solid #D8DBD9; \n"
+"    border-bottom: 3px solid #D8DBD9;\n"
 "}\n"
 "")
         self.header.setObjectName("header")

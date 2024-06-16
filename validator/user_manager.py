@@ -58,17 +58,24 @@ class userManager(QtCore.QObject):
 
         cursor = conn.cursor()
 
-        # Fetch all user information based on username
-        cursor.execute(FETCH_USER_INFO, (username,))
-        result = cursor.fetchone()
+        try:
+            # Fetch all user information based on username
+            cursor.execute(FETCH_USER_INFO, (username,))
+            result = cursor.fetchone()
 
-        cursor.close()
+            if result is not None:
+                self.set_current_user_id(result[0])
 
-        if result is not None:
-            self.set_current_user_id(result[0])
+            print(f"USERMANAGER: User information retrieved.")
+            return result
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
 
-        print(f"USERMANAGER: User information retrieved: {result}")
-        return result
+    def set_current_user_id(self, id):
+        self.current_id = id
+        print(f"USERMANAGER: Current user id set to: {self.current_id}")
 
     def get_current_user_id(self):
         return self.current_id

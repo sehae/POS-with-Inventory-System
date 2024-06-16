@@ -1,7 +1,11 @@
 from PyQt5.QtCore import QDateTime, QTimer
 
+from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, CHANGE_DEPARTMENT, DISABLE_USER
+from maintenance.user_logs import user_log
 from shared.imports import *
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
+from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
+from validator.user_manager import userManager
 
 
 class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
@@ -27,6 +31,9 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.discardBTN.clicked.connect(self.discard)
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
+        self.userRESULTS.hide()
+        self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -59,40 +66,28 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
         cursor = conn.cursor()
 
-        # Check if the user is an admin
+        # Change the user's role to admin
         if self.adminBTN.styleSheet() == self.active_button_style:
             try:
-                cursor.execute(GET_ADMIN_DATA, (email,))
-                result = cursor.fetchone()
-
-                if result is None:
-                    # If user doesn't have data in the admin table
-                    cursor.execute(MOVE_TO_ADMIN, (email,))
-                else:
-                    cursor.execute(ENABLE_ADMIN, (email,))
-
-                cursor.execute(DISABLE_EMPLOYEE, (email,))
-
+                cursor.execute(CHANGE_USER_TYPE, ('Admin', email,))
                 conn.commit()
-                print(f"{email} moved to admin table")
+                cursor.close()
+                print(f"User {email} changed to Admin successfully.")
+                self.log_edit(11, f"of user {email} to Admin")
+                print(f"Successfully Logged user action.")
             except Exception as e:
                 print(f"An error occurred: {e}")
 
-        # Check if the user is a staff
+        # Change the user's role to staff
         elif self.staffBTN.styleSheet() == self.active_button_style:
             try:
-                cursor.execute(GET_EMPLOYEE_DATA(email,))
-                result = cursor.fetchone()
-
-                if result is None:
-                    cursor.execute(MOVE_TO_EMPLOYEE(department, email,))
-                else:
-                    cursor.execute(UPDATE_EMPLOYEE_DEPARTMENT, (department, email,))
-
-                cursor.execute(DISABLE_ADMIN, (email,))
-
+                cursor.execute(CHANGE_USER_TYPE, ('Employee', email,))
+                cursor.execute(CHANGE_DEPARTMENT, (department, email,))
                 conn.commit()
-                print(f"{email} moved to employee table")
+                cursor.close()
+                print(f"User {email} changed to Staff and {department} successfully.")
+                self.log_edit(11, f"of user {email} to Staff and {department}")
+                print(f"Successfully Logged user action.")
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -106,51 +101,64 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         else:
             return None
 
+    # Search Module
     def search_user(self):
         try:
             search_text = self.searchFIELD.text()
             cursor = conn.cursor()
 
-            cursor.execute(SEARCH_EMPLOYEE, (search_text, search_text, search_text))
+            cursor.execute(SEARCH_USER, ('%'+search_text+'%', '%'+search_text+'%', '%'+search_text+'%'))
             results = cursor.fetchall()
 
-            print(f"Employee search results: {results}")  # Debug print
+            # If there are no results, update the errorLBL and return
+            if not results:
+                self.errorLBL.setText("No results found.")
+                self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
+                return
 
             # Clear the table before adding new data
             self.userRESULTS.setRowCount(len(results))
-            self.userRESULTS.setColumnCount(1)
+            self.userRESULTS.setColumnCount(4)
 
             row_position = 0
 
             for result in results:
-                # Concatenate all fields of a result into a single string
-                result_string = ', '.join(map(str, result))
-                item = QtWidgets.QTableWidgetItem(result_string)
-                # Make the cell not editable
-                item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
-                self.userRESULTS.setItem(row_position, 0, item)
+                # Define the column names
+                column_names = ["First Name", "Last Name", "Email", "Department"]
+
+                # Set the column names
+                self.userRESULTS.setHorizontalHeaderLabels(column_names)
+
+                # Create a QTableWidgetItem for each field
+                first_name_item = QtWidgets.QTableWidgetItem(result[0])
+                last_name_item = QtWidgets.QTableWidgetItem(result[1])
+                email_item = QtWidgets.QTableWidgetItem(result[2])
+                department_item = QtWidgets.QTableWidgetItem(result[3])
+
+                # Make the cells not editable
+                first_name_item.setFlags(first_name_item.flags() & ~QtCore.Qt.ItemIsEditable)
+                last_name_item.setFlags(last_name_item.flags() & ~QtCore.Qt.ItemIsEditable)
+                email_item.setFlags(email_item.flags() & ~QtCore.Qt.ItemIsEditable)
+                department_item.setFlags(department_item.flags() & ~QtCore.Qt.ItemIsEditable)
+
+                # Add the items to the table
+                self.userRESULTS.setItem(row_position, 0, first_name_item)
+                self.userRESULTS.setItem(row_position, 1, last_name_item)
+                self.userRESULTS.setItem(row_position, 2, email_item)
+                self.userRESULTS.setItem(row_position, 3, department_item)
+
                 row_position += 1
+                self.resize_table_to_contents()
                 self.userRESULTS.show()
                 self.edituserCONTENT.hide()
+                self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
 
-            cursor.execute(SEARCH_ADMIN, (search_text, search_text, search_text))
-            results = cursor.fetchall()
-
-            print(f"Admin search results: {results}")  # Debug print
-
-            self.userRESULTS.setRowCount(self.userRESULTS.rowCount() + len(results))
-
-            for result in results:
-                # Concatenate all fields of a result into a single string
-                result_string = ', '.join(map(str, result))
-                item = QtWidgets.QTableWidgetItem(result_string)
-                # Make the cell not editable
-                item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
-                self.userRESULTS.setItem(row_position, 0, item)
-                row_position += 1
-                self.userRESULTS.show()
-                self.edituserCONTENT.hide()
-
+                if result[3] == 'Kitchen':
+                    self.activate_kitchen()
+                elif result[3] == 'Cashier':
+                    self.activate_cashier()
+                elif result[3] == 'Admin':
+                    self.admin_style()
 
             # Connect the cellClicked signal to a slot function
             self.userRESULTS.cellClicked.connect(self.cell_clicked)
@@ -158,29 +166,31 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    # Slot function to handle cell click events
-    def cell_clicked(self, row, column):
-        item = self.userRESULTS.item(row, column)
-        print(f"You clicked on cell {row}, {column}. The cell contains: {item.text()}")
+    def cell_clicked(self, row):
+        # Get the data of the whole row
+        row_data = [self.userRESULTS.item(row, col).text() for col in range(self.userRESULTS.columnCount())]
+        print(f"You clicked on row {row}. The row contains: {row_data}")
 
-        self.userRESULTS.hide()
-
-        # Split the cell data into a list of result data
-        result = item.text().split(', ')
-
-        # Show the edituserCONTENT and update the display with the result data
+        # Show the edituserCONTENT and update the display with the row data
         self.edituserCONTENT.show()
         self.searchFIELD.clear()
-        self.nameDISPLAY.setText(f"{result[0]} {result[1]}")
-        self.emailDISPLAY.setText(result[2])
+        self.userRESULTS.hide()
+        self.nameDISPLAY.setText(f"{row_data[0]} {row_data[1]}")
+        self.emailDISPLAY.setText(row_data[2])
 
-        # Check the department of the result and activate the corresponding button
-        if result[3] == 'Kitchen':
-            self.activate_kitchen()
-        elif result[3] == 'Cashier':
-            self.activate_cashier()
-        elif result[3] == 'Admin':
-            self.activate_admin()
+        # Set the user role based on the department
+        self.set_user_role(row_data[3])
+
+    def resize_table_to_contents(self):
+        self.userRESULTS.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        height = self.userRESULTS.horizontalHeader().height()  # height of column header
+
+        for i in range(self.userRESULTS.rowCount()):
+            height += self.userRESULTS.rowHeight(i)  # add each row's height
+
+        self.userRESULTS.setFixedHeight(height)
+
+    # End of Search Module
 
     def activate_staff(self):
         self.staffBTN.setStyleSheet(self.active_button_style)
@@ -200,11 +210,21 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             self.cashierBTN.setStyleSheet(self.inactive_button_style)
             self.kitchenBTN.setStyleSheet(self.inactive_button_style)
 
+    def admin_style(self):
+        self.adminBTN.setStyleSheet(self.active_button_style)
+        self.staffBTN.setStyleSheet(self.inactive_button_style)
+
     def activate_cashier(self):
+        self.staffBTN.setStyleSheet(self.active_button_style)
+        self.adminBTN.setStyleSheet(self.inactive_button_style)
+
         self.cashierBTN.setStyleSheet(self.active_button_style)
         self.kitchenBTN.setStyleSheet(self.inactive_button_style)
 
     def activate_kitchen(self):
+        self.staffBTN.setStyleSheet(self.active_button_style)
+        self.adminBTN.setStyleSheet(self.inactive_button_style)
+
         self.kitchenBTN.setStyleSheet(self.active_button_style)
         self.cashierBTN.setStyleSheet(self.inactive_button_style)
 
@@ -214,23 +234,11 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             email = self.emailDISPLAY.text()
             cursor = conn.cursor()
 
-            try:
-                # Deactivate user in the admin table
-                cursor.execute(DISABLE_ADMIN, (email,))
-                # Commit the changes
-                conn.commit()
-                print(f"{email} deactivated in admin table")
-            except Exception as e:
-                print(f"Error deactivating user in admin table: {e}")
-
-            try:
-                # Deactivate user in the employee table
-                cursor.execute(DISABLE_EMPLOYEE, (email,))
-                # Commit the changes
-                conn.commit()
-                print(f"{email} deactivated in employee table")
-            except Exception as e:
-                print(f"Error deactivating user in employee table: {e}")
+            cursor.execute(DISABLE_USER, (email,))
+            # Commit the changes
+            conn.commit()
+            cursor.close()
+            self.log_edit(13, "{email}")
 
             # Hide content and clear search field
             self.rightcontent.hide()
@@ -240,6 +248,28 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
             create_dialog_box(f"User {email} has been successfully deactivated.", "User Deactivated")
 
+    def set_user_role(self, role):
+        # Reset all buttons to inactive style
+        self.staffBTN.setStyleSheet(self.inactive_button_style)
+        self.adminBTN.setStyleSheet(self.inactive_button_style)
+        self.cashierBTN.setStyleSheet(self.inactive_button_style)
+        self.kitchenBTN.setStyleSheet(self.inactive_button_style)
+
+        # Disable the restriction button group by default
+        self.restrictionBUTTONGRP.setEnabled(False)
+
+        # Set the style and restrictions based on the role
+        if role == 'Admin':
+            self.adminBTN.setStyleSheet(self.active_button_style)
+        elif role == 'Cashier':
+            self.restrictionBUTTONGRP.setEnabled(True)
+            self.staffBTN.setStyleSheet(self.active_button_style)
+            self.cashierBTN.setStyleSheet(self.active_button_style)
+        elif role == 'Kitchen':
+            self.restrictionBUTTONGRP.setEnabled(True)
+            self.staffBTN.setStyleSheet(self.active_button_style)
+            self.kitchenBTN.setStyleSheet(self.active_button_style)
+
     def show_rightcontent(self):
         self.rightcontent.show()
 
@@ -247,3 +277,9 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
         self.searchFIELD.clear()
+
+    def log_edit(self, user_action, specific_action):
+        user_manager = userManager._instance
+        current_id = user_manager.get_current_user_id()
+        current_username = user_manager.get_current_username()
+        user_log(current_id, user_action, current_username, specific_action)

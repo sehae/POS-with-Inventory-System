@@ -79,6 +79,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
                         self.user_type = "admin"
+                        self.user_manager.get_user_info(username)
                         user_log(admin_id, login_action, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
