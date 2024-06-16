@@ -853,7 +853,7 @@ QPushButton:pressed {
         <widget class="QWidget" name="header" native="true">
          <property name="styleSheet">
           <string notr="true">QWidget {
-    border-bottom: 3px solid #D8DBD9; 
+    border-bottom: 3px solid #D8DBD9;
 }
 </string>
          </property>
