@@ -3,7 +3,7 @@ from PyQt5.QtCore import QDateTime, QTimer, Qt
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from validator.user_manager import userManager
 
-user_manager = userManager()
+user_manager_instance = userManager()
 
 class myAdminDashboard(QtWidgets.QMainWindow):
     logout_signal = QtCore.pyqtSignal()
@@ -31,6 +31,12 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
+        self.user_manager = user_manager_instance
+
+        self.user_manager.fullname_updated.connect(self.update_full_name)
+
+    def update_full_name(self, full_name):
+        self.ui.username.setText(full_name)
 
     def update_datetime(self):
         # Get current date and time
@@ -63,6 +69,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.about_signal.emit()
 
     def logout(self):
-        user_manager.reset_user_data()
+        self.user_manager.reset_user_data()
         self.logout_signal.emit()
 
