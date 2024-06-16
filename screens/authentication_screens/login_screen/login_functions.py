@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from database.DB_Queries import LOG_ACTIVITY
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
@@ -78,7 +79,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         admin_first_name = cursor.fetchone()[0]
                         print(f"Login successful as admin: Welcome {admin_first_name}!")
                         self.user_type = "admin"
-                        user_log(admin_id, login_action, self.user_type, username)
+                        user_log(admin_id, login_action, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful.emit()
@@ -89,7 +90,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                 else:
                     print("Incorrect password.")
                     self.user_type = "system"
-                    user_log(admin_id, failed_login_action, self.user_type, username)
+                    user_log(admin_id, failed_login_action, username)
                     self.invalidCredentials()
 
             # Query the employeelogin table
@@ -106,7 +107,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         employee_first_name = cursor.fetchone()[0]
                         print(f"Login successful as Employee: Welcome {employee_first_name}!")
                         self.user_type = "employee"
-                        user_log(employee_id, login_action, self.user_type, username)
+                        LOG_ACTIVITY(employee_id, login_action, username)
                         self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful_employee.emit()
@@ -117,7 +118,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                 else:
                     print("Incorrect password.")
                     self.user_type = "system"
-                    user_log(employee_id, failed_login_action, self.user_type, username)
+                    LOG_ACTIVITY(employee_id, failed_login_action, username)
                     self.invalidCredentials()
 
             print("Invalid Credentials")
