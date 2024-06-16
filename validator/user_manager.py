@@ -1,5 +1,8 @@
 from PyQt5 import QtCore
 
+from database.DB_Queries import FETCH_USER_INFO
+from server.local_server import conn
+
 
 class userManager(QtCore.QObject):
     _instance = None  # Singleton instance
@@ -16,6 +19,7 @@ class userManager(QtCore.QObject):
         super().__init__()
         self.updated_userType = None  # Initialize updated_userType to None
         self.current_username = None
+        self.current_id = None
 
     def set_user_type(self, user_type):
         # Validate user_type (optional)
@@ -47,3 +51,24 @@ class userManager(QtCore.QObject):
 
     def get_current_username(self):
         return self.current_username
+
+    # Retrieve user information from the database
+    def get_user_info(self, username):
+        print(f"USERMANAGER: Retrieving user information for {username}...")
+
+        cursor = conn.cursor()
+
+        # Fetch all user information based on username
+        cursor.execute(FETCH_USER_INFO, (username,))
+        result = cursor.fetchone()
+
+        cursor.close()
+
+        if result is not None:
+            self.set_current_user_id(result[0])
+
+        print(f"USERMANAGER: User information retrieved: {result}")
+        return result
+
+    def get_current_user_id(self):
+        return self.current_id
