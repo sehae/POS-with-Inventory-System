@@ -52,7 +52,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
 
     def navigate_reports(self):
         return # Placeholder for future implementation
-        return  # Placeholder for future implementation
 
     def navigate_password(self):
         self.changepass_signal.emit()
