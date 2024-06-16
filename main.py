@@ -26,6 +26,7 @@ from screens.employee_screens.employee_pos.posTable_functions import posTable
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
 
+# Fix
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
