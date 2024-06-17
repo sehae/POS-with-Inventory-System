@@ -23,7 +23,7 @@ class userManager(QtCore.QObject):
 
     def set_user_type(self, user_type):
         # Validate user_type (optional)
-        if user_type in ("admin", "employee"):
+        if user_type in ("Admin", "Employee"):
             self.updated_userType = user_type
             print(f"USERMANAGER: User type updated to: {self.updated_userType}")  # Print within userManager
             self.user_type_updated.emit(user_type)  # Emit signal with new type

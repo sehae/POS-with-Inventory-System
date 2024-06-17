@@ -1,5 +1,6 @@
 from email.message import EmailMessage
-from server.email_server import from_mail
+
+from server.email_server import from_mail, get_smtp_server
 
 
 # Account Creation
@@ -25,9 +26,14 @@ def send_username_password(username, password, email):
 
     msg.set_content(message)
 
+    # Get a new SMTP connection
+    server = get_smtp_server()
+
     server.send_message(msg)
 
     print('Email Sent')
+
+    server.quit()
 
 
 # Account Update
@@ -52,6 +58,11 @@ def send_new_details(username, email):
     Moon Hey Hotpot and Grill Team
     """
 
+    # Get a new SMTP connection
+    server = get_smtp_server()
+
     msg.set_content(message)
     server.send_message(msg)
     print('Email Sent')
+
+    server.quit()
