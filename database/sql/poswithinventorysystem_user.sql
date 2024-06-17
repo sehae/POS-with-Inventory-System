@@ -16,35 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `admin`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `admin`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin` (
-  `Admin_ID` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `User_ID` int NOT NULL AUTO_INCREMENT,
   `Last_Name` varchar(45) NOT NULL,
   `First_Name` varchar(45) NOT NULL,
+  `User_Type` enum('Admin','Employee','System') NOT NULL,
+  `Department` enum('Admin','Cashier','Kitchen') NOT NULL,
   `Contact_Number` varchar(15) NOT NULL,
-  `Email` varchar(45) NOT NULL,
+  `Email` varchar(255) NOT NULL,
   `Username` varchar(45) NOT NULL,
   `Password` longtext NOT NULL,
-  `is_active` tinyint NOT NULL DEFAULT '1',
-  PRIMARY KEY (`Admin_ID`),
+  `is_active` enum('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  PRIMARY KEY (`User_ID`),
+  UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
-  UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`)
+  UNIQUE KEY `Username_UNIQUE` (`Username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'Villatura','Leah Desiree','09563847921','ld.kirbble@gmail.com','LV0101','d9d6aeb5c9c61dd379c00275a1fdbac33dcb830575cdec26df851efe1d10b70dfa4c904776a993beccb5a47c481cb9a5e7b9779d860d791460ae5281cb54042c6fbc5cc8ad9bf93e87e6d63fe9ef8ec66b5179f255a3390ebe350dc86c07e114',1),(2,'Faurillo','Ymnwl Jan','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6',1),(3,'Tiamzon','Bryan Dominick','09317543534','ewareraw@geaw.comeg','BT0103','51ff5902359ee83a44c10a0c9d02458409bfee94efb1f5ebc1106cdd870e5f8ba74f7e8d5f072c10440b36926400b7df9172dfd4c91543f6dc32ef332cd083b7f085ebdf7febf885bf3b992a977660b62a2d42e72478aa036e3fb09ab10217ac',1);
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Villatura','Leah Desiree','Admin','Admin','09563847921','ld.kirbble@gmail.com','LV0101','d9d6aeb5c9c61dd379c00275a1fdbac33dcb830575cdec26df851efe1d10b70dfa4c904776a993beccb5a47c481cb9a5e7b9779d860d791460ae5281cb54042c6fbc5cc8ad9bf93e87e6d63fe9ef8ec66b5179f255a3390ebe350dc86c07e114','Enabled'),(2,'Faurillo','Ymnwl Jan','Admin','Admin','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6','Enabled'),(3,'Tiamzon','Bryan Dominick','Admin','Admin','09317543534','ewareraw@geaw.comeg','BT0103','51ff5902359ee83a44c10a0c9d02458409bfee94efb1f5ebc1106cdd870e5f8ba74f7e8d5f072c10440b36926400b7df9172dfd4c91543f6dc32ef332cd083b7f085ebdf7febf885bf3b992a977660b62a2d42e72478aa036e3fb09ab10217ac','Enabled');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
