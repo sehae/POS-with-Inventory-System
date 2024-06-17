@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from database.DB_Queries import LOG_ACTIVITY
+from database.DB_Queries import LOG_ACTIVITY, LOGIN, GET_USER_FIRST_NAME
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
@@ -66,22 +66,20 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
             cursor = conn.cursor()
 
             # Query the adminlogin table
-            cursor.execute(GET_ADMIN_LOGIN, (username,))
+            cursor.execute(LOGIN, (username,))
             result = cursor.fetchone()
 
             if result:
-                admin_id, stored_password, is_active = result
+                user_id, stored_password, is_active, user_type = result
 
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
                     if is_active:
-                        cursor.execute(GET_ADMIN_FIRST_NAME, (admin_id,))
-                        admin_first_name = cursor.fetchone()[0]
-                        print(f"Login successful as admin: Welcome {admin_first_name}!")
-                        self.user_type = "admin"
-                        self.user_manager.get_user_info(username)
-                        user_log(admin_id, login_action, username)
-                        self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
+                        cursor.execute(GET_USER_FIRST_NAME, (user_id,))
+                        first_name = cursor.fetchone()[0]
+                        print(f"Login successful as {user_type}: Welcome {first_name}!")
+                        user_log(user_id, login_action, username)
+                        self.user_manager.set_user_type(user_type)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful.emit()
                         return
@@ -90,40 +88,13 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         return
                 else:
                     print("Incorrect password.")
-                    self.user_type = "system"
-                    user_log(admin_id, failed_login_action, username)
+                    self.user_type = "System"
+                    user_log(user_id, failed_login_action, username)
                     self.invalidCredentials()
 
-            # Query the employeelogin table
-            cursor.execute(GET_EMPLOYEE_LOGIN, (username,))
-            result = cursor.fetchone()
-
-            if result:
-                employee_id, stored_password, is_active = result
-
-                # Verify the provided password against the stored password
-                if verify_password(stored_password, provided_password):
-                    if is_active:
-                        cursor.execute(GET_EMPLOYEE_FIRST_NAME, (employee_id,))
-                        employee_first_name = cursor.fetchone()[0]
-                        print(f"Login successful as Employee: Welcome {employee_first_name}!")
-                        self.user_type = "employee"
-                        LOG_ACTIVITY(employee_id, login_action, username)
-                        self.user_manager.set_user_type(self.user_type)  # Update user type in userManager
-                        self.user_manager.set_current_username(username)  # Update current username in userManager
-                        self.login_successful_employee.emit()
-                        return
-                    else:
-                        self.disabledAcc()
-                        return
-                else:
-                    print("Incorrect password.")
-                    self.user_type = "system"
-                    LOG_ACTIVITY(employee_id, failed_login_action, username)
-                    self.invalidCredentials()
-
-            print("Invalid Credentials")
-            self.invalidCredentials()
+            else:
+                print("Invalid Credentials")
+                self.invalidCredentials()
 
         except Exception as e:
             print(f"An error occurred during login: {e}")
