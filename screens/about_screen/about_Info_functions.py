@@ -33,10 +33,10 @@ class aboutInfo(QMainWindow, Ui_MainWindow):
 
     def back(self):
         updated_user_type = self.user_manager.updated_userType
-        if updated_user_type == "admin":
+        if updated_user_type == "Admin":
             print("You clicked back as an admin")
             self.back_signal.emit()
-        elif updated_user_type == "employee":
+        elif updated_user_type == "Employee":
             print("You clicked back as an employee")
             self.back_employee_signal.emit()
 
