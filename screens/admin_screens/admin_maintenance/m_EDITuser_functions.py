@@ -33,8 +33,11 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.edituserCONTENT.hide()
         self.userRESULTS.hide()
         self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        # self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
+
         # Create a QTimer object
         self.timer = QTimer()
+
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
@@ -108,11 +111,11 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             cursor.execute(SEARCH_USER, ('%'+search_text+'%', '%'+search_text+'%', '%'+search_text+'%'))
             results = cursor.fetchall()
 
-            # If there are no results, update the errorLBL and return
-            if not results:
-                self.errorLBL.setText("No results found.")
-                self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
-                return
+            # # If there are no results, update the errorLBL and return
+            # if not results:
+            #     self.errorLBL.setText("No results found.")
+            #     self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
+            #     return
 
             # Clear the table before adding new data
             self.userRESULTS.setRowCount(len(results))
@@ -280,4 +283,8 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         user_manager = userManager._instance
         current_id = user_manager.get_current_user_id()
         current_username = user_manager.get_current_username()
-        user_log(current_id, user_action, current_username, specific_action)
+
+        if current_id is not None and user_action is not None and current_username is not None and specific_action is not None:
+            user_log(current_id, user_action, current_username, specific_action)
+        else:
+            print("One or more variables are None.")

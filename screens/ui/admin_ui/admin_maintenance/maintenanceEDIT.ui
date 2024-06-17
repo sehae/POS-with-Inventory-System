@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1802</width>
-    <height>790</height>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -318,6 +318,18 @@ QPushButton:pressed {
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
+                <item>
+                 <widget class="QLabel" name="errorLBL">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel {
+color: red;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Error Label</string>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <spacer name="verticalSpacer_4">
                   <property name="orientation">
@@ -853,7 +865,7 @@ QPushButton:pressed {
         <widget class="QWidget" name="header" native="true">
          <property name="styleSheet">
           <string notr="true">QWidget {
-    border-bottom: 3px solid #D8DBD9;
+    border-bottom: 3px solid #D8DBD9; 
 }
 </string>
          </property>
