@@ -36,10 +36,10 @@
        </sizepolicy>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::NoFrame</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Shadow::Plain</enum>
+       <enum>QFrame::Plain</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
        <property name="leftMargin">
@@ -78,7 +78,7 @@
           <item>
            <spacer name="verticalSpacer_4">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -220,7 +220,7 @@ QPushButton:pressed {
           <item>
            <spacer name="verticalSpacer_5">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -250,7 +250,7 @@ QPushButton:pressed {
              </font>
             </property>
             <property name="layoutDirection">
-             <enum>Qt::LayoutDirection::LeftToRight</enum>
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
@@ -269,7 +269,7 @@ QPushButton:pressed {
           <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -315,7 +315,7 @@ QPushButton:pressed {
                 <string>Juan Dela Cruz</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -383,7 +383,7 @@ QPushButton:pressed {
                  <widget class="QWidget" name="formWidget" native="true">
                   <layout class="QFormLayout" name="formLayout_2">
                    <property name="labelAlignment">
-                    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                    </property>
                    <property name="horizontalSpacing">
                     <number>50</number>
@@ -718,7 +718,7 @@ QComboBox::down-arrow {
                    <item>
                     <spacer name="horizontalSpacer_3">
                      <property name="orientation">
-                      <enum>Qt::Orientation::Horizontal</enum>
+                      <enum>Qt::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -820,7 +820,7 @@ QPushButton:pressed {
              <item>
               <spacer name="horizontalSpacer">
                <property name="orientation">
-                <enum>Qt::Orientation::Horizontal</enum>
+                <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -836,7 +836,7 @@ QPushButton:pressed {
           <item>
            <spacer name="verticalSpacer_6">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>

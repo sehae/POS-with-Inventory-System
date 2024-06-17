@@ -166,6 +166,43 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+            </property>
+            <property name="text">
+             <string>Backup</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="backBTN">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -319,18 +356,6 @@ QPushButton:pressed {
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="errorLBL">
-                  <property name="styleSheet">
-                   <string notr="true">QLabel {
-color: red;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Error Label</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <spacer name="verticalSpacer_4">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -378,14 +403,20 @@ color: red;
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QFrame {
+    border: 2px solid #07BEB8;
+    border-radius: 6px;
+}</string>
+                  </property>
                   <property name="frameShape">
-                   <enum>QFrame::Box</enum>
+                   <enum>QFrame::NoFrame</enum>
                   </property>
                   <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
+                   <enum>QFrame::Plain</enum>
                   </property>
                   <property name="lineWidth">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_6">
                    <property name="spacing">
@@ -432,6 +463,11 @@ color: red;
                       </property>
                       <item row="1" column="0">
                        <widget class="QLabel" name="nameLBL">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>Name:</string>
                         </property>
@@ -439,6 +475,11 @@ color: red;
                       </item>
                       <item row="1" column="1">
                        <widget class="QLabel" name="nameDISPLAY">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>Juan Dela Cruz</string>
                         </property>
@@ -446,6 +487,11 @@ color: red;
                       </item>
                       <item row="2" column="0">
                        <widget class="QLabel" name="emailLBL">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>E-mail:</string>
                         </property>
@@ -453,6 +499,11 @@ color: red;
                       </item>
                       <item row="2" column="1">
                        <widget class="QLabel" name="emailDISPLAY">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>jcmoonhey@gmail.com</string>
                         </property>
@@ -460,6 +511,11 @@ color: red;
                       </item>
                       <item row="3" column="0">
                        <widget class="QLabel" name="loaLBL">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>LOA:</string>
                         </property>
@@ -527,6 +583,11 @@ QPushButton:pressed {
                       </item>
                       <item row="4" column="0">
                        <widget class="QLabel" name="restrictionLBL">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>Restriction:</string>
                         </property>
@@ -594,6 +655,11 @@ QPushButton:pressed {
                       </item>
                       <item row="5" column="0">
                        <widget class="QLabel" name="actionsLBL">
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    border: none;
+}</string>
+                        </property>
                         <property name="text">
                          <string>Other Actions:</string>
                         </property>
@@ -700,7 +766,7 @@ QPushButton:pressed {
     background-color: #67B99A;
     color: white;
     padding: 8px 16px;
-    border-radius: 15px;
+    border-radius: 13px;
 }
 QPushButton:hover {
     background-color: #5CAE8B;
@@ -722,7 +788,7 @@ QPushButton:pressed {
     color: #858D9D;
     border: 2px solid #F0F1F3;
     padding: 8px 16px;
-    border-radius: 15px;
+    border-radius: 13px;
 }
 QPushButton:hover {
     background-color: #F0F1F3;
@@ -745,6 +811,18 @@ QPushButton:pressed {
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="errorLBL">
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+color: red;
+}</string>
+               </property>
+               <property name="text">
+                <string>Error Label</string>
+               </property>
               </widget>
              </item>
              <item>

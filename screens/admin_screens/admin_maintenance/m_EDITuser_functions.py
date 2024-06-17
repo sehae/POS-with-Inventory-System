@@ -36,7 +36,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.edituserCONTENT.hide()
         self.userRESULTS.hide()
         self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
+        self.errorLBL.hide()
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -114,11 +114,14 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             cursor.execute(SEARCH_USER, ('%'+search_text+'%', '%'+search_text+'%', '%'+search_text+'%'))
             results = cursor.fetchall()
 
-            # # If there are no results, update the errorLBL and return
-            # if not results:
-            #     self.errorLBL.setText("No results found.")
-            #     self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
-            #     return
+            # If there are no results, update the errorLBL and return
+            if not results:
+                self.errorLBL.setText("No results found.")
+                self.errorLBL.show()
+                self.userRESULTS.hide()
+                self.edituserCONTENT.hide()
+                self.rightcontent.hide()
+                return
 
             # Clear the table before adding new data
             self.userRESULTS.setRowCount(len(results))
@@ -155,7 +158,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
                 self.resize_table_to_contents()
                 self.userRESULTS.show()
                 self.edituserCONTENT.hide()
-                self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
+                self.errorLBL.hide()
 
                 if result[3] == 'Kitchen':
                     self.activate_kitchen()

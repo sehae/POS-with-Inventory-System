@@ -171,12 +171,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.edituserCONTENT)
         self.verticalLayout_7.setContentsMargins(0, 0, -1, 0)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.errorLBL = QtWidgets.QLabel(self.edituserCONTENT)
-        self.errorLBL.setStyleSheet("QLabel {\n"
-"color: red;\n"
-"}")
-        self.errorLBL.setObjectName("errorLBL")
-        self.verticalLayout_7.addWidget(self.errorLBL)
         spacerItem2 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_7.addItem(spacerItem2)
         self.edituserLBL = QtWidgets.QLabel(self.edituserCONTENT)
@@ -193,9 +187,13 @@ class Ui_MainWindow(object):
         self.frameBox.setSizePolicy(sizePolicy)
         self.frameBox.setMinimumSize(QtCore.QSize(800, 0))
         self.frameBox.setMaximumSize(QtCore.QSize(800, 16777215))
-        self.frameBox.setFrameShape(QtWidgets.QFrame.Box)
-        self.frameBox.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameBox.setLineWidth(2)
+        self.frameBox.setStyleSheet("QFrame {\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"}")
+        self.frameBox.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frameBox.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frameBox.setLineWidth(0)
         self.frameBox.setObjectName("frameBox")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.frameBox)
         self.verticalLayout_6.setContentsMargins(15, 15, 15, 15)
@@ -210,18 +208,33 @@ class Ui_MainWindow(object):
         self.formLayout.setSpacing(25)
         self.formLayout.setObjectName("formLayout")
         self.nameLBL = QtWidgets.QLabel(self.contents)
+        self.nameLBL.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.nameLBL.setObjectName("nameLBL")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.nameLBL)
         self.nameDISPLAY = QtWidgets.QLabel(self.contents)
+        self.nameDISPLAY.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.nameDISPLAY.setObjectName("nameDISPLAY")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.nameDISPLAY)
         self.emailLBL = QtWidgets.QLabel(self.contents)
+        self.emailLBL.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.emailLBL.setObjectName("emailLBL")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.emailLBL)
         self.emailDISPLAY = QtWidgets.QLabel(self.contents)
+        self.emailDISPLAY.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.emailDISPLAY.setObjectName("emailDISPLAY")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.emailDISPLAY)
         self.loaLBL = QtWidgets.QLabel(self.contents)
+        self.loaLBL.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.loaLBL.setObjectName("loaLBL")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.loaLBL)
         self.loaBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -261,6 +274,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.adminBTN)
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.loaBUTTONGRP)
         self.restrictionLBL = QtWidgets.QLabel(self.contents)
+        self.restrictionLBL.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.restrictionLBL.setObjectName("restrictionLBL")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.restrictionLBL)
         self.restrictionBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -300,6 +316,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.kitchenBTN)
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.restrictionBUTTONGRP)
         self.actionsLBL = QtWidgets.QLabel(self.contents)
+        self.actionsLBL.setStyleSheet("QLabel {\n"
+"    border: none;\n"
+"}")
         self.actionsLBL.setObjectName("actionsLBL")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.actionsLBL)
         self.actionsBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -351,7 +370,7 @@ class Ui_MainWindow(object):
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
+"    border-radius: 13px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #5CAE8B;\n"
@@ -367,7 +386,7 @@ class Ui_MainWindow(object):
 "    color: #858D9D;\n"
 "    border: 2px solid #F0F1F3;\n"
 "    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
+"    border-radius: 13px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #F0F1F3;\n"
@@ -382,6 +401,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addWidget(self.buttons)
         self.verticalLayout_7.addWidget(self.frameBox)
         self.verticalLayout_3.addWidget(self.edituserCONTENT)
+        self.errorLBL = QtWidgets.QLabel(self.leftcontent)
+        self.errorLBL.setStyleSheet("QLabel {\n"
+"color: red;\n"
+"}")
+        self.errorLBL.setObjectName("errorLBL")
+        self.verticalLayout_3.addWidget(self.errorLBL)
         self.userRESULTS = QtWidgets.QTableWidget(self.leftcontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -492,7 +517,6 @@ class Ui_MainWindow(object):
         self.editBTN.setText(_translate("MainWindow", "Edit User"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.searchLBL.setText(_translate("MainWindow", "Search for User"))
-        self.errorLBL.setText(_translate("MainWindow", "Error Label"))
         self.edituserLBL.setText(_translate("MainWindow", "Edit User"))
         self.nameLBL.setText(_translate("MainWindow", "Name:"))
         self.nameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
@@ -509,6 +533,7 @@ class Ui_MainWindow(object):
         self.deactBTN.setText(_translate("MainWindow", "Deactivate"))
         self.saveBTN.setText(_translate("MainWindow", "Save Changes"))
         self.discardBTN.setText(_translate("MainWindow", "Discard"))
+        self.errorLBL.setText(_translate("MainWindow", "Error Label"))
         self.userlogsLBL.setText(_translate("MainWindow", "User Logs"))
         item = self.logTABLE.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Date"))
