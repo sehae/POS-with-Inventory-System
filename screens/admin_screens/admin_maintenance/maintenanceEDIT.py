@@ -27,8 +27,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy)
-        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame.setFrameShape(QtCore.Qt.QFrame::Shape::NoFrame)
+        self.frame.setFrameShadow(QtCore.Qt.QFrame::Shadow::Plain)
         self.frame.setObjectName("frame")
         self.gridLayout = QtWidgets.QGridLayout(self.frame)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -171,7 +171,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.edituserCONTENT)
         self.verticalLayout_7.setContentsMargins(0, 0, -1, 0)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        spacerItem2 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.errorLBL = QtWidgets.QLabel(self.edituserCONTENT)
+        self.errorLBL.setStyleSheet("QLabel {\n"
+"    color: red;\n"
+"}")
+        self.errorLBL.setObjectName("errorLBL")
+        self.verticalLayout_7.addWidget(self.errorLBL)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtCore.Qt.QSizePolicy::Policy::Fixed)
         self.verticalLayout_7.addItem(spacerItem2)
         self.edituserLBL = QtWidgets.QLabel(self.edituserCONTENT)
         font = QtGui.QFont()
@@ -179,43 +185,62 @@ class Ui_MainWindow(object):
         self.edituserLBL.setFont(font)
         self.edituserLBL.setObjectName("edituserLBL")
         self.verticalLayout_7.addWidget(self.edituserLBL)
-        self.frameBox = QtWidgets.QFrame(self.edituserCONTENT)
+        self.widgetBox = QtWidgets.QWidget(self.edituserCONTENT)
+        self.widgetBox.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.frameBox.sizePolicy().hasHeightForWidth())
-        self.frameBox.setSizePolicy(sizePolicy)
-        self.frameBox.setMinimumSize(QtCore.QSize(800, 0))
-        self.frameBox.setMaximumSize(QtCore.QSize(800, 16777215))
-        self.frameBox.setFrameShape(QtWidgets.QFrame.Box)
-        self.frameBox.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameBox.setLineWidth(2)
-        self.frameBox.setObjectName("frameBox")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.frameBox)
+        sizePolicy.setHeightForWidth(self.widgetBox.sizePolicy().hasHeightForWidth())
+        self.widgetBox.setSizePolicy(sizePolicy)
+        self.widgetBox.setMinimumSize(QtCore.QSize(800, 0))
+        self.widgetBox.setMaximumSize(QtCore.QSize(800, 16777215))
+        self.widgetBox.setStyleSheet("QWidget {\n"
+"border: 2px solid #07BEB8; \n"
+"border-radius: 6px;\n"
+"}")
+        self.widgetBox.setObjectName("widgetBox")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.widgetBox)
         self.verticalLayout_6.setContentsMargins(15, 15, 15, 15)
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.contents = QtWidgets.QWidget(self.frameBox)
-        self.contents.setStyleSheet("")
+        self.contents = QtWidgets.QWidget(self.widgetBox)
+        self.contents.setStyleSheet("QWidget {\n"
+"border: none;\n"
+"}")
         self.contents.setObjectName("contents")
         self.formLayout = QtWidgets.QFormLayout(self.contents)
-        self.formLayout.setRowWrapPolicy(QtWidgets.QFormLayout.DontWrapRows)
+        self.formLayout.setRowWrapPolicy(QtCore.Qt.QFormLayout::RowWrapPolicy::DontWrapRows)
         self.formLayout.setContentsMargins(0, 0, 50, 0)
         self.formLayout.setSpacing(25)
         self.formLayout.setObjectName("formLayout")
         self.nameLBL = QtWidgets.QLabel(self.contents)
+        self.nameLBL.setStyleSheet("QLabel {\n"
+"border: none;\n"
+"}")
         self.nameLBL.setObjectName("nameLBL")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.nameLBL)
         self.nameDISPLAY = QtWidgets.QLabel(self.contents)
+        self.nameDISPLAY.setStyleSheet("QFrame {\n"
+"border: none;\n"
+"}")
         self.nameDISPLAY.setObjectName("nameDISPLAY")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.nameDISPLAY)
         self.emailLBL = QtWidgets.QLabel(self.contents)
+        self.emailLBL.setStyleSheet("QLabel {\n"
+"border: none;\n"
+"}")
         self.emailLBL.setObjectName("emailLBL")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.emailLBL)
         self.emailDISPLAY = QtWidgets.QLabel(self.contents)
+        self.emailDISPLAY.setStyleSheet("QFrame {\n"
+"border: none;\n"
+"}")
         self.emailDISPLAY.setObjectName("emailDISPLAY")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.emailDISPLAY)
         self.loaLBL = QtWidgets.QLabel(self.contents)
+        self.loaLBL.setStyleSheet("QLabel {\n"
+"border: none;\n"
+"}")
         self.loaLBL.setObjectName("loaLBL")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.loaLBL)
         self.loaBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -255,6 +280,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.adminBTN)
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.loaBUTTONGRP)
         self.restrictionLBL = QtWidgets.QLabel(self.contents)
+        self.restrictionLBL.setStyleSheet("QLabel {\n"
+"border: none;\n"
+"}")
         self.restrictionLBL.setObjectName("restrictionLBL")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.restrictionLBL)
         self.restrictionBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -294,6 +322,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.kitchenBTN)
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.restrictionBUTTONGRP)
         self.actionsLBL = QtWidgets.QLabel(self.contents)
+        self.actionsLBL.setStyleSheet("QLabel {\n"
+"border: none;\n"
+"}")
         self.actionsLBL.setObjectName("actionsLBL")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.actionsLBL)
         self.actionsBUTTONGRP = QtWidgets.QWidget(self.contents)
@@ -333,12 +364,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addWidget(self.deactBTN)
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.actionsBUTTONGRP)
         self.verticalLayout_6.addWidget(self.contents)
-        self.buttons = QtWidgets.QWidget(self.frameBox)
+        self.buttons = QtWidgets.QWidget(self.widgetBox)
+        self.buttons.setStyleSheet("QWidget {\n"
+"border: none;\n"
+"}")
         self.buttons.setObjectName("buttons")
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.buttons)
         self.horizontalLayout_6.setContentsMargins(0, 25, 50, 25)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        spacerItem3 = QtWidgets.QSpacerItem(300, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem3 = QtWidgets.QSpacerItem(300, 20, QtWidgets.QSizePolicy.Minimum, QtCore.Qt.QSizePolicy::Policy::Fixed)
         self.horizontalLayout_6.addItem(spacerItem3)
         self.saveBTN = QtWidgets.QPushButton(self.buttons)
         self.saveBTN.setStyleSheet("QPushButton {\n"
@@ -374,7 +408,7 @@ class Ui_MainWindow(object):
         self.discardBTN.setObjectName("discardBTN")
         self.horizontalLayout_6.addWidget(self.discardBTN)
         self.verticalLayout_6.addWidget(self.buttons)
-        self.verticalLayout_7.addWidget(self.frameBox)
+        self.verticalLayout_7.addWidget(self.widgetBox)
         self.verticalLayout_3.addWidget(self.edituserCONTENT)
         self.userRESULTS = QtWidgets.QTableWidget(self.leftcontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -438,7 +472,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label.setLayoutDirection(QtCore.Qt.Qt::LayoutDirection::LeftToRight)
         self.label.setStyleSheet("QLabel {\n"
 "    color: #67B99A;\n"
 "    font-size: 45px;\n"
@@ -446,7 +480,7 @@ class Ui_MainWindow(object):
         self.label.setScaledContents(False)
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.horizontalLayout_2.addItem(spacerItem5)
         self.frame_2 = QtWidgets.QFrame(self.header)
         self.frame_2.setObjectName("frame_2")
@@ -468,7 +502,7 @@ class Ui_MainWindow(object):
         self.usernameDISPLAY.setStyleSheet("QLabel {\n"
 "    color: black;\n"
 "}")
-        self.usernameDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.usernameDISPLAY.setAlignment(QtCore.Qt.Qt::AlignmentFlag::AlignRight|QtCore.Qt.Qt::AlignmentFlag::AlignTrailing|QtCore.Qt.Qt::AlignmentFlag::AlignVCenter)
         self.usernameDISPLAY.setObjectName("usernameDISPLAY")
         self.verticalLayout.addWidget(self.usernameDISPLAY)
         self.horizontalLayout_2.addWidget(self.frame_2)
@@ -486,6 +520,7 @@ class Ui_MainWindow(object):
         self.editBTN.setText(_translate("MainWindow", "Edit User"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.searchLBL.setText(_translate("MainWindow", "Search for User"))
+        self.errorLBL.setText(_translate("MainWindow", "Error Label"))
         self.edituserLBL.setText(_translate("MainWindow", "Edit User"))
         self.nameLBL.setText(_translate("MainWindow", "Name:"))
         self.nameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
@@ -515,7 +550,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "MAINTENANCE"))
         self.dateDISPLAY.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.usernameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
-import assets.resourceFile_rc
+import resourceFile_rc
 
 
 if __name__ == "__main__":
