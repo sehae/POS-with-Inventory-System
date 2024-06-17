@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QDateTime, QTimer
 
-from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, CHANGE_DEPARTMENT, DISABLE_USER
+from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, CHANGE_DEPARTMENT, DISABLE_USER, \
+    GET_USER_LOGS, GET_USER_ID
 from maintenance.user_logs import user_log
 from shared.imports import *
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
@@ -26,14 +27,16 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.adminBTN.clicked.connect(self.activate_admin)
         self.cashierBTN.clicked.connect(self.activate_cashier)
         self.kitchenBTN.clicked.connect(self.activate_kitchen)
+
         self.userlogsBTN.clicked.connect(self.show_rightcontent)
+
         self.deactBTN.clicked.connect(self.deactivate_user)
         self.discardBTN.clicked.connect(self.discard)
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
         self.userRESULTS.hide()
         self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        # self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
+        self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -273,6 +276,8 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
     def show_rightcontent(self):
         self.rightcontent.show()
+        self.populate_log_table()
+
 
     def discard(self):
         self.rightcontent.hide()
@@ -288,3 +293,89 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             user_log(current_id, user_action, current_username, specific_action)
         else:
             print("One or more variables are None.")
+
+    def get_user_id(self, email):
+        try:
+            cursor = conn.cursor()
+            cursor.execute(GET_USER_ID, (email,))
+            user_id = cursor.fetchone()
+            cursor.close()
+
+            # If a user_id was found, return it
+            if user_id is not None:
+                return user_id[0]
+
+        except Exception as e:
+            print(f"Error in get_user_id: {e}")
+
+        # If no user_id was found or an error occurred, return None
+        return None
+
+    def get_user_logs(self):
+        try:
+            # Get the email from the emailDISPLAY field
+            current_email = self.emailDISPLAY.text()
+
+            # Get the user_id associated with the current_email
+            user_id = self.get_user_id(current_email)
+
+            cursor = conn.cursor()
+            cursor.execute(GET_USER_LOGS, (user_id,))
+            logs = cursor.fetchall()
+            cursor.close()
+
+            return logs
+        except Exception as e:
+            print(f"Error in get_user_logs: {e}")
+            return []
+
+    def populate_log_table(self):
+        try:
+            logs = self.get_user_logs()
+
+            # Clear the table before adding new data
+            self.logTABLE.setRowCount(0)
+
+            # Loop through the logs and add them to the table
+            for log in logs:
+                # Get the row index
+                row_position = self.logTABLE.rowCount()
+
+                # Insert a new row at row_position
+                self.logTABLE.insertRow(row_position)
+
+                # Convert the date and time to strings
+                date_str = log[0].strftime("%Y-%m-%d")
+                time_str = self.timedelta_to_str(log[1])  # Use the timedelta_to_str function here
+
+                # Create a QTableWidgetItem for each field
+                date_item = QtWidgets.QTableWidgetItem(date_str)
+                time_item = QtWidgets.QTableWidgetItem(time_str)
+                action_item = QtWidgets.QTableWidgetItem(log[2])
+
+                # Make the cells not editable
+                date_item.setFlags(date_item.flags() & ~QtCore.Qt.ItemIsEditable)
+                time_item.setFlags(time_item.flags() & ~QtCore.Qt.ItemIsEditable)
+                action_item.setFlags(action_item.flags() & ~QtCore.Qt.ItemIsEditable)
+
+                # Add the items to the table
+                self.logTABLE.setItem(row_position, 0, date_item)
+                self.logTABLE.setItem(row_position, 1, time_item)
+                self.logTABLE.setItem(row_position, 2, action_item)
+
+                # Resize the columns to fit the contents
+                self.logTABLE.resizeColumnToContents(0)  # Resize the date column
+                self.logTABLE.resizeColumnToContents(1)  # Resize the time column
+
+        except Exception as e:
+            print(f"Error in populate_log_table: {e}")
+
+    def timedelta_to_str(self, timedelta_obj):
+        total_seconds = int(timedelta_obj.total_seconds())
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        period = "AM" if hours < 12 else "PM"
+        hours = hours % 12
+        if hours == 0:
+            hours = 12
+        return f"{hours:02}:{minutes:02}:{seconds:02} {period}"
