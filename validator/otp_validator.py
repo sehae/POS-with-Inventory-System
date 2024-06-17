@@ -2,8 +2,7 @@ import random
 import time
 from email.message import EmailMessage
 
-from server.email_server import from_mail, server
-
+from server.email_server import from_mail, get_smtp_server
 
 # Generate OTP
 def generate_otp():
@@ -12,7 +11,6 @@ def generate_otp():
         otp += str(random.randint(0, 9))
 
     return otp
-
 
 def send_otp(to_mail):
     otp = generate_otp()
@@ -57,7 +55,12 @@ def send_otp(to_mail):
 
     msg.add_alternative(message, subtype='html')
 
+    # Get a new SMTP connection
+    server = get_smtp_server()
+
     server.send_message(msg)
     print('Email Sent')
+
+    server.quit()
 
     return otp, otp_time

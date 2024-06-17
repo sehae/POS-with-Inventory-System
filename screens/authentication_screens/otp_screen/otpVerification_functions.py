@@ -13,7 +13,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
     cancel_signal = pyqtSignal()
     otp_verified = pyqtSignal(str)
 
-    def __init__(self,):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
@@ -80,10 +80,17 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
             print("Incorrect OTP")
 
     def resend_otp(self):
+        print("Resend OTP method called")
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
-        self.sent_otp, self.sent_time = send_otp(self.to_email)
+        print("Attempting to send OTP to:", self.supplied_email)
+        try:
+            self.sent_otp, self.sent_time = send_otp(self.supplied_email)
+            print("OTP sent successfully")
+        except Exception as e:
+            print("Error while sending OTP:", e)
         self.resend_timer.start()
+        print("Timer started")
 
     def enable_resend_button(self):
         self.resendBTN.setEnabled(True)

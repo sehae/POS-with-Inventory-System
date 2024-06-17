@@ -1,5 +1,5 @@
 from email.message import EmailMessage
-from server.email_server import server, from_mail
+from server.email_server import from_mail
 
 
 # Account Creation

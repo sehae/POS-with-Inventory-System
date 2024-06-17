@@ -33,8 +33,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.edituserCONTENT.hide()
         self.userRESULTS.hide()
         self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
-
         # Create a QTimer object
         self.timer = QTimer()
 
