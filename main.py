@@ -14,6 +14,7 @@ from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.about_screen.about_Info_functions import aboutInfo
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
 from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
+from screens.employee_screens.employee_dashboard.e_cashierDashboard_functions import myEmployeeDashboard_Cashier
 from screens.employee_screens.employee_inventory.inventory_Table_functions import inventoryTable
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.help_screen.help_support_functions import helpSupport
@@ -57,6 +58,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.change_password = changePassword()
 
         self.employee_dashboard = myEmployeeDashboard()
+        self.employee_dashboard_cashier = myEmployeeDashboard_Cashier()
         self.pos_order = posOrder()
         self.pos_payment = posPayment()
         self.pos_table = posTable()
@@ -82,6 +84,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.help_manual)
         self.stacked_widget.addWidget(self.change_password)
         self.stacked_widget.addWidget(self.employee_dashboard)
+        self.stacked_widget.addWidget(self.employee_dashboard_cashier)
         self.stacked_widget.addWidget(self.pos_order)
         self.stacked_widget.addWidget(self.pos_payment)
         self.stacked_widget.addWidget(self.pos_table)
@@ -150,12 +153,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.help_manual.back_employee_signal.connect(self.show_employee_dashboard)
         self.help_support.back_employee_signal.connect(self.show_employee_dashboard)
 
-        self.login_screen.login_successful_employee.connect(self.show_employee_dashboard)
-        self.employee_dashboard.pos_signal.connect(self.show_pos_order)
+        self.login_screen.login_successful_kitchen.connect(self.show_employee_dashboard)
         self.employee_dashboard.logout_signal.connect(self.show_login_screen)
-        self.pos_order.back_signal.connect(self.show_employee_dashboard)
         self.pos_order.payment_signal.connect(self.show_pos_payment)
         self.pos_order.menu_signal.connect(self.show_pos_menu)
+        self.employee_dashboard_cashier.help_signal.connect(self.show_help_faq)
+        self.employee_dashboard_cashier.about_signal.connect(self.show_about_devcredits)
+
+        self.login_screen.login_successful_cashier.connect(self.show_employee_dashboard_cashier)
+        self.pos_order.back_signal.connect(self.show_employee_dashboard_cashier)
+        self.employee_dashboard_cashier.logout_signal.connect(self.show_login_screen)
+        self.employee_dashboard_cashier.pos_signal.connect(self.show_pos_order)
+        self.employee_dashboard_cashier.changepass_signal.connect(self.show_change_password)
 
         self.pos_payment.back_signal.connect(self.show_employee_dashboard)
         self.pos_payment.menu_signal.connect(self.show_pos_menu)
@@ -205,6 +214,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
 
 
+    def show_employee_dashboard_cashier(self):
+        self.stacked_widget.setCurrentWidget(self.employee_dashboard_cashier)
+
     def show_admin_maintenance_backup(self):
         self.stacked_widget.setCurrentWidget(self.admin_maintenance_backup)
 
@@ -212,7 +224,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.setCurrentWidget(self.login_screen)
 
     def show_email_screen(self):
-        print("show_email_screen method called")
         self.stacked_widget.setCurrentWidget(self.email_screen)
 
     def show_otp_verification(self):

@@ -12,7 +12,8 @@ user_manager_instance = userManager()
 
 class myLoginScreen(QMainWindow, Ui_MainWindow):
     login_successful = QtCore.pyqtSignal()
-    login_successful_employee = QtCore.pyqtSignal()
+    login_successful_kitchen = QtCore.pyqtSignal()
+    login_successful_cashier = QtCore.pyqtSignal()
     show_email_screen_signal = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -70,18 +71,24 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
             result = cursor.fetchone()
 
             if result:
-                user_id, stored_password, is_active, user_type = result
+                user_id, stored_password, is_active, department = result
 
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
                     if is_active:
                         cursor.execute(GET_USER_FIRST_NAME, (user_id,))
                         first_name = cursor.fetchone()[0]
-                        print(f"Login successful as {user_type}: Welcome {first_name}!")
+                        print(f"Login successful as {department}: Welcome {first_name}!")
                         user_log(user_id, login_action, username)
-                        self.user_manager.set_user_type(user_type)  # Update user type in userManager
+                        self.user_manager.set_department(department)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
                         self.login_successful.emit()
+                        if department == "Admin":
+                            self.login_successful.emit()
+                        elif department == "Cashier":
+                            self.login_successful_cashier.emit()
+                        else:
+                            self.login_successful_kitchen.emit()
                         return
                     else:
                         self.disabledAcc()
@@ -93,7 +100,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                     self.invalidCredentials()
 
             else:
-                print("Invalid Credentials")
                 self.invalidCredentials()
 
         except Exception as e:

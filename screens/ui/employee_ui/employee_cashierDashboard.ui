@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1224</width>
-    <height>974</height>
+    <width>1202</width>
+    <height>786</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -41,7 +44,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -55,8 +58,8 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QWidget" name="header" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <widget class="QWidget" name="header_2" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="leftMargin">
            <number>25</number>
           </property>
@@ -70,14 +73,14 @@
            <number>25</number>
           </property>
           <item>
-           <widget class="QWidget" name="widget_3" native="true">
+           <widget class="QWidget" name="widget_4" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -128,7 +131,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -153,7 +156,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -166,8 +169,8 @@
            </spacer>
           </item>
           <item>
-           <widget class="QWidget" name="widget" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+           <widget class="QWidget" name="widget_2" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -235,7 +238,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -251,8 +254,8 @@
         </spacer>
        </item>
        <item>
-        <widget class="QWidget" name="buttonGroup" native="true">
-         <layout class="QGridLayout" name="gridLayout">
+        <widget class="QWidget" name="buttonGroup_2" native="true">
+         <layout class="QGridLayout" name="gridLayout_2">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -271,49 +274,6 @@
           <property name="verticalSpacing">
            <number>25</number>
           </property>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="inventoryButton">
-            <property name="minimumSize">
-             <size>
-              <width>400</width>
-              <height>280</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>400</width>
-              <height>280</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;
-    color: white;
-    border: none;
-    border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
-}
-
-QPushButton:hover {
-    background-color: #5FCAC4;
-}
-QPushButton:pressed {
-    background-color: #058A84;
-}
-</string>
-            </property>
-            <property name="text">
-             <string>INVENTORY</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="changePassButton">
             <property name="minimumSize">
@@ -397,6 +357,56 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>HELP</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="posButton">
+            <property name="minimumSize">
+             <size>
+              <width>400</width>
+              <height>280</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>280</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background: #07BEB8 url(:/logos/Icons/posIcon.png) center no-repeat;
+    color: white;
+    border: none;
+    border-radius: 5px;
+	text-align: bottom center;
+	padding-bottom: 30px;
+}
+
+QPushButton:hover {
+    background-color: #5FCAC4;
+}
+
+QPushButton:pressed {
+    background-color: #058A84;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>POS</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>200</width>
+              <height>200</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -490,7 +500,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -508,8 +518,6 @@ QPushButton:pressed {
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../../../assets/resourceFile.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
