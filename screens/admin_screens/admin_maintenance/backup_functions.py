@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 
@@ -5,7 +6,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
-from maintenance.backup_restore import backup_db, load_config, save_config
+from maintenance.backup_restore import backup_db, load_config, save_config, restore_backup
 from screens.admin_screens.admin_maintenance.backup import Ui_MainWindow
 from shared.navigation_signal import back
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
@@ -22,10 +23,13 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
             self.backBTN.clicked.connect(lambda: back(self.back_signal))
             self.adduserBTN.clicked.connect(self.add_signal.emit)
             self.editBTN.clicked.connect(self.edit_signal.emit)
-
+            self.restoreBTN.clicked.connect(self.handle_restore_click)
             self.viewBTN.clicked.connect(self.view_backup_location)
             self.selectfolderBTN.clicked.connect(self.select_backup_directory)
             self.backupnowBTN.clicked.connect(self.start_backup_timer)
+
+            self.update_last_backup_date()
+            self.update_backup_dates()
 
             config = load_config()
             directory = config.get('DEFAULT', 'backup_path', fallback=None)
@@ -95,7 +99,11 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         backup_path = config.get('DEFAULT', 'backup_path', fallback=None)
         print(f"Backup path: {backup_path}")
         if backup_path:
-            self.backup_timer.timeout.connect(backup_db(backup_path))
+            # Perform a backup immediately
+            backup_db(backup_path)
+
+            # Connect the timeout signal of the timer to the backup_db method
+            self.backup_timer.timeout.connect(lambda: backup_db(backup_path))
 
         # Start the timer with the determined interval
         self.backup_timer.start(interval)
@@ -114,3 +122,86 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         except Exception as e:
             print(f"An error occurred: {e}")
 
+    def update_last_backup_date(self):
+        config = load_config()
+        backup_path = config.get('DEFAULT', 'backup_path', fallback=None)
+        if backup_path:
+            try:
+                # List all files in the backup directory
+                files = os.listdir(backup_path)
+
+                # Filter out directories, leaving only files
+                files = [f for f in files if os.path.isfile(os.path.join(backup_path, f))]
+
+                # If there are no files, there's no backup date to display
+                if not files:
+                    self.lastbackupDISPLAY.setText("No backups yet")
+                    return
+
+                # Sort the files by modification time
+                files.sort(key=lambda x: os.path.getmtime(os.path.join(backup_path, x)))
+
+                # Get the modification time of the most recent file
+                last_backup_time = os.path.getmtime(os.path.join(backup_path, files[-1]))
+
+                # Convert the modification time to a datetime object
+                last_backup_date = datetime.datetime.fromtimestamp(last_backup_time)
+
+                # Format the datetime object as a string
+                last_backup_date_str = last_backup_date.strftime(
+                    '%B %d, %Y, %H:%M:%S')  # Month Day, Year, Hour:Minute:Second format
+
+                # Display the last backup date
+                self.lastbackupDISPLAY.setText(last_backup_date_str)
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        else:
+            self.lastbackupDISPLAY.setText("No backup location set")
+
+    def update_backup_dates(self):
+        config = load_config()
+        backup_path = config.get('DEFAULT', 'backup_path', fallback=None)
+        if backup_path:
+            try:
+                # Clear the combobox
+                self.backupDatesBOX.clear()
+                self.original_filename = {}
+                self.original_filename = {}
+
+                # List all files in the backup directory
+                files = os.listdir(backup_path)
+
+                # Filter out directories, leaving only files
+                files = [f for f in files if os.path.isfile(os.path.join(backup_path, f))]
+
+                # If there are no files, there's no backup date to display
+                if not files:
+                    self.backupDatesBOX.addItem("No backups yet")
+                    return
+
+                # Sort the files by modification time
+                files.sort(key=lambda x: os.path.getmtime(os.path.join(backup_path, x)), reverse=True)
+
+                # Add the sorted files to the combobox
+                for file in files:
+                    # Extract the date from the file name
+                    date_str = file.split('_')[1]  # Get the date part of the file name
+                    date_obj = datetime.datetime.strptime(date_str,
+                                                          '%Y-%m-%d')  # Convert the date string to a datetime object
+                    formatted_date = date_obj.strftime('%B %d, %Y')  # Format the date as Month Day, Year
+                    self.original_filename[formatted_date] = file
+                    print(self.original_filename)
+                    self.backupDatesBOX.addItem(formatted_date)
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        else:
+            self.backupDatesBOX.addItem("No backup location set")
+
+    def handle_restore_click(self):
+        # Get the selected date from the combobox
+        selected_date_str = self.backupDatesBOX.currentText()
+
+        original_file_name = self.original_filename[selected_date_str]
+
+        # Call the restore_backup function with the selected date
+        restore_backup(original_file_name)
