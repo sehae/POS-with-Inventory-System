@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Villatura','Leah Desiree','Admin','Admin','09563847921','ld.kirbble@gmail.com','LV0101','d9d6aeb5c9c61dd379c00275a1fdbac33dcb830575cdec26df851efe1d10b70dfa4c904776a993beccb5a47c481cb9a5e7b9779d860d791460ae5281cb54042c6fbc5cc8ad9bf93e87e6d63fe9ef8ec66b5179f255a3390ebe350dc86c07e114','Enabled'),(2,'Faurillo','Ymnwl Jan','Admin','Admin','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6','Enabled'),(3,'Tiamzon','Bryan Dominick','Admin','Admin','09317543534','ewareraw@geaw.comeg','BT0103','51ff5902359ee83a44c10a0c9d02458409bfee94efb1f5ebc1106cdd870e5f8ba74f7e8d5f072c10440b36926400b7df9172dfd4c91543f6dc32ef332cd083b7f085ebdf7febf885bf3b992a977660b62a2d42e72478aa036e3fb09ab10217ac','Enabled');
+INSERT INTO `user` VALUES (1,'Villatura','Leah Desiree','Admin','Admin','09563847921','ld.kirbble@gmail.com','LV0101','d9d6aeb5c9c61dd379c00275a1fdbac33dcb830575cdec26df851efe1d10b70dfa4c904776a993beccb5a47c481cb9a5e7b9779d860d791460ae5281cb54042c6fbc5cc8ad9bf93e87e6d63fe9ef8ec66b5179f255a3390ebe350dc86c07e114','Enabled'),(2,'Faurillo','Ymnwl Jan','Employee','Kitchen','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6','Enabled'),(3,'Tiamzon','Bryan Dominick','Employee','Cashier','09317543534','ewareraw@geaw.comeg','BT0103','20117b7b5f8561b559c3c9822c343ab9a9538c6cb34def75f51c900350874901fcccb55e1f9f9b7ebf9c45281c2696f22846c6f76730c40b50ddfeb0ce312042dccd75cebb85f3c0cf2125ebcc47ff2b1cb7f0b2e852a28a0fc4e222da1c109f','Enabled');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-17 22:02:10
+-- Dump completed on 2024-06-18 23:04:44
