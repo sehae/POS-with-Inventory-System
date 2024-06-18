@@ -92,6 +92,27 @@ class Ui_MainWindow(object):
 "}")
         self.editBTN.setObjectName("editBTN")
         self.verticalLayout_2.addWidget(self.editBTN)
+        self.backupBTN = QtWidgets.QPushButton(self.navbar)
+        self.backupBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.backupBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.backupBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.backupBTN.setObjectName("backupBTN")
+        self.verticalLayout_2.addWidget(self.backupBTN)
         self.backBTN = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -515,6 +536,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.adduserBTN.setText(_translate("MainWindow", "Add User"))
         self.editBTN.setText(_translate("MainWindow", "Edit User"))
+        self.backupBTN.setText(_translate("MainWindow", "Backup"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.searchLBL.setText(_translate("MainWindow", "Search for User"))
         self.edituserLBL.setText(_translate("MainWindow", "Edit User"))

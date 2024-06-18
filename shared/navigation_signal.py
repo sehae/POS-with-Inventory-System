@@ -6,5 +6,5 @@ def auth_back(user_manager, back_signal, back_employee_signal):
         back_employee_signal.emit()
 
 
-def back(signal):
-    signal.emit()
+def back(back_signal):
+    back_signal.emit()

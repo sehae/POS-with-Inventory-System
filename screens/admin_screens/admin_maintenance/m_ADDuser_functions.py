@@ -9,6 +9,7 @@ from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWi
 from shared.dialog import show_username_password, show_error_message
 
 from server.local_server import conn
+from shared.navigation_signal import back
 from validator.internet_connection import is_connected
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
 from validator.user_manager import userManager
@@ -25,7 +26,7 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         self.saveBTN.clicked.connect(self.add_user)
         self.loaBOX.currentTextChanged.connect(self.check_admin)
         self.editUserButton.clicked.connect(self.navigate_edit)
-        self.backButton.clicked.connect(self.back)
+        self.backButton.clicked.connect(lambda: back(self.back_signal))
         self.UIComponents()
 
         # Create a QTimer object
@@ -56,9 +57,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         self.deptBox.setStyleSheet(COMBOBOX_STYLE)
         self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
         self.contactNum.setValidator(QRegExpValidator(QRegExp(r'^09\d{9}$')))
-
-    def back(self):
-        self.back_signal.emit()
 
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':

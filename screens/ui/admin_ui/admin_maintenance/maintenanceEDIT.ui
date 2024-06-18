@@ -166,7 +166,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="backupBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>

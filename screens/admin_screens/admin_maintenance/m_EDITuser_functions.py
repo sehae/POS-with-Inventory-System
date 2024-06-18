@@ -5,6 +5,7 @@ from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, 
 from maintenance.user_logs import user_log
 from shared.imports import *
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
+from shared.navigation_signal import back
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
 from validator.user_manager import userManager
 
@@ -12,6 +13,7 @@ from validator.user_manager import userManager
 class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -21,7 +23,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
         self.saveBTN.clicked.connect(self.edit_user)
         self.adduserBTN.clicked.connect(self.add_user)
-        self.backBTN.clicked.connect(self.back)
+        self.backBTN.clicked.connect(lambda: back(self.back_signal))
         self.searchFIELD.returnPressed.connect(self.search_user)
         self.staffBTN.clicked.connect(self.activate_staff)
         self.adminBTN.clicked.connect(self.activate_admin)
@@ -41,7 +43,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         # Create a QTimer object
         self.timer = QTimer()
 
-
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
 
@@ -60,9 +61,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
     def add_user(self):
         self.add_signal.emit()
-
-    def back(self):
-        self.back_signal.emit()
 
     def edit_user(self):
         email = self.emailDISPLAY.text()
@@ -367,8 +365,8 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
                 self.logTABLE.setItem(row_position, 2, action_item)
 
                 # Resize the columns to fit the contents
-                self.logTABLE.resizeColumnToContents(0)  # Resize the date column
-                self.logTABLE.resizeColumnToContents(1)  # Resize the time column
+                self.logTABLE.resizeColumnToContents(0)
+                self.logTABLE.resizeColumnToContents(1)
 
         except Exception as e:
             print(f"Error in populate_log_table: {e}")
