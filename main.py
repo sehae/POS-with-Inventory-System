@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtWidgets
 
 from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
+from screens.admin_screens.admin_maintenance.backup_functions import adminMaintenanceBACKUP
 from screens.authentication_screens.email_screen.emailScreen_functions import EmailScreen
 from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
@@ -42,6 +43,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.otp_screen = OtpVerification()
         self.email_screen = EmailScreen(self.otp_screen)
         self.password_recovery = PasswordRecovery(self.otp_screen.supplied_email)
+        self.admin_maintenance_backup = adminMaintenanceBACKUP()
         self.admin_dashboard = myAdminDashboard()
         self.admin_maintenance = adminMaintenance()
         self.admin_maintenanceEDIT = adminMaintenanceEDIT()
@@ -68,6 +70,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.otp_screen)
         self.stacked_widget.addWidget(self.password_recovery)
         self.stacked_widget.addWidget(self.admin_dashboard)
+        self.stacked_widget.addWidget(self.admin_maintenance_backup)
         self.stacked_widget.addWidget(self.admin_maintenance)
         self.stacked_widget.addWidget(self.admin_maintenanceEDIT)
         self.stacked_widget.addWidget(self.admin_inventory)
@@ -108,10 +111,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
         self.admin_dashboard.about_signal.connect(self.show_about_devcredits)
+
+        self.admin_maintenance.backup_recovery_signal.connect(self.show_admin_maintenance_backup)
         self.admin_maintenance.edit_signal.connect(self.show_admin_maintenance_edit)
+        self.admin_maintenance.back_signal.connect(self.show_admin_dashboard)
+
         self.admin_maintenanceEDIT.add_signal.connect(self.show_admin_maintenance)
         self.admin_maintenanceEDIT.back_signal.connect(self.show_admin_dashboard)
-        self.admin_maintenance.back_signal.connect(self.show_admin_dashboard)
+        self.admin_maintenanceEDIT.backup_recovery_signal.connect(self.show_admin_maintenance_backup)
+
+        self.admin_maintenance_backup.add_signal.connect(self.show_admin_maintenance)
+        self.admin_maintenance_backup.back_signal.connect(self.show_admin_dashboard)
+        self.admin_maintenance_backup.edit_signal.connect(self.show_admin_maintenance_edit)
+
         self.admin_dashboard.inventory_signal.connect(self.show_admin_inventory)
         self.admin_inventory.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventory.modify_signal.connect(self.show_admin_inventory_modify)
@@ -193,7 +205,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
 
 
-
+    def show_admin_maintenance_backup(self):
+        self.stacked_widget.setCurrentWidget(self.admin_maintenance_backup)
 
     def show_login_screen(self):
         self.stacked_widget.setCurrentWidget(self.login_screen)

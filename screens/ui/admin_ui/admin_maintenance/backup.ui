@@ -276,9 +276,27 @@ QPushButton:pressed {
        <item row="1" column="1">
         <widget class="QWidget" name="Content" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="leftMargin">
+           <number>25</number>
+          </property>
+          <property name="topMargin">
+           <number>25</number>
+          </property>
           <item>
            <widget class="QWidget" name="widget_3" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QLabel" name="automaticbackupLBL">
                <property name="font">
@@ -290,6 +308,22 @@ QPushButton:pressed {
                 <string>Automatic Backup</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
              </item>
              <item>
               <widget class="QWidget" name="widget" native="true">
@@ -384,7 +418,7 @@ QComboBox::down-arrow {
                 <item row="1" column="1">
                  <widget class="QLabel" name="filelocDISPLAY">
                   <property name="text">
-                   <string>Put File Location Here</string>
+                   <string>You don't have current backup location...</string>
                   </property>
                  </widget>
                 </item>
@@ -410,7 +444,7 @@ QComboBox::down-arrow {
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="viewfolderBTN">
+                 <widget class="QPushButton" name="viewBTN">
                   <property name="minimumSize">
                    <size>
                     <width>600</width>
@@ -499,7 +533,7 @@ QPushButton:pressed {
                   </property>
                   <property name="font">
                    <font>
-                    <bold>true</bold>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -697,7 +731,7 @@ QComboBox::down-arrow {
                   </property>
                   <property name="font">
                    <font>
-                    <bold>true</bold>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">

@@ -18,25 +18,33 @@ from validator.user_manager import userManager
 class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
     back_signal = QtCore.pyqtSignal()
     edit_signal = QtCore.pyqtSignal()
+    backup_recovery_signal = QtCore.pyqtSignal()
 
     def __init__(self):
-        super().__init__()
-        self.setupUi(self)  # Call the setupUi method to initialize the UI
+        try:
+            super().__init__()
+            self.setupUi(self)  # Call the setupUi method to initialize the UI
 
-        self.saveBTN.clicked.connect(self.add_user)
-        self.loaBOX.currentTextChanged.connect(self.check_admin)
-        self.editUserButton.clicked.connect(self.navigate_edit)
-        self.backButton.clicked.connect(lambda: back(self.back_signal))
-        self.UIComponents()
+            self.saveBTN.clicked.connect(self.add_user)
+            self.loaBOX.currentTextChanged.connect(self.check_admin)
 
-        # Create a QTimer object
-        self.timer = QTimer()
+            # Navigation signals
+            self.editUserButton.clicked.connect(self.navigate_edit)
+            self.backButton.clicked.connect(lambda: back(self.back_signal))
+            self.backupBTN.clicked.connect(self.backup_recovery_signal.emit)
 
-        # Connect the timeout signal of the timer to the updateDateTime slot
-        self.timer.timeout.connect(self.updateDateTime)
+            self.UIComponents()
 
-        # Set the interval for the timer (in milliseconds)
-        self.timer.start(1000)  # Update every second
+            # Create a QTimer object
+            self.timer = QTimer()
+
+            # Connect the timeout signal of the timer to the updateDateTime slot
+            self.timer.timeout.connect(self.updateDateTime)
+
+            # Set the interval for the timer (in milliseconds)
+            self.timer.start(1000)  # Update every second
+        except Exception as e:
+            print("Error in adminMaintenance: ", e)
 
     def updateDateTime(self):
         # Get the current date and time

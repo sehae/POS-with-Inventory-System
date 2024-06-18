@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1802</width>
-    <height>804</height>
+    <height>827</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -304,7 +304,7 @@ QPushButton:pressed {
               <widget class="QLabel" name="searchLBL">
                <property name="font">
                 <font>
-                 <pointsize>15</pointsize>
+                 <pointsize>18</pointsize>
                 </font>
                </property>
                <property name="text">

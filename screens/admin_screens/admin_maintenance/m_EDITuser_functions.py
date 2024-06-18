@@ -13,6 +13,7 @@ from validator.user_manager import userManager
 class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
+    backup_recovery_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -22,8 +23,12 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.inactive_button_style = INACTIVE_BUTTON_STYLE
 
         self.saveBTN.clicked.connect(self.edit_user)
+
+        # Navigation Signals
         self.adduserBTN.clicked.connect(self.add_user)
         self.backBTN.clicked.connect(lambda: back(self.back_signal))
+        self.backupBTN.clicked.connect(self.backup_recovery_signal.emit)
+
         self.searchFIELD.returnPressed.connect(self.search_user)
         self.staffBTN.clicked.connect(self.activate_staff)
         self.adminBTN.clicked.connect(self.activate_admin)

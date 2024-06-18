@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1802, 804)
+        MainWindow.resize(1802, 827)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.searchLBL = QtWidgets.QLabel(self.leftcontent)
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(18)
         self.searchLBL.setFont(font)
         self.searchLBL.setObjectName("searchLBL")
         self.verticalLayout_3.addWidget(self.searchLBL)
