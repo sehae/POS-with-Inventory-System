@@ -26,6 +26,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3 = QtWidgets.QGridLayout(self.frame)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setSpacing(6)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.logoWidget = QtWidgets.QWidget(self.frame)
         self.logoWidget.setObjectName("logoWidget")
@@ -64,6 +65,7 @@ class Ui_MainWindow(object):
         self.instructionLabel.setFont(font)
         self.instructionLabel.setTextFormat(QtCore.Qt.AutoText)
         self.instructionLabel.setScaledContents(False)
+        self.instructionLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.instructionLabel.setWordWrap(False)
         self.instructionLabel.setIndent(-1)
         self.instructionLabel.setObjectName("instructionLabel")
@@ -82,7 +84,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         self.timer.setFont(font)
         self.timer.setStyleSheet("QLabel {\n"
-"    color: #ADD8E6;\n"
+"    color: #036666;\n"
 "}\n"
 "")
         self.timer.setAlignment(QtCore.Qt.AlignCenter)
@@ -95,6 +97,7 @@ class Ui_MainWindow(object):
         self.OTP.setFrameShadow(QtWidgets.QFrame.Raised)
         self.OTP.setObjectName("OTP")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.OTP)
+        self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -106,6 +109,9 @@ class Ui_MainWindow(object):
         self.otp1.setSizePolicy(sizePolicy)
         self.otp1.setMinimumSize(QtCore.QSize(50, 50))
         self.otp1.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp1.setFont(font)
         self.otp1.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -122,6 +128,9 @@ class Ui_MainWindow(object):
         self.otp2.setSizePolicy(sizePolicy)
         self.otp2.setMinimumSize(QtCore.QSize(50, 50))
         self.otp2.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp2.setFont(font)
         self.otp2.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -138,6 +147,9 @@ class Ui_MainWindow(object):
         self.otp3.setSizePolicy(sizePolicy)
         self.otp3.setMinimumSize(QtCore.QSize(50, 50))
         self.otp3.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp3.setFont(font)
         self.otp3.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -154,6 +166,9 @@ class Ui_MainWindow(object):
         self.otp4.setSizePolicy(sizePolicy)
         self.otp4.setMinimumSize(QtCore.QSize(50, 50))
         self.otp4.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp4.setFont(font)
         self.otp4.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -170,6 +185,9 @@ class Ui_MainWindow(object):
         self.otp5.setSizePolicy(sizePolicy)
         self.otp5.setMinimumSize(QtCore.QSize(50, 50))
         self.otp5.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp5.setFont(font)
         self.otp5.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -186,6 +204,9 @@ class Ui_MainWindow(object):
         self.otp6.setSizePolicy(sizePolicy)
         self.otp6.setMinimumSize(QtCore.QSize(50, 50))
         self.otp6.setMaximumSize(QtCore.QSize(50, 50))
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        self.otp6.setFont(font)
         self.otp6.setStyleSheet("QLineEdit {\n"
 "        border: 2px solid #ADD8E6;\n"
 "        border-radius: 5px;\n"
@@ -195,43 +216,40 @@ class Ui_MainWindow(object):
         self.otp6.setObjectName("otp6")
         self.horizontalLayout_2.addWidget(self.otp6)
         self.verticalLayout_2.addWidget(self.OTP)
+        self.errorLBL = QtWidgets.QLabel(self.frame)
+        self.errorLBL.setStyleSheet("QLabel {\n"
+"color: red;\n"
+"}")
+        self.errorLBL.setIndent(15)
+        self.errorLBL.setObjectName("errorLBL")
+        self.verticalLayout_2.addWidget(self.errorLBL)
+        self.widget_3 = QtWidgets.QWidget(self.frame)
+        self.widget_3.setObjectName("widget_3")
+        self.verticalLayout_2.addWidget(self.widget_3)
         self.widget_2 = QtWidgets.QWidget(self.frame)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
-        self.widget_2.setSizePolicy(sizePolicy)
         self.widget_2.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.widget_2.setObjectName("widget_2")
-        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_6.setSpacing(0)
-        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.widget_2)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.label = QtWidgets.QLabel(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.horizontalLayout_6.addWidget(self.label)
+        self.horizontalLayout_5.addWidget(self.label)
         self.resendBTN = QtWidgets.QPushButton(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.resendBTN.sizePolicy().hasHeightForWidth())
-        self.resendBTN.setSizePolicy(sizePolicy)
-        self.resendBTN.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.resendBTN.setMinimumSize(QtCore.QSize(0, 0))
+        self.resendBTN.setMaximumSize(QtCore.QSize(400, 56))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         font.setUnderline(False)
         self.resendBTN.setFont(font)
+        self.resendBTN.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.resendBTN.setStyleSheet("QPushButton {\n"
 "    border: none;\n"
 "    color: #036666;\n"
@@ -244,11 +262,12 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:pressed {\n"
 "    color: #024c4c;\n"
-"}")
+"}\n"
+"")
         self.resendBTN.setObjectName("resendBTN")
-        self.horizontalLayout_6.addWidget(self.resendBTN)
+        self.horizontalLayout_5.addWidget(self.resendBTN)
         self.verticalLayout_2.addWidget(self.widget_2)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem2)
         self.widget = QtWidgets.QWidget(self.frame)
         self.widget.setObjectName("widget")
@@ -266,9 +285,11 @@ class Ui_MainWindow(object):
 "    color: #036666;\n"
 "    font-size: 20px;\n"
 "}\n"
+"\n"
 "QPushButton:hover {\n"
 "    background-color: #E6E6E6;\n"
 "}\n"
+"\n"
 "QPushButton:pressed {\n"
 "    background-color: #CCCCCC;\n"
 "}\n"
@@ -330,8 +351,9 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.titleLabel.setText(_translate("MainWindow", "OTP Verification"))
         self.instructionLabel.setText(_translate("MainWindow", "We will send you a one time password on this e-mail"))
-        self.emailDISPLAY.setText(_translate("MainWindow", "email display"))
+        self.emailDISPLAY.setText(_translate("MainWindow", "emailDisplay"))
         self.timer.setText(_translate("MainWindow", "0:00"))
+        self.errorLBL.setText(_translate("MainWindow", "Error Label"))
         self.label.setText(_translate("MainWindow", "Didn\'t get the code?"))
         self.resendBTN.setText(_translate("MainWindow", "Click to resend"))
         self.cancelBTN.setText(_translate("MainWindow", "Cancel"))

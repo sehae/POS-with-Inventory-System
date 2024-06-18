@@ -203,7 +203,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="errorLBL">
            <property name="styleSheet">
             <string notr="true">QLabel {
 color: red;
@@ -394,7 +394,7 @@ QPushButton:pressed {
  <resources>
   <include location="../../../assets/resourceFile.qrc"/>
   <include location="../../../assets/resourceFile.qrc"/>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

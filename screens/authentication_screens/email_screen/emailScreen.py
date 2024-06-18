@@ -86,6 +86,12 @@ class Ui_MainWindow(object):
 "}")
         self.emailTextBox.setObjectName("emailTextBox")
         self.mainContent.addWidget(self.emailTextBox)
+        self.errorLBL = QtWidgets.QLabel(self.frame)
+        self.errorLBL.setStyleSheet("QLabel {\n"
+"color: red;\n"
+"}")
+        self.errorLBL.setObjectName("errorLBL")
+        self.mainContent.addWidget(self.errorLBL)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.mainContent.addItem(spacerItem4)
         self.continueButton = QtWidgets.QPushButton(self.frame)
@@ -107,11 +113,9 @@ class Ui_MainWindow(object):
 "}")
         self.continueButton.setObjectName("continueButton")
         self.mainContent.addWidget(self.continueButton)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.mainContent.addItem(spacerItem5)
         self.backBTN = QtWidgets.QPushButton(self.frame)
-        self.backBTN.setMinimumSize(QtCore.QSize(0, 46))
-        self.backBTN.setMaximumSize(QtCore.QSize(16777215, 46))
         self.backBTN.setStyleSheet("QPushButton {\n"
 "    padding: 5px;\n"
 "    border: 1px solid #E6E6E6;\n"
@@ -120,9 +124,11 @@ class Ui_MainWindow(object):
 "    color: #036666;\n"
 "    font-size: 20px;\n"
 "}\n"
+"\n"
 "QPushButton:hover {\n"
 "    background-color: #E6E6E6;\n"
 "}\n"
+"\n"
 "QPushButton:pressed {\n"
 "    background-color: #CCCCCC;\n"
 "}\n"
@@ -160,6 +166,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.instructionLabel.setText(_translate("MainWindow", "Enter the e-mail associated with your account and we’ll send you OTP to reset your password."))
         self.emailLabel.setText(_translate("MainWindow", "E-mail"))
+        self.emailTextBox.setPlaceholderText(_translate("MainWindow", "Enter your email"))
+        self.errorLBL.setText(_translate("MainWindow", "Error Label"))
         self.continueButton.setText(_translate("MainWindow", "Continue"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.helpLabel.setText(_translate("MainWindow", "If you don’t have an account, please coordinate with your manager for registering an account through admin."))

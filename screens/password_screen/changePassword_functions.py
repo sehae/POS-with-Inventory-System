@@ -45,8 +45,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.UiComponents()
 
     def on_username_updated(self, username):
-        # Access the current username when the signal is emitted
-        print(f"Current username in ChangePassword screen: {username}")
         self.usernameFIELD.setText(username)
 
     def updateDateTime(self):
