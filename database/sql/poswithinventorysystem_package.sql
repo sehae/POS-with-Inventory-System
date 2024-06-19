@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `menu`
+-- Table structure for table `package`
 --
 
-DROP TABLE IF EXISTS `menu`;
+DROP TABLE IF EXISTS `package`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `menu` (
-  `Package_Type` int NOT NULL,
-  `Order_ID` int DEFAULT NULL,
-  `Add_On_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Package_Type`),
-  KEY `fk_OrderID_menu` (`Order_ID`),
-  KEY `fk_AddOnID_menu` (`Add_On_ID`),
-  CONSTRAINT `fk_AddOnID_menu` FOREIGN KEY (`Add_On_ID`) REFERENCES `add_on` (`ADD_ON_ID`),
-  CONSTRAINT `fk_OrderID_menu` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
+CREATE TABLE `package` (
+  `Package_ID` int NOT NULL,
+  `Package_Name` varchar(45) NOT NULL,
+  `Package_Price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`Package_ID`),
+  CONSTRAINT `package_chk_1` CHECK ((`Package_ID` in (1,2,3)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `menu`
+-- Dumping data for table `package`
 --
 
-LOCK TABLES `menu` WRITE;
-/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+LOCK TABLES `package` WRITE;
+/*!40000 ALTER TABLE `package` DISABLE KEYS */;
+INSERT INTO `package` VALUES (1,'Hotpot',709.00),(2,'Grill',709.00),(3,'Hotpot and Grill',1009.00);
+/*!40000 ALTER TABLE `package` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14 10:53:05
+-- Dump completed on 2024-06-17 18:29:16

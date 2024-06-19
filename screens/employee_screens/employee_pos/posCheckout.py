@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posPayment.ui'
+# Form implementation generated from reading ui file 'posCheckout.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1711, 761)
+        MainWindow.resize(1916, 761)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -50,10 +50,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_6.addItem(spacerItem)
-        self.homeBTN_2 = QtWidgets.QPushButton(self.navbar_2)
-        self.homeBTN_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.homeBTN_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.homeBTN_2.setStyleSheet("QPushButton {\n"
+        self.orderBTN = QtWidgets.QPushButton(self.navbar_2)
+        self.orderBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.orderBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.orderBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -69,12 +69,12 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.homeBTN_2.setObjectName("homeBTN_2")
-        self.verticalLayout_6.addWidget(self.homeBTN_2)
-        self.menuBTN_2 = QtWidgets.QPushButton(self.navbar_2)
-        self.menuBTN_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.menuBTN_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.menuBTN_2.setStyleSheet("QPushButton {\n"
+        self.orderBTN.setObjectName("orderBTN")
+        self.verticalLayout_6.addWidget(self.orderBTN)
+        self.menuBTN = QtWidgets.QPushButton(self.navbar_2)
+        self.menuBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.menuBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.menuBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -90,12 +90,12 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.menuBTN_2.setObjectName("menuBTN_2")
-        self.verticalLayout_6.addWidget(self.menuBTN_2)
-        self.paymentBTN_2 = QtWidgets.QPushButton(self.navbar_2)
-        self.paymentBTN_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.paymentBTN_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.paymentBTN_2.setStyleSheet("QPushButton {\n"
+        self.menuBTN.setObjectName("menuBTN")
+        self.verticalLayout_6.addWidget(self.menuBTN)
+        self.modifyBTN = QtWidgets.QPushButton(self.navbar_2)
+        self.modifyBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.modifyBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.modifyBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -111,12 +111,12 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.paymentBTN_2.setObjectName("paymentBTN_2")
-        self.verticalLayout_6.addWidget(self.paymentBTN_2)
-        self.orderBTN_2 = QtWidgets.QPushButton(self.navbar_2)
-        self.orderBTN_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.orderBTN_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.orderBTN_2.setStyleSheet("QPushButton {\n"
+        self.modifyBTN.setObjectName("modifyBTN")
+        self.verticalLayout_6.addWidget(self.modifyBTN)
+        self.checkoutBTN = QtWidgets.QPushButton(self.navbar_2)
+        self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.checkoutBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -132,20 +132,20 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.orderBTN_2.setObjectName("orderBTN_2")
-        self.verticalLayout_6.addWidget(self.orderBTN_2)
-        self.backBTN_2 = QtWidgets.QPushButton(self.navbar_2)
+        self.checkoutBTN.setObjectName("checkoutBTN")
+        self.verticalLayout_6.addWidget(self.checkoutBTN)
+        self.backBTN = QtWidgets.QPushButton(self.navbar_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.backBTN_2.sizePolicy().hasHeightForWidth())
-        self.backBTN_2.setSizePolicy(sizePolicy)
-        self.backBTN_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.backBTN_2.setMaximumSize(QtCore.QSize(100, 100))
+        sizePolicy.setHeightForWidth(self.backBTN.sizePolicy().hasHeightForWidth())
+        self.backBTN.setSizePolicy(sizePolicy)
+        self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.backBTN_2.setFont(font)
-        self.backBTN_2.setStyleSheet("QPushButton {\n"
+        self.backBTN.setFont(font)
+        self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -163,10 +163,10 @@ class Ui_MainWindow(object):
 "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN_2.setIcon(icon)
-        self.backBTN_2.setAutoRepeat(False)
-        self.backBTN_2.setObjectName("backBTN_2")
-        self.verticalLayout_6.addWidget(self.backBTN_2)
+        self.backBTN.setIcon(icon)
+        self.backBTN.setAutoRepeat(False)
+        self.backBTN.setObjectName("backBTN")
+        self.verticalLayout_6.addWidget(self.backBTN)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_6.addItem(spacerItem1)
         self.gridLayout_2.addWidget(self.navbar_2, 1, 0, 1, 1)
@@ -248,51 +248,78 @@ class Ui_MainWindow(object):
         self.label_13.setFont(font)
         self.label_13.setObjectName("label_13")
         self.horizontalLayout_7.addWidget(self.label_13)
-        self.label_14 = QtWidgets.QLabel(self.widget_2)
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_14.setFont(font)
-        self.label_14.setObjectName("label_14")
-        self.horizontalLayout_7.addWidget(self.label_14)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem3)
-        self.label_15 = QtWidgets.QLabel(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        self.comboBox = QtWidgets.QComboBox(self.widget_2)
+        self.comboBox.setMinimumSize(QtCore.QSize(300, 30))
+        self.comboBox.setMaximumSize(QtCore.QSize(300, 30))
+        self.comboBox.setObjectName("comboBox")
+        self.horizontalLayout_7.addWidget(self.comboBox)
+        self.widget_11 = QtWidgets.QWidget(self.widget_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
-        self.label_15.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_15.setFont(font)
-        self.label_15.setObjectName("label_15")
-        self.horizontalLayout_7.addWidget(self.label_15)
-        self.label_16 = QtWidgets.QLabel(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHeightForWidth(self.widget_11.sizePolicy().hasHeightForWidth())
+        self.widget_11.setSizePolicy(sizePolicy)
+        self.widget_11.setObjectName("widget_11")
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.widget_11)
+        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_9.setSpacing(7)
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.pushButton_10 = QtWidgets.QPushButton(self.widget_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_16.sizePolicy().hasHeightForWidth())
-        self.label_16.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.label_16.setFont(font)
-        self.label_16.setStyleSheet("QLabel {\n"
-"    color: #67B99A;\n"
+        sizePolicy.setHeightForWidth(self.pushButton_10.sizePolicy().hasHeightForWidth())
+        self.pushButton_10.setSizePolicy(sizePolicy)
+        self.pushButton_10.setMinimumSize(QtCore.QSize(200, 35))
+        self.pushButton_10.setMaximumSize(QtCore.QSize(200, 35))
+        self.pushButton_10.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
 "}")
-        self.label_16.setObjectName("label_16")
-        self.horizontalLayout_7.addWidget(self.label_16)
-        self.label_17 = QtWidgets.QLabel(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.horizontalLayout_9.addWidget(self.pushButton_10)
+        self.pushButton_11 = QtWidgets.QPushButton(self.widget_11)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
-        self.label_17.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_17.setFont(font)
-        self.label_17.setObjectName("label_17")
-        self.horizontalLayout_7.addWidget(self.label_17)
+        sizePolicy.setHeightForWidth(self.pushButton_11.sizePolicy().hasHeightForWidth())
+        self.pushButton_11.setSizePolicy(sizePolicy)
+        self.pushButton_11.setMinimumSize(QtCore.QSize(200, 35))
+        self.pushButton_11.setMaximumSize(QtCore.QSize(200, 35))
+        self.pushButton_11.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.pushButton_11.setObjectName("pushButton_11")
+        self.horizontalLayout_9.addWidget(self.pushButton_11)
+        spacerItem3 = QtWidgets.QSpacerItem(58, 32, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem3)
+        self.horizontalLayout_7.addWidget(self.widget_11)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem4)
         self.label_18 = QtWidgets.QLabel(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -302,10 +329,12 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
+        font.setWeight(75)
         self.label_18.setFont(font)
         self.label_18.setStyleSheet("QLabel {\n"
 "    color: #67B99A;\n"
 "}")
+        self.label_18.setText("")
         self.label_18.setObjectName("label_18")
         self.horizontalLayout_7.addWidget(self.label_18)
         self.verticalLayout_9.addWidget(self.widget_2)
@@ -314,17 +343,20 @@ class Ui_MainWindow(object):
         self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.widget_3)
         self.verticalLayout_11.setContentsMargins(100, 25, 100, 25)
         self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.listView = QtWidgets.QListView(self.widget_3)
-        self.listView.setObjectName("listView")
-        self.verticalLayout_11.addWidget(self.listView)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 25, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_11.addItem(spacerItem4)
+        self.tableWidget = QtWidgets.QTableWidget(self.widget_3)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.verticalLayout_11.addWidget(self.tableWidget)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 25, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_11.addItem(spacerItem5)
         self.pushButton = QtWidgets.QPushButton(self.widget_3)
         self.pushButton.setMinimumSize(QtCore.QSize(0, 75))
         self.pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
+        font.setWeight(75)
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    background-color: #F1A40E;\n"
@@ -345,8 +377,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.pushButton)
         self.verticalLayout_9.addWidget(self.widget_3)
         self.horizontalLayout_6.addWidget(self.leftContent_2)
-        spacerItem5 = QtWidgets.QSpacerItem(200, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem5)
+        spacerItem6 = QtWidgets.QSpacerItem(200, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem6)
         self.rightContent_2 = QtWidgets.QWidget(self.mainContent_2)
         self.rightContent_2.setObjectName("rightContent_2")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.rightContent_2)
@@ -378,6 +410,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.label_25.setFont(font)
         self.label_25.setStyleSheet("QLabel {\n"
 "    color: #67B99A;\n"
@@ -390,6 +423,12 @@ class Ui_MainWindow(object):
         self.gridLayout_3 = QtWidgets.QGridLayout(self.widget_5)
         self.gridLayout_3.setContentsMargins(0, 10, 0, 10)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.label_26 = QtWidgets.QLabel(self.widget_5)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_26.setFont(font)
+        self.label_26.setObjectName("label_26")
+        self.gridLayout_3.addWidget(self.label_26, 0, 0, 1, 1)
         self.pushButton_5 = QtWidgets.QPushButton(self.widget_5)
         self.pushButton_5.setMinimumSize(QtCore.QSize(150, 75))
         self.pushButton_5.setMaximumSize(QtCore.QSize(150, 75))
@@ -412,34 +451,6 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_5.setObjectName("pushButton_5")
         self.gridLayout_3.addWidget(self.pushButton_5, 1, 3, 1, 1)
-        self.label_26 = QtWidgets.QLabel(self.widget_5)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_26.setFont(font)
-        self.label_26.setObjectName("label_26")
-        self.gridLayout_3.addWidget(self.label_26, 0, 0, 1, 1)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widget_5)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(150, 75))
-        self.pushButton_3.setMaximumSize(QtCore.QSize(150, 75))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setStyleSheet("QPushButton {\n"
-"    background-color: #07BEB8;\n"
-"    color: black;\n"
-"    border-radius: 10px;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #06AFA8;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #059A96;\n"
-"}")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout_3.addWidget(self.pushButton_3, 1, 0, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.widget_5)
         self.pushButton_4.setMinimumSize(QtCore.QSize(150, 75))
         self.pushButton_4.setMaximumSize(QtCore.QSize(150, 75))
@@ -469,8 +480,30 @@ class Ui_MainWindow(object):
         self.label_27.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_27.setObjectName("label_27")
         self.gridLayout_3.addWidget(self.label_27, 0, 3, 1, 1)
-        spacerItem6 = QtWidgets.QSpacerItem(25, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem6, 1, 2, 1, 1)
+        self.pushButton_3 = QtWidgets.QPushButton(self.widget_5)
+        self.pushButton_3.setMinimumSize(QtCore.QSize(150, 75))
+        self.pushButton_3.setMaximumSize(QtCore.QSize(150, 75))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet("QPushButton {\n"
+"    background-color: #07BEB8;\n"
+"    color: black;\n"
+"    border-radius: 10px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #06AFA8;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #059A96;\n"
+"}")
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.gridLayout_3.addWidget(self.pushButton_3, 1, 0, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(25, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem7, 1, 2, 1, 1)
         self.verticalLayout_10.addWidget(self.widget_5)
         self.widget_8 = QtWidgets.QWidget(self.rightContent_2)
         self.widget_8.setObjectName("widget_8")
@@ -558,15 +591,18 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.lineEdit_2)
         self.verticalLayout_14.addWidget(self.widget_9)
         self.verticalLayout_10.addWidget(self.widget_10)
-        self.orderList_2 = QtWidgets.QListWidget(self.rightContent_2)
-        self.orderList_2.setObjectName("orderList_2")
-        self.verticalLayout_10.addWidget(self.orderList_2)
+        self.tableWidget_2 = QtWidgets.QTableWidget(self.rightContent_2)
+        self.tableWidget_2.setObjectName("tableWidget_2")
+        self.tableWidget_2.setColumnCount(0)
+        self.tableWidget_2.setRowCount(0)
+        self.verticalLayout_10.addWidget(self.tableWidget_2)
         self.pushButton_2 = QtWidgets.QPushButton(self.rightContent_2)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 75))
         self.pushButton_2.setMaximumSize(QtCore.QSize(16777215, 75))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
+        font.setWeight(75)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet("QPushButton {\n"
 "    background-color: #99E2B4;\n"
@@ -597,42 +633,29 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.homeBTN_2.setText(_translate("MainWindow", "Home"))
-        self.menuBTN_2.setText(_translate("MainWindow", "Menu"))
-        self.paymentBTN_2.setText(_translate("MainWindow", "Payment"))
-        self.orderBTN_2.setText(_translate("MainWindow", "Order"))
-        self.backBTN_2.setText(_translate("MainWindow", "Back"))
+        self.orderBTN.setText(_translate("MainWindow", "Order"))
+        self.menuBTN.setText(_translate("MainWindow", "Menu"))
+        self.modifyBTN.setText(_translate("MainWindow", "Modify"))
+        self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
+        self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label_10.setText(_translate("MainWindow", "POS"))
         self.label_11.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.label_12.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.label_13.setText(_translate("MainWindow", "ORDER #:"))
-        self.label_14.setText(_translate("MainWindow", "1239435"))
-        self.label_15.setText(_translate("MainWindow", "TABLE:"))
-        self.label_16.setText(_translate("MainWindow", "2"))
-        self.label_17.setText(_translate("MainWindow", "TIME:"))
-        self.label_18.setText(_translate("MainWindow", "12:07 AM"))
+        self.pushButton_10.setText(_translate("MainWindow", "Checkout"))
+        self.pushButton_11.setText(_translate("MainWindow", "Discard"))
         self.pushButton.setText(_translate("MainWindow", "CANCEL ORDER"))
         self.label_19.setText(_translate("MainWindow", "RECEIPT"))
         self.label_20.setText(_translate("MainWindow", "GUEST:"))
         self.label_25.setText(_translate("MainWindow", "4"))
-        self.pushButton_5.setText(_translate("MainWindow", "SENIOR/PWD"))
         self.label_26.setText(_translate("MainWindow", "PAYMENT METHOD"))
-        self.pushButton_3.setText(_translate("MainWindow", "CASH"))
+        self.pushButton_5.setText(_translate("MainWindow", "SENIOR/PWD"))
         self.pushButton_4.setText(_translate("MainWindow", "GCASH"))
         self.label_27.setText(_translate("MainWindow", "APPLY DISCOUNT"))
+        self.pushButton_3.setText(_translate("MainWindow", "CASH"))
         self.label_22.setText(_translate("MainWindow", "PAID IN CASH"))
         self.label_21.setText(_translate("MainWindow", "ADD CASH"))
         self.label_24.setText(_translate("MainWindow", "PAID IN E-WALLET"))
         self.label_23.setText(_translate("MainWindow", "ENTER REFERENCE #"))
         self.pushButton_2.setText(_translate("MainWindow", "PAY NOW"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

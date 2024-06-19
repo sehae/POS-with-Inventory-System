@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'Villatura','Leah Desiree','09563847921','ld.kirbble@gmail.com','LV0101','ac7ba9d9b0617a982aec4921a7f3e3315a132bb0e67c19435603e04c902a4d62ebefb6fdfa94e96dd840c657b00364c88ac13c86412e8e65935067935d394b95b436f2e97cdcc58b1e9ba5a76bfbf1a2889ddcf9a190a7a65ea1cf53d67457dc',1),(2,'Faurillo','Ymnwl Jan','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6',1),(3,'Tiamzon','Bryan Dominick','09317543534','ewareraw@geaw.comeg','BT0103','51ff5902359ee83a44c10a0c9d02458409bfee94efb1f5ebc1106cdd870e5f8ba74f7e8d5f072c10440b36926400b7df9172dfd4c91543f6dc32ef332cd083b7f085ebdf7febf885bf3b992a977660b62a2d42e72478aa036e3fb09ab10217ac',1);
+INSERT INTO `admin` VALUES (1,'Villatura','Leah Desiree','09563847921','ld.kirbble@gmail.com','LV0101','74a3484746110ad34e4ff02e579e8aa97fc1bdad842a9627349d38d2e88c2578b9dcff600a3f40ba08d21463472fe31609478f8efc38b6049dd38b191b2137c0407545972cb5871b22b5e2fb6332b9486548da8956d7171d70f083066b46b4a7',1),(2,'Faurillo','Ymnwl Jan','09317264187','lpoeprwa@gmail.coekag','YF0102','dc7fcaca23ca4a498413bfec08576e79058366702cc09ce5bd71e75cac9c95b708a04d41e9c1d48f880a356593b606810b8174f4a0a36002b2033703e5ed4ba2185bb0f8b6f3af2cea72856214f6dd600c415d03b5b7b67f58411547ff76c0e6',1),(3,'Tiamzon','Bryan Dominick','09317543534','ewareraw@geaw.comeg','BT0103','ea4064e7aff0ae3b66e5f03601190abd7de41eb78e9ba93053a2acc7621ae1cbc9d1ca1a38a379b8e85c0c7e072c1feafe61a5de8aa03db39a441b9908033022edf2e8dd721ab4eb861a2c9affd7a5be5ad45c0834ed78198db81a66b8c517b1',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14 10:53:05
+-- Dump completed on 2024-06-17 18:29:16

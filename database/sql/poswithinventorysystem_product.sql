@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `product` (
   `Category` varchar(45) DEFAULT NULL,
   `Status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Product_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Coca-Cola',12,10,'2024-08-07','In Stock','Beverage','Active'),(2,'San Miguel Light',5,5,'2024-11-08','Low Stock','Beverage','Active'),(3,'San Miguel Apple',36,10,'2024-09-08','In Stock','Beverage','Active'),(4,'San Miguel Pale Pilsen',0,10,'2024-08-12','Out of Stock','Beverage','Disabled'),(5,'Shrimp (200g)',23,5,'2024-07-27','In Stock','Ingredient','Active'),(6,'Scallop (480g)',36,5,'2024-08-03','In Stock','Ingredient','Active'),(7,'Fish cake (1 kg)',0,7,'2024-12-15','Out of Stock','Ingredient','Active'),(8,'Squid (500g)',43,8,'2024-12-23','In Stock','Ingredient','Active'),(9,'Fish Fillet (900g)',9,10,'2024-11-11','Low Stock','Ingredient','Active'),(10,'Coke Zero',69,10,'2024-12-27','In Stock','Beverage','Active'),(11,'Diet Coke',13,10,'2024-10-23','In Stock','Beverage','Active'),(12,'Jinro Soju Strawberry 360ml',30,8,'2024-09-26','In Stock','Beverage','Active'),(13,'Heineken Can 300ml',21,8,'2024-11-26','In Stock','Beverage','Active'),(14,'Tanduay Ice 300ml',37,7,'2024-09-26','In Stock','Beverage','Active'),(15,'Bloxy Cola',20,10,'2024-08-07','In Stock','Beverage','Active'),(16,'Kelp Juice',20,5,'2024-10-2','In Stock','Beverage','Active');
+INSERT INTO `product` VALUES (1,'Coca-Cola',13,14,'2024-01-01','Low Stock','Ingredient','Active'),(2,'San Miguel Light',5,5,'2024-11-08','Low Stock','Beverage','Disabled'),(3,'San Miguel Apple',13,3,'2024-01-01','In Stock','Food','Active'),(4,'San Miguel Pale Pilsen',0,10,'2024-08-12','Out of Stock','Beverage','Disabled'),(5,'Shrimp (200g)',23,5,'2024-07-27','In Stock','Ingredient','Active'),(6,'Scallop (480g)',36,5,'2024-08-03','In Stock','Ingredient','Active'),(7,'Fish cake (1 kg)',15,7,'2024-01-01','In Stock','Ingredient','Active'),(8,'Squid (500g)',43,8,'2024-12-23','In Stock','Ingredient','Active'),(9,'Fish Fillet (900g)',9,10,'2024-11-11','Low Stock','Ingredient','Active'),(10,'Coke Zero',69,10,'2024-12-27','In Stock','Beverage','Active'),(11,'Diet Coke',13,10,'2024-10-23','In Stock','Beverage','Active'),(12,'Jinro Soju Strawberry 360ml',30,8,'2024-09-26','In Stock','Beverage','Active'),(13,'Heineken Can 300ml',21,8,'2024-11-26','In Stock','Beverage','Active'),(14,'Tanduay Ice 300ml',37,7,'2024-09-26','In Stock','Beverage','Active');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14 10:53:07
+-- Dump completed on 2024-06-17 18:29:16
