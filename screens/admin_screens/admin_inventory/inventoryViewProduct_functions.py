@@ -41,10 +41,16 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
         # Create a QTimer object
         self.timer = QTimer()
         self.timer.timeout.connect(self.updateDateTime)
+        self.timer.timeout.connect(self.updateDateTimeAndTable)
+
         self.timer.start(1000)  # Update every second
 
         # Connect the search field
         self.searchFIELD.returnPressed.connect(self.search_table)
+
+    def updateDateTimeAndTable(self):
+        self.updateDateTime()
+        self.populate_table()
 
     def navigate_modify(self):
         self.modify_signal.emit()

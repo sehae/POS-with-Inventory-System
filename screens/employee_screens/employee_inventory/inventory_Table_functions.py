@@ -44,6 +44,8 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
 
+        self.timer.timeout.connect(self.updateDateTimeAndTable)
+
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
 
@@ -53,6 +55,10 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
         # Set initial fullname if already set
         if user_manager.get_current_fullname():
             self.update_fullname_label(user_manager.get_current_fullname())
+
+    def updateDateTimeAndTable(self):
+        self.updateDateTime()
+        self.populate_table()
 
     def update_fullname_label(self, fullname):
         self.label_3.setText(fullname)  # Update the label with the fullname

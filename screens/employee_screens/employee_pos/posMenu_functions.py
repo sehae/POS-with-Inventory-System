@@ -31,6 +31,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
+        self.timer.timeout.connect(self.updateDateTimeAndComboBox)
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
@@ -38,6 +39,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.admin_inventory_add = adminInventoryAddProduct()
         self.admin_inventory_add.admin_product_update_signal.connect(self.populate_comboBox_6)
         self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
+
 
         self.populate_table()
 
@@ -66,6 +68,10 @@ class posMenu(QMainWindow, Ui_MainWindow):
     def goOrder(self):
         self.order_signal.emit()
 
+    def updateDateTimeAndComboBox(self):
+        self.updateDateTime()
+        self.populate_comboBox_5()
+
     def populate_comboBox_5(self):
         try:
             cursor = conn.cursor()
@@ -86,7 +92,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
     def populate_comboBox_6(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Name FROM `product` WHERE Status = 'Active'")
+            cursor.execute("SELECT Name FROM `product` WHERE Status = 'Active' AND Category IN ('Beverage', 'Food')")
             product_names = cursor.fetchall()
 
             self.comboBox_6.clear()
