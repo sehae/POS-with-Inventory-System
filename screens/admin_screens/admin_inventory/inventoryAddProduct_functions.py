@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit, QComboBox
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 from screens.admin_screens.admin_inventory.inventoryAddProduct import Ui_MainWindow
 from server.local_server import conn
+from validator.user_manager import userManager
 
+user_manager = userManager()
 
 class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()

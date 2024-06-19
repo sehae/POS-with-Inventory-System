@@ -27,6 +27,8 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.user_manager.username_updated.connect(self.on_username_updated)
         self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_employee_signal))
 
+        self.user_manager.fullname_updated.connect(self.on_fullname_updated)
+
         # Create a QTimer object
         self.timer = QTimer()
 
@@ -43,6 +45,9 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.rp_visibility.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibility))
 
         self.UiComponents()
+
+    def on_fullname_updated(self, fullname):
+        self.userName.setText(fullname)
 
     def on_username_updated(self, username):
         self.usernameFIELD.setText(username)

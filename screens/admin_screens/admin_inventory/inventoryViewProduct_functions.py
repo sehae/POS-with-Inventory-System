@@ -8,6 +8,9 @@ from server.local_server import conn
 from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()

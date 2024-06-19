@@ -6,6 +6,7 @@ from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
 from maintenance.user_logs import user_log
 from validator.user_manager import userManager
+from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 
 user_manager_instance = userManager()
 
@@ -78,10 +79,14 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                     if is_active:
                         cursor.execute(GET_USER_FIRST_NAME, (user_id,))
                         first_name = cursor.fetchone()[0]
-                        print(f"Login successful as {department}: Welcome {first_name}!")
+                        cursor.execute("SELECT last_name FROM user WHERE user_id = %s", (user_id,)) 
+                        last_name = cursor.fetchone()[0]
+                        full_name = f"{first_name} {last_name}"
+                        print(f"Login successful as {department}: Welcome {full_name}!")
                         user_log(user_id, login_action, username)
                         self.user_manager.set_department(department)  # Update user type in userManager
                         self.user_manager.set_current_username(username)  # Update current username in userManager
+                        self.user_manager.set_current_fullname(full_name)  # Update current full name in userManager
                         self.login_successful.emit()
                         if department == "Admin":
                             self.login_successful.emit()
