@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employeeDashboard.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_cashierDashboard.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,11 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1224, 974)
+        MainWindow.resize(1202, 786)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -29,25 +30,25 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.header = QtWidgets.QWidget(self.frame)
-        self.header.setObjectName("header")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.header)
-        self.horizontalLayout_2.setContentsMargins(25, 25, 25, 25)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.widget_3 = QtWidgets.QWidget(self.header)
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.header_2 = QtWidgets.QWidget(self.frame)
+        self.header_2.setObjectName("header_2")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.header_2)
+        self.horizontalLayout_3.setContentsMargins(25, 25, 25, 25)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.widget_4 = QtWidgets.QWidget(self.header_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_3.sizePolicy().hasHeightForWidth())
-        self.widget_3.setSizePolicy(sizePolicy)
-        self.widget_3.setObjectName("widget_3")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_3)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.logo = QtWidgets.QLabel(self.widget_3)
+        sizePolicy.setHeightForWidth(self.widget_4.sizePolicy().hasHeightForWidth())
+        self.widget_4.setSizePolicy(sizePolicy)
+        self.widget_4.setObjectName("widget_4")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget_4)
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.logo = QtWidgets.QLabel(self.widget_4)
         self.logo.setEnabled(True)
         self.logo.setMaximumSize(QtCore.QSize(250, 80))
         self.logo.setStyleSheet("")
@@ -58,24 +59,24 @@ class Ui_MainWindow(object):
         self.logo.setAlignment(QtCore.Qt.AlignCenter)
         self.logo.setWordWrap(False)
         self.logo.setObjectName("logo")
-        self.verticalLayout_2.addWidget(self.logo)
-        self.horizontalLayout_2.addWidget(self.widget_3)
+        self.verticalLayout_5.addWidget(self.logo)
+        self.horizontalLayout_3.addWidget(self.widget_4)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
-        self.username = QtWidgets.QLabel(self.header)
+        self.horizontalLayout_3.addItem(spacerItem)
+        self.username = QtWidgets.QLabel(self.header_2)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.username.setFont(font)
         self.username.setObjectName("username")
-        self.horizontalLayout_2.addWidget(self.username)
+        self.horizontalLayout_3.addWidget(self.username)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
-        self.widget = QtWidgets.QWidget(self.header)
-        self.widget.setObjectName("widget")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.date = QtWidgets.QLabel(self.widget)
+        self.horizontalLayout_3.addItem(spacerItem1)
+        self.widget_2 = QtWidgets.QWidget(self.header_2)
+        self.widget_2.setObjectName("widget_2")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.widget_2)
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.date = QtWidgets.QLabel(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -89,52 +90,27 @@ class Ui_MainWindow(object):
         self.date.setWordWrap(False)
         self.date.setIndent(-1)
         self.date.setObjectName("date")
-        self.verticalLayout_3.addWidget(self.date)
-        self.time = QtWidgets.QLabel(self.widget)
+        self.verticalLayout_6.addWidget(self.date)
+        self.time = QtWidgets.QLabel(self.widget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.time.setFont(font)
         self.time.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.time.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.time.setObjectName("time")
-        self.verticalLayout_3.addWidget(self.time)
-        self.horizontalLayout_2.addWidget(self.widget)
-        self.verticalLayout.addWidget(self.header)
+        self.verticalLayout_6.addWidget(self.time)
+        self.horizontalLayout_3.addWidget(self.widget_2)
+        self.verticalLayout_4.addWidget(self.header_2)
         spacerItem2 = QtWidgets.QSpacerItem(20, 60, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem2)
-        self.buttonGroup = QtWidgets.QWidget(self.frame)
-        self.buttonGroup.setObjectName("buttonGroup")
-        self.gridLayout = QtWidgets.QGridLayout(self.buttonGroup)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setHorizontalSpacing(0)
-        self.gridLayout.setVerticalSpacing(25)
-        self.gridLayout.setObjectName("gridLayout")
-        self.inventoryButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.inventoryButton.setMinimumSize(QtCore.QSize(400, 280))
-        self.inventoryButton.setMaximumSize(QtCore.QSize(400, 280))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.inventoryButton.setFont(font)
-        self.inventoryButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #5FCAC4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #058A84;\n"
-"}\n"
-"")
-        self.inventoryButton.setObjectName("inventoryButton")
-        self.gridLayout.addWidget(self.inventoryButton, 0, 0, 1, 1)
-        self.changePassButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.verticalLayout_4.addItem(spacerItem2)
+        self.buttonGroup_2 = QtWidgets.QWidget(self.frame)
+        self.buttonGroup_2.setObjectName("buttonGroup_2")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.buttonGroup_2)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_2.setHorizontalSpacing(0)
+        self.gridLayout_2.setVerticalSpacing(25)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.changePassButton = QtWidgets.QPushButton(self.buttonGroup_2)
         self.changePassButton.setMinimumSize(QtCore.QSize(400, 280))
         self.changePassButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
@@ -158,8 +134,8 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.changePassButton.setObjectName("changePassButton")
-        self.gridLayout.addWidget(self.changePassButton, 0, 1, 1, 1)
-        self.helpButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.gridLayout_2.addWidget(self.changePassButton, 0, 1, 1, 1)
+        self.helpButton = QtWidgets.QPushButton(self.buttonGroup_2)
         self.helpButton.setMinimumSize(QtCore.QSize(400, 280))
         self.helpButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
@@ -183,8 +159,35 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.helpButton.setObjectName("helpButton")
-        self.gridLayout.addWidget(self.helpButton, 0, 2, 1, 1)
-        self.aboutButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.gridLayout_2.addWidget(self.helpButton, 0, 2, 1, 1)
+        self.posButton = QtWidgets.QPushButton(self.buttonGroup_2)
+        self.posButton.setMinimumSize(QtCore.QSize(400, 280))
+        self.posButton.setMaximumSize(QtCore.QSize(400, 280))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.posButton.setFont(font)
+        self.posButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/posIcon.png) center no-repeat;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    text-align: bottom center;\n"
+"    padding-bottom: 30px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5FCAC4;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #058A84;\n"
+"}\n"
+"")
+        self.posButton.setIconSize(QtCore.QSize(200, 200))
+        self.posButton.setObjectName("posButton")
+        self.gridLayout_2.addWidget(self.posButton, 0, 0, 1, 1)
+        self.aboutButton = QtWidgets.QPushButton(self.buttonGroup_2)
         self.aboutButton.setMinimumSize(QtCore.QSize(400, 280))
         self.aboutButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
@@ -208,8 +211,8 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.aboutButton.setObjectName("aboutButton")
-        self.gridLayout.addWidget(self.aboutButton, 1, 0, 1, 1)
-        self.logoutButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.gridLayout_2.addWidget(self.aboutButton, 1, 0, 1, 1)
+        self.logoutButton = QtWidgets.QPushButton(self.buttonGroup_2)
         self.logoutButton.setMinimumSize(QtCore.QSize(400, 280))
         self.logoutButton.setMaximumSize(QtCore.QSize(400, 280))
         font = QtGui.QFont()
@@ -233,10 +236,10 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.logoutButton.setObjectName("logoutButton")
-        self.gridLayout.addWidget(self.logoutButton, 1, 1, 1, 1)
-        self.verticalLayout.addWidget(self.buttonGroup)
+        self.gridLayout_2.addWidget(self.logoutButton, 1, 1, 1, 1)
+        self.verticalLayout_4.addWidget(self.buttonGroup_2)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
+        self.verticalLayout_4.addItem(spacerItem3)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -249,12 +252,11 @@ class Ui_MainWindow(object):
         self.username.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.date.setText(_translate("MainWindow", "Wednesday, November 29, 2023 "))
         self.time.setText(_translate("MainWindow", "12:00:02 am"))
-        self.inventoryButton.setText(_translate("MainWindow", "INVENTORY"))
         self.changePassButton.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.helpButton.setText(_translate("MainWindow", "HELP"))
+        self.posButton.setText(_translate("MainWindow", "POS"))
         self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
         self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
-import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

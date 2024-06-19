@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMainWindow
 
+from database.DB_Queries import CHECK_EMAIL
 from screens.authentication_screens.email_screen.emailScreen import Ui_MainWindow
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
 from server.local_server import conn
@@ -13,11 +14,11 @@ class EmailScreen(QMainWindow, Ui_MainWindow):
 
     def __init__(self, otp_screen):
         super().__init__()
-        print("EmailScreen initialized")
         self.setupUi(self)
         self.continueButton.clicked.connect(self.check_email)
         self.backBTN.clicked.connect(self.back)
         self.otp_verification = otp_screen
+        self.errorLBL.hide()
 
     def back(self):
         self.emailTextBox.clear()
@@ -27,16 +28,16 @@ class EmailScreen(QMainWindow, Ui_MainWindow):
         email = self.emailTextBox.text()
         cursor = conn.cursor()
 
-        cursor.execute(
-            "SELECT email FROM employee WHERE email = %s UNION SELECT email FROM admin WHERE email = %s",
-            (email, email)
-        )
+        cursor.execute(CHECK_EMAIL, (email,))
         user = cursor.fetchone()
 
         if user:
-            print("Email found")
+            self.emailTextBox.setStyleSheet("")
+            self.errorLBL.hide()
             self.otp_verification.sent_otp, self.otp_verification.sent_time = send_otp(email)
             self.otp_verification.update_email(email)
             self.email_verified.emit()
         else:
-            print("Email not found")
+            self.emailTextBox.setStyleSheet("border: 2px solid red; border-radius: 5px;")
+            self.errorLBL.setText("Email not found")
+            self.errorLBL.show()

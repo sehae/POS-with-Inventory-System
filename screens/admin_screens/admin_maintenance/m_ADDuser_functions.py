@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QDateTime, QTimer
 
-from database.DB_Queries import GET_NEXT_ADMIN_ID, GET_NEXT_EMPLOYEE_ID
+from database.DB_Queries import GET_NEXT_ADMIN_ID, GET_NEXT_EMPLOYEE_ID, GET_NEXT_ID, ADD_USER, LOG_ACTIVITY
+from maintenance.user_logs import user_log
 from shared.imports import *
 from PyQt5.QtWidgets import QMainWindow  # Import QMainWindow
 from automated.email_automation import send_username_password
@@ -8,31 +9,42 @@ from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWi
 from shared.dialog import show_username_password, show_error_message
 
 from server.local_server import conn
+from shared.navigation_signal import back
 from validator.internet_connection import is_connected
-from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE, INVALID_FIELD_STYLE
+from validator.user_manager import userManager
+
 
 class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
     back_signal = QtCore.pyqtSignal()
     edit_signal = QtCore.pyqtSignal()
+    backup_recovery_signal = QtCore.pyqtSignal()
 
     def __init__(self):
-        super().__init__()
-        self.setupUi(self)  # Call the setupUi method to initialize the UI
+        try:
+            super().__init__()
+            self.setupUi(self)  # Call the setupUi method to initialize the UI
 
-        self.saveBTN.clicked.connect(self.add_user)
-        self.loaBOX.currentTextChanged.connect(self.check_admin)
-        self.editUserButton.clicked.connect(self.navigate_edit)
-        self.backButton.clicked.connect(self.back)
-        self.UIComponents()
+            self.saveBTN.clicked.connect(self.add_user)
+            self.loaBOX.currentTextChanged.connect(self.check_admin)
 
-        # Create a QTimer object
-        self.timer = QTimer()
+            # Navigation signals
+            self.editUserButton.clicked.connect(self.navigate_edit)
+            self.backButton.clicked.connect(lambda: back(self.back_signal))
+            self.backupBTN.clicked.connect(self.backup_recovery_signal.emit)
 
-        # Connect the timeout signal of the timer to the updateDateTime slot
-        self.timer.timeout.connect(self.updateDateTime)
+            self.UIComponents()
 
-        # Set the interval for the timer (in milliseconds)
-        self.timer.start(1000)  # Update every second
+            # Create a QTimer object
+            self.timer = QTimer()
+
+            # Connect the timeout signal of the timer to the updateDateTime slot
+            self.timer.timeout.connect(self.updateDateTime)
+
+            # Set the interval for the timer (in milliseconds)
+            self.timer.start(1000)  # Update every second
+        except Exception as e:
+            print("Error in adminMaintenance: ", e)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -54,9 +66,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
         self.contactNum.setValidator(QRegExpValidator(QRegExp(r'^09\d{9}$')))
 
-    def back(self):
-        self.back_signal.emit()
-
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':
             self.deptBox.setEnabled(False)
@@ -66,7 +75,6 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             self.deptBox.setStyleSheet(COMBOBOX_STYLE)
 
     def add_user(self):
-        print("add_user method called")
         first_name = self.firstName.text()
         last_name = self.lastName.text()
         email = self.email.text()
@@ -75,66 +83,98 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         dept = self.deptBox.currentText()
 
         # Error handling
-        if not first_name or not last_name or not email or not contact_number or not LoA or (
-                not dept and LoA != 'Admin'):
-            show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
-            return
+        # if not first_name or not last_name or not email or not contact_number or not LoA or (
+        #         not dept and LoA != 'Admin'):
+        #     show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
+        #     return
 
-        try:
+        if first_name == "":
+            self.firstName.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.firstName.setStyleSheet("")
+
+        if last_name == "":
+            self.lastName.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.lastName.setStyleSheet("")
+
+        if email == "":
+            self.email.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.email.setStyleSheet("")
+
+        if contact_number == "":
+            self.contactNum.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.contactNum.setStyleSheet("")
+
+        # Function to check if required fields are filled
+        def are_fields_filled(fields):
+            return all(fields)
+
+        # Required fields
+        required_fields = [first_name, last_name, LoA, dept, contact_number, email]
+
+        # Check if all required fields are filled
+        if not are_fields_filled(required_fields):
+            show_error_message("Error", "All fields must be filled. Please fill in the fields before adding a user.")
+        else:
             cursor = conn.cursor()
-            print("Cursor created")
 
             if LoA == 'Admin':
                 dept_number = '01'
             else:
                 dept_number = '02'
 
-                # Generate password
+            # Generate password
             password = self.generate_password()
 
-                # Hash the password
+            # Hash the password
             hashed_password = hash_password(password)
 
-            if LoA == 'Admin':
-                cursor.execute(GET_NEXT_ADMIN_ID)
-            else:
-                cursor.execute(GET_NEXT_EMPLOYEE_ID)
-
+            # Get the next ID
+            cursor.execute(GET_NEXT_ID)
             result = cursor.fetchone()
             max_id = 0 if result[0] is None else result[0]
-            print("Max ID: ", max_id)
-            print(result)
             next_id = max_id + 1
 
-                # Generate username
+            # Generate username
             initials = first_name[0] + last_name[0]
             staff_number = str(next_id).zfill(2)
             username = initials.upper() + dept_number + staff_number
 
-                # Add username and password to the respective login table
+            # Add username and password to the respective login table
             if LoA == 'Admin':
-                add_login_query = ADD_ADMIN
-                user_data = (last_name, first_name, contact_number, email, username, hashed_password)
+                add_query = ADD_USER
+                print("Adding user...")
+                user_data = (last_name, first_name, LoA, 'Admin', contact_number, email, username, hashed_password)
             else:
-                add_login_query = ADD_EMPLOYEE
-                user_data = (last_name, first_name, dept, contact_number, email, username, hashed_password)
+                add_query = ADD_USER
+                print("Adding user...")
+                user_data = (last_name, first_name, LoA, dept, contact_number, email, username, hashed_password)
 
-            cursor.execute(add_login_query, user_data)
+            cursor.execute(add_query, user_data)
             conn.commit()
 
             print("User added successfully")
 
-            try:
-                if is_connected():
-                    send_username_password(username, password, email)
-                else:
-                    show_username_password(username, password)
-            except Exception as e:
-                print("Error sending username and password: ", e)
+            # User Log
+            user_action = 10
+            specific_action = username
+            self.log_add(user_action, specific_action)
 
-        except Exception as e:
-            show_error_message("Database Error", f"An error occurred while adding the user: {e}")
-        finally:
+            # Send username and password
+            if is_connected():
+                try:
+                    print("Sending username and password...")
+                    send_username_password(username, password, email)
+                except Exception as e:
+                    print("Error sending username and password: ", e)
+            else:
+                show_username_password(username, password)
+
+            print("Username and password sent successfully")
+
             cursor.close()
 
     def generate_password(self):
@@ -146,3 +186,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
                     any(c.isdigit() for c in password) and
                     any(c in string.punctuation for c in password)):
                 return password
+
+    def log_add(self, user_action, specific_action):
+        user_manager = userManager._instance
+        current_id = user_manager.get_current_user_id()
+        current_username = user_manager.get_current_username()
+        user_log(current_id, user_action, current_username, specific_action)

@@ -82,7 +82,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap resource="../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
+               <pixmap>:/logos/Icons/logo1.png</pixmap>
               </property>
               <property name="scaledContents">
                <bool>true</bool>
@@ -197,6 +197,21 @@
     selection-background-color: darkgray;
 }</string>
            </property>
+           <property name="placeholderText">
+            <string>Enter your email</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="errorLBL">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+color: red;
+}</string>
+           </property>
+           <property name="text">
+            <string>Error Label</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -244,6 +259,48 @@ QPushButton:pressed {
            </property>
            <property name="text">
             <string>Continue</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>5</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="backBTN">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    padding: 5px;
+    border: 1px solid #E6E6E6;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #036666;
+    font-size: 20px;
+}
+
+QPushButton:hover {
+    background-color: #E6E6E6;
+}
+
+QPushButton:pressed {
+    background-color: #CCCCCC;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Back</string>
            </property>
           </widget>
          </item>
@@ -335,8 +392,9 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -13,7 +13,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
     cancel_signal = pyqtSignal()
     otp_verified = pyqtSignal(str)
 
-    def __init__(self,):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
@@ -38,6 +38,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
         self.otp5.textChanged.connect(lambda: self.focus_next_field(self.otp5, self.otp6))
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
+        self.errorLBL.hide()
 
     def setOTP(self, otp):
         self.sent_otp = otp
@@ -63,26 +64,38 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
         self.emailDISPLAY.setText(self.supplied_email)
 
     def verify_otp(self):
-        entered_otp = self.otp1.text() + self.otp2.text() + self.otp3.text() + self.otp4.text() + self.otp5.text() + self.otp6.text()
+        otp_fields = [self.otp1, self.otp2, self.otp3, self.otp4, self.otp5, self.otp6]
+        entered_otp = ''.join(field.text() for field in otp_fields)
         current_time = time.time()
 
-        if current_time - self.sent_time > 300:
-            print("OTP expired")
+        if current_time - self.sent_time > 180:
+            self.errorLBL.setText("OTP expired. Please request a new OTP")
+            self.errorLBL.show()
         elif str(entered_otp) == str(self.sent_otp):
-            print("OTP verification successful")
             email = self.emailDISPLAY.text()
             try:
                 self.otp_verified.emit(email)
                 self.clearField()
+                self.errorLBL.hide()
+                for field in otp_fields:
+                    field.setStyleSheet("")
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
-            print("Incorrect OTP")
+            for field in otp_fields:
+                field.setStyleSheet("border: 2px solid red; border-radius: 5px;")
+            self.errorLBL.setText("Invalid OTP. Please try again.")
+            self.errorLBL.show()
 
     def resend_otp(self):
         self.resendBTN.setEnabled(False)
         self.resendBTN.setStyleSheet(DISABLED_RESEND_BTN)
-        self.sent_otp, self.sent_time = send_otp(self.to_email)
+        print("Attempting to send OTP to:", self.supplied_email)
+        try:
+            self.sent_otp, self.sent_time = send_otp(self.supplied_email)
+            print("OTP sent successfully")
+        except Exception as e:
+            print("Error while sending OTP:", e)
         self.resend_timer.start()
 
     def enable_resend_button(self):
@@ -92,7 +105,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
 
     def update_timer_label(self):
         current_time = time.time()
-        remaining_time = 300 - (current_time - self.sent_time)
+        remaining_time = 180 - (current_time - self.sent_time)
 
         if remaining_time > 0:
             minutes = int(remaining_time // 60)

@@ -1,4 +1,4 @@
-from database.DB_Queries import GET_EMPLOYEE_ID, CHECK_EMAIL_ADMIN, CHECK_EMAIL_EMPLOYEE
+from database.DB_Queries import GET_EMPLOYEE_ID, CHECK_EMAIL_ADMIN, CHECK_EMAIL_EMPLOYEE, UPDATE_PASSWORD
 from shared.imports import *
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 
@@ -12,7 +12,6 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.email = email
         self.check_action = None
-        self.source_table = None
 
         self.saveBTN.clicked.connect(self.save_password)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
@@ -23,7 +22,6 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
 
     def update_email(self, email):
         self.email = email
-        self.source_table = self.check_email_source(self.email)
 
     def UiComponents(self):
         self.passwordFIELD.setEchoMode(QLineEdit.Password)
@@ -77,40 +75,12 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
             hashed_password = hash_password(new_password)
 
             cursor = conn.cursor()
-
-            print(f"self.source_table: {self.source_table}")
-
-            try:
-                print("Updating password")
-                if self.source_table == 'admin':
-                    cursor.execute(UPDATE_ADMIN_PASSWORD, (hashed_password, self.email))
-                    print(hashed_password)
-                elif self.source_table == 'employee':
-                    cursor.execute(UPDATE_EMPLOYEE_PASSWORD, (hashed_password, self.email))
-                    print(hashed_password)
-                conn.commit()
-                print("Password reset successful!")
-                self.passwordFIELD.clear()
-                self.retypeFIELD.clear()
-                self.save_signal.emit()
-            except Exception as e:
-                print(f"An error occurred: {e}")
+            cursor.execute(UPDATE_PASSWORD, (hashed_password, self.email))
+            conn.commit()
+            print("Password reset successful!")
+            cursor.close()
+            self.passwordFIELD.clear()
+            self.retypeFIELD.clear()
+            self.save_signal.emit()
         else:
             print("Passwords do not match!")
-
-    def check_email_source(self, email):
-        cursor = conn.cursor()
-
-        cursor.execute(CHECK_EMAIL_ADMIN, (email,))
-        result = cursor.fetchone()
-
-        if result:
-            return 'admin'
-
-        cursor.execute(CHECK_EMAIL_EMPLOYEE, (email,))
-        result = cursor.fetchone()
-
-        if result:
-            return 'employee'
-
-        return None

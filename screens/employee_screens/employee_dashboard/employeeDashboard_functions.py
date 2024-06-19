@@ -23,10 +23,7 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.pos_order = posOrder()
         self.inventory_modify = inventoryModify()
-
-        self.ui.posButton.clicked.connect(self.navigate_pos)
         self.ui.logoutButton.clicked.connect(self.logout)
         self.ui.inventoryButton.clicked.connect(self.navigate_inventory)
         self.ui.helpButton.clicked.connect(self.navigate_help)
@@ -67,5 +64,5 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.help_signal.emit()
 
     def logout(self):
-        user_manager.reset_user_type()
+        user_manager.reset_user_data()
         self.logout_signal.emit()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>708</height>
+    <width>1080</width>
+    <height>780</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -89,7 +92,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_11">
+           <widget class="QPushButton" name="adduserBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -121,12 +124,12 @@ QPushButton:pressed {
 }</string>
             </property>
             <property name="text">
-             <string>Inventory</string>
+             <string>Add User</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="editBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -158,12 +161,12 @@ QPushButton:pressed {
 }</string>
             </property>
             <property name="text">
-             <string>Add</string>
+             <string>Edit User</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="backupBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -195,12 +198,12 @@ QPushButton:pressed {
 }</string>
             </property>
             <property name="text">
-             <string>Modify</string>
+             <string>Backup</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="backBTN">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -246,8 +249,8 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
+             <iconset>
+              <normaloff>:/newPrefix/entypo_back.png</normaloff>:/newPrefix/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
              <bool>false</bool>
@@ -271,46 +274,65 @@ QPushButton:pressed {
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QFrame" name="Content">
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+        <widget class="QWidget" name="Content" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <property name="leftMargin">
            <number>25</number>
           </property>
           <property name="topMargin">
            <number>25</number>
           </property>
-          <property name="rightMargin">
-           <number>25</number>
-          </property>
-          <property name="bottomMargin">
-           <number>25</number>
-          </property>
           <item>
-           <widget class="QWidget" name="widget" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <property name="spacing">
-              <number>7</number>
-             </property>
+           <widget class="QWidget" name="widget_3" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="leftMargin">
-              <number>15</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
-              <number>15</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>15</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
              <item>
-              <widget class="QWidget" name="widget_2" native="true">
+              <widget class="QLabel" name="automaticbackupLBL">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Automatic Backup</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget" native="true">
                <layout class="QFormLayout" name="formLayout">
                 <property name="horizontalSpacing">
-                 <number>0</number>
+                 <number>25</number>
                 </property>
                 <property name="verticalSpacing">
-                 <number>25</number>
+                 <number>10</number>
                 </property>
                 <property name="leftMargin">
                  <number>0</number>
@@ -325,225 +347,222 @@ QPushButton:pressed {
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_4">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
+                 <widget class="QLabel" name="frequencyLBL">
                   <property name="text">
-                   <string>Add Product</string>
+                   <string>Backup Frequency</string>
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="frequencyBOX">
+                  <property name="minimumSize">
+                   <size>
+                    <width>480</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>480</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+    padding: 5px;
+    border: 2px solid #07BEB8;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: right center;
+    width: 20px;
+    border-left: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/logos/Icons/gridicons_dropdown.png);
+    width: 20px;
+    height: 20px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Hourly</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Daily</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Weekly</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
                 <item row="1" column="0">
-                 <widget class="QLabel" name="label_5">
+                 <widget class="QLabel" name="filelocLBL">
                   <property name="text">
-                   <string>Product Name</string>
+                   <string>Backup Location</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_6">
+                 <widget class="QLabel" name="filelocDISPLAY">
                   <property name="text">
-                   <string>Category</string>
+                   <string>You don't have current backup location...</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox">
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_2" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="viewBTN">
                   <property name="minimumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>0</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>16777215</height>
                    </size>
                   </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_7">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+                  </property>
                   <property name="text">
-                   <string>Quantity</string>
+                   <string>View Backup Folder</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="lineEdit_4">
+                <item>
+                 <widget class="QPushButton" name="selectfolderBTN">
                   <property name="minimumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>0</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>16777215</height>
                    </size>
                   </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_8">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+                  </property>
                   <property name="text">
-                   <string>Buying Cost</string>
+                   <string>Select Backup Location</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="lineEdit_3">
+                <item>
+                 <widget class="QPushButton" name="backupnowBTN">
                   <property name="minimumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>50</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>400</width>
-                    <height>35</height>
+                    <width>600</width>
+                    <height>50</height>
                    </size>
                   </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_9">
+                  <property name="font">
+                   <font>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                  </property>
                   <property name="text">
-                   <string>Selling Cost</string>
+                   <string>Backup Now</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="QLineEdit" name="lineEdit_5">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_10">
-                  <property name="text">
-                   <string>Supplier</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QComboBox" name="comboBox_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0">
-                 <widget class="QLabel" name="label_11">
-                  <property name="text">
-                   <string>Expiry Date</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="1">
-                 <widget class="QDateEdit" name="dateEdit">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="displayFormat">
-                   <string>yyyy/MM/dd</string>
-                  </property>
-                  <property name="calendarPopup">
-                   <bool>true</bool>
-                  </property>
-                  <property name="date">
-                   <date>
-                    <year>2024</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </date>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="0">
-                 <widget class="QLabel" name="label_12">
-                  <property name="text">
-                   <string>Threshold Value</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="1">
-                 <widget class="QLineEdit" name="lineEdit_7">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="1">
-                 <widget class="QWidget" name="widget_3" native="true">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                <item>
+                 <widget class="QWidget" name="widget_4" native="true">
                   <layout class="QHBoxLayout" name="horizontalLayout_3">
                    <property name="spacing">
-                    <number>7</number>
+                    <number>10</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -558,92 +577,41 @@ QPushButton:pressed {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="pushButton_4">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>200</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>200</width>
-                       <height>35</height>
-                      </size>
+                    <widget class="QLabel" name="lastbackupLBL">
+                     <property name="font">
+                      <font>
+                       <italic>true</italic>
+                      </font>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
+                      <string notr="true">QLabel {
+color: gray;
 }</string>
                      </property>
                      <property name="text">
-                      <string>Add Product</string>
+                      <string>Last Backup at:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_5">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>200</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>200</width>
-                       <height>35</height>
-                      </size>
+                    <widget class="QLabel" name="lastbackupDISPLAY">
+                     <property name="font">
+                      <font>
+                       <italic>true</italic>
+                      </font>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QPushButton {
-    background-color: white;
-    border: 2px solid #67B99A;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    border: 2px solid #4D926D;
-}
-
-QPushButton:pressed {
-	background-color: #F0F0F0;
-	border: 2px solid #265C42;
+                      <string notr="true">QLabel {
+color: gray;
 }</string>
                      </property>
                      <property name="text">
-                      <string>Discard</string>
+                      <string>Put date here</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <spacer name="horizontalSpacer_3">
+                    <spacer name="horizontalSpacer_2">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -662,20 +630,163 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_2">
+              <spacer name="verticalSpacer_4">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
-                 <height>20</height>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="restorebackupLBL">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Restore Backup</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_5" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QComboBox" name="backupDatesBOX">
+                  <property name="minimumSize">
+                   <size>
+                    <width>600</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>600</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+    padding: 5px;
+    border: 2px solid #07BEB8;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: right center;
+    width: 20px;
+    border-left: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/logos/Icons/gridicons_dropdown.png);
+    width: 20px;
+    height: 20px;
+}</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="restoreBTN">
+                  <property name="minimumSize">
+                   <size>
+                    <width>600</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>600</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Restore</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
                 </size>
                </property>
               </spacer>
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -706,7 +817,7 @@ QPushButton:pressed {
 }</string>
             </property>
             <property name="text">
-             <string>INVENTORY</string>
+             <string>MAINTENANCE</string>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -730,7 +841,7 @@ QPushButton:pressed {
            <widget class="QFrame" name="frame_2">
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="dateDISPLAY">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -747,7 +858,7 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="usernameDISPLAY">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -778,8 +889,6 @@ QPushButton:pressed {
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../../../../assets/resourceFile.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

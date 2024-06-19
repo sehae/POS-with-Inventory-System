@@ -1,9 +1,11 @@
 import mysql.connector
 
+password = "root"
+
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="root",
+    passwd=password,
     database="poswithinventorysystem"
     )
 
