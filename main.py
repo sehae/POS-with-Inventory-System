@@ -25,6 +25,7 @@ from screens.employee_screens.employee_dashboard.employeeDashboard_functions imp
 from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from screens.employee_screens.employee_pos.posPayment_functions import posPayment
 from screens.employee_screens.employee_pos.posTable_functions import posTable
+from screens.employee_screens.employee_pos.posHome_functions import posHome
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
 
@@ -62,6 +63,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_order = posOrder()
         self.pos_payment = posPayment()
         self.pos_table = posTable()
+        self.pos_home = posHome()
         self.inventory_modify = inventoryModify()
         self.inventory_barcode = inventoryBarcode()
         self.inventory_table = inventoryTable()
@@ -88,6 +90,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.pos_order)
         self.stacked_widget.addWidget(self.pos_payment)
         self.stacked_widget.addWidget(self.pos_table)
+        self.stacked_widget.addWidget(self.pos_home)
         self.stacked_widget.addWidget(self.inventory_modify)
         self.stacked_widget.addWidget(self.inventory_barcode)
         self.stacked_widget.addWidget(self.inventory_table)
@@ -166,12 +169,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard_cashier.pos_signal.connect(self.show_pos_order)
         self.employee_dashboard_cashier.changepass_signal.connect(self.show_change_password)
 
-        self.pos_payment.back_signal.connect(self.show_employee_dashboard)
+        self.pos_order.payment_signal.connect(self.show_pos_payment)
+        self.pos_order.menu_signal.connect(self.show_pos_menu)
+        self.pos_order.home_signal.connect(self.show_pos_home)
+        self.pos_payment.home_signal.connect(self.show_pos_home)
         self.pos_payment.menu_signal.connect(self.show_pos_menu)
         self.pos_payment.order_signal.connect(self.show_pos_order)
         self.pos_table.payment_signal.connect(self.show_pos_payment)
-        self.pos_table.back_signal.connect(self.show_employee_dashboard)
         self.pos_table.order_signal.connect(self.show_pos_order)
+        self.pos_table.menu_signal.connect(self.show_pos_menu)
+        self.pos_home.payment_signal.connect(self.show_pos_payment)
+        self.pos_home.order_signal.connect(self.show_pos_order)
+        self.pos_home.home_signal.connect(self.show_pos_home)
+        self.pos_home.back_signal.connect(self.show_pos_home)
 
         self.employee_dashboard.inventoryModify_signal.connect(self.show_employee_inventory)
         self.inventory_modify.barcode_signal.connect(self.show_inventory_barcode)
@@ -278,8 +288,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def show_pos_payment(self):
         self.stacked_widget.setCurrentWidget(self.pos_payment)
 
-    def show_pos_menu(self):
+    def show_pos_home(self):
         self.stacked_widget.setCurrentWidget(self.pos_table)
+
+    def show_pos_menu(self):
+        self.stacked_widget.setCurrentWidget(self.pos_home)
 
     def show_employee_inventory(self):
         self.stacked_widget.setCurrentWidget(self.inventory_modify)
