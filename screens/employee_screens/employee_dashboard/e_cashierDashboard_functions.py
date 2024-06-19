@@ -2,7 +2,6 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime
 
 from screens.employee_screens.employee_dashboard.employee_cashierDashboard import Ui_MainWindow
-from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from validator.user_manager import userManager
 
 user_manager = userManager()
@@ -20,7 +19,6 @@ class myEmployeeDashboard_Cashier(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.pos_order = posOrder()
         self.ui.logoutButton.clicked.connect(self.logout_signal.emit)
         self.ui.posButton.clicked.connect(self.pos_signal.emit)
         self.ui.helpButton.clicked.connect(self.help_signal.emit)

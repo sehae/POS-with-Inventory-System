@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from screens.employee_screens.employee_dashboard.employeeDashboard import Ui_MainWindow
+from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from validator.user_manager import userManager
 
 user_manager = userManager()
