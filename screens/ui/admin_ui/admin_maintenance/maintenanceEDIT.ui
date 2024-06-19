@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1802</width>
-    <height>827</height>
+    <height>834</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -517,7 +517,7 @@ QPushButton:pressed {
 }</string>
                         </property>
                         <property name="text">
-                         <string>LOA:</string>
+                         <string>Level of Acces:</string>
                         </property>
                        </widget>
                       </item>

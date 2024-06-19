@@ -151,8 +151,10 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
                 last_backup_date_str = last_backup_date.strftime(
                     '%B %d, %Y, %H:%M:%S')  # Month Day, Year, Hour:Minute:Second format
 
+                formatted_date_time = last_backup_date.strftime('%B %d, %Y %I:%M %p')
+
                 # Display the last backup date
-                self.lastbackupDISPLAY.setText(last_backup_date_str)
+                self.lastbackupDISPLAY.setText(formatted_date_time)
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -165,7 +167,6 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
             try:
                 # Clear the combobox
                 self.backupDatesBOX.clear()
-                self.original_filename = {}
                 self.original_filename = {}
 
                 # List all files in the backup directory
@@ -185,12 +186,11 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
                 # Add the sorted files to the combobox
                 for file in files:
                     # Extract the date from the file name
-                    date_str = file.split('_')[1]  # Get the date part of the file name
-                    date_obj = datetime.datetime.strptime(date_str,
-                                                          '%Y-%m-%d')  # Convert the date string to a datetime object
-                    formatted_date = date_obj.strftime('%B %d, %Y')  # Format the date as Month Day, Year
+                    date_time_str = f"{file.split('_')[1]} {file.split("_")[2].replace(".sql", "")}"  # Get the date part of the file name
+                    date_time_obj = datetime.datetime.strptime(date_time_str,
+                                                          '%Y-%m-%d %H-%M-%S')  # Convert the date string to a datetime object
+                    formatted_date = date_time_obj.strftime('%B %d, %Y %I:%M %p')  # Format the date as Month Day, Year
                     self.original_filename[formatted_date] = file
-                    print(self.original_filename)
                     self.backupDatesBOX.addItem(formatted_date)
             except Exception as e:
                 print(f"An error occurred: {e}")

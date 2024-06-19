@@ -11,7 +11,7 @@ from shared.dialog import show_username_password, show_error_message
 from server.local_server import conn
 from shared.navigation_signal import back
 from validator.internet_connection import is_connected
-from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE, INVALID_FIELD_STYLE
 from validator.user_manager import userManager
 
 
@@ -83,12 +83,42 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         dept = self.deptBox.currentText()
 
         # Error handling
-        if not first_name or not last_name or not email or not contact_number or not LoA or (
-                not dept and LoA != 'Admin'):
-            show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
-            return
+        # if not first_name or not last_name or not email or not contact_number or not LoA or (
+        #         not dept and LoA != 'Admin'):
+        #     show_error_message("Error","All fields must be filled. Please fill in the fields before adding a user.")
+        #     return
 
-        try:
+        if first_name == "":
+            self.firstName.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.firstName.setStyleSheet("")
+
+        if last_name == "":
+            self.lastName.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.lastName.setStyleSheet("")
+
+        if email == "":
+            self.email.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.email.setStyleSheet("")
+
+        if contact_number == "":
+            self.contactNum.setStyleSheet(INVALID_FIELD_STYLE)
+        else:
+            self.contactNum.setStyleSheet("")
+
+        # Function to check if required fields are filled
+        def are_fields_filled(fields):
+            return all(fields)
+
+        # Required fields
+        required_fields = [first_name, last_name, LoA, dept, contact_number, email]
+
+        # Check if all required fields are filled
+        if not are_fields_filled(required_fields):
+            show_error_message("Error", "All fields must be filled. Please fill in the fields before adding a user.")
+        else:
             cursor = conn.cursor()
 
             if LoA == 'Admin':
@@ -134,19 +164,17 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             self.log_add(user_action, specific_action)
 
             # Send username and password
-            try:
-                if is_connected():
+            if is_connected():
+                try:
                     print("Sending username and password...")
                     send_username_password(username, password, email)
-                else:
-                    show_username_password(username, password)
-            except Exception as e:
-                print("Error sending username and password: ", e)
+                except Exception as e:
+                    print("Error sending username and password: ", e)
+            else:
+                show_username_password(username, password)
 
             print("Username and password sent successfully")
-        except Exception as e:
-            show_error_message("Database Error", f"An error occurred while adding the user: {e}")
-        finally:
+
             cursor.close()
 
     def generate_password(self):

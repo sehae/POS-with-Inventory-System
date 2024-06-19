@@ -144,3 +144,10 @@ QAbstractItemView {
     selection-background-color: #07BEB8;
 }
 """
+
+INVALID_FIELD_STYLE = """
+QLineEdit {
+    border: 2px solid red;
+    border-radius: 6px;
+}
+"""

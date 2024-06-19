@@ -23,7 +23,7 @@ def backup_db(backup_path):
         print("Backup function called")  # Print a message when the function is called
         if conn.is_connected():
             # Generate a timestamped filename for the backup file
-            timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             backup_file = f"MoonHeyHotpotandGrill_{timestamp}.sql"
 
             # Define the command to back up the database
@@ -35,7 +35,7 @@ def backup_db(backup_path):
 
             print("Database backup successful")
     except Exception as e:
-        print(f"An error occurred: {e}")  # Print any errors that occur
+        print(f"An error occutyjtyjtjtrred: {e}")  # Print any errors that occur
 
 # Function to restore the database from a backup
 def restore_backup(original_file_name):

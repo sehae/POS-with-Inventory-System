@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1802, 827)
+        MainWindow.resize(1802, 834)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -544,7 +544,7 @@ class Ui_MainWindow(object):
         self.nameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.emailLBL.setText(_translate("MainWindow", "E-mail:"))
         self.emailDISPLAY.setText(_translate("MainWindow", "jcmoonhey@gmail.com"))
-        self.loaLBL.setText(_translate("MainWindow", "LOA:"))
+        self.loaLBL.setText(_translate("MainWindow", "Level of Acces:"))
         self.staffBTN.setText(_translate("MainWindow", "Staff"))
         self.adminBTN.setText(_translate("MainWindow", "Admin"))
         self.restrictionLBL.setText(_translate("MainWindow", "Restriction:"))
