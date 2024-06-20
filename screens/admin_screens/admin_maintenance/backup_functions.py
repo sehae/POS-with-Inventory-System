@@ -100,15 +100,25 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         print(f"Backup path: {backup_path}")
         if backup_path:
             # Perform a backup immediately
-            backup_db(backup_path)
+            self.perform_backup(backup_path)
 
             # Connect the timeout signal of the timer to the backup_db method
-            self.backup_timer.timeout.connect(lambda: backup_db(backup_path))
+            self.backup_timer.timeout.connect(lambda: self.perform_backup(backup_path))
 
         # Start the timer with the determined interval
         self.backup_timer.start(interval)
         print(f"Database will be backed up every {frequency.lower()}")
         print(f"Timer is active: {self.backup_timer.isActive()}")  # Check if the timer is active
+
+    def perform_backup(self, backup_path):
+        # Perform the backup
+        backup_db(backup_path)
+
+        # Update the backup dates in the combobox
+        self.update_backup_dates()
+
+        # Update the last backup date display
+        self.update_last_backup_date()
 
     def view_backup_location(self):
         try:
@@ -205,3 +215,5 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
 
         # Call the restore_backup function with the selected date
         restore_backup(original_file_name)
+
+

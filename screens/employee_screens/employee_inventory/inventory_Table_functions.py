@@ -8,6 +8,9 @@ from server.local_server import conn
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class inventoryTable(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
@@ -41,8 +44,24 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
 
+        self.timer.timeout.connect(self.updateDateTimeAndTable)
+
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
+
+        # Connect the fullname_updated signal to the slot
+        user_manager.fullname_updated.connect(self.update_fullname_label)
+
+        # Set initial fullname if already set
+        if user_manager.get_current_fullname():
+            self.update_fullname_label(user_manager.get_current_fullname())
+
+    def updateDateTimeAndTable(self):
+        self.updateDateTime()
+        self.populate_table()
+
+    def update_fullname_label(self, fullname):
+        self.label_3.setText(fullname)  # Update the label with the fullname
 
     def updateDateTime(self):
         # Get the current date and time

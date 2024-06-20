@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,33 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `order_item`
+-- Table structure for table `leftover`
 --
 
-DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `leftover`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_item` (
-  `Order_Item_ID` int NOT NULL AUTO_INCREMENT,
-  `Order_ID` int DEFAULT NULL,
-  `Product_ID` int DEFAULT NULL,
-  `Quantity` int DEFAULT NULL,
-  `Subtotal` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Order_Item_ID`),
-  KEY `fk_OrderID_OrderItem` (`Order_ID`),
-  KEY `fk_ProductID_OrderItem` (`Product_ID`),
-  CONSTRAINT `fk_OrderID_OrderItem` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
-  CONSTRAINT `fk_ProductID_OrderItem` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`)
+CREATE TABLE `leftover` (
+  `Leftover_ID` int NOT NULL,
+  `Grams` decimal(10,2) NOT NULL,
+  `Penalty_Fee` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`Leftover_ID`),
+  CONSTRAINT `leftover_chk_1` CHECK ((`Leftover_ID` between 1 and 4))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order_item`
+-- Dumping data for table `leftover`
 --
 
-LOCK TABLES `order_item` WRITE;
-/*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
+LOCK TABLES `leftover` WRITE;
+/*!40000 ALTER TABLE `leftover` DISABLE KEYS */;
+INSERT INTO `leftover` VALUES (1,100.00,50.00),(2,200.00,100.00),(3,300.00,150.00),(4,400.00,200.00);
+/*!40000 ALTER TABLE `leftover` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-18 23:04:44
+-- Dump completed on 2024-06-17 18:29:16

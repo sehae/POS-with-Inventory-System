@@ -1,10 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from screens.employee_screens.employee_dashboard.employeeDashboard import Ui_MainWindow
-from screens.employee_screens.employee_pos.posOrder_functions import posOrder
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
-from screens.help_screen.help_FAQ_functions import helpFAQ
-from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from validator.user_manager import userManager
 
 user_manager = userManager()
@@ -12,7 +9,6 @@ user_manager = userManager()
 class myEmployeeDashboard(QtWidgets.QMainWindow):
 
     logout_signal = QtCore.pyqtSignal()
-    pos_signal = QtCore.pyqtSignal()
     inventoryModify_signal = QtCore.pyqtSignal()
     help_signal = QtCore.pyqtSignal()
     about_signal = QtCore.pyqtSignal()
@@ -35,6 +31,16 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
+
+        # Connect the fullname_updated signal to the slot
+        user_manager.fullname_updated.connect(self.update_fullname_label)
+
+        # Set initial fullname if already set
+        if user_manager.get_current_fullname():
+            self.update_fullname_label(user_manager.get_current_fullname())
+
+    def update_fullname_label(self, fullname):
+        self.ui.username.setText(fullname)  # Update the label with the fullname
 
     def update_datetime(self):
         # Get current date and time

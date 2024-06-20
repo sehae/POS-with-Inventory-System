@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posOrder.ui'
+# Form implementation generated from reading ui file 'posOrderdetails.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 659)
+        MainWindow.resize(1207, 767)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -49,69 +49,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
-        self.homeBTN = QtWidgets.QPushButton(self.navbar)
-        self.homeBTN.setMinimumSize(QtCore.QSize(100, 100))
-        self.homeBTN.setMaximumSize(QtCore.QSize(100, 100))
-        self.homeBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.homeBTN.setObjectName("homeBTN")
-        self.verticalLayout_2.addWidget(self.homeBTN)
-        self.menuBTN = QtWidgets.QPushButton(self.navbar)
-        self.menuBTN.setMinimumSize(QtCore.QSize(100, 100))
-        self.menuBTN.setMaximumSize(QtCore.QSize(100, 100))
-        self.menuBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.menuBTN.setObjectName("menuBTN")
-        self.verticalLayout_2.addWidget(self.menuBTN)
-        self.paymentBTN = QtWidgets.QPushButton(self.navbar)
-        self.paymentBTN.setMinimumSize(QtCore.QSize(100, 100))
-        self.paymentBTN.setMaximumSize(QtCore.QSize(100, 100))
-        self.paymentBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.paymentBTN.setObjectName("paymentBTN")
-        self.verticalLayout_2.addWidget(self.paymentBTN)
         self.orderBTN = QtWidgets.QPushButton(self.navbar)
         self.orderBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.orderBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -133,6 +70,69 @@ class Ui_MainWindow(object):
 "}")
         self.orderBTN.setObjectName("orderBTN")
         self.verticalLayout_2.addWidget(self.orderBTN)
+        self.menuBTN = QtWidgets.QPushButton(self.navbar)
+        self.menuBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.menuBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.menuBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.menuBTN.setObjectName("menuBTN")
+        self.verticalLayout_2.addWidget(self.menuBTN)
+        self.modifyBTN = QtWidgets.QPushButton(self.navbar)
+        self.modifyBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.modifyBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.modifyBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.modifyBTN.setObjectName("modifyBTN")
+        self.verticalLayout_2.addWidget(self.modifyBTN)
+        self.checkoutBTN = QtWidgets.QPushButton(self.navbar)
+        self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.checkoutBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.checkoutBTN.setObjectName("checkoutBTN")
+        self.verticalLayout_2.addWidget(self.checkoutBTN)
         self.backBTN = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -215,95 +215,129 @@ class Ui_MainWindow(object):
         self.time.setObjectName("time")
         self.verticalLayout.addWidget(self.time)
         self.horizontalLayout_2.addWidget(self.frame_2)
-        self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
-        self.Content = QtWidgets.QFrame(self.frame)
-        self.Content.setObjectName("Content")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
-        self.verticalLayout_4.setContentsMargins(-1, -1, 0, -1)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.widget = QtWidgets.QWidget(self.Content)
+        self.gridLayout.addWidget(self.header, 0, 0, 1, 3)
+        self.frame_3 = QtWidgets.QFrame(self.frame)
+        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+        self.widget = QtWidgets.QWidget(self.frame_3)
+        self.widget.setGeometry(QtCore.QRect(0, 0, 1651, 831))
         self.widget.setObjectName("widget")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_3.setContentsMargins(25, 25, 25, 25)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.orderLabel = QtWidgets.QLabel(self.widget)
+        self.widget_2 = QtWidgets.QWidget(self.widget)
+        self.widget_2.setGeometry(QtCore.QRect(0, 0, 1087, 719))
+        self.widget_2.setObjectName("widget_2")
+        self.widget_4 = QtWidgets.QWidget(self.widget_2)
+        self.widget_4.setGeometry(QtCore.QRect(20, 40, 741, 501))
+        self.widget_4.setObjectName("widget_4")
+        self.formLayout_2 = QtWidgets.QFormLayout(self.widget_4)
+        self.formLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.formLayout_2.setHorizontalSpacing(0)
+        self.formLayout_2.setVerticalSpacing(25)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_5 = QtWidgets.QLabel(self.widget_4)
         font = QtGui.QFont()
-        font.setPointSize(15)
-        self.orderLabel.setFont(font)
-        self.orderLabel.setObjectName("orderLabel")
-        self.verticalLayout_3.addWidget(self.orderLabel)
-        self.tableWidget = QtWidgets.QTableWidget(self.widget)
-        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.tableWidget.setProperty("showDropIndicator", False)
-        self.tableWidget.setDragDropOverwriteMode(False)
-        self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(6)
-        self.tableWidget.setRowCount(1)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setVerticalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(5, item)
-        item = QtWidgets.QTableWidgetItem()
-        item.setFlags(QtCore.Qt.ItemIsEnabled)
-        self.tableWidget.setItem(0, 0, item)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(250)
-        self.tableWidget.horizontalHeader().setStretchLastSection(True)
-        self.verticalLayout_3.addWidget(self.tableWidget)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setContentsMargins(-1, 15, -1, -1)
+        font.setPointSize(18)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_5)
+        self.label_10 = QtWidgets.QLabel(self.widget_4)
+        self.label_10.setObjectName("label_10")
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_10)
+        self.lineEdit_9 = QtWidgets.QLineEdit(self.widget_4)
+        self.lineEdit_9.setMinimumSize(QtCore.QSize(400, 35))
+        self.lineEdit_9.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_9.setObjectName("lineEdit_9")
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_9)
+        self.label_11 = QtWidgets.QLabel(self.widget_4)
+        self.label_11.setObjectName("label_11")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_11)
+        self.comboBox_2 = QtWidgets.QComboBox(self.widget_4)
+        self.comboBox_2.setMinimumSize(QtCore.QSize(400, 35))
+        self.comboBox_2.setMaximumSize(QtCore.QSize(400, 35))
+        self.comboBox_2.setObjectName("comboBox_2")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox_2)
+        self.label_12 = QtWidgets.QLabel(self.widget_4)
+        self.label_12.setObjectName("label_12")
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_12)
+        self.lineEdit_7 = QtWidgets.QLineEdit(self.widget_4)
+        self.lineEdit_7.setMinimumSize(QtCore.QSize(400, 35))
+        self.lineEdit_7.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_7.setObjectName("lineEdit_7")
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_7)
+        self.label_13 = QtWidgets.QLabel(self.widget_4)
+        self.label_13.setObjectName("label_13")
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_13)
+        self.comboBox_3 = QtWidgets.QComboBox(self.widget_4)
+        self.comboBox_3.setMinimumSize(QtCore.QSize(400, 35))
+        self.comboBox_3.setMaximumSize(QtCore.QSize(400, 35))
+        self.comboBox_3.setObjectName("comboBox_3")
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.comboBox_3)
+        self.widget_5 = QtWidgets.QWidget(self.widget_4)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
+        self.widget_5.setSizePolicy(sizePolicy)
+        self.widget_5.setObjectName("widget_5")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget_5)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setSpacing(7)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.pushButton_6 = QtWidgets.QPushButton(self.widget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_6.sizePolicy().hasHeightForWidth())
+        self.pushButton_6.setSizePolicy(sizePolicy)
+        self.pushButton_6.setMinimumSize(QtCore.QSize(200, 35))
+        self.pushButton_6.setMaximumSize(QtCore.QSize(200, 35))
+        self.pushButton_6.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.horizontalLayout_3.addWidget(self.pushButton_6)
+        self.pushButton_7 = QtWidgets.QPushButton(self.widget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_7.sizePolicy().hasHeightForWidth())
+        self.pushButton_7.setSizePolicy(sizePolicy)
+        self.pushButton_7.setMinimumSize(QtCore.QSize(200, 35))
+        self.pushButton_7.setMaximumSize(QtCore.QSize(200, 35))
+        self.pushButton_7.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.pushButton_7.setObjectName("pushButton_7")
+        self.horizontalLayout_3.addWidget(self.pushButton_7)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem3)
-        self.modifyBTN = QtWidgets.QPushButton(self.widget)
-        self.modifyBTN.setMinimumSize(QtCore.QSize(200, 50))
-        self.modifyBTN.setMaximumSize(QtCore.QSize(200, 50))
-        self.modifyBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"}")
-        self.modifyBTN.setObjectName("modifyBTN")
-        self.horizontalLayout_3.addWidget(self.modifyBTN)
-        self.payOrderBTN = QtWidgets.QPushButton(self.widget)
-        self.payOrderBTN.setMinimumSize(QtCore.QSize(200, 50))
-        self.payOrderBTN.setMaximumSize(QtCore.QSize(200, 50))
-        self.payOrderBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"}")
-        self.payOrderBTN.setObjectName("payOrderBTN")
-        self.horizontalLayout_3.addWidget(self.payOrderBTN)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem4)
-        self.verticalLayout_4.addWidget(self.widget)
-        self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
+        self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.widget_5)
+        self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 2)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -313,42 +347,19 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.homeBTN.setText(_translate("MainWindow", "Home"))
-        self.menuBTN.setText(_translate("MainWindow", "Menu"))
-        self.paymentBTN.setText(_translate("MainWindow", "Payment"))
         self.orderBTN.setText(_translate("MainWindow", "Order"))
+        self.menuBTN.setText(_translate("MainWindow", "Menu"))
+        self.modifyBTN.setText(_translate("MainWindow", "Modify"))
+        self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "POS"))
         self.date.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.time.setText(_translate("MainWindow", "Juan Dela Cruz"))
-        self.orderLabel.setText(_translate("MainWindow", "Orders"))
-        item = self.tableWidget.verticalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Radio Button dapat"))
-        item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Order ID"))
-        item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Date"))
-        item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Time"))
-        item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Table No."))
-        item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "Total Amount"))
-        item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("MainWindow", "Status"))
-        __sortingEnabled = self.tableWidget.isSortingEnabled()
-        self.tableWidget.setSortingEnabled(False)
-        self.tableWidget.setSortingEnabled(__sortingEnabled)
-        self.modifyBTN.setText(_translate("MainWindow", "Modify Order"))
-        self.payOrderBTN.setText(_translate("MainWindow", "Pay Order"))
+        self.label_5.setText(_translate("MainWindow", "Order Details"))
+        self.label_10.setText(_translate("MainWindow", "Customer Name"))
+        self.label_11.setText(_translate("MainWindow", "Package Type"))
+        self.label_12.setText(_translate("MainWindow", "Capacity"))
+        self.label_13.setText(_translate("MainWindow", "Soup Variation"))
+        self.pushButton_6.setText(_translate("MainWindow", "Generate Order"))
+        self.pushButton_7.setText(_translate("MainWindow", "Discard"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

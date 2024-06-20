@@ -8,6 +8,9 @@ from server.local_server import conn
 from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
@@ -38,10 +41,16 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
         # Create a QTimer object
         self.timer = QTimer()
         self.timer.timeout.connect(self.updateDateTime)
+        self.timer.timeout.connect(self.updateDateTimeAndTable)
+
         self.timer.start(1000)  # Update every second
 
         # Connect the search field
         self.searchFIELD.returnPressed.connect(self.search_table)
+
+    def updateDateTimeAndTable(self):
+        self.updateDateTime()
+        self.populate_table()
 
     def navigate_modify(self):
         self.modify_signal.emit()

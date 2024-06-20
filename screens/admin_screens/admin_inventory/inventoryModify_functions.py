@@ -4,6 +4,9 @@ from PyQt5.QtCore import QDateTime, QTimer, pyqtSignal
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 from screens.admin_screens.admin_inventory.inventoryModify import Ui_MainWindow
 from server.local_server import conn
+from validator.user_manager import userManager
+
+user_manager = userManager()
 
 class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()

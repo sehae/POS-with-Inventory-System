@@ -31,7 +31,9 @@ CHECK_EMAIL_EMPLOYEE = "SELECT email FROM employee WHERE email = %s;"
 
 # User Information Retrieval Queries
 GET_ADMIN_FIRST_NAME = "SELECT first_name FROM admin WHERE admin_id = %s;"
+GET_ADMIN_LAST_NAME = "SELECT last_name FROM admin WHERE admin_id = %s;"
 GET_EMPLOYEE_FIRST_NAME = "SELECT first_name FROM employee WHERE employee_id = %s;"
+GET_EMPLOYEE_LAST_NAME = "SELECT last_name FROM employee WHERE employee_id = %s;"
 GET_NEXT_ADMIN_ID = "SELECT MAX(admin_id) FROM admin;"
 GET_NEXT_EMPLOYEE_ID = "SELECT MAX(employee_id) FROM employee;"
 
