@@ -216,4 +216,3 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         # Call the restore_backup function with the selected date
         restore_backup(original_file_name)
 
-
