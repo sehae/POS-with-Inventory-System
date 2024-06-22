@@ -182,7 +182,7 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
     def populate_comboBox_2(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Name FROM product WHERE Status = 'active'")
+            cursor.execute("SELECT Name FROM product WHERE Status = 'Active'")
             product_names = cursor.fetchall()
 
             self.comboBox_2.clear()

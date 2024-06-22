@@ -91,18 +91,18 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Get input values
                 customer_name = self.lineEdit_9.text().strip()
                 package_name = self.comboBox_2.currentText()
-                guest_capacity = self.lineEdit_7.text().strip()
+                guest_pax = self.lineEdit_7.text().strip()
                 soup_variation = self.comboBox_3.currentText()
 
                 # Insert the new order into the database
                 insert_query = f"""
                     INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                         Guest_Capacity, Customer_Name, Soup_Variation)
+                                         Guest_Pax, Customer_Name, Soup_Variation)
                     VALUES ('{new_order_id}', '{current_date}', 
                             TIME_FORMAT(NOW(), '%H:%i'), 
                             (SELECT Package_ID FROM package WHERE Package_Name = '{package_name}'), 
                             'Pending', 
-                            '{guest_capacity}', 
+                            '{guest_pax}', 
                             '{customer_name}', 
                             '{soup_variation}')
                 """
