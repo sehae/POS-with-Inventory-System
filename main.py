@@ -14,6 +14,7 @@ from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.about_screen.about_Info_functions import aboutInfo
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
 from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
+from screens.authentication_screens.password_recovery.pwResult_functions import PasswordResult
 from screens.employee_screens.employee_dashboard.e_cashierDashboard_functions import myEmployeeDashboard_Cashier
 from screens.employee_screens.employee_inventory.inventory_Table_functions import inventoryTable
 from screens.help_screen.help_FAQ_functions import helpFAQ
@@ -45,6 +46,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.otp_screen = OtpVerification()
         self.email_screen = EmailScreen(self.otp_screen)
         self.password_recovery = PasswordRecovery(self.otp_screen.supplied_email)
+        self.password_result = PasswordResult()
         self.admin_maintenance_backup = adminMaintenanceBACKUP()
         self.admin_dashboard = myAdminDashboard()
         self.admin_maintenance = adminMaintenance()
@@ -72,6 +74,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.email_screen)
         self.stacked_widget.addWidget(self.otp_screen)
         self.stacked_widget.addWidget(self.password_recovery)
+        self.stacked_widget.addWidget(self.password_result)
         self.stacked_widget.addWidget(self.admin_dashboard)
         self.stacked_widget.addWidget(self.admin_maintenance_backup)
         self.stacked_widget.addWidget(self.admin_maintenance)
@@ -114,7 +117,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.otp_screen.cancel_signal.connect(self.show_login_screen)
         self.otp_screen.otp_verified.connect(self.show_password_recovery)
         self.password_recovery.cancel_signal.connect(self.show_login_screen)
-        self.password_recovery.save_signal.connect(self.show_login_screen)
+        self.password_recovery.save_signal.connect(self.show_result_screen)
+        self.password_result.login_signal.connect(self.show_login_screen)
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
         self.admin_dashboard.about_signal.connect(self.show_about_devcredits)
@@ -238,7 +242,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_comboBox_6)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
 
-
+    def show_result_screen(self):
+        self.stacked_widget.setCurrentWidget(self.password_result)
 
     def show_employee_dashboard_cashier(self):
         self.stacked_widget.setCurrentWidget(self.employee_dashboard_cashier)

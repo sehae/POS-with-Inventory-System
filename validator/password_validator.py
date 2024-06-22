@@ -4,12 +4,15 @@ from shared.dialog import show_error_message
 def isValidPassword(password):
     title = "Invalid Password"
 
-    if not 7 < len(password):
-        show_error_message(title, "Password must have a minimum of 8 characters.")
-        return False
+    if not password:
+        return False  # Empty password, no need to show any error message
 
-    if len(password) > 20:
-        show_error_message(title, "Password is too long. Password should be less than 20 characters.")
+    if not 8 <= len(password) <= 20:
+        if len(password) < 8:
+            show_error_message(title, "Password must have a minimum of 8 characters.")
+        elif len(password) > 20:
+            show_error_message(title, "Password is too long. Password should be less than 20 characters.")
+        return False
 
     if not any(char.isupper() for char in password):
         show_error_message(title, "Password must contain at least one uppercase letter.")
@@ -24,3 +27,4 @@ def isValidPassword(password):
         return False
 
     return True
+

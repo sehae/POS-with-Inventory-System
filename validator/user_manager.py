@@ -23,6 +23,7 @@ class userManager(QtCore.QObject):
         self.current_id = None
         self.current_department = None
         self.current_fullname = None  # Initialize current_fullname to None
+        self.current_email = None
 
     def set_department(self, department):
         # Validate user_type (optional)
@@ -64,7 +65,6 @@ class userManager(QtCore.QObject):
                 self.set_current_user_id(result[0])
                 self.set_current_department(result[4])
 
-
             print(f"USERMANAGER: User information retrieved.")
             return result
         except Exception as e:
@@ -74,7 +74,6 @@ class userManager(QtCore.QObject):
 
     def set_current_user_id(self, id):
         self.current_id = id
-        print(f"USERMANAGER: Current user id set to: {self.current_id}")
 
     def set_current_department(self, department):
         self.current_department = department
@@ -94,4 +93,8 @@ class userManager(QtCore.QObject):
     def get_current_fullname(self):
         return self.current_fullname
 
+    def set_current_email(self, email):
+        self.current_email = email
 
+    def get_current_email(self):
+        return self.current_email

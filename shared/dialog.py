@@ -32,4 +32,4 @@ def create_dialog_box(message, title):
     msgBox.setText(message)
     msgBox.setWindowTitle(title)
 
-    return msgBox.exec_
+    return msgBox.exec_()

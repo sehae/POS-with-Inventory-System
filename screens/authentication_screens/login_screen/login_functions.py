@@ -1,12 +1,9 @@
-from datetime import datetime
-
-from database.DB_Queries import LOG_ACTIVITY, LOGIN, GET_USER_FIRST_NAME
+from database.DB_Queries import LOGIN, GET_USER_NAME, GET_EMAIL
+from maintenance.user_logs import user_log
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
-from maintenance.user_logs import user_log
 from validator.user_manager import userManager
-from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 
 user_manager_instance = userManager()
 
@@ -21,13 +18,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
         super().__init__()
 
         self.setupUi(self)
-
-        # Pass the userManager instance
-        self.user_manager = user_manager_instance
-        self.user_type = None
-        self.user_manager.user_type_updated.connect(self.print_user_type)  # Connect signal to slot
-
         self.user_action = None
+        self.user_manager = user_manager_instance
         self.parameter = None
         self.username = None
         self.user_id = None
@@ -59,8 +51,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
             self.visibilityButton.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
 
     def logs(self):
-        username = self.userName.text()
-        provided_password = self.password.text()
+        username = self.userName.text().strip()
+        provided_password = self.password.text().strip()
         login_action = 2
         failed_login_action = 1
 
@@ -77,22 +69,29 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
                     if is_active:
-                        cursor.execute(GET_USER_FIRST_NAME, (user_id,))
-                        first_name = cursor.fetchone()[0]
-                        cursor.execute("SELECT last_name FROM user WHERE user_id = %s", (user_id,)) 
-                        last_name = cursor.fetchone()[0]
+                        cursor.execute(GET_USER_NAME, (user_id,))
+                        first_name, last_name = cursor.fetchone()
                         full_name = f"{first_name} {last_name}"
+                        cursor.execute(GET_EMAIL, (user_id,))
+                        email = cursor.fetchone()[0]
                         print(f"Login successful as {department}: Welcome {full_name}!")
                         user_log(user_id, login_action, username)
-                        self.user_manager.set_department(department)  # Update user type in userManager
-                        self.user_manager.set_current_username(username)  # Update current username in userManager
-                        self.user_manager.set_current_fullname(full_name)  # Update current full name in userManager
-                        self.login_successful.emit()
+
+                        # Update Currently logged on user's information
+                        self.user_manager.set_department(department)
+                        self.user_manager.set_current_username(username)
+                        self.user_manager.set_current_fullname(full_name)
+                        self.user_manager.set_current_user_id(user_id)
+                        self.user_manager.set_current_email(email)
+
                         if department == "Admin":
+                            self.clear_fields()
                             self.login_successful.emit()
                         elif department == "Cashier":
+                            self.clear_fields()
                             self.login_successful_cashier.emit()
                         else:
+                            self.clear_fields()
                             self.login_successful_kitchen.emit()
                         return
                     else:
@@ -100,11 +99,11 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         return
                 else:
                     print("Incorrect password.")
-                    self.user_type = "System"
                     user_log(user_id, failed_login_action, username)
                     self.invalidCredentials()
 
             else:
+                user_log(0, failed_login_action, "System")
                 self.invalidCredentials()
 
         except Exception as e:
@@ -120,3 +119,9 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
     def invalidCredentials(self):
         self.errorLBL.setText("Invalid Credentials. Check your username and password.")
         self.errorLBL.setStyleSheet(ERROR_LBL_VISIBLE)
+
+    def clear_fields(self):
+        self.userName.clear()
+        self.password.clear()
+        self.errorLBL.setStyleSheet(ERROR_LBL_HIDDEN)
+        self.errorLBL.clear()

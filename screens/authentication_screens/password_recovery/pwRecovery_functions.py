@@ -1,6 +1,8 @@
-from database.DB_Queries import GET_EMPLOYEE_ID, CHECK_EMAIL_ADMIN, CHECK_EMAIL_EMPLOYEE, UPDATE_PASSWORD
-from shared.imports import *
+from database.DB_Queries import UPDATE_PASSWORD, GET_USER_ID, GET_USERNAME, GET_PASSWORD_BY_EMAIL
+from maintenance.user_logs import user_log
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
+from shared.imports import *
+from styles.universalStyles import INVALID_FIELD_STYLE_WITH_ICON, INVALID_FIELD_STYLE_WITH_ICON_RIGHT
 
 
 class PasswordRecovery(QMainWindow, Ui_MainWindow):
@@ -14,6 +16,7 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         self.check_action = None
 
         self.saveBTN.clicked.connect(self.save_password)
+        self.cancelBTN.clicked.connect(self.cancel)
         self.pw_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.passwordFIELD, self.pw_visibilityBTN))
         self.rp_visibilityBTN.clicked.connect(lambda: self.toggle_visibility(self.retypeFIELD, self.rp_visibilityBTN))
         self.passwordFIELD.textChanged.connect(self.check_password_match)
@@ -37,6 +40,7 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
         self.passwordFIELD.clear()
         self.retypeFIELD.clear()
         self.cancel_signal.emit()
+        self.log_action(7)
 
     def toggle_visibility(self, field, button):
         if field.echoMode() == QtWidgets.QLineEdit.Password:
@@ -63,14 +67,33 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
                 self.retypeFIELD.removeAction(self.check_action)
 
     def save_password(self):
-        new_password = self.passwordFIELD.text()
-        retype_new_password = self.retypeFIELD.text()
+        new_password = self.passwordFIELD.text().strip()
+        retype_new_password = self.retypeFIELD.text().strip()
+
+        cursor = conn.cursor()
+        cursor.execute(GET_PASSWORD_BY_EMAIL, (self.email,))
+        old_password = cursor.fetchone()[0]
+        cursor.close()
+
+        if verify_password(old_password, new_password):
+            self.passwordFIELD.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON)
+            self.retypeFIELD.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON)
+            self.pw_visibilityBTN.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON_RIGHT)
+            self.rp_visibilityBTN.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON_RIGHT)
+            show_error_message("Error", "New password cannot be the same as the old password!")
+            return
 
         if new_password == retype_new_password:
             # Validate the new password
             if not isValidPassword(new_password):
+                self.passwordFIELD.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON)
+                self.retypeFIELD.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON)
+                self.pw_visibilityBTN.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON_RIGHT)
+                self.rp_visibilityBTN.setStyleSheet(INVALID_FIELD_STYLE_WITH_ICON_RIGHT)
                 return
 
+            self.passwordFIELD.setStyleSheet("")
+            self.retypeFIELD.setStyleSheet("")
             # Hash the new password
             hashed_password = hash_password(new_password)
 
@@ -79,8 +102,19 @@ class PasswordRecovery(QMainWindow, Ui_MainWindow):
             conn.commit()
             print("Password reset successful!")
             cursor.close()
+
             self.passwordFIELD.clear()
             self.retypeFIELD.clear()
             self.save_signal.emit()
+            self.log_action(8)
         else:
             print("Passwords do not match!")
+
+    def log_action(self, user_action):
+        cursor = conn.cursor()
+        cursor.execute(GET_USER_ID, (self.email,))
+        user_id = cursor.fetchone()[0]
+        cursor.execute(GET_USERNAME, (self.email,))
+        username = cursor.fetchone()[0]
+        cursor.close()
+        user_log(user_id, user_action, username)

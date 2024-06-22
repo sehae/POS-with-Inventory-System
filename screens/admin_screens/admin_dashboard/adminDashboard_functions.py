@@ -1,5 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
+
+from maintenance.user_logs import user_log
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
@@ -73,6 +75,11 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.about_signal.emit()
 
     def logout(self):
-        user_manager.reset_user_data()
-        self.logout_signal.emit()
+        user_id = user_manager.get_current_user_id()
+        user_action = 9
+        username = user_manager.get_current_username()
+        user_log(user_id, user_action, username)
 
+        user_manager.reset_user_data()
+
+        self.logout_signal.emit()

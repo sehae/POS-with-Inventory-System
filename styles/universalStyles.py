@@ -151,3 +151,81 @@ QLineEdit {
     border-radius: 6px;
 }
 """
+
+INVALID_FIELD_STYLE_WITH_ICON = """
+QLineEdit {
+    padding: 5px;
+    border-top: 2px solid red;
+    border-left: 2px solid red;
+    border-bottom: 2px solid red;
+    border-right: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+"""
+
+INVALID_FIELD_STYLE_WITH_ICON_RIGHT = """
+QPushButton {
+    padding: 5px;
+    border-top: 2px solid red;
+    border-left: none;
+    border-bottom: 2px solid red;
+    border-right: 2px solid red;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #FFFFFF;
+}
+"""
+
+VALID_FIELD_STYLE = """
+QLineEdit {
+    padding: 5px;
+    border-top: 2px solid #67B99A;
+    border-left: 2px solid #67B99A;
+    border-bottom: 2px solid #67B99A;
+    border-right: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+"""
+
+VALID_FIELD_STYLE_WITH_ICON = """
+QLineEdit {
+    padding: 5px;
+    border-top: 2px solid #67B99A;
+    border-left: 2px solid #67B99A;
+    border-bottom: 2px solid #67B99A;
+    border-right: none;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+"""
+
+VALID_FIELD_STYLE_WITH_ICON_RIGHT = """
+QPushButton {
+    padding: 5px;
+    border-top: 2px solid #67B99A;
+    border-left: none;
+    border-bottom: 2px solid #67B99A;
+    border-right: 2px solid #67B99A;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #FFFFFF;
+}
+"""
