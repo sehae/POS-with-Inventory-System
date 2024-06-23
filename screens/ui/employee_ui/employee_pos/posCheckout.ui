@@ -240,6 +240,43 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="historyBTN_2">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+            </property>
+            <property name="text">
+             <string>History</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="backBTN">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -686,49 +723,6 @@ QPushButton:pressed {
                       </size>
                      </property>
                     </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>75</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>75</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">QPushButton {
-    background-color: #F1A40E;
-    color: black;
-    border-radius: 10px;
-    border: none;
-}
-
-QPushButton:hover {
-    background-color: #E1920C;
-}
-
-QPushButton:pressed {
-    background-color: #C77908;
-}
-</string>
-                     </property>
-                     <property name="text">
-                      <string>CANCEL ORDER</string>
-                     </property>
-                    </widget>
                    </item>
                   </layout>
                  </widget>

@@ -24,7 +24,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_11.clicked.connect(self.discard)
         self.pushButton_10.clicked.connect(self.check_order_details)
-        self.pushButton.clicked.connect(self.cancel_order)
 
         self.populate_comboBox()
 
@@ -239,30 +238,3 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             if conn.is_connected():
                 cursor.close()
 
-    def cancel_order(self):
-        order_id = self.comboBox.currentText()
-        if not order_id:
-            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
-            return
-
-        # Confirm cancellation with the user
-        reply = QMessageBox.question(self, 'Confirm Cancel', f"Are you sure you want to cancel order ID {order_id}?",
-                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-
-        if reply == QMessageBox.Yes:
-            try:
-                cursor = conn.cursor()
-                cursor.execute("UPDATE `order` SET Payment_Status = 'Cancelled' WHERE Order_ID = %s", (order_id,))
-                conn.commit()
-
-                QMessageBox.information(self, "Order Cancelled", "The order has been successfully cancelled.")
-                self.populate_comboBox()  # Refresh the combo box
-
-            except Exception as e:
-                QMessageBox.critical(self, "Database Error", f"Error occurred while cancelling the order: {e}")
-
-            finally:
-                if conn.is_connected():
-                    cursor.close()
-        else:
-            QMessageBox.information(self, "Cancelled", "Cancellation operation cancelled by user.")

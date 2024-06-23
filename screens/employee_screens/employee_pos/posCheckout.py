@@ -134,6 +134,27 @@ class Ui_MainWindow(object):
 "}")
         self.checkoutBTN.setObjectName("checkoutBTN")
         self.verticalLayout_6.addWidget(self.checkoutBTN)
+        self.historyBTN_2 = QtWidgets.QPushButton(self.navbar_2)
+        self.historyBTN_2.setMinimumSize(QtCore.QSize(100, 100))
+        self.historyBTN_2.setMaximumSize(QtCore.QSize(100, 100))
+        self.historyBTN_2.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.historyBTN_2.setObjectName("historyBTN_2")
+        self.verticalLayout_6.addWidget(self.historyBTN_2)
         self.backBTN = QtWidgets.QPushButton(self.navbar_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -350,31 +371,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.tableWidget)
         spacerItem5 = QtWidgets.QSpacerItem(20, 25, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_11.addItem(spacerItem5)
-        self.pushButton = QtWidgets.QPushButton(self.widget_3)
-        self.pushButton.setMinimumSize(QtCore.QSize(0, 75))
-        self.pushButton.setMaximumSize(QtCore.QSize(16777215, 75))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("QPushButton {\n"
-"    background-color: #F1A40E;\n"
-"    color: black;\n"
-"    border-radius: 10px;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #E1920C;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #C77908;\n"
-"}\n"
-"")
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_11.addWidget(self.pushButton)
         self.verticalLayout_9.addWidget(self.widget_3)
         self.horizontalLayout_6.addWidget(self.leftContent_2)
         spacerItem6 = QtWidgets.QSpacerItem(200, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -637,6 +633,7 @@ class Ui_MainWindow(object):
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
+        self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label_10.setText(_translate("MainWindow", "POS"))
         self.label_11.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
@@ -644,7 +641,6 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "ORDER #:"))
         self.pushButton_10.setText(_translate("MainWindow", "Checkout"))
         self.pushButton_11.setText(_translate("MainWindow", "Discard"))
-        self.pushButton.setText(_translate("MainWindow", "CANCEL ORDER"))
         self.label_19.setText(_translate("MainWindow", "RECEIPT"))
         self.label_20.setText(_translate("MainWindow", "GUEST:"))
         self.label_25.setText(_translate("MainWindow", "4"))

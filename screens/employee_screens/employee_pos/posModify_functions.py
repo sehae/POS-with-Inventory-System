@@ -38,7 +38,7 @@ class posModify(QMainWindow, Ui_MainWindow):
 
         # Set the interval for the timers (in milliseconds)
         self.timer.start(1000)  # Update date and time every second
-        self.table_update_timer.start(60000)  # Update table every minute
+        self.table_update_timer.start(1000)  # Update table every second
 
         self.searchFIELD.returnPressed.connect(self.search_table)
 

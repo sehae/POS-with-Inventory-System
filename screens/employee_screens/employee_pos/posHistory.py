@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posModify.ui'
+# Form implementation generated from reading ui file 'posHistory.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1503, 977)
+        MainWindow.resize(1177, 796)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -133,10 +133,10 @@ class Ui_MainWindow(object):
 "}")
         self.checkoutBTN.setObjectName("checkoutBTN")
         self.verticalLayout_2.addWidget(self.checkoutBTN)
-        self.historyBTN_3 = QtWidgets.QPushButton(self.navbar)
-        self.historyBTN_3.setMinimumSize(QtCore.QSize(100, 100))
-        self.historyBTN_3.setMaximumSize(QtCore.QSize(100, 100))
-        self.historyBTN_3.setStyleSheet("QPushButton {\n"
+        self.historyBTN = QtWidgets.QPushButton(self.navbar)
+        self.historyBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.historyBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.historyBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
@@ -152,8 +152,8 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        self.historyBTN_3.setObjectName("historyBTN_3")
-        self.verticalLayout_2.addWidget(self.historyBTN_3)
+        self.historyBTN.setObjectName("historyBTN")
+        self.verticalLayout_2.addWidget(self.historyBTN)
         self.backBTN = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -244,136 +244,23 @@ class Ui_MainWindow(object):
         self.widget = QtWidgets.QWidget(self.frame_3)
         self.widget.setGeometry(QtCore.QRect(0, 0, 1651, 831))
         self.widget.setObjectName("widget")
-        self.widget_6 = QtWidgets.QWidget(self.widget)
-        self.widget_6.setGeometry(QtCore.QRect(21, 481, 690, 329))
-        self.widget_6.setObjectName("widget_6")
-        self.formLayout_3 = QtWidgets.QFormLayout(self.widget_6)
-        self.formLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.formLayout_3.setHorizontalSpacing(0)
-        self.formLayout_3.setVerticalSpacing(25)
-        self.formLayout_3.setObjectName("formLayout_3")
-        self.label_6 = QtWidgets.QLabel(self.widget_6)
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
-        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.label_14 = QtWidgets.QLabel(self.widget_6)
-        self.label_14.setObjectName("label_14")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_14)
-        self.comboBox_5 = QtWidgets.QComboBox(self.widget_6)
-        self.comboBox_5.setMinimumSize(QtCore.QSize(400, 35))
-        self.comboBox_5.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_5.setObjectName("comboBox_5")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.comboBox_5)
-        self.label_15 = QtWidgets.QLabel(self.widget_6)
-        self.label_15.setObjectName("label_15")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_15)
-        self.comboBox_6 = QtWidgets.QComboBox(self.widget_6)
-        self.comboBox_6.setMinimumSize(QtCore.QSize(400, 35))
-        self.comboBox_6.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_6.setObjectName("comboBox_6")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox_6)
-        self.label_16 = QtWidgets.QLabel(self.widget_6)
-        self.label_16.setObjectName("label_16")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_16)
-        self.lineEdit_8 = QtWidgets.QLineEdit(self.widget_6)
-        self.lineEdit_8.setMinimumSize(QtCore.QSize(400, 35))
-        self.lineEdit_8.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit_8.setObjectName("lineEdit_8")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_8)
-        self.label_17 = QtWidgets.QLabel(self.widget_6)
-        self.label_17.setObjectName("label_17")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.comboBox_7 = QtWidgets.QComboBox(self.widget_6)
-        self.comboBox_7.setMinimumSize(QtCore.QSize(400, 35))
-        self.comboBox_7.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_7.setObjectName("comboBox_7")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.comboBox_7)
-        self.widget_7 = QtWidgets.QWidget(self.widget_6)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
-        self.widget_7.setSizePolicy(sizePolicy)
-        self.widget_7.setObjectName("widget_7")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_7)
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_4.setSpacing(7)
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.pushButton_8 = QtWidgets.QPushButton(self.widget_7)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_8.sizePolicy().hasHeightForWidth())
-        self.pushButton_8.setSizePolicy(sizePolicy)
-        self.pushButton_8.setMinimumSize(QtCore.QSize(200, 35))
-        self.pushButton_8.setMaximumSize(QtCore.QSize(200, 35))
-        self.pushButton_8.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
-        self.pushButton_8.setObjectName("pushButton_8")
-        self.horizontalLayout_4.addWidget(self.pushButton_8)
-        self.pushButton_9 = QtWidgets.QPushButton(self.widget_7)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_9.sizePolicy().hasHeightForWidth())
-        self.pushButton_9.setSizePolicy(sizePolicy)
-        self.pushButton_9.setMinimumSize(QtCore.QSize(200, 35))
-        self.pushButton_9.setMaximumSize(QtCore.QSize(200, 35))
-        self.pushButton_9.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.horizontalLayout_4.addWidget(self.pushButton_9)
-        spacerItem3 = QtWidgets.QSpacerItem(58, 32, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem3)
-        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.widget_7)
         self.layoutWidget = QtWidgets.QWidget(self.widget)
-        self.layoutWidget.setGeometry(QtCore.QRect(20, 20, 1171, 461))
+        self.layoutWidget.setGeometry(QtCore.QRect(30, 20, 1001, 671))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.searchLBL = QtWidgets.QLabel(self.layoutWidget)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.orderLabel_2 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(15)
-        self.searchLBL.setFont(font)
-        self.searchLBL.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.searchLBL.setIndent(0)
-        self.searchLBL.setObjectName("searchLBL")
-        self.horizontalLayout_5.addWidget(self.searchLBL)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem4)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_5)
+        self.orderLabel_2.setFont(font)
+        self.orderLabel_2.setObjectName("orderLabel_2")
+        self.horizontalLayout_3.addWidget(self.orderLabel_2)
+        spacerItem3 = QtWidgets.QSpacerItem(918, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem3)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
         self.searchFIELD = QtWidgets.QLineEdit(self.layoutWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -391,24 +278,15 @@ class Ui_MainWindow(object):
 "}")
         self.searchFIELD.setObjectName("searchFIELD")
         self.verticalLayout_3.addWidget(self.searchFIELD)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.orderLabel_2 = QtWidgets.QLabel(self.layoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.orderLabel_2.setFont(font)
-        self.orderLabel_2.setObjectName("orderLabel_2")
-        self.horizontalLayout_3.addWidget(self.orderLabel_2)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem5)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
+        spacerItem4 = QtWidgets.QSpacerItem(1098, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.verticalLayout_3.addItem(spacerItem4)
         self.tableWidget_2 = QtWidgets.QTableWidget(self.layoutWidget)
         self.tableWidget_2.setObjectName("tableWidget_2")
         self.tableWidget_2.setColumnCount(0)
         self.tableWidget_2.setRowCount(0)
         self.verticalLayout_3.addWidget(self.tableWidget_2)
-        spacerItem6 = QtWidgets.QSpacerItem(1118, 28, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.verticalLayout_3.addItem(spacerItem6)
+        spacerItem5 = QtWidgets.QSpacerItem(1118, 28, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.verticalLayout_3.addItem(spacerItem5)
         self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 2)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -423,18 +301,10 @@ class Ui_MainWindow(object):
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
-        self.historyBTN_3.setText(_translate("MainWindow", "History"))
+        self.historyBTN.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "POS"))
         self.date.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.time.setText(_translate("MainWindow", "Juan Dela Cruz"))
-        self.label_6.setText(_translate("MainWindow", "Modify Order Details"))
-        self.label_14.setText(_translate("MainWindow", "Order ID"))
-        self.label_15.setText(_translate("MainWindow", "Package Type"))
-        self.label_16.setText(_translate("MainWindow", "Capacity"))
-        self.label_17.setText(_translate("MainWindow", "Soup Variation"))
-        self.pushButton_8.setText(_translate("MainWindow", "Modify Product"))
-        self.pushButton_9.setText(_translate("MainWindow", "Discard"))
-        self.searchLBL.setText(_translate("MainWindow", "Search for Order"))
-        self.orderLabel_2.setText(_translate("MainWindow", "Orders List"))
+        self.orderLabel_2.setText(_translate("MainWindow", "History Order List"))
 import assets.resourceFile_rc

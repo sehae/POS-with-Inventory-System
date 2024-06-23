@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1503</width>
-    <height>977</height>
+    <width>1177</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -237,7 +237,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="historyBTN_3">
+           <widget class="QPushButton" name="historyBTN">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -453,309 +453,38 @@ QPushButton:pressed {
             <height>831</height>
            </rect>
           </property>
-          <widget class="QWidget" name="widget_6" native="true">
-           <property name="geometry">
-            <rect>
-             <x>21</x>
-             <y>481</y>
-             <width>690</width>
-             <height>329</height>
-            </rect>
-           </property>
-           <layout class="QFormLayout" name="formLayout_3">
-            <property name="horizontalSpacing">
-             <number>0</number>
-            </property>
-            <property name="verticalSpacing">
-             <number>25</number>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="font">
-               <font>
-                <pointsize>18</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Modify Order Details</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_14">
-              <property name="text">
-               <string>Order ID</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="comboBox_5">
-              <property name="minimumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_15">
-              <property name="text">
-               <string>Package Type</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QComboBox" name="comboBox_6">
-              <property name="minimumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>Capacity</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="lineEdit_8">
-              <property name="minimumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_17">
-              <property name="text">
-               <string>Soup Variation</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QComboBox" name="comboBox_7">
-              <property name="minimumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QWidget" name="widget_7" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <property name="spacing">
-                <number>7</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="pushButton_8">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>200</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>200</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Modify Product</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_9">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>200</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>200</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-    background-color: white;
-    border: 2px solid #67B99A;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    border: 2px solid #4D926D;
-}
-
-QPushButton:pressed {
-	background-color: #F0F0F0;
-	border: 2px solid #265C42;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Discard</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>58</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
           <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
-             <x>20</x>
+             <x>30</x>
              <y>20</y>
-             <width>1171</width>
-             <height>461</height>
+             <width>1001</width>
+             <height>671</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item>
-               <widget class="QLabel" name="searchLBL">
+               <widget class="QLabel" name="orderLabel_2">
                 <property name="font">
                  <font>
                   <pointsize>15</pointsize>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Search for Order</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-                <property name="margin">
-                 <number>0</number>
-                </property>
-                <property name="indent">
-                 <number>0</number>
+                 <string>History Order List</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_2">
+               <spacer name="horizontalSpacer_9">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
+                  <width>918</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -795,33 +524,17 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QLabel" name="orderLabel_2">
-                <property name="font">
-                 <font>
-                  <pointsize>15</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Orders List</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>1098</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QTableWidget" name="tableWidget_2"/>

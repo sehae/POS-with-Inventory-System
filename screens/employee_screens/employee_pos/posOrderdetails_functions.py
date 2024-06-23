@@ -25,6 +25,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.modifyBTN.clicked.connect(self.goModify)
         self.menuBTN.clicked.connect(self.goMenu)
         self.pushButton_6.clicked.connect(self.saveOrder)  # Connect saveOrder function to pushButton_6
+        self.pushButton.clicked.connect(self.cancel_order)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -40,6 +41,23 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         # Populate comboBox_3 with soup variations
         self.populate_comboBox_3()
+
+        # Populate comboBox_7 with order ids
+        self.populate_comboBox_7()
+
+        # Populate comboBox_4 with order types
+        self.populate_comboBox_4()
+
+    def populate_comboBox_4(self):
+        try:
+            # Clear existing items
+            self.comboBox_4.clear()
+
+            # Add specific values
+            self.comboBox_4.addItems(["Package", "Add-ons only"])
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_4: {e}")
 
     def updateDateTime(self):
         # Get the current date and time
@@ -62,6 +80,107 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
     def goMenu(self):
         self.menu_signal.emit()
+
+    def validate_inputs(self, package_name, guest_pax, soup_variation):
+        # Flag to check if all required inputs are valid
+        valid = True
+
+        if package_name not in ["Hotpot", "Grill", "Hotpot and Grill"]:
+            self.comboBox_2.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.comboBox_2.setStyleSheet("border: 1px solid green;")
+
+        if not guest_pax:
+            self.lineEdit_7.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.lineEdit_7.setStyleSheet("border: 1px solid green;")
+
+        if soup_variation not in ["Mala soup", "Suan la soup", "Tomato soup", "Plain soup"]:
+            self.comboBox_3.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.comboBox_3.setStyleSheet("border: 1px solid green;")
+
+        if not valid:
+            QMessageBox.warning(self, "Warning", "Please fill in all fields correctly.")
+
+        return valid
+
+    def populate_comboBox_2(self):
+        try:
+            # Clear existing items
+            self.comboBox_2.clear()
+
+            # Add blank/null option
+            self.comboBox_2.addItem("")  # Add a blank item
+
+            # Add specific values
+            self.comboBox_2.addItems(["Hotpot", "Grill", "Hotpot and Grill"])
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_2: {e}")
+
+    def populate_comboBox_3(self):
+        try:
+            # Clear existing items
+            self.comboBox_3.clear()
+
+            # Add blank/null option
+            self.comboBox_3.addItem("")  # Add a blank item
+
+            # Add specific values
+            self.comboBox_3.addItems(["Mala soup", "Plain soup", "Suan la soup", "Tomato soup"])
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_3: {e}")
+
+    def populate_comboBox_7(self):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending'")
+            order_ids = cursor.fetchall()
+
+            self.comboBox_7.clear()
+            for order_id in order_ids:
+                self.comboBox_7.addItem(str(order_id[0]))
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_7: {e}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def cancel_order(self):
+        order_id = self.comboBox_7.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        # Confirm cancellation with the user
+        reply = QMessageBox.question(self, 'Confirm Cancel', f"Are you sure you want to cancel order ID {order_id}?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("UPDATE `order` SET Payment_Status = 'Cancelled' WHERE Order_ID = %s", (order_id,))
+                conn.commit()
+
+                QMessageBox.information(self, "Order Cancelled", "The order has been successfully cancelled.")
+                self.populate_comboBox_7()  # Refresh the combo box
+
+            except Exception as e:
+                QMessageBox.critical(self, "Database Error", f"Error occurred while cancelling the order: {e}")
+
+            finally:
+                if conn.is_connected():
+                    cursor.close()
+        else:
+            QMessageBox.information(self, "Cancelled", "Cancellation operation cancelled by user.")
+
 
     def saveOrder(self):
         try:
@@ -91,18 +210,18 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Get input values
                 customer_name = self.lineEdit_9.text().strip()
                 package_name = self.comboBox_2.currentText()
-                guest_pax = self.lineEdit_7.text().strip()
+                guest_capacity = self.lineEdit_7.text().strip()
                 soup_variation = self.comboBox_3.currentText()
 
                 # Insert the new order into the database
                 insert_query = f"""
                     INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                         Guest_Pax, Customer_Name, Soup_Variation)
+                                         Guest_Capacity, Customer_Name, Soup_Variation)
                     VALUES ('{new_order_id}', '{current_date}', 
                             TIME_FORMAT(NOW(), '%H:%i'), 
                             (SELECT Package_ID FROM package WHERE Package_Name = '{package_name}'), 
                             'Pending', 
-                            '{guest_pax}', 
+                            '{guest_capacity}', 
                             '{customer_name}', 
                             '{soup_variation}')
                 """
@@ -124,34 +243,3 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
-
-    def populate_comboBox_2(self):
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT Package_Name FROM package")
-            packages = cursor.fetchall()
-
-            self.comboBox_2.clear()
-            for package in packages:
-                self.comboBox_2.addItem(package[0])
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_2: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
-    def populate_comboBox_3(self):
-        try:
-            # Clear existing items
-            self.comboBox_3.clear()
-
-            # Add blank/null option
-            self.comboBox_3.addItem("")  # Add a blank item
-
-            # Add specific values
-            self.comboBox_3.addItems(["Mala soup", "Plain soup", "Suan la soup", "Tomato soup"])
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_7: {e}")
