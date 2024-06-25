@@ -3,8 +3,8 @@
 # NEW QUERIES - NEW TABLE
 GET_NEXT_ID = "SELECT MAX(user_id) FROM user;"
 GET_USER_ID = "SELECT user_id FROM user WHERE email = %s;"
-ADD_USER = ("INSERT INTO user (last_name, first_name, user_type, department, contact_number, email, username, password)"
-            " VALUES (%s, %s, %s, %s, %s, %s, %s, %s);")
+ADD_USER = ("INSERT INTO user (user_id, last_name, first_name, user_type, department, contact_number, email, username, "
+            "password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);")
 FETCH_USER_INFO = "SELECT * FROM user WHERE username = %s;"
 LOG_ACTIVITY = ("INSERT INTO user_logs (user_id, action_id, log_date, log_time, parameter) "
                 "VALUES (%s, %s, %s, %s, %s);")
