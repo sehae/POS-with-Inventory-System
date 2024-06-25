@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from PyQt5.QtWidgets import QMainWindow
 
-from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.employee_screens.employee_pos.posOrderdetails import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
@@ -15,6 +14,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     transaction_generated_signal = QtCore.pyqtSignal()
+    update_combobox_signal = QtCore.pyqtSignal()
+
 
     def __init__(self):
         super().__init__()
@@ -202,16 +203,19 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Construct the insert query with proper handling of NULL for Guest_Pax
                 insert_query = f"""
                                 INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                                     Guest_Pax, Customer_Name, Soup_Variation, Order_Type)
+                                                     Guest_Pax, Customer_Name, Soup_Variation, Order_Type, Payment_Method)
                                 VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), 
                                         (SELECT Package_ID FROM package WHERE Package_Name = %s), 
-                                        %s, %s, %s, %s, %s)
+                                        %s, %s, %s, %s, %s, %s)
                             """
-                cursor.execute(insert_query, (new_order_id, current_date, package_name, 'Pending', guest_capacity, customer_name, soup_variation, order_type))
+                cursor.execute(insert_query, (
+                new_order_id, current_date, package_name, 'Pending', guest_capacity, customer_name, soup_variation,
+                order_type, 'Pending'))
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")
                 self.transaction_generated_signal.emit()
+                self.update_combobox_signal.emit()
 
                 self.populate_comboBox_7()
 

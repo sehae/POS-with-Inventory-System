@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QMessageBox, QInputDialog
 from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
@@ -24,11 +25,13 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_11.clicked.connect(self.discard)
         self.pushButton_10.clicked.connect(self.check_order_details)
-        self.pushButton_5.clicked.connect(self.apply_discount)
-        self.pushButton_4.clicked.connect(self.set_gcash_payment)
-        self.pushButton_3.clicked.connect(self.set_cash_payment)
+        self.pushButton_5.clicked.connect(self.apply_discount)  # Connect apply_discount to pushButton_5
+        self.pushButton_2.clicked.connect(self.receipt_generation)
+        #self.pushButton.clicked.connect(self.save_leftover)
 
         self.populate_comboBox()
+
+        self.populate_comboBox_4()
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -57,6 +60,149 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         # Hide row numbers
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.horizontalHeader().setVisible(False)
+
+        self.lineEdit.setValidator(QDoubleValidator(0.00, 99999.99, 2))
+        self.lineEdit.returnPressed.connect(self.add_cash_amount)
+
+        self.lineEdit_2.returnPressed.connect(self.add_referenceid)
+
+        # Initially hide the Discount row
+        self.discount_row_visible = False
+
+
+    def receipt_generation(self):
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+
+            # Calculate pinaka_total_amount again to ensure accuracy
+            cursor.execute("""
+                SELECT 
+                    o.Package_ID, o.Guest_Pax, p.Package_Price, o.Order_Type, o.Cash_Amount
+                FROM 
+                    `order` o
+                LEFT JOIN 
+                    `package` p ON o.Package_ID = p.Package_ID
+                WHERE 
+                    o.Order_ID = %s AND o.Payment_Status = 'Pending'
+            """, (order_id,))
+            order_details = cursor.fetchone()
+
+            if not order_details:
+                QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
+                return
+
+            package_id, guest_pax, package_price, order_type, cash_amount = order_details
+
+            package_total_amount = 0
+            if order_type == "Package":
+                package_total_amount = float(package_price) * guest_pax if package_price else 0
+
+            # Fetch add-ons details
+            cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
+            add_on_details = cursor.fetchone()
+
+            add_ons_total_amount = 0
+            add_ons = json.loads(add_on_details[0]) if add_on_details else []
+            for add_on in add_ons:
+                product_id = add_on['product_id']
+                quantity = add_on['quantity']
+
+                cursor.execute("""
+                    SELECT i.Selling_Cost
+                    FROM `product` p
+                    JOIN `inventory` i ON p.Product_ID = i.Product_ID
+                    WHERE p.Product_ID = %s
+                """, (product_id,))
+                product_details = cursor.fetchone()
+                if product_details:
+                    selling_cost = product_details[0]
+                    total_amount = float(selling_cost) * quantity
+                    add_ons_total_amount += total_amount
+
+            subtotal_amount = package_total_amount + add_ons_total_amount
+
+            # Apply discount if any
+            discount_amount = 0
+            discount_type = None
+            cursor.execute("SELECT Discount_Type FROM `order` WHERE Order_ID = %s", (order_id,))
+            discount_type = cursor.fetchone()[0]
+
+            if discount_type == "Senior/PWD":
+                discount_amount = 0.20 * subtotal_amount
+
+            discounted_subtotal = subtotal_amount - discount_amount
+            vat_amount = 0.12 * discounted_subtotal
+
+            pinaka_total_amount = discounted_subtotal + vat_amount
+
+            # Update order table with total_amount and Payment_Status
+            cursor.execute("""
+                UPDATE `order`
+                SET total_amount = %s, Payment_Status = 'Completed', Time_Status = 'Completed'
+                WHERE Order_ID = %s
+            """, (pinaka_total_amount, order_id))
+            conn.commit()
+
+            QMessageBox.information(self, "Checkout", "Checkout is completed")
+
+            # Clear UI elements
+            self.comboBox.setCurrentIndex(-1)
+            self.tableWidget.clearContents()
+            self.tableWidget.setRowCount(0)
+
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while checking out: {e}")
+        finally:
+            cursor.close()
+
+    def add_referenceid(self):
+        reference_id = self.lineEdit_2.text()
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                        UPDATE `order`
+                        SET reference_id = %s, payment_method = 'GCash'
+                        WHERE Order_ID = %s
+                    """, (reference_id, order_id))
+            conn.commit()
+            QMessageBox.information(self, "Payment Method Set", "Reference ID has been saved.")
+            self.check_order_details()  # Refresh the order details to show the discount
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while setting payment method as GCash: {e}")
+        finally:
+            cursor.close()
+
+    def add_cash_amount(self):
+        cash_amount = self.lineEdit.text()
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                        UPDATE `order`
+                        SET cash_amount = %s, payment_method = 'Cash'
+                        WHERE Order_ID = %s
+                    """, (cash_amount, order_id))
+            conn.commit()
+            QMessageBox.information(self, "Cash Amount Applied", "Cash Amount has been added.")
+            self.check_order_details()  # Refresh the order details to show the discount
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while applying discount: {e}")
+        finally:
+            cursor.close()
 
     def updateDateTime(self):
         # Get the current date and time
@@ -123,41 +269,23 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         finally:
             cursor.close()
 
-    def set_gcash_payment(self):
-        order_id = self.comboBox.currentText()
-        if not order_id:
-            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
-            return
-
-        reference_id, ok = QInputDialog.getText(self, 'GCash Payment', 'Enter GCash Reference ID:')
-        if not ok or not reference_id:
-            QMessageBox.warning(self, "Input Error", "GCash Reference ID is required.")
-            return
-
-        try:
-            cursor = conn.cursor()
-            cursor.execute("""
-                UPDATE `order`
-                SET Payment_Method = 'GCash', Reference_ID = %s
-                WHERE Order_ID = %s
-            """, (reference_id, order_id))
-            conn.commit()
-            QMessageBox.information(self, "Payment Method Set", "Payment method has been set to GCash.")
-            self.check_order_details()  # Refresh the order details to show the payment method
-        except Exception as e:
-            QMessageBox.critical(self, "Database Error", f"Error occurred while setting payment method: {e}")
-        finally:
-            cursor.close()
-
     def set_cash_payment(self):
         order_id = self.comboBox.currentText()
         if not order_id:
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
             return
 
-        cash_amount, ok = QInputDialog.getDouble(self, 'Cash Payment', 'Enter Cash Amount Given:')
-        if not ok or cash_amount <= 0:
-            QMessageBox.warning(self, "Input Error", "Valid cash amount is required.")
+        cash_amount_text = self.cashLineEdit.text()
+        if not cash_amount_text:
+            QMessageBox.warning(self, "Input Error", "Please enter the cash amount.")
+            return
+
+        try:
+            cash_amount = round(float(cash_amount_text), 2)
+            if cash_amount <= 0:
+                raise ValueError("Cash amount must be greater than 0.")
+        except ValueError as ve:
+            QMessageBox.warning(self, "Input Error", f"Invalid cash amount: {ve}")
             return
 
         try:
@@ -177,16 +305,23 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
     def check_order_details(self):
         order_id = self.comboBox.currentText()
+
         if not order_id:
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
             return
 
+        cash_amount_text = self.lineEdit.text()
+        try:
+            cash_amount = float(cash_amount_text) if cash_amount_text else 0.0
+        except ValueError:
+            cash_amount = 0.0
+
         try:
             cursor = conn.cursor()
 
-            # Fetch customer name, package details, guest pax, order type, and discount type from the order
+            # Fetch customer name, package details, guest pax, order type, discount type, and cash amount from the order
             cursor.execute("""
-                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type, o.Discount_Type
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type, o.Discount_Type, o.Cash_Amount
                 FROM `order` o
                 LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
                 WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
@@ -196,10 +331,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            customer_name, guest_pax, package_name, package_price, order_type, discount_type = order_details
-
-            # Set the text of label_25 to guest_pax, or "" if guest_pax is None
-            self.label_25.setText("" if guest_pax is None else str(guest_pax))
+            customer_name, guest_pax, package_name, package_price, order_type, discount_type, cash_amount_db = order_details
 
             package_total_amount = 0
             if order_type == "Package":
@@ -236,9 +368,15 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             if discount_type == "Senior/PWD":
                 discount_amount = 0.20 * subtotal_amount
 
-            vat_amount = 0.12 * subtotal_amount
+            discounted_subtotal = subtotal_amount - discount_amount
+            vat_amount = 0.12 * discounted_subtotal
 
-            total_amount = subtotal_amount + vat_amount - discount_amount
+            pinaka_total_amount = discounted_subtotal + vat_amount #+ self.penalty_fee
+
+            # Calculate change amount only if cash amount is entered
+            change_amount = 0
+            if cash_amount > 0:
+                change_amount = cash_amount - pinaka_total_amount
 
             # Populate the table widget
             self.tableWidget.setRowCount(0)  # Clear existing rows
@@ -336,43 +474,131 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                     self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
                     row += 1
 
-            # Add empty row before subtotal section
-            self.tableWidget.insertRow(row)
-            row += 1
-
-            # Add subtotal amount row
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 2, QTableWidgetItem("Subtotal"))
-            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{subtotal_amount:.2f}"))
-
-            # Add discount row if applicable
+            # Check if a discount has been applied and display it
             if discount_type == "Senior/PWD":
+                discount_amount = 0.20 * subtotal_amount
                 row += 1
                 self.tableWidget.insertRow(row)
-                self.tableWidget.setItem(row, 2, QTableWidgetItem("Discount (20%)"))
-                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"-{discount_amount:.2f}"))
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Senior/PWD Discount"))
+                self.tableWidget.setItem(row, 1, QTableWidgetItem(f"{discount_amount:.2f}"))
 
-            # Add VAT row
-            row += 1
+            # Add empty row before total
             self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 2, QTableWidgetItem("VAT (12%)"))
+            row += 1
+
+            # Add subtotal, discount, VAT, total, cash amount, and change amount rows
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 0, QTableWidgetItem("Subtotal"))
+            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{subtotal_amount:.2f}"))
+            row += 1
+
+            # Show Discount row if applicable
+            if self.discount_row_visible:
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Discount"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{discount_amount:.2f}"))
+                row += 1
+
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 0, QTableWidgetItem("VAT (12%)"))
             self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{vat_amount:.2f}"))
-
-            # Add total amount row
             row += 1
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 2, QTableWidgetItem("Total Amount"))
-            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
 
-            # Manually adjust column widths
-            self.tableWidget.setColumnWidth(0, 325)  # Adjust as needed
-            self.tableWidget.setColumnWidth(1, 170)
-            self.tableWidget.setColumnWidth(2, 150)
-            self.tableWidget.setColumnWidth(3, 120)
+            '''
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 0, QTableWidgetItem("Penalty Fee"))
+            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{self.penalty_fee:.2f}"))
+            row += 1'''
+
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 0, QTableWidgetItem("Total"))
+            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{pinaka_total_amount:.2f}"))
+            row += 1
+
+            if cash_amount > 0:
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Cash Amount"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{cash_amount:.2f}"))
+                row += 1
+
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Change Amount"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{change_amount:.2f}"))
+
+            self.adjust_column_widths()
+
+            conn.commit()
+            cursor.close()
 
         except Exception as e:
-            QMessageBox.critical(self, "Database Error", f"Error occurred while fetching order details: {e}")
+            QMessageBox.warning(self, "Error", f"Error in fetching data: {str(e)}")
 
+
+
+    def populate_comboBox_4(self):
+        self.comboBox_4.addItem("")
+        items = ['Less Than or Equal to 100 Grams', 'Less Than or Equal to 200 Grams', 'Less Than or Equal to 300 Grams', 'Less Than or Equal to 400 Grams',]
+        self.comboBox_4.addItems(items)
+
+    def adjust_column_widths(self):
+        # Adjusting the width of the first column based on the content
+        header = self.tableWidget.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+
+
+    def toggle_discount_row_visibility(self):
+        self.discount_row_visible = not self.discount_row_visible
+        self.check_order_details()  # Update the table to reflect the changed visibility
+
+    def apply_discount(self):
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE `order`
+                SET Discount_Type = 'Senior/PWD'
+                WHERE Order_ID = %s
+            """, (order_id,))
+            conn.commit()
+            QMessageBox.information(self, "Discount Applied", "Senior/PWD discount has been applied.")
+            self.toggle_discount_row_visibility()  # Show the Discount row
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while applying discount: {e}")
         finally:
             cursor.close()
 
+'''
+    def save_leftover(self):
+        get_leftover_id = self.comboBox_4.currentText()
+        if get_leftover_id == "":
+            return
+        elif get_leftover_id == 'Less Than or Equal to 100 Grams':
+            leftover_id = 1
+        elif get_leftover_id == 'Less Than or Equal to 200 Grams':
+            leftover_id = 2
+        elif get_leftover_id == 'Less Than or Equal to 300 Grams':
+            leftover_id = 3
+        elif get_leftover_id == 'Less Than or Equal to 400 Grams':
+            leftover_id = 4
+        else:
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT Penalty_Fee FROM `leftover` WHERE Leftover_ID = %s", (leftover_id,))
+            result = cursor.fetchone()
+            if result:
+                self.penalty_fee = result[0]
+            else:
+                self.penalty_fee = 0
+
+            self.check_order_details()
+
+        except Exception as e:
+            QMessageBox.warning(self, "Error", f"Error fetching penalty fee: {str(e)}")
+        finally:
+            cursor.close()'''

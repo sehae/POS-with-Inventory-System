@@ -7,6 +7,7 @@ from screens.employee_screens.employee_pos.posMenu import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
+from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 
 import json
 
@@ -25,6 +26,10 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.modifyBTN.clicked.connect(self.goModify)
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_8.clicked.connect(self.save_add_on)
+
+        self.pos_orderdetails = posOrderdetails()
+
+        self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox_5)
 
         # Create a QTimer object
         self.timer = QTimer()

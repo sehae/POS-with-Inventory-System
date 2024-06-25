@@ -222,6 +222,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_modify.populate_comboBox_5)
 
         # Repopulate combo box when order has been generated
+        self.pos_menu.pos_orderdetails = self.pos_orderdetails
+        self.pos_orderdetails.update_combobox_signal .connect(self.pos_menu.populate_comboBox_5)
+
+        # Repopulate combo box when order has been generated
         self.pos_checkout.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_checkout.populate_comboBox)
 
@@ -249,7 +253,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_comboBox_6)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
-
 
 
     def show_employee_dashboard_cashier(self):
