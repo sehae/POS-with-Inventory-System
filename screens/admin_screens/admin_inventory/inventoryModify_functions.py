@@ -12,6 +12,8 @@ class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
     view_signal = QtCore.pyqtSignal()
+    supplier_signal = QtCore.pyqtSignal()
+
     product_update_signal = QtCore.pyqtSignal()
     admin_product_update_signal = QtCore.pyqtSignal()
 
@@ -24,6 +26,7 @@ class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
         self.pushButton_11.clicked.connect(self.navigate_view)
         self.pushButton_4.clicked.connect(self.save_product)
         self.pushButton_5.clicked.connect(self.confirm_clear_fields)  # Connect clear button
+        self.pushButton_12.clicked.connect(self.navigate_supplier)
 
         self.comboBox_3.setCurrentIndex(-1)  # No initial selection
         self.comboBox_2.addItems(["Ingredient", "Beverage", "Food", "Miscellaneous"])
@@ -54,6 +57,9 @@ class adminInventoryModifyProduct(QMainWindow, Ui_MainWindow):
         currentDateTime = QDateTime.currentDateTime()
         formattedDateTime = currentDateTime.toString("MMMM d, yyyy, hh:mm:ss AP")
         self.label_2.setText(formattedDateTime)
+
+    def navigate_supplier(self):
+        self.supplier_signal.emit()
 
     def back(self):
         self.back_signal.emit()

@@ -109,9 +109,9 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         try:
             cursor = conn.cursor()
 
-            # Fetch customer name, package details, and guest capacity from the order
+            # Fetch customer name, package details, and guest pax from the order
             cursor.execute("""
-                SELECT o.Customer_Name, o.Guest_Capacity, p.Package_Name, p.Package_Price
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price
                 FROM `order` o
                 JOIN `package` p ON o.Package_ID = p.Package_ID
                 WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
@@ -121,10 +121,10 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            customer_name, guest_capacity, package_name, package_price = order_details
+            customer_name, guest_pax, package_name, package_price = order_details
 
             # Calculate package total amount
-            package_total_amount = package_price * guest_capacity
+            package_total_amount = package_price * guest_pax
 
             # Fetch add-ons details
             cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
@@ -177,7 +177,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             # Add package details column headers
             self.tableWidget.insertRow(row)
             self.tableWidget.setItem(row, 0, QTableWidgetItem("Package Type"))
-            self.tableWidget.setItem(row, 1, QTableWidgetItem("Guest Capacity"))
+            self.tableWidget.setItem(row, 1, QTableWidgetItem("Guest Pax"))
             self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
             self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
             row += 1
@@ -185,7 +185,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             # Add package details
             self.tableWidget.insertRow(row)
             self.tableWidget.setItem(row, 0, QTableWidgetItem(package_name))
-            self.tableWidget.setItem(row, 1, QTableWidgetItem(str(guest_capacity)))
+            self.tableWidget.setItem(row, 1, QTableWidgetItem(str(guest_pax)))
             self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{package_price:.2f}"))
             self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{package_total_amount:.2f}"))
             row += 1

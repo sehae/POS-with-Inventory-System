@@ -16,6 +16,7 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
+    supplier_signal = QtCore.pyqtSignal()
     admin_product_update_signal = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -25,6 +26,7 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.navigate_add)
         self.pushButton.clicked.connect(self.back)
         self.pushButton_10.clicked.connect(self.navigate_modify)
+        self.pushButton_12.clicked.connect(self.navigate_supplier)
 
         self.admin_inventory_modify = adminInventoryModifyProduct()
         self.admin_inventory_modify.product_update_signal.connect(self.populate_table)
@@ -63,6 +65,9 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
         formattedDateTime = currentDateTime.toString("MMMM d, yyyy, hh:mm:ss AP")
         self.label_2.setText(formattedDateTime)
 
+    def navigate_supplier(self):
+        self.supplier_signal.emit()
+
     def back(self):
         self.back_signal.emit()
 
@@ -73,6 +78,8 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
                 query = """
                     SELECT 
                         product.Name,
+                        product.Date,
+                        product.Time,
                         product.Category,
                         product.Quantity,
                         product.Threshold_Value,
@@ -100,6 +107,8 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
     def display_records(self, records):
         column_names = [
             "Name",
+            "Date",
+            "Time",
             "Category",
             "Quantity",
             "Threshold Value",
