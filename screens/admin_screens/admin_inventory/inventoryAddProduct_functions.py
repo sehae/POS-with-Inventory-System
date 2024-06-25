@@ -3,6 +3,7 @@ from PyQt5.QtCore import QDateTime, QTimer, QDate
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit, QComboBox
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 from screens.admin_screens.admin_inventory.inventoryAddProduct import Ui_MainWindow
+from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
 from server.local_server import conn
 from validator.user_manager import userManager
 
@@ -12,6 +13,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
     view_signal = QtCore.pyqtSignal()
+    supplier_signal = QtCore.pyqtSignal()
     product_update_signal = QtCore.pyqtSignal()
     admin_product_update_signal = QtCore.pyqtSignal()
 
@@ -24,6 +26,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         self.pushButton_11.clicked.connect(self.navigate_view)
         self.pushButton.clicked.connect(self.back)
         self.pushButton_5.clicked.connect(self.confirm_clear_fields)  # Connect clear button
+        self.pushButton_12.clicked.connect(self.navigate_supplier)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -51,6 +54,10 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         self.lineEdit_4.setValidator(int_validator)
         self.lineEdit_7.setValidator(int_validator)
 
+        self.admin_supplier = adminSupplier()
+
+        self.admin_supplier.supplier_generated_signal.connect(self.populateComboBox)
+
         # Apply QDoubleValidator to buying_cost and selling_cost fields
         double_validator = QDoubleValidator(0.00, 9999.99, 2)
         double_validator.setNotation(QDoubleValidator.StandardNotation)
@@ -62,6 +69,9 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
 
     def navigate_modify(self):
         self.modify_signal.emit()
+
+    def navigate_supplier(self):
+        self.supplier_signal.emit()
 
     def back(self):
         self.back_signal.emit()
@@ -76,6 +86,8 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         # Set the text of dateLabel to the formatted date and time
         self.label_2.setText(formattedDateTime)
 
+        self.populateComboBox()
+
     def add_product(self):
         # Get the values entered by the user
         name = self.lineEdit_2.text()
@@ -88,7 +100,8 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         threshold_value = self.lineEdit_7.text()
 
         # Validate inputs
-        if not self.validate_inputs(name, category, quantity, buying_cost, selling_cost, supplier_name, threshold_value):
+        if not self.validate_inputs(name, category, quantity, buying_cost, selling_cost, supplier_name,
+                                    threshold_value):
             return
 
         try:
@@ -102,6 +115,23 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
             else:
                 availability = 'In Stock'
 
+            # Fetch the latest Product_ID for the current date
+            cursor.execute("SELECT MAX(Product_ID) FROM product")
+            latest_product_id = cursor.fetchone()[0]
+
+            if latest_product_id:
+                # Extract numeric part and increment
+                numeric_part = latest_product_id[3:]  # Assuming Product_ID format is POSNNN
+                product_number = int(numeric_part)
+                new_product_number = product_number + 1
+                next_product_number = f"{new_product_number:03d}"
+            else:
+                # If no previous products, start from 001
+                next_product_number = "001"
+
+            # Construct new Product_ID
+            new_product_id = f"PRD{next_product_number}"
+
             # Get the value of supplier id where supplier name gathered by the user
             cursor.execute("SELECT Supplier_ID FROM supplier WHERE Supplier_Name = %s", (supplier_name,))
             supplier_result = cursor.fetchone()
@@ -112,30 +142,28 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
 
             supplier_id = supplier_result[0]
 
+            # Get current date in yyyy-MM-dd format
+            current_date = QDateTime.currentDateTime().toString("yyyy-MM-dd")
+
+            # Get current time in HH:mm format
+            current_time = QDateTime.currentDateTime().toString("HH:mm")
+
             # Insert into product table
             product_query = """
-                INSERT INTO product (Name, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status) 
-                VALUES (%s, %s, %s, %s, %s, %s, 'Active')
+                INSERT INTO product (Product_ID, Name, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status, Date, Time) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
             """
-            product_values = (name, quantity, category, expiry_date, threshold_value, availability)
+            product_values = (
+            new_product_id, name, quantity, category, expiry_date, threshold_value, availability, current_date,
+            current_time)
             cursor.execute(product_query, product_values)
-
-            # Get the value of product_id
-            cursor.execute("SELECT Product_ID FROM product WHERE Name = %s", (name,))
-            product_result = cursor.fetchone()
-
-            if product_result is None:
-                QMessageBox.critical(self, "Error", "Product not found after insertion.")
-                return
-
-            product_id = product_result[0]
 
             # Insert into inventory table
             inventory_query = """
                 INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost) 
                 VALUES (%s, %s, %s, %s)
             """
-            inventory_values = (supplier_id, product_id, buying_cost, selling_cost)
+            inventory_values = (supplier_id, new_product_id, buying_cost, selling_cost)
             cursor.execute(inventory_query, inventory_values)
 
             conn.commit()

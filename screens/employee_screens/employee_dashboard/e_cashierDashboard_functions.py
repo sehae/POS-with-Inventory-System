@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime
 
+from maintenance.user_logs import user_log
 from screens.employee_screens.employee_dashboard.employee_cashierDashboard import Ui_MainWindow
 from validator.user_manager import userManager
 
@@ -19,7 +20,7 @@ class myEmployeeDashboard_Cashier(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.ui.logoutButton.clicked.connect(self.logout_signal.emit)
+        self.ui.logoutButton.clicked.connect(self.logout)
         self.ui.posButton.clicked.connect(self.pos_signal.emit)
         self.ui.helpButton.clicked.connect(self.help_signal.emit)
         self.ui.aboutButton.clicked.connect(self.about_signal.emit)
@@ -43,4 +44,12 @@ class myEmployeeDashboard_Cashier(QtWidgets.QMainWindow):
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
 
+    def logout(self):
+        user_id = user_manager.get_current_user_id()
+        user_action = 9
+        username = user_manager.get_current_username()
+        user_log(user_id, user_action, username)
 
+        user_manager.reset_user_data()
+
+        self.logout_signal.emit()

@@ -3,8 +3,11 @@ import time
 from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 
+from database.DB_Queries import GET_USER_ID, GET_USERNAME
+from maintenance.user_logs import user_log
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
 from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
+from server.local_server import conn
 from styles.universalStyles import DISABLED_RESEND_BTN, ENABLED_RESEND_BTN
 from validator.otp_validator import send_otp
 
@@ -46,6 +49,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
     def back(self):
         self.clearField()
         self.cancel_signal.emit()
+        self.log_action(5)
 
     def clearField(self):
         self.otp1.clear()
@@ -71,6 +75,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
         if current_time - self.sent_time > 180:
             self.errorLBL.setText("OTP expired. Please request a new OTP")
             self.errorLBL.show()
+            self.log_action(4)
         elif str(entered_otp) == str(self.sent_otp):
             email = self.emailDISPLAY.text()
             try:
@@ -79,6 +84,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
                 self.errorLBL.hide()
                 for field in otp_fields:
                     field.setStyleSheet("")
+                self.log_action(6)
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
@@ -94,6 +100,7 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
         try:
             self.sent_otp, self.sent_time = send_otp(self.supplied_email)
             print("OTP sent successfully")
+            self.log_action(3)
         except Exception as e:
             print("Error while sending OTP:", e)
         self.resend_timer.start()
@@ -116,3 +123,12 @@ class OtpVerification(QMainWindow, Ui_MainWindow):
             self.enable_resend_button()
 
         self.timer.setText(time_string)
+
+    def log_action(self, user_action):
+        cursor = conn.cursor()
+        cursor.execute(GET_USER_ID, (self.supplied_email,))
+        user_id = cursor.fetchone()[0]
+        cursor.execute(GET_USERNAME, (self.supplied_email,))
+        username = cursor.fetchone()[0]
+        cursor.close()
+        user_log(user_id, user_action, username)

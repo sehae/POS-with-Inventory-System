@@ -112,6 +112,27 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_10.setObjectName("pushButton_10")
         self.verticalLayout_2.addWidget(self.pushButton_10)
+        self.pushButton_12 = QtWidgets.QPushButton(self.navbar)
+        self.pushButton_12.setMinimumSize(QtCore.QSize(100, 100))
+        self.pushButton_12.setMaximumSize(QtCore.QSize(100, 100))
+        self.pushButton_12.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.pushButton_12.setObjectName("pushButton_12")
+        self.verticalLayout_2.addWidget(self.pushButton_12)
         self.pushButton = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -367,6 +388,7 @@ class Ui_MainWindow(object):
         self.pushButton_11.setText(_translate("MainWindow", "Inventory"))
         self.pushButton_2.setText(_translate("MainWindow", "Add"))
         self.pushButton_10.setText(_translate("MainWindow", "Modify"))
+        self.pushButton_12.setText(_translate("MainWindow", "Supplier"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.label_4.setText(_translate("MainWindow", "Add Product"))
         self.label_5.setText(_translate("MainWindow", "Product Name"))
@@ -383,4 +405,6 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
+
 import assets.resourceFile_rc
+

@@ -7,9 +7,12 @@ from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
 from maintenance.backup_restore import backup_db, load_config, save_config, restore_backup
+from maintenance.user_logs import user_log
 from screens.admin_screens.admin_maintenance.backup import Ui_MainWindow
-from shared.navigation_signal import back
+from shared.dialog import create_dialog_box
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
+from validator import user_manager
+from validator.user_manager import userManager
 
 
 class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
@@ -20,7 +23,7 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         try:
             super().__init__()
             self.setupUi(self)
-            self.backBTN.clicked.connect(lambda: back(self.back_signal))
+            self.backBTN.clicked.connect(self.back_signal.emit)
             self.adduserBTN.clicked.connect(self.add_signal.emit)
             self.editBTN.clicked.connect(self.edit_signal.emit)
             self.restoreBTN.clicked.connect(self.handle_restore_click)
@@ -119,6 +122,10 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
 
         # Update the last backup date display
         self.update_last_backup_date()
+        create_dialog_box("Backup successful", "Backup")
+
+        user_action = 14
+        self.log_action(user_action)
 
     def view_backup_location(self):
         try:
@@ -215,4 +222,13 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
 
         # Call the restore_backup function with the selected date
         restore_backup(original_file_name)
+        create_dialog_box(f"Database restored successfully to {selected_date_str}", "Restore")
+        user_action = 15
+        specific_action = f"Restored database to {selected_date_str}"
+        self.log_action(user_action, specific_action)
 
+    def log_action(self, user_action, specific_action=None):
+        user_manager = userManager._instance
+        user_id = user_manager.get_current_user_id()
+        username = user_manager.get_current_username()
+        user_log(user_id, user_action, username, specific_action)

@@ -77,7 +77,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                 # Execute the query to retrieve data for specific columns
                 query = """
                     SELECT o.Order_ID, o.Date, o.Time, o.Customer_Name, p.Package_Name, 
-                           o.Soup_Variation, o.Guest_Capacity, 
+                           o.Soup_Variation, o.Guest_Pax, 
                            CASE
                                WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 120 THEN 'Good'
                                ELSE 'Exceeding'
@@ -189,7 +189,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                 # Get input values
                 order_id = self.comboBox_5.currentText()
                 package_name = self.comboBox_6.currentText()
-                guest_capacity = self.lineEdit_8.text().strip()
+                guest_pax = self.lineEdit_8.text().strip()
                 soup_variation = self.comboBox_7.currentText()
 
                 # Fetch Package_ID based on selected Package_Name
@@ -199,7 +199,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                 # Update the order in the database
                 update_query = f"""
                     UPDATE `order`
-                    SET Package_ID = {package_id}, Guest_Capacity = '{guest_capacity}', 
+                    SET Package_ID = {package_id}, Guest_Pax = '{guest_pax}', 
                         Soup_Variation = '{soup_variation}'
                     WHERE Order_ID = '{order_id}'
                 """

@@ -4,6 +4,7 @@ import os
 import configparser
 from server.local_server import conn, password
 
+
 # Function to load configuration
 def load_config():
     config = configparser.ConfigParser()
@@ -35,7 +36,7 @@ def backup_db(backup_path):
 
             print("Database backup successful")
     except Exception as e:
-        print(f"An error occutyjtyjtjtrred: {e}")  # Print any errors that occur
+        print(f"An error occur: {e}")  # Print any errors that occur
 
 # Function to restore the database from a backup
 def restore_backup(original_file_name):
@@ -49,6 +50,4 @@ def restore_backup(original_file_name):
 
     # Use the subprocess module to run the command
     p = subprocess.Popen(restorecmd, shell=True, cwd="C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin")
-    p.wait()
-
-    print("Database restore successful")
+    # p.wait()

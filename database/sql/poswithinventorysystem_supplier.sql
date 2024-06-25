@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: poswithinventorysystem
+-- Host: localhost    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.4.0
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,10 +28,9 @@ CREATE TABLE `supplier` (
   `Contact_Number` varchar(45) DEFAULT NULL,
   `Email` varchar(45) DEFAULT NULL,
   `Address` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Supplier_ID`),
-  UNIQUE KEY `Email_UNIQUE` (`Email`),
-  UNIQUE KEY `Address_UNIQUE` (`Address`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Status` varchar(45) NOT NULL,
+  PRIMARY KEY (`Supplier_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +39,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'Fresh Foods Inc.','123-456-7890','info@freshfoods.com','123 Main St'),(2,'Farm Fresh Produce','987-654-3210','sales@farmfreshproduce.com','456 Elm St'),(3,'Gourmet Grocers','555-555-5555','orders@gourmetgrocers.com','789 Oak St'),(4,'Global Food Distributors','111-222-3333','info@globalfooddist.com','321 Maple Ave'),(5,'Organic Harvest','444-555-6666','info@organicharvest.com','567 Pine St'),(6,'Cocacococo',NULL,NULL,NULL);
+INSERT INTO `supplier` VALUES (1,'Fresh Foods Inc.','09171234567','info@freshfoods.com','1234 Mabini Street, Ermita, Manila','Active'),(2,'Farm Fresh Produce','09987654321','sales@farmfreshproduce.com','5678 Rizal Avenue, Santa Cruz, Manila','Active'),(3,'Gourmet Grocers','09222345678','orders@gourmetgrocers.com','1356 Gen. Luna Street, Intramuros, Manila','Active'),(4,'Global Food Distributors','09356789101','info@globalfooddist.com','345 P. Burgos Street, Makati','Active'),(5,'Organic Harvest','09051122334','info@organicharvest.com','4827 A. Bonifacio Avenue, Cainta','Active'),(6,'Cocacococo','09183345566','info@cocacococo.com','90 E. Rodriguez Sr. Avenue, Quezon City','Active'),(7,'Global Fresh Seafood','09456123481','info@globalfreshseafood.com','679 Kalayaan Avenue, Makati','Active'),(8,'Tiamzon Food Supplies Co.','09123456789','info@tiamzonfoodsuppliers.com','273 Harvard Avenue, Pasig','Active');
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-17 18:29:15
+-- Dump completed on 2024-06-25 20:01:52

@@ -5,7 +5,6 @@ from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, 
 from maintenance.user_logs import user_log
 from shared.imports import *
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
-from shared.navigation_signal import back
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
 from validator.user_manager import userManager
 
@@ -26,7 +25,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
         # Navigation Signals
         self.adduserBTN.clicked.connect(self.add_user)
-        self.backBTN.clicked.connect(lambda: back(self.back_signal))
+        self.backBTN.clicked.connect(self.back_signal.emit)
         self.backupBTN.clicked.connect(self.backup_recovery_signal.emit)
 
         self.searchFIELD.returnPressed.connect(self.search_user)
@@ -70,11 +69,19 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
     def edit_user(self):
         email = self.emailDISPLAY.text()
         department = self.get_active_department()
+        user_id = self.get_user_id(email)
 
         cursor = conn.cursor()
 
         # Change the user's role to admin
         if self.adminBTN.styleSheet() == self.active_button_style:
+            if email == userManager._instance.get_current_email():
+                show_error_message("Error","You cannot change your own role.")
+                return
+
+            if user_id == 1:
+                show_error_message("Error", "You cannot change this user's role.")
+                return
             try:
                 cursor.execute(CHANGE_USER_TYPE, ('Admin', email,))
                 conn.commit()
@@ -87,6 +94,14 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
 
         # Change the user's role to staff
         elif self.staffBTN.styleSheet() == self.active_button_style:
+            if email == userManager._instance.get_current_email():
+                show_error_message("Error","You cannot change your own role.")
+                return
+
+            if user_id == 1:
+                show_error_message("Error", "You cannot change this user's role.")
+                return
+
             try:
                 cursor.execute(CHANGE_USER_TYPE, ('Employee', email,))
                 cursor.execute(CHANGE_DEPARTMENT, (department, email,))
@@ -179,7 +194,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
     def cell_clicked(self, row):
         # Get the data of the whole row
         row_data = [self.userRESULTS.item(row, col).text() for col in range(self.userRESULTS.columnCount())]
-        print(f"You clicked on row {row}. The row contains: {row_data}")
 
         # Show the edituserCONTENT and update the display with the row data
         self.edituserCONTENT.show()
@@ -239,9 +253,19 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.cashierBTN.setStyleSheet(self.inactive_button_style)
 
     def deactivate_user(self):
+        email = self.emailDISPLAY.text()
+        user_id = self.get_user_id(email)
+
+        if email == userManager._instance.get_current_email():
+            show_error_message("Error", "You cannot deactivate your own account.")
+            return
+
+        if user_id == 1:
+            show_error_message("Error", "This user cannot be deactivated.")
+            return
+
         returnValue = confirmation_dialog("Are you sure you want to deactivate this user?")
         if returnValue == QMessageBox.Ok:
-            email = self.emailDISPLAY.text()
             cursor = conn.cursor()
 
             cursor.execute(DISABLE_USER, (email,))
@@ -254,7 +278,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
             self.rightcontent.hide()
             self.edituserCONTENT.hide()
             self.searchFIELD.clear()
-            print(f"{email} deactivated")
 
             create_dialog_box(f"User {email} has been successfully deactivated.", "User Deactivated")
 
@@ -283,7 +306,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
     def show_rightcontent(self):
         self.rightcontent.show()
         self.populate_log_table()
-
 
     def discard(self):
         self.rightcontent.hide()
