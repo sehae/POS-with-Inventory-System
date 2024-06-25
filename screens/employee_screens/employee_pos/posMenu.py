@@ -133,6 +133,27 @@ class Ui_MainWindow(object):
 "}")
         self.checkoutBTN.setObjectName("checkoutBTN")
         self.verticalLayout_2.addWidget(self.checkoutBTN)
+        self.historyBTN_2 = QtWidgets.QPushButton(self.navbar)
+        self.historyBTN_2.setMinimumSize(QtCore.QSize(100, 100))
+        self.historyBTN_2.setMaximumSize(QtCore.QSize(100, 100))
+        self.historyBTN_2.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.historyBTN_2.setObjectName("historyBTN_2")
+        self.verticalLayout_2.addWidget(self.historyBTN_2)
         self.backBTN = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -367,6 +388,7 @@ class Ui_MainWindow(object):
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
+        self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "POS"))
         self.date.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
