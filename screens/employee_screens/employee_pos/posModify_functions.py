@@ -38,7 +38,7 @@ class posModify(QMainWindow, Ui_MainWindow):
 
         # Set the interval for the timers (in milliseconds)
         self.timer.start(1000)  # Update date and time every second
-        self.table_update_timer.start(60000)  # Update table every minute
+        self.table_update_timer.start(1000)  # Update table every second
 
         self.searchFIELD.returnPressed.connect(self.search_table)
 
@@ -136,7 +136,7 @@ class posModify(QMainWindow, Ui_MainWindow):
     def populate_comboBox_5(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending'")
+            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending' AND Order_Type = 'Package'")
             order_ids = cursor.fetchall()
 
             self.comboBox_5.clear()

@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `add_on` (
   PRIMARY KEY (`Add_On_ID`),
   KEY `Order_ID` (`Order_ID`),
   CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `add_on` (
 
 LOCK TABLES `add_on` WRITE;
 /*!40000 ALTER TABLE `add_on` DISABLE KEYS */;
-INSERT INTO `add_on` VALUES (1,'POS20240617001','[{\"quantity\": 2, \"product_id\": 1}, {\"quantity\": 1, \"product_id\": 3}]'),(2,'POS20240617002','[{\"quantity\": 5, \"product_id\": 2}, {\"quantity\": 3, \"product_id\": 4}]');
+INSERT INTO `add_on` VALUES (1,'POS20240617001','[{\"quantity\": 5, \"product_id\": \"PRD001\"}]'),(2,'POS20240617002','[{\"quantity\": 5, \"product_id\": \"PRD002\"}, {\"quantity\": 3, \"product_id\": \"PRD004\"}]'),(4,'POS20240619001','[{\"quantity\": 3, \"product_id\": \"PRD003\"}, {\"quantity\": 4, \"product_id\": \"PRD013\"}]'),(5,'POS20240618003','[{\"quantity\": 2, \"product_id\": \"PRD015\"}]');
 /*!40000 ALTER TABLE `add_on` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 20:01:52
+-- Dump completed on 2024-06-25  8:03:27
