@@ -31,7 +31,6 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
-        self.timer.timeout.connect(self.updateDateTimeAndComboBox)
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
@@ -67,10 +66,6 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
     def goOrder(self):
         self.order_signal.emit()
-
-    def updateDateTimeAndComboBox(self):
-        self.updateDateTime()
-        self.populate_comboBox_5()
 
     def populate_comboBox_5(self):
         try:

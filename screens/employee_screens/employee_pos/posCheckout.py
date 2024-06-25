@@ -643,7 +643,7 @@ class Ui_MainWindow(object):
         self.pushButton_11.setText(_translate("MainWindow", "Discard"))
         self.label_19.setText(_translate("MainWindow", "RECEIPT"))
         self.label_20.setText(_translate("MainWindow", "GUEST:"))
-        self.label_25.setText(_translate("MainWindow", "4"))
+        self.label_25.setText(_translate("MainWindow", ""))
         self.label_26.setText(_translate("MainWindow", "PAYMENT METHOD"))
         self.pushButton_5.setText(_translate("MainWindow", "SENIOR/PWD"))
         self.pushButton_4.setText(_translate("MainWindow", "GCASH"))

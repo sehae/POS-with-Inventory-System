@@ -81,33 +81,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
     def goMenu(self):
         self.menu_signal.emit()
 
-    def validate_inputs(self, package_name, guest_pax, soup_variation):
-        # Flag to check if all required inputs are valid
-        valid = True
-
-        if package_name not in ["Hotpot", "Grill", "Hotpot and Grill"]:
-            self.comboBox_2.setStyleSheet("border: 1px solid red;")
-            valid = False
-        else:
-            self.comboBox_2.setStyleSheet("border: 1px solid green;")
-
-        if not guest_pax:
-            self.lineEdit_7.setStyleSheet("border: 1px solid red;")
-            valid = False
-        else:
-            self.lineEdit_7.setStyleSheet("border: 1px solid green;")
-
-        if soup_variation not in ["Mala soup", "Suan la soup", "Tomato soup", "Plain soup"]:
-            self.comboBox_3.setStyleSheet("border: 1px solid red;")
-            valid = False
-        else:
-            self.comboBox_3.setStyleSheet("border: 1px solid green;")
-
-        if not valid:
-            QMessageBox.warning(self, "Warning", "Please fill in all fields correctly.")
-
-        return valid
-
     def populate_comboBox_2(self):
         try:
             # Clear existing items
@@ -208,28 +181,39 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 new_order_id = f"POS{current_date.replace('-', '')}{next_order_number}"
 
                 # Get input values
+
+
                 customer_name = self.lineEdit_9.text().strip()
                 package_name = self.comboBox_2.currentText()
                 guest_capacity = self.lineEdit_7.text().strip()
+                order_type = self.comboBox_4.currentText()
                 soup_variation = self.comboBox_3.currentText()
 
-                # Insert the new order into the database
+                if order_type == "Add-ons only":
+                    package_name = None
+                    guest_capacity = None
+                    soup_variation = None
+                else:
+                    package_name = str(package_name)
+                    guest_capacity = guest_capacity.strip()
+                    guest_capacity = int(guest_capacity) if guest_capacity else None
+                    soup_variation = str(soup_variation)
+
+                # Construct the insert query with proper handling of NULL for Guest_Pax
                 insert_query = f"""
-                    INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                         Guest_Capacity, Customer_Name, Soup_Variation)
-                    VALUES ('{new_order_id}', '{current_date}', 
-                            TIME_FORMAT(NOW(), '%H:%i'), 
-                            (SELECT Package_ID FROM package WHERE Package_Name = '{package_name}'), 
-                            'Pending', 
-                            '{guest_capacity}', 
-                            '{customer_name}', 
-                            '{soup_variation}')
-                """
-                cursor.execute(insert_query)
+                                INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
+                                                     Guest_Pax, Customer_Name, Soup_Variation, Order_Type)
+                                VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), 
+                                        (SELECT Package_ID FROM package WHERE Package_Name = %s), 
+                                        %s, %s, %s, %s, %s)
+                            """
+                cursor.execute(insert_query, (new_order_id, current_date, package_name, 'Pending', guest_capacity, customer_name, soup_variation, order_type))
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")
                 self.transaction_generated_signal.emit()
+
+                self.populate_comboBox_7()
 
                 # Clear input fields after successful save
                 self.lineEdit_9.clear()

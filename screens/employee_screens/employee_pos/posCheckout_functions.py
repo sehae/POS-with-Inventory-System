@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QDateTime, QTimer, Qt
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QTableWidget
+from PyQt5.QtWidgets import QMessageBox, QInputDialog
+from PyQt5.QtCore import QDateTime, QTimer
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from screens.employee_screens.employee_pos.posCheckout import Ui_MainWindow
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from server.local_server import conn
@@ -24,6 +24,9 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_11.clicked.connect(self.discard)
         self.pushButton_10.clicked.connect(self.check_order_details)
+        self.pushButton_5.clicked.connect(self.apply_discount)
+        self.pushButton_4.clicked.connect(self.set_gcash_payment)
+        self.pushButton_3.clicked.connect(self.set_cash_payment)
 
         self.populate_comboBox()
 
@@ -99,6 +102,79 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             if conn.is_connected():
                 cursor.close()
 
+    def apply_discount(self):
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE `order`
+                SET Discount_Type = 'Senior/PWD'
+                WHERE Order_ID = %s
+            """, (order_id,))
+            conn.commit()
+            QMessageBox.information(self, "Discount Applied", "Senior/PWD discount has been applied.")
+            self.check_order_details()  # Refresh the order details to show the discount
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while applying discount: {e}")
+        finally:
+            cursor.close()
+
+    def set_gcash_payment(self):
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        reference_id, ok = QInputDialog.getText(self, 'GCash Payment', 'Enter GCash Reference ID:')
+        if not ok or not reference_id:
+            QMessageBox.warning(self, "Input Error", "GCash Reference ID is required.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE `order`
+                SET Payment_Method = 'GCash', Reference_ID = %s
+                WHERE Order_ID = %s
+            """, (reference_id, order_id))
+            conn.commit()
+            QMessageBox.information(self, "Payment Method Set", "Payment method has been set to GCash.")
+            self.check_order_details()  # Refresh the order details to show the payment method
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while setting payment method: {e}")
+        finally:
+            cursor.close()
+
+    def set_cash_payment(self):
+        order_id = self.comboBox.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        cash_amount, ok = QInputDialog.getDouble(self, 'Cash Payment', 'Enter Cash Amount Given:')
+        if not ok or cash_amount <= 0:
+            QMessageBox.warning(self, "Input Error", "Valid cash amount is required.")
+            return
+
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE `order`
+                SET Payment_Method = 'Cash', Cash_Amount = %s
+                WHERE Order_ID = %s
+            """, (cash_amount, order_id))
+            conn.commit()
+            QMessageBox.information(self, "Payment Method Set", "Payment method has been set to Cash.")
+            self.check_order_details()  # Refresh the order details to show the payment method
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Error occurred while setting payment method: {e}")
+        finally:
+            cursor.close()
+
     def check_order_details(self):
         order_id = self.comboBox.currentText()
         if not order_id:
@@ -108,11 +184,11 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         try:
             cursor = conn.cursor()
 
-            # Fetch customer name, package details, and guest pax from the order
+            # Fetch customer name, package details, guest pax, order type, and discount type from the order
             cursor.execute("""
-                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type, o.Discount_Type
                 FROM `order` o
-                JOIN `package` p ON o.Package_ID = p.Package_ID
+                LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
                 WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
             """, (order_id,))
             order_details = cursor.fetchone()
@@ -120,14 +196,19 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            customer_name, guest_pax, package_name, package_price = order_details
+            customer_name, guest_pax, package_name, package_price, order_type, discount_type = order_details
 
-            # Calculate package total amount
-            package_total_amount = package_price * guest_pax
+            # Set the text of label_25 to guest_pax, or "" if guest_pax is None
+            self.label_25.setText("" if guest_pax is None else str(guest_pax))
+
+            package_total_amount = 0
+            if order_type == "Package":
+                package_total_amount = float(package_price) * guest_pax if package_price else 0
 
             # Fetch add-ons details
             cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
             add_on_details = cursor.fetchone()
+
             add_ons = json.loads(add_on_details[0]) if add_on_details else []
 
             add_ons_total_amount = 0
@@ -145,11 +226,19 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 product_details = cursor.fetchone()
                 if product_details:
                     product_name, selling_cost = product_details
-                    total_amount = selling_cost * quantity
+                    total_amount = float(selling_cost) * quantity
                     add_ons_total_amount += total_amount
                     add_ons_rows.append((product_name, quantity, selling_cost, total_amount))
 
             subtotal_amount = package_total_amount + add_ons_total_amount
+
+            discount_amount = 0
+            if discount_type == "Senior/PWD":
+                discount_amount = 0.20 * subtotal_amount
+
+            vat_amount = 0.12 * subtotal_amount
+
+            total_amount = subtotal_amount + vat_amount - discount_amount
 
             # Populate the table widget
             self.tableWidget.setRowCount(0)  # Clear existing rows
@@ -163,60 +252,91 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
             row += 1
 
-            # Add empty row
-            self.tableWidget.insertRow(row)
-            row += 1
-
-            # Add package details header
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 0, QTableWidgetItem("Package Details"))
-            self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
-            row += 1
-
-            # Add package details column headers
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 0, QTableWidgetItem("Package Type"))
-            self.tableWidget.setItem(row, 1, QTableWidgetItem("Guest Pax"))
-            self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
-            self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
-            row += 1
-
-            # Add package details
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 0, QTableWidgetItem(package_name))
-            self.tableWidget.setItem(row, 1, QTableWidgetItem(str(guest_pax)))
-            self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{package_price:.2f}"))
-            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{package_total_amount:.2f}"))
-            row += 1
-
-            # Add empty row before add-ons section
-            self.tableWidget.insertRow(row)
-            row += 1
-
-            # Add add-ons header
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 0, QTableWidgetItem("Add-ons"))
-            self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
-            row += 1
-
-            # Add add-ons column headers
-            self.tableWidget.insertRow(row)
-            self.tableWidget.setItem(row, 0, QTableWidgetItem("Product Name"))
-            self.tableWidget.setItem(row, 1, QTableWidgetItem("Quantity"))
-            self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
-            self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
-            row += 1
-
-            # Add add-ons details
-            for product_name, quantity, selling_cost, total_amount in add_ons_rows:
+            if order_type == "Package":
+                # Add empty row
                 self.tableWidget.insertRow(row)
-                self.tableWidget.setItem(row, 0, QTableWidgetItem(product_name))
-                self.tableWidget.setItem(row, 1, QTableWidgetItem(str(quantity)))
-                self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
-                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
                 row += 1
 
-            # Add empty row before add-ons section
+                # Add package details header
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Package Details"))
+                self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
+                row += 1
+
+                # Add package details column headers
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Package Type"))
+                self.tableWidget.setItem(row, 1, QTableWidgetItem("Guest Pax"))
+                self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
+                row += 1
+
+                # Add package details
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem(package_name))
+                self.tableWidget.setItem(row, 1, QTableWidgetItem(str(guest_pax)))
+                self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{package_total_amount:.2f}"))
+                row += 1
+
+                # Only add add-ons section if there are add-ons
+                if add_ons_rows:
+                    # Add empty row before add-ons section
+                    self.tableWidget.insertRow(row)
+                    row += 1
+
+                    # Add add-ons header
+                    self.tableWidget.insertRow(row)
+                    self.tableWidget.setItem(row, 0, QTableWidgetItem("Add-ons"))
+                    self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
+                    row += 1
+
+                    # Add add-ons column headers
+                    self.tableWidget.insertRow(row)
+                    self.tableWidget.setItem(row, 0, QTableWidgetItem("Product Name"))
+                    self.tableWidget.setItem(row, 1, QTableWidgetItem("Quantity"))
+                    self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
+                    self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
+                    row += 1
+
+                    # Add add-ons details
+                    for product_name, quantity, selling_cost, total_amount in add_ons_rows:
+                        self.tableWidget.insertRow(row)
+                        self.tableWidget.setItem(row, 0, QTableWidgetItem(product_name))
+                        self.tableWidget.setItem(row, 1, QTableWidgetItem(str(quantity)))
+                        self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
+                        self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
+                        row += 1
+
+            elif order_type == "Add-ons only" and add_ons_rows:
+                # Add empty row
+                self.tableWidget.insertRow(row)
+                row += 1
+
+                # Add add-ons header
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Add-ons"))
+                self.tableWidget.setSpan(row, 0, 1, 4)  # Span across all columns
+                row += 1
+
+                # Add add-ons column headers
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 0, QTableWidgetItem("Product Name"))
+                self.tableWidget.setItem(row, 1, QTableWidgetItem("Quantity"))
+                self.tableWidget.setItem(row, 2, QTableWidgetItem("Price"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem("Total"))
+                row += 1
+
+                # Add add-ons details
+                for product_name, quantity, selling_cost, total_amount in add_ons_rows:
+                    self.tableWidget.insertRow(row)
+                    self.tableWidget.setItem(row, 0, QTableWidgetItem(product_name))
+                    self.tableWidget.setItem(row, 1, QTableWidgetItem(str(quantity)))
+                    self.tableWidget.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
+                    self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
+                    row += 1
+
+            # Add empty row before subtotal section
             self.tableWidget.insertRow(row)
             row += 1
 
@@ -224,6 +344,25 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             self.tableWidget.insertRow(row)
             self.tableWidget.setItem(row, 2, QTableWidgetItem("Subtotal"))
             self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{subtotal_amount:.2f}"))
+
+            # Add discount row if applicable
+            if discount_type == "Senior/PWD":
+                row += 1
+                self.tableWidget.insertRow(row)
+                self.tableWidget.setItem(row, 2, QTableWidgetItem("Discount (20%)"))
+                self.tableWidget.setItem(row, 3, QTableWidgetItem(f"-{discount_amount:.2f}"))
+
+            # Add VAT row
+            row += 1
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 2, QTableWidgetItem("VAT (12%)"))
+            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{vat_amount:.2f}"))
+
+            # Add total amount row
+            row += 1
+            self.tableWidget.insertRow(row)
+            self.tableWidget.setItem(row, 2, QTableWidgetItem("Total Amount"))
+            self.tableWidget.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
 
             # Manually adjust column widths
             self.tableWidget.setColumnWidth(0, 325)  # Adjust as needed
@@ -235,6 +374,5 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             QMessageBox.critical(self, "Database Error", f"Error occurred while fetching order details: {e}")
 
         finally:
-            if conn.is_connected():
-                cursor.close()
+            cursor.close()
 
