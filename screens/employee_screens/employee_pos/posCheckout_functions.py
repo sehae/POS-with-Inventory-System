@@ -37,6 +37,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.pos_orderdetails = posOrderdetails()
 
         self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox)
+        self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox)
 
         # Create a QTimer object
         self.timer = QTimer()

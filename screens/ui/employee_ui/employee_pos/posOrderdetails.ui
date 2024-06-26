@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1402</width>
-    <height>767</height>
+    <height>1014</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -456,10 +456,10 @@ QPushButton:pressed {
           <widget class="QWidget" name="widget_2" native="true">
            <property name="geometry">
             <rect>
-             <x>0</x>
-             <y>0</y>
+             <x>20</x>
+             <y>20</y>
              <width>1331</width>
-             <height>719</height>
+             <height>841</height>
             </rect>
            </property>
            <widget class="QWidget" name="widget_4" native="true">
@@ -468,7 +468,7 @@ QPushButton:pressed {
               <x>20</x>
               <y>40</y>
               <width>631</width>
-              <height>431</height>
+              <height>461</height>
              </rect>
             </property>
             <layout class="QFormLayout" name="formLayout_2">
@@ -525,8 +525,31 @@ QPushButton:pressed {
                </property>
               </widget>
              </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Order Type</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="comboBox_4">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+              </widget>
+             </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="label_20">
                <property name="text">
                 <string>Package Type</string>
                </property>
@@ -549,9 +572,9 @@ QPushButton:pressed {
               </widget>
              </item>
              <item row="4" column="0">
-              <widget class="QLabel" name="label_12">
+              <widget class="QLabel" name="label_19">
                <property name="text">
-                <string>Capacity</string>
+                <string>Guest Pax</string>
                </property>
               </widget>
              </item>
@@ -571,30 +594,14 @@ QPushButton:pressed {
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_13">
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_15">
                <property name="text">
-                <string>Soup Variation</string>
+                <string/>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <widget class="QComboBox" name="comboBox_3">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="1">
+             <item row="7" column="1">
               <widget class="QWidget" name="widget_5" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -719,8 +726,15 @@ QPushButton:pressed {
                </layout>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="comboBox_4">
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>Soup Variation</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QComboBox" name="comboBox_3">
                <property name="minimumSize">
                 <size>
                  <width>400</width>
@@ -735,10 +749,26 @@ QPushButton:pressed {
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_14">
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_18">
                <property name="text">
-                <string>Order Type</string>
+                <string>Priority</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QComboBox" name="comboBox_5">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -750,7 +780,7 @@ QPushButton:pressed {
               <x>670</x>
               <y>20</y>
               <width>20</width>
-              <height>411</height>
+              <height>481</height>
              </rect>
             </property>
             <property name="orientation">
@@ -761,104 +791,120 @@ QPushButton:pressed {
             <property name="geometry">
              <rect>
               <x>700</x>
-              <y>50</y>
+              <y>40</y>
               <width>551</width>
               <height>111</height>
              </rect>
             </property>
-            <layout class="QFormLayout" name="formLayout_3">
-             <property name="horizontalSpacing">
-              <number>0</number>
+            <widget class="QComboBox" name="comboBox_7">
+             <property name="geometry">
+              <rect>
+               <x>140</x>
+               <y>40</y>
+               <width>400</width>
+               <height>35</height>
+              </rect>
              </property>
-             <property name="verticalSpacing">
-              <number>25</number>
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>35</height>
+              </size>
              </property>
-             <property name="leftMargin">
-              <number>0</number>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>35</height>
+              </size>
              </property>
-             <property name="topMargin">
-              <number>0</number>
+            </widget>
+            <widget class="QWidget" name="widget_7" native="true">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>111</y>
+               <width>16</width>
+               <height>16</height>
+              </rect>
              </property>
-             <property name="rightMargin">
-              <number>0</number>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="bottomMargin">
-              <number>0</number>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="spacing">
+               <number>7</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+             </layout>
+            </widget>
+            <widget class="QLabel" name="label_6">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>10</y>
+               <width>551</width>
+               <height>21</height>
+              </rect>
              </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="font">
-                <font>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Cancel Order</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_19">
-               <property name="font">
-                <font>
-                 <pointsize>15</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Order ID</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QComboBox" name="comboBox_7">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>400</width>
-                 <height>50</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QWidget" name="widget_7" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <property name="spacing">
-                 <number>7</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-               </layout>
-              </widget>
-             </item>
-            </layout>
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Cancel Order</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_9">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>40</y>
+               <width>120</width>
+               <height>35</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>ORDER ID</string>
+             </property>
+            </widget>
            </widget>
            <widget class="QFrame" name="frame_4">
             <property name="geometry">
              <rect>
               <x>700</x>
-              <y>180</y>
+              <y>150</y>
               <width>551</width>
               <height>80</height>
              </rect>
@@ -869,7 +915,7 @@ QPushButton:pressed {
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <widget class="QWidget" name="">
+            <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -932,6 +978,216 @@ QPushButton:pressed {
                 </property>
                 <property name="text">
                  <string>CANCEL ORDER</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="Line" name="line_2">
+            <property name="geometry">
+             <rect>
+              <x>680</x>
+              <y>250</y>
+              <width>581</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QWidget" name="widget_10" native="true">
+            <property name="geometry">
+             <rect>
+              <x>690</x>
+              <y>280</y>
+              <width>551</width>
+              <height>101</height>
+             </rect>
+            </property>
+            <widget class="QWidget" name="widget_11" native="true">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>110</y>
+               <width>16</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <property name="spacing">
+               <number>7</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+             </layout>
+            </widget>
+            <widget class="QComboBox" name="comboBox_9">
+             <property name="geometry">
+              <rect>
+               <x>150</x>
+               <y>60</y>
+               <width>400</width>
+               <height>35</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>35</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_11">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>60</y>
+               <width>120</width>
+               <height>35</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>ORDER ID</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_8">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>551</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Start Timer</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QFrame" name="frame_5">
+            <property name="geometry">
+             <rect>
+              <x>700</x>
+              <y>390</y>
+              <width>551</width>
+              <height>80</height>
+             </rect>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <widget class="QWidget" name="layoutWidget_5">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>531</width>
+               <height>52</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>108</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>400</width>
+                  <height>50</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>400</width>
+                  <height>50</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                </property>
+                <property name="text">
+                 <string>START</string>
                 </property>
                </widget>
               </item>

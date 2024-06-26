@@ -27,6 +27,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.menuBTN.clicked.connect(self.goMenu)
         self.pushButton_6.clicked.connect(self.saveOrder)  # Connect saveOrder function to pushButton_6
         self.pushButton.clicked.connect(self.cancel_order)
+        self.pushButton_2.clicked.connect(self.start_timer)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -40,14 +41,74 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         # Populate comboBox_2 with package names
         self.populate_comboBox_2()
 
+        # Populate comboBox_9 with order_ids
+        self.populate_comboBox_9()
+
         # Populate comboBox_3 with soup variations
         self.populate_comboBox_3()
+
+        # Populate comboBox_5 with priority
+        self.populate_comboBox_5()
 
         # Populate comboBox_7 with order ids
         self.populate_comboBox_7()
 
         # Populate comboBox_4 with order types
         self.populate_comboBox_4()
+
+    def populate_comboBox_5(self):
+        items = ['Non-priority', 'Priority']
+        self.comboBox_5.addItems(items)
+
+    def start_timer(self):
+        order_id = self.comboBox_9.currentText()
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        # Confirm cancellation with the user
+        reply = QMessageBox.question(self, 'Confirm Timer', f"Are you sure you want to start the timer of {order_id}?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("UPDATE `order` SET Payment_Status = 'Pending' WHERE Order_ID = %s", (order_id,))
+                conn.commit()
+
+                QMessageBox.information(self, "Timer Started", "The order has been successfully started with the timer.")
+                self.populate_comboBox_7()  # Refresh the combo box
+                self.populate_comboBox_9()
+
+                self.transaction_generated_signal.emit()
+
+            except Exception as e:
+                QMessageBox.critical(self, "Database Error", f"Error occurred while cancelling the order: {e}")
+
+            finally:
+                if conn.is_connected():
+                    cursor.close()
+        else:
+            QMessageBox.information(self, "Cancelled", "Timer operation cancelled by user.")
+
+
+
+    def populate_comboBox_9(self):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Waiting for Timer'")
+            order_ids = cursor.fetchall()
+
+            self.comboBox_9.clear()
+            for order_id in order_ids:
+                self.comboBox_9.addItem(str(order_id[0]))
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_9: {e}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
 
     def populate_comboBox_4(self):
         try:
@@ -113,7 +174,12 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
     def populate_comboBox_7(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending'")
+            cursor.execute("""
+                SELECT Order_ID 
+                FROM `order` 
+                WHERE Payment_Status = 'Waiting for Timer' OR Payment_Status = 'Pending'
+                ORDER BY Order_ID ASC
+            """)
             order_ids = cursor.fetchall()
 
             self.comboBox_7.clear()
@@ -145,6 +211,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
                 QMessageBox.information(self, "Order Cancelled", "The order has been successfully cancelled.")
                 self.populate_comboBox_7()  # Refresh the combo box
+                self.populate_comboBox_9()
 
             except Exception as e:
                 QMessageBox.critical(self, "Database Error", f"Error occurred while cancelling the order: {e}")
@@ -154,7 +221,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                     cursor.close()
         else:
             QMessageBox.information(self, "Cancelled", "Cancellation operation cancelled by user.")
-
 
     def saveOrder(self):
         try:
@@ -182,18 +248,21 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 new_order_id = f"POS{current_date.replace('-', '')}{next_order_number}"
 
                 # Get input values
-
-
                 customer_name = self.lineEdit_9.text().strip()
                 package_name = self.comboBox_2.currentText()
                 guest_capacity = self.lineEdit_7.text().strip()
                 order_type = self.comboBox_4.currentText()
                 soup_variation = self.comboBox_3.currentText()
+                priority_order = self.comboBox_5.currentText()
+
+                # Set the default Payment_Status
+                payment_status = 'Waiting for Timer'
 
                 if order_type == "Add-ons only":
                     package_name = None
                     guest_capacity = None
                     soup_variation = None
+                    payment_status = 'Pending'
                 else:
                     package_name = str(package_name)
                     guest_capacity = guest_capacity.strip()
@@ -203,21 +272,22 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Construct the insert query with proper handling of NULL for Guest_Pax
                 insert_query = f"""
                                 INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                                     Guest_Pax, Customer_Name, Soup_Variation, Order_Type, Payment_Method)
+                                                     Guest_Pax, Customer_Name, Soup_Variation, Order_Type, Payment_Method, Priority_Order)
                                 VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), 
                                         (SELECT Package_ID FROM package WHERE Package_Name = %s), 
-                                        %s, %s, %s, %s, %s, %s)
+                                        %s, %s, %s, %s, %s, %s, %s)
                             """
                 cursor.execute(insert_query, (
-                new_order_id, current_date, package_name, 'Pending', guest_capacity, customer_name, soup_variation,
-                order_type, 'Pending'))
+                    new_order_id, current_date, package_name, payment_status, guest_capacity, customer_name,
+                    soup_variation,
+                    order_type, 'Pending', priority_order))
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")
-                self.transaction_generated_signal.emit()
                 self.update_combobox_signal.emit()
 
                 self.populate_comboBox_7()
+                self.populate_comboBox_9()
 
                 # Clear input fields after successful save
                 self.lineEdit_9.clear()
@@ -231,3 +301,4 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
+

@@ -30,6 +30,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.pos_orderdetails = posOrderdetails()
 
         self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox_5)
+        self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox_5)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -75,7 +76,12 @@ class posMenu(QMainWindow, Ui_MainWindow):
     def populate_comboBox_5(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending'")
+            query = """
+                SELECT Order_ID 
+                FROM `order` 
+                WHERE Payment_Status = 'Pending' or Payment_Status = 'Waiting for Timer'
+            """
+            cursor.execute(query)
             order_ids = cursor.fetchall()
 
             self.comboBox_5.clear()
@@ -115,7 +121,14 @@ class posMenu(QMainWindow, Ui_MainWindow):
                         product.Name,
                         product.Category,
                         product.Quantity,
-                        inventory.Selling_Cost as Price
+                        inventory.Selling_Cost as Price,
+                        product.Threshold_Value,
+                        product.Expiry_Date,
+                        CASE
+                            WHEN product.Quantity = 0 THEN 'Out of Stock'
+                            WHEN product.Quantity <= product.Threshold_Value THEN 'Low Stock'
+                            ELSE 'In Stock'
+                        END as Inventory_Status
                     FROM product
                     JOIN inventory ON product.Product_ID = inventory.Product_ID
                     WHERE product.Status = 'Active'
@@ -137,7 +150,10 @@ class posMenu(QMainWindow, Ui_MainWindow):
             "Name",
             "Category",
             "Quantity",
-            "Price"
+            "Price",
+            "Threshold Value",
+            "Expiry Date",
+            "Inventory Status"
         ]
 
         if records:
@@ -153,13 +169,25 @@ class posMenu(QMainWindow, Ui_MainWindow):
                     item = QTableWidgetItem("-" if col is None else str(col))
                     item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Make cell non-clickable
 
+                    # Color coding for Inventory Status
+                    if j == 6:  # Assuming Inventory Status is the last column
+                        if col == 'Out of Stock':
+                            item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
+                        elif col == 'Low Stock':
+                            item.setBackground(QtGui.QColor(255, 165, 0))   # Light orange
+                        elif col == 'In Stock':
+                            item.setBackground(QtGui.QColor(144, 238, 144))  # Light green
+
                     self.tableWidget_2.setItem(i, j, item)
 
             # Set column widths
             self.tableWidget_2.setColumnWidth(0, 200)  # Name column width
             self.tableWidget_2.setColumnWidth(1, 150)  # Category column width
             self.tableWidget_2.setColumnWidth(2, 100)  # Quantity column width
-            self.tableWidget_2.setColumnWidth(3, 100)  # Selling Cost column width
+            self.tableWidget_2.setColumnWidth(3, 100)  # Price column width
+            self.tableWidget_2.setColumnWidth(4, 150)  # Threshold Value column width
+            self.tableWidget_2.setColumnWidth(5, 150)  # Expiry Date column width
+            self.tableWidget_2.setColumnWidth(6, 150)  # Inventory Status column width
 
         else:
             print("No records found for products with status 'Active' and category 'Beverage' or 'Food'.")
@@ -179,8 +207,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
             cursor = conn.cursor()
 
             # Get the product_id and current quantity for the selected product_name
-            cursor.execute("SELECT Product_ID, Quantity FROM `product` WHERE Name = %s AND Status = 'Active'",
-                           (product_name,))
+            cursor.execute("SELECT Product_ID, Quantity FROM `product` WHERE Name = %s AND Status = 'Active'", (product_name,))
             product_record = cursor.fetchone()
             if not product_record:
                 QMessageBox.warning(self, "Invalid Product", "Selected product is not available.")
