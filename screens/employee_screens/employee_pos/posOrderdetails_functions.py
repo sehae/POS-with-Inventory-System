@@ -2,10 +2,11 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from PyQt5.QtWidgets import QMainWindow
-
 from screens.employee_screens.employee_pos.posOrderdetails import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from screens.receipt.receipt_dialog import ReceiptDialog
+from PyQt5.QtCore import QTime
 
 
 class posOrderdetails(QMainWindow, Ui_MainWindow):
@@ -28,6 +29,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.pushButton_6.clicked.connect(self.saveOrder)  # Connect saveOrder function to pushButton_6
         self.pushButton.clicked.connect(self.cancel_order)
         self.pushButton_2.clicked.connect(self.start_timer)
+        self.pushButton_3.clicked.connect(self.print_receipt)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -55,6 +57,120 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         # Populate comboBox_4 with order types
         self.populate_comboBox_4()
+
+        # Populate comboBox_8 with order ids
+        self.populate_comboBox_8()
+
+    def print_receipt(self):
+        order_id = self.comboBox_8.currentText()
+
+        try:
+            cursor = conn.cursor()
+
+            # Fetch order details based on order_id
+            cursor.execute("""
+                SELECT Date, Customer_Name, Package_ID, Guest_Pax, Order_Type, 
+                       Soup_Variation, Priority_Order
+                FROM `order`
+                WHERE Order_ID = %s
+            """, (order_id,))
+            order_details = cursor.fetchone()
+
+            if order_details:
+                # Unpack fetched values
+                current_date = order_details[0]
+                customer_name = order_details[1]
+                package_id = order_details[2]
+                guest_capacity = order_details[3]
+                order_type = order_details[4]
+                soup_variation = order_details[5]
+                priority_order = order_details[6]
+
+                # Get current time in HH:mm:ss format
+                current_time = QTime.currentTime().toString(Qt.DefaultLocaleLongDate)
+
+                # Get package name from package table
+                package_name = self.get_package_name(cursor, package_id)
+
+                # Construct the order details string including time
+                order_details_text = f"""
+                Moon Hey Hotpot and Grill
+                
+                Order ID: {order_id}
+                Date: {current_date}
+                Time: {current_time}
+                Customer Name: {customer_name}
+
+                -- Order Details --
+                Package Name: {package_name if package_name else "N/A"}
+                Guest Capacity: {guest_capacity if guest_capacity else "N/A"}
+                Order Type: {order_type}
+                Soup Variation: {soup_variation if soup_variation else "N/A"}
+                Priority Order: {priority_order}
+
+
+                -- Kitchen Note --
+                [Leave space for kitchen staff to add any necessary notes or special instructions.]
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                """
+
+                # Create and show the receipt dialog
+                receipt_dialog = ReceiptDialog(order_details_text)
+                receipt_dialog.exec_()
+
+            else:
+                QMessageBox.warning(self, "Error", f"No order found for Order ID: {order_id}")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Error occurred while fetching order details: {str(e)}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def get_package_name(self, cursor, package_id):
+        try:
+            cursor.execute("SELECT Package_Name FROM package WHERE Package_ID = %s", (package_id,))
+            result = cursor.fetchone()
+            if result:
+                return result[0]
+            else:
+                return "N/A"
+        except Exception as e:
+            print(f"Error occurred while fetching package name: {e}")
+            return "N/A"
+
+
+
+    def populate_comboBox_8(self):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT Order_ID 
+                FROM `order` 
+                WHERE Payment_Status = 'Waiting for Timer' OR Payment_Status = 'Pending'
+                ORDER BY Order_ID ASC
+            """)
+            order_ids = cursor.fetchall()
+
+            self.comboBox_8.clear()
+            for order_id in order_ids:
+                self.comboBox_8.addItem(str(order_id[0]))
+
+        except Exception as e:
+            print(f"Error occurred while populating comboBox_8: {e}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
 
     def populate_comboBox_5(self):
         items = ['Non-priority', 'Priority']
@@ -284,8 +400,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")
-                self.update_combobox_signal.emit()
 
+                self.update_combobox_signal.emit()
                 self.populate_comboBox_7()
                 self.populate_comboBox_9()
 
