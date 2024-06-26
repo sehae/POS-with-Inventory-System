@@ -29,8 +29,6 @@ from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.employee_screens.employee_pos.posModify_functions import posModify
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
 
-
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()

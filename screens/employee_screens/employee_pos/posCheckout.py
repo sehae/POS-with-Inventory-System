@@ -590,5 +590,5 @@ class Ui_MainWindow(object):
         self.label_30.setText(_translate("MainWindow", "DISCOUNT"))
         self.pushButton_5.setText(_translate("MainWindow", "PWD/ELDER"))
         self.pushButton.setText(_translate("MainWindow", "Select"))
-        self.label_29.setText(_translate("MainWindow", "LEFTOVER"))
+        self.label_29.setText(_translate("MainWindow", "LEFTOVER (Grams)"))
 import assets.resourceFile_rc
