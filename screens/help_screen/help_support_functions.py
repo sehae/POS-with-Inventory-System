@@ -10,7 +10,8 @@ from validator.user_manager import userManager
 
 class helpSupport(QMainWindow, Ui_MainWindow):
     back_signal = pyqtSignal()
-    back_employee_signal = pyqtSignal()
+    back_kitchen_signal = pyqtSignal()
+    back_cashier_signal = pyqtSignal()
     manual_signal = pyqtSignal()
     faq_signal = pyqtSignal()
 
@@ -19,7 +20,7 @@ class helpSupport(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.backButton_3.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
-                                                          self.back_employee_signal))
+                                                            self.back_kitchen_signal, self.back_cashier_signal))
         self.editUserButton_3.clicked.connect(self.navigate_manual)
         self.addUserButton.clicked.connect(self.navigate_faq)
 

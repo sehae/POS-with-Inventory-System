@@ -155,7 +155,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard.help_signal.connect(self.show_help_faq)
         self.help_FAQ.support_signal.connect(self.show_help_support)
         self.help_FAQ.back_signal.connect(self.show_admin_dashboard)
-        self.help_FAQ.back_employee_signal.connect(self.show_employee_dashboard)
+        self.help_FAQ.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.help_FAQ.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.help_FAQ.manual_signal.connect(self.show_user_manual)
         self.help_support.back_signal.connect(self.show_admin_dashboard)
         self.help_support.manual_signal.connect(self.show_user_manual)
@@ -166,8 +167,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard.changepass_signal.connect(self.show_change_password)
         self.change_password.back_signal.connect(self.show_admin_dashboard)
 
-        self.help_manual.back_employee_signal.connect(self.show_employee_dashboard)
-        self.help_support.back_employee_signal.connect(self.show_employee_dashboard)
+        self.help_manual.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.help_manual.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+        self.help_support.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.help_support.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
 
         self.login_screen.login_successful_kitchen.connect(self.show_employee_dashboard)
         self.employee_dashboard.logout_signal.connect(self.show_login_screen)
@@ -178,6 +181,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard_cashier.logout_signal.connect(self.show_login_screen)
         self.employee_dashboard_cashier.pos_signal.connect(self.show_pos_orderdetails)
         self.employee_dashboard_cashier.changepass_signal.connect(self.show_change_password)
+        self.employee_dashboard_cashier.help_signal.connect(self.show_help_faq)
+        self.employee_dashboard_cashier.about_signal.connect(self.show_about_devcredits)
 
         self.employee_dashboard.inventoryModify_signal.connect(self.show_employee_inventory)
         self.inventory_modify.barcode_signal.connect(self.show_inventory_barcode)
@@ -187,10 +192,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard.help_signal.connect(self.show_help_faq)
 
         self.employee_dashboard.about_signal.connect(self.show_about_devcredits)
-        self.about_devCredits.back_employee_signal.connect(self.show_employee_dashboard)
-        self.about_info.back_employee_signal.connect(self.show_employee_dashboard)
+
+        self.about_devCredits.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.about_devCredits.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+        self.about_info.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.about_info.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+
         self.employee_dashboard.changepass_signal.connect(self.show_change_password)
-        self.change_password.back_employee_signal.connect(self.show_employee_dashboard)
+
+        self.change_password.back_kitchen_signal.connect(self.show_employee_dashboard)
+        self.change_password.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         
         self.pos_orderdetails.back_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_orderdetails.checkout_signal.connect(self.show_pos_checkout)

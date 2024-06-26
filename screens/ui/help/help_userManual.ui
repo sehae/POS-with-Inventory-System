@@ -257,7 +257,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
+             <iconset>
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -375,22 +375,23 @@ QPushButton:pressed {
        </item>
        <item row="1" column="1">
         <widget class="QWidget" name="mainContent" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_8">
-          <property name="leftMargin">
-           <number>25</number>
-          </property>
-          <property name="topMargin">
-           <number>25</number>
-          </property>
-          <property name="rightMargin">
-           <number>25</number>
-          </property>
-          <property name="bottomMargin">
-           <number>25</number>
-          </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QWidget" name="layoutContainer" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout">
+           <widget class="QLabel" name="tutorial">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -404,35 +405,68 @@ QPushButton:pressed {
               <number>0</number>
              </property>
              <item>
-              <widget class="QLineEdit" name="lineEdit">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
                <property name="minimumSize">
                 <size>
-                 <width>250</width>
-                 <height>50</height>
+                 <width>100</width>
+                 <height>100</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
+                 <width>100</width>
+                 <height>100</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Search in User Manual</string>
+               <property name="text">
+                <string>Previous</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QListWidget" name="listWidget"/>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Next</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -447,7 +481,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

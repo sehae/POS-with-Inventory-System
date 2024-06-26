@@ -257,7 +257,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
+             <iconset>
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -456,7 +456,9 @@ QPushButton:pressed {
                 </font>
                </property>
                <property name="text">
-                <string>moonheysupport@gmail.com</string>
+                <string>qyjpfaurillo@tip.edu.ph
+qbdatiamzon@tip.edu.ph
+qldbvillatura@tip.edu.ph</string>
                </property>
               </widget>
              </item>
@@ -497,7 +499,9 @@ QPushButton:pressed {
                 </font>
                </property>
                <property name="text">
-                <string>+63 9456123481</string>
+                <string>09454421238
+09456123481
+09563847921</string>
                </property>
               </widget>
              </item>
@@ -527,7 +531,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

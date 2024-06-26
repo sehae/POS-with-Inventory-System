@@ -12,7 +12,8 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
     support_signal = pyqtSignal()
     back_signal = pyqtSignal()
     manual_signal = pyqtSignal()
-    back_employee_signal = pyqtSignal()
+    back_kitchen_signal = pyqtSignal()
+    back_cashier_signal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -20,7 +21,7 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
 
         self.pushButton_3.clicked.connect(self.navigate_support)
         self.backButton_3.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
-                                                            self.back_employee_signal))
+                                                            self.back_kitchen_signal, self.back_cashier_signal))
         self.editUserButton_3.clicked.connect(self.navigate_manual)
 
         # Create an instance of userManager

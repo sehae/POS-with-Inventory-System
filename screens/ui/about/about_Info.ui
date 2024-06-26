@@ -230,7 +230,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
+             <iconset>
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -365,8 +365,8 @@ QPushButton:pressed {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1135</width>
-            <height>1312</height>
+            <width>903</width>
+            <height>1258</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -407,28 +407,40 @@ QPushButton:pressed {
               </font>
              </property>
              <property name="text">
-              <string>Mission</string>
+              <string>Background</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_3">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>800</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <pointsize>15</pointsize>
               </font>
              </property>
              <property name="text">
-              <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
- labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
- laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
- voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.</string>
+              <string>Moon Hey Hotpot and Grill is a buffet-style dining establishment located at 848A. Banawe St. Quezon City, 1114 Metro Manila. Its establishment dates to December 2022. The company was established by Shiela Mae Tan and her business partner, Sedryck Shi.</string>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
              <property name="wordWrap">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -441,7 +453,7 @@ QPushButton:pressed {
               </font>
              </property>
              <property name="text">
-              <string>Values</string>
+              <string>Contact Information</string>
              </property>
             </widget>
            </item>
@@ -453,16 +465,7 @@ QPushButton:pressed {
               </font>
              </property>
              <property name="text">
-              <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
- labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
- laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
- voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
+              <string>0917 624 9289</string>
              </property>
             </widget>
            </item>
@@ -476,6 +479,16 @@ QPushButton:pressed {
              </property>
              <property name="text">
               <string>Location</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>../../../assets/Other Images/mapScreenshot.png</pixmap>
              </property>
             </widget>
            </item>
@@ -497,7 +510,7 @@ QPushButton:pressed {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../../assets/resourceFile.qrc">:/otherImages/Other Images/mapScreenshot.png</pixmap>
+              <pixmap>:/otherImages/Other Images/mapScreenshot.png</pixmap>
              </property>
             </widget>
            </item>
@@ -512,6 +525,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
+  <include location="../../../assets/resourceFile.qrc"/>
   <include location="../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>

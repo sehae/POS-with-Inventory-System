@@ -20,14 +20,15 @@ from validator.user_manager import userManager
 
 class changePassword(QMainWindow, Ui_MainWindow):
     back_signal = pyqtSignal()
-    back_employee_signal = pyqtSignal()
+    back_kitchen_signal = pyqtSignal()
+    back_cashier_signal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.user_manager = userManager()
         self.user_manager.username_updated.connect(self.on_username_updated)
-        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_employee_signal))
+        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_kitchen_signal, self.back_cashier_signal))
 
         self.user_manager.fullname_updated.connect(self.on_fullname_updated)
 
