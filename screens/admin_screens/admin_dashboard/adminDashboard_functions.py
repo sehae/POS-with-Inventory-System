@@ -73,6 +73,8 @@ class myAdminDashboard(QtWidgets.QMainWindow):
 
     def navigate_about(self):
         self.about_signal.emit()
+        print("Admin Dashboard: Navigating to About Screen")
+        self.admin_aboutdevCredits.update_username()
 
     def logout(self):
         user_id = user_manager.get_current_user_id()

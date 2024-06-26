@@ -154,10 +154,10 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
 
         print("User added successfully")
 
-        # # User Log
-        # user_action = 10
-        # specific_action = username
-        # self.log_add(user_action, specific_action)
+        # User Log
+        user_action = 10
+        specific_action = username
+        self.log_add(user_action, specific_action)
 
         # Send username and password
         if is_connected():

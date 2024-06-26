@@ -19,5 +19,6 @@
     </qresource>
     <qresource prefix="/otherImages">
         <file>Other Images/mapScreenshot.png</file>
+        <file>Other Images/debug_barcode.png</file>
     </qresource>
 </RCC>

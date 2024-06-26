@@ -2,6 +2,9 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QDateTime, QTimer, QDate
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit, QComboBox
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
+
+from inventory.barcode_generator import generate_barcode
+from screens.admin_screens.admin_inventory.barcode_functions import BarcodeDialog
 from screens.admin_screens.admin_inventory.inventoryAddProduct import Ui_MainWindow
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
 from server.local_server import conn
@@ -20,6 +23,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.barcode_dialog = None
 
         self.pushButton_4.clicked.connect(self.add_product)
         self.pushButton_10.clicked.connect(self.navigate_modify)
@@ -158,18 +162,21 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
             current_time)
             cursor.execute(product_query, product_values)
 
+            barcode_str = generate_barcode(name)
+
             # Insert into inventory table
             inventory_query = """
-                INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost) 
-                VALUES (%s, %s, %s, %s)
+                INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost, Barcode) 
+                VALUES (%s, %s, %s, %s, %s)
             """
-            inventory_values = (supplier_id, new_product_id, buying_cost, selling_cost)
+            inventory_values = (supplier_id, new_product_id, buying_cost, selling_cost, barcode_str)
             cursor.execute(inventory_query, inventory_values)
 
             conn.commit()
             QMessageBox.information(self, "Success", "Product added successfully.")
             self.product_update_signal.emit()
             self.admin_product_update_signal.emit()
+            self.open_barcode()
 
             self.clear_fields()  # Clear fields after successful addition
 
@@ -301,3 +308,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
+
+    def open_barcode(self):
+        self.barcode_dialog = BarcodeDialog()
+        self.barcode_dialog.show()

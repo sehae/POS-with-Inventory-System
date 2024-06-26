@@ -19,7 +19,7 @@ def show_username_password(username, password):
 
 def confirmation_dialog(message):
     msgBox = QMessageBox()
-    msgBox.setIcon(QMessageBox.Warning)
+    msgBox.setIcon(QMessageBox.Information)
     msgBox.setText(message)
     msgBox.setWindowTitle("Confirmation")
     msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
