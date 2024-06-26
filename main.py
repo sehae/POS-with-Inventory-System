@@ -126,6 +126,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
         self.admin_dashboard.about_signal.connect(self.show_about_devcredits)
+        self.admin_dashboard.pos_signal.connect(self.show_pos_menu)
 
         self.admin_maintenance.backup_recovery_signal.connect(self.show_admin_maintenance_backup)
         self.admin_maintenance.edit_signal.connect(self.show_admin_maintenance_edit)
@@ -202,24 +203,28 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.change_password.back_kitchen_signal.connect(self.show_employee_dashboard)
         self.change_password.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
-        
-        self.pos_orderdetails.back_signal.connect(self.show_employee_dashboard_cashier)
+
+        self.pos_orderdetails.back_signal.connect(self.show_admin_dashboard)
+        self.pos_orderdetails.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_orderdetails.checkout_signal.connect(self.show_pos_checkout)
         self.pos_orderdetails.menu_signal.connect(self.show_pos_menu)
         self.pos_orderdetails.modify_signal.connect(self.show_pos_modify)
 
-        self.pos_checkout.back_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_checkout.back_signal.connect(self.show_admin_dashboard)
+        self.pos_checkout.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_checkout.menu_signal.connect(self.show_pos_menu)
         self.pos_checkout.order_signal.connect(self.show_pos_orderdetails)
         self.pos_checkout.modify_signal.connect(self.show_pos_modify)
 
         self.pos_menu.order_signal.connect(self.show_pos_orderdetails)
-        self.pos_menu.back_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_menu.back_signal.connect(self.show_admin_dashboard)
+        self.pos_menu.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_menu.modify_signal.connect(self.show_pos_modify)
         self.pos_menu.checkout_signal.connect(self.show_pos_checkout)
 
         self.pos_modify.order_signal.connect(self.show_pos_orderdetails)
-        self.pos_modify.back_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_modify.back_signal.connect(self.show_admin_dashboard)
+        self.pos_modify.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_modify.checkout_signal.connect(self.show_pos_checkout)
         self.pos_modify.menu_signal.connect(self.show_pos_menu)
 

@@ -2,7 +2,6 @@
     <qresource prefix="/logos">
         <file>Icons/logo1.png</file>
         <file>Icons/entypo_back.png</file>
-        <file>Icons/gridicons_dropdown.png</file>
         <file>Icons/posIcon.png</file>
         <file>Icons/aboutIcon.png</file>
         <file>Icons/changePassIcon.png</file>
@@ -19,6 +18,5 @@
     </qresource>
     <qresource prefix="/otherImages">
         <file>Other Images/mapScreenshot.png</file>
-        <file>Other Images/debug_barcode.png</file>
     </qresource>
 </RCC>

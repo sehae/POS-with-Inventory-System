@@ -35,7 +35,7 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <widget class="QWidget" name="stackedWidgetPage1" native="true">
+      <widget class="QWidget" name="stackedWidgetPage1">
        <layout class="QVBoxLayout" name="verticalLayout">
         <property name="leftMargin">
          <number>0</number>
@@ -120,16 +120,11 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="adminLabel">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
+               <widget class="QLabel" name="label">
                 <property name="font">
                  <font>
                   <pointsize>10</pointsize>
+                  <bold>false</bold>
                  </font>
                 </property>
                 <property name="text">
@@ -284,49 +279,6 @@
            <property name="verticalSpacing">
             <number>25</number>
            </property>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="inventoryButton">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>240</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>280</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>15</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;
-    color: white;
-    border: none;
-    border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
-}
-
-QPushButton:hover {
-    background-color: #5FCAC4;
-}
-QPushButton:pressed {
-    background-color: #058A84;
-}
-</string>
-             </property>
-             <property name="text">
-              <string>INVENTORY</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="maintenanceButton">
              <property name="minimumSize">
@@ -347,14 +299,16 @@ QPushButton:pressed {
                <bold>true</bold>
               </font>
              </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
     background: #07BEB8 url(:/logos/Icons/maintenanceIcon.png) center no-repeat;
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -374,6 +328,21 @@ QPushButton:pressed {
                <width>200</width>
                <height>200</height>
               </size>
+             </property>
+             <property name="autoRepeat">
+              <bool>false</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>false</bool>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+             <property name="default">
+              <bool>false</bool>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -403,8 +372,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -420,7 +388,50 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
+           <item row="0" column="1">
+            <widget class="QPushButton" name="posButton">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>240</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>240</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background: #07BEB8 url(:/logos/Icons/posIcon.png) center no-repeat;
+    color: white;
+    border: none;
+    border-radius: 5px;
+	padding-top: 160px;
+}
+
+QPushButton:hover {
+    background-color: #5FCAC4;
+}
+
+QPushButton:pressed {
+    background-color: #058A84;
+}
+</string>
+             </property>
+             <property name="text">
+              <string>POS</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
             <widget class="QPushButton" name="aboutButton">
              <property name="minimumSize">
               <size>
@@ -446,8 +457,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -463,7 +473,7 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="1" column="2">
             <widget class="QPushButton" name="helpButton">
              <property name="minimumSize">
               <size>
@@ -489,8 +499,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -506,7 +515,7 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="1" column="1">
             <widget class="QPushButton" name="changePassButton">
              <property name="minimumSize">
               <size>
@@ -532,8 +541,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -549,7 +557,7 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="1" column="0">
             <widget class="QPushButton" name="reportsButton">
              <property name="minimumSize">
               <size>
@@ -569,8 +577,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -583,6 +590,48 @@ QPushButton:pressed {
              </property>
              <property name="text">
               <string>REPORTS</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="inventoryButton">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>240</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>280</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;
+    color: white;
+    border: none;
+    border-radius: 5px;
+	padding-top: 160px;
+}
+
+QPushButton:hover {
+    background-color: #5FCAC4;
+}
+QPushButton:pressed {
+    background-color: #058A84;
+}
+</string>
+             </property>
+             <property name="text">
+              <string>INVENTORY</string>
              </property>
             </widget>
            </item>

@@ -6,6 +6,7 @@ from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
+from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.password_screen.changePassword_functions import changePassword
 from validator.user_manager import userManager
@@ -19,6 +20,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
     about_signal = QtCore.pyqtSignal()
     help_signal = QtCore.pyqtSignal()
     changepass_signal = QtCore.pyqtSignal()
+    pos_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -37,6 +39,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.ui.helpButton.clicked.connect(self.navigate_help)
         self.ui.aboutButton.clicked.connect(self.navigate_about)
         self.ui.logoutButton.clicked.connect(self.logout)
+        self.ui.posButton.clicked.connect(self.pos_signal.emit)
 
         # Update date and time labels
         self.update_datetime()

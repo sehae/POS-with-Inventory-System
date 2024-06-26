@@ -111,7 +111,7 @@
                 <enum>Qt::AutoText</enum>
                </property>
                <property name="pixmap">
-                <pixmap>:/logos/Icons/logo1.png</pixmap>
+                <pixmap resource="../../../assets/resourceFile.qrc">:/logos/Icons/logo1.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -297,8 +297,7 @@
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -340,8 +339,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -383,8 +381,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -426,8 +423,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -469,8 +465,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {

@@ -59,18 +59,14 @@ class Ui_MainWindow(object):
         self.logo.setWordWrap(False)
         self.logo.setObjectName("logo")
         self.verticalLayout_2.addWidget(self.logo)
-        self.adminLabel = QtWidgets.QLabel(self.widget_3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.adminLabel.sizePolicy().hasHeightForWidth())
-        self.adminLabel.setSizePolicy(sizePolicy)
+        self.label = QtWidgets.QLabel(self.widget_3)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.adminLabel.setFont(font)
-        self.adminLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.adminLabel.setObjectName("adminLabel")
-        self.verticalLayout_2.addWidget(self.adminLabel)
+        font.setBold(False)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout_2.addWidget(self.label)
         self.horizontalLayout_2.addWidget(self.widget_3)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
@@ -121,31 +117,6 @@ class Ui_MainWindow(object):
         self.gridLayout.setHorizontalSpacing(0)
         self.gridLayout.setVerticalSpacing(25)
         self.gridLayout.setObjectName("gridLayout")
-        self.inventoryButton = QtWidgets.QPushButton(self.buttonGroup)
-        self.inventoryButton.setMinimumSize(QtCore.QSize(400, 240))
-        self.inventoryButton.setMaximumSize(QtCore.QSize(400, 280))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.inventoryButton.setFont(font)
-        self.inventoryButton.setStyleSheet("QPushButton {\n"
-"    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;\n"
-"    color: white;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #5FCAC4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #058A84;\n"
-"}\n"
-"")
-        self.inventoryButton.setObjectName("inventoryButton")
-        self.gridLayout.addWidget(self.inventoryButton, 0, 1, 1, 1)
         self.maintenanceButton = QtWidgets.QPushButton(self.buttonGroup)
         self.maintenanceButton.setMinimumSize(QtCore.QSize(400, 240))
         self.maintenanceButton.setMaximumSize(QtCore.QSize(400, 280))
@@ -153,13 +124,13 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         font.setBold(True)
         self.maintenanceButton.setFont(font)
+        self.maintenanceButton.setAutoFillBackground(False)
         self.maintenanceButton.setStyleSheet("QPushButton {\n"
 "    background: #07BEB8 url(:/logos/Icons/maintenanceIcon.png) center no-repeat;\n"
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -171,6 +142,11 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.maintenanceButton.setIconSize(QtCore.QSize(200, 200))
+        self.maintenanceButton.setAutoRepeat(False)
+        self.maintenanceButton.setAutoExclusive(False)
+        self.maintenanceButton.setAutoDefault(False)
+        self.maintenanceButton.setDefault(False)
+        self.maintenanceButton.setFlat(False)
         self.maintenanceButton.setObjectName("maintenanceButton")
         self.gridLayout.addWidget(self.maintenanceButton, 0, 0, 1, 1)
         self.logoutButton = QtWidgets.QPushButton(self.buttonGroup)
@@ -185,8 +161,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -198,6 +173,31 @@ class Ui_MainWindow(object):
 "")
         self.logoutButton.setObjectName("logoutButton")
         self.gridLayout.addWidget(self.logoutButton, 2, 1, 1, 1)
+        self.posButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.posButton.setMinimumSize(QtCore.QSize(400, 240))
+        self.posButton.setMaximumSize(QtCore.QSize(400, 240))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.posButton.setFont(font)
+        self.posButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/posIcon.png) center no-repeat;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    padding-top: 160px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5FCAC4;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #058A84;\n"
+"}\n"
+"")
+        self.posButton.setObjectName("posButton")
+        self.gridLayout.addWidget(self.posButton, 0, 1, 1, 1)
         self.aboutButton = QtWidgets.QPushButton(self.buttonGroup)
         self.aboutButton.setMinimumSize(QtCore.QSize(400, 240))
         self.aboutButton.setMaximumSize(QtCore.QSize(400, 280))
@@ -210,8 +210,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -222,7 +221,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.aboutButton.setObjectName("aboutButton")
-        self.gridLayout.addWidget(self.aboutButton, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.aboutButton, 2, 0, 1, 1)
         self.helpButton = QtWidgets.QPushButton(self.buttonGroup)
         self.helpButton.setMinimumSize(QtCore.QSize(400, 240))
         self.helpButton.setMaximumSize(QtCore.QSize(400, 280))
@@ -235,8 +234,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -247,7 +245,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.helpButton.setObjectName("helpButton")
-        self.gridLayout.addWidget(self.helpButton, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.helpButton, 1, 2, 1, 1)
         self.changePassButton = QtWidgets.QPushButton(self.buttonGroup)
         self.changePassButton.setMinimumSize(QtCore.QSize(400, 240))
         self.changePassButton.setMaximumSize(QtCore.QSize(400, 280))
@@ -260,8 +258,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -272,7 +269,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.changePassButton.setObjectName("changePassButton")
-        self.gridLayout.addWidget(self.changePassButton, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.changePassButton, 1, 1, 1, 1)
         self.reportsButton = QtWidgets.QPushButton(self.buttonGroup)
         self.reportsButton.setMinimumSize(QtCore.QSize(400, 240))
         font = QtGui.QFont()
@@ -284,8 +281,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -296,7 +292,31 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.reportsButton.setObjectName("reportsButton")
-        self.gridLayout.addWidget(self.reportsButton, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.reportsButton, 1, 0, 1, 1)
+        self.inventoryButton = QtWidgets.QPushButton(self.buttonGroup)
+        self.inventoryButton.setMinimumSize(QtCore.QSize(400, 240))
+        self.inventoryButton.setMaximumSize(QtCore.QSize(400, 280))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.inventoryButton.setFont(font)
+        self.inventoryButton.setStyleSheet("QPushButton {\n"
+"    background: #07BEB8 url(:/logos/Icons/inventoryIcon.png)center no-repeat;\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    padding-top: 160px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5FCAC4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #058A84;\n"
+"}\n"
+"")
+        self.inventoryButton.setObjectName("inventoryButton")
+        self.gridLayout.addWidget(self.inventoryButton, 0, 2, 1, 1)
         self.verticalLayout.addWidget(self.buttonGroup)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
@@ -310,17 +330,18 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.adminLabel.setText(_translate("MainWindow", "Admin"))
+        self.label.setText(_translate("MainWindow", "Admin"))
         self.username.setText(_translate("MainWindow", "John Doe"))
         self.date.setText(_translate("MainWindow", "Wednesday, November 29, 2023 "))
         self.time.setText(_translate("MainWindow", "12:00:02 am"))
-        self.inventoryButton.setText(_translate("MainWindow", "INVENTORY"))
         self.maintenanceButton.setText(_translate("MainWindow", "MAINTENANCE"))
         self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
+        self.posButton.setText(_translate("MainWindow", "POS"))
         self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
         self.helpButton.setText(_translate("MainWindow", "HELP"))
         self.changePassButton.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.reportsButton.setText(_translate("MainWindow", "REPORTS"))
+        self.inventoryButton.setText(_translate("MainWindow", "INVENTORY"))
 import assets.resourceFile_rc
 
 

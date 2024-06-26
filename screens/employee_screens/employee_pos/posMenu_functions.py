@@ -4,14 +4,19 @@ from PyQt5.QtCore import QDateTime, QTimer
 
 # Assuming these imports are part of your project structure
 from screens.employee_screens.employee_pos.posMenu import Ui_MainWindow
+from shared.navigation_signal import auth_back, pos_back
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 
 import json
 
+from validator.user_manager import userManager
+
+
 class posMenu(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
+    back_cashier_signal = QtCore.pyqtSignal()
     checkout_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
@@ -20,7 +25,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.backBTN.clicked.connect(self.goBack)
+        self.user_manager = userManager()
+
+        self.backBTN.clicked.connect(lambda: pos_back(self.user_manager, self.back_signal, self.back_cashier_signal))
         self.checkoutBTN.clicked.connect(self.goCheckout)
         self.modifyBTN.clicked.connect(self.goModify)
         self.orderBTN.clicked.connect(self.goOrder)
