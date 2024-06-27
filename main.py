@@ -31,8 +31,6 @@ from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.employee_screens.employee_pos.posModify_functions import posModify
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
 
-
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -248,8 +246,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_modify.populate_comboBox_5)
 
         # Repopulate combo box when order has been generated
+        self.pos_menu.pos_orderdetails = self.pos_orderdetails
+        self.pos_orderdetails.update_combobox_signal.connect(self.pos_menu.populate_comboBox_5)
+        self.pos_orderdetails.transaction_generated_signal.connect(self.pos_menu.populate_comboBox_5)
+
+        # Repopulate combo box when order has been generated
         self.pos_checkout.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_checkout.populate_comboBox)
+        self.pos_orderdetails.update_combobox_signal.connect(self.pos_checkout.populate_comboBox)
 
         # Repopulate combo box when supplier has been generated
         self.admin_inventory.admin_inventorySupplier = self.admin_inventorySupplier

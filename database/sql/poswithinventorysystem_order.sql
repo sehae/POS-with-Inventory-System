@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -54,7 +54,6 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('POS20240626001','2024-06-26','17:51','4889.12','Completed',3,3,'Jose Tan','Plain soup',5,'Completed','Package','Cash',6000.00,NULL,'Senior/PWD',NULL),('POS20240626002','2024-06-26','17:52','179.2','Completed',NULL,1,'Leah Villatura',NULL,NULL,'Completed','Add-ons only','Cash',200.00,987654321,'Senior/PWD',NULL),('POS20240626003','2024-06-26','19:11','112.0','Completed',NULL,NULL,'Aspas Zeyk',NULL,NULL,'Completed','Add-ons only','GCash',120.00,987654321,NULL,NULL),('POS20240626004','2024-06-26','19:17','280.0','Completed',NULL,NULL,'Yohan Santos',NULL,NULL,'Completed','Add-ons only','Pending',NULL,NULL,NULL,NULL),('POS20240626005','2024-06-26','19:23','616.00','Completed',NULL,NULL,'Post Malone',NULL,NULL,'Completed','Add-ons only','Cash',700.00,NULL,NULL,NULL),('POS20240626006','2024-06-26','19:24','224.00','Completed',NULL,NULL,'Aubrey Graham',NULL,NULL,'Completed','Add-ons only','GCash',0.00,987654321,NULL,NULL),('POS20240626007','2024-06-26','20:19',NULL,'Pending',1,2,'Leah Villatura','Plain soup',2,NULL,'Package','Cash',2400.00,NULL,'Senior/PWD',NULL),('POS20240626008','2024-06-26','21:07',NULL,'Pending',1,NULL,'Bryan Tiamzon','Tomato soup',2,NULL,'Package','Pending',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-27 10:51:32
+-- Dump completed on 2024-06-27  0:37:48

@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -43,7 +43,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('PRD001','2024-06-20','11:15','Coca-Cola (330ml)',52,10,'2024-11-25','In Stock','Beverage','Active'),('PRD002','2024-06-20','11:17','San Miguel Light (330ml)',64,10,'2024-12-09','In Stock','Beverage','Active'),('PRD003','2024-06-20','11:22','San Miguel Apple (330ml)',75,10,'2024-10-14','In Stock','Beverage','Active'),('PRD004','2024-06-20','11:34','San Miguel Pale Pilsen (330ml)',32,10,'2024-09-17','In Stock','Beverage','Disabled'),('PRD005','2024-06-20','13:22','Shrimp (200g)',50,10,'2024-07-08','In Stock','Ingredient','Active'),('PRD006','2024-06-21','15:07','Scallop (480g)',50,10,'2024-07-03','In Stock','Ingredient','Active'),('PRD007','2024-06-21','16:22','Fish cake (1kg)',50,10,'2024-07-01','In Stock','Ingredient','Active'),('PRD008','2024-06-21','16:24','Squid (500g)',50,10,'2024-06-28','In Stock','Ingredient','Active'),('PRD009','2024-06-21','16:28','Fish Fillet (900g)',50,10,'2024-06-29','In Stock','Ingredient','Active'),('PRD010','2024-06-21','17:54','Coke Zero (330ml)',7,10,'2025-05-03','Low Stock','Beverage','Active'),('PRD011','2024-06-22','09:30','Diet Coke (330ml)',4,10,'2025-02-22','Low Stock','Beverage','Disabled'),('PRD012','2024-06-22','09:56','Jinro Soju Strawberry (360ml)',0,10,'2024-08-06','Out of Stock','Beverage','Active'),('PRD013','2024-06-22','10:32','Heineken Can (330ml)',39,10,'2024-07-09','In Stock','Beverage','Active'),('PRD014','2024-06-22','11:02','Tanduay Ice (330ml)',0,10,'2024-07-19','Out of Stock','Beverage','Active'),('PRD015','2024-06-22','11:07','Mountain Dew (350ml)',44,10,'2024-12-05','In Stock','Beverage','Active');
+INSERT INTO `product` VALUES ('PRD001','2024-06-20','11:15','Coca-Cola (330ml)',39,10,'2024-11-25','In Stock','Beverage','Active'),('PRD002','2024-06-20','11:17','San Miguel Light (330ml)',59,10,'2024-12-09','In Stock','Beverage','Active'),('PRD003','2024-06-20','11:22','San Miguel Apple (330ml)',70,10,'2024-10-14','In Stock','Beverage','Active'),('PRD004','2024-06-20','11:34','San Miguel Pale Pilsen (330ml)',32,10,'2024-09-17','In Stock','Beverage','Disabled'),('PRD005','2024-06-20','13:22','Shrimp (200g)',50,10,'2024-07-08','In Stock','Ingredient','Active'),('PRD006','2024-06-21','15:07','Scallop (480g)',50,10,'2024-07-03','In Stock','Ingredient','Active'),('PRD007','2024-06-21','16:22','Fish cake (1kg)',50,10,'2024-07-01','In Stock','Ingredient','Active'),('PRD008','2024-06-21','16:24','Squid (500g)',50,10,'2024-06-28','In Stock','Ingredient','Active'),('PRD009','2024-06-21','16:28','Fish Fillet (900g)',50,10,'2024-06-29','In Stock','Ingredient','Active'),('PRD010','2024-06-21','17:54','Coke Zero (330ml)',1,10,'2025-05-03','Low Stock','Beverage','Active'),('PRD011','2024-06-22','09:30','Diet Coke (330ml)',4,10,'2025-02-22','Low Stock','Beverage','Disabled'),('PRD012','2024-06-22','09:56','Jinro Soju Strawberry (360ml)',0,10,'2024-08-06','Out of Stock','Beverage','Active'),('PRD013','2024-06-22','10:32','Heineken Can (330ml)',39,10,'2024-07-09','In Stock','Beverage','Active'),('PRD014','2024-06-22','11:02','Tanduay Ice (330ml)',0,10,'2024-07-19','Out of Stock','Beverage','Active'),('PRD015','2024-06-22','11:07','Mountain Dew (350ml)',24,10,'2024-12-05','In Stock','Beverage','Active'),('PRD016','2024-06-22','16:38','Nestea (330ml)',0,10,'2025-03-01','Low Stock','Beverage','Active');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-27 10:51:32
+-- Dump completed on 2024-06-26 14:34:08
