@@ -39,13 +39,13 @@ class userManager(QtCore.QObject):
         self.current_username = None
         self.current_fullname = None
         print("USERMANAGER: User data reset.")
-        
+
     def get_department(self):
         return self.updated_department
 
     def set_current_username(self, username):
         self.current_username = username
-        self.username_updated.emit(username)
+        print(f"USERMANAGER: Current username set to: {self.current_username}")
 
     def get_current_username(self):
         return self.current_username
@@ -84,7 +84,7 @@ class userManager(QtCore.QObject):
 
     def get_current_department(self):
         return self.current_department
-    
+
     def set_current_fullname(self, fullname):
         self.current_fullname = fullname
         print(f"USERMANAGER: Current fullname set to: {self.current_fullname}")

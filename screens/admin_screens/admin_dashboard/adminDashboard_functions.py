@@ -6,7 +6,6 @@ from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
-from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.password_screen.changePassword_functions import changePassword
 from validator.user_manager import userManager
@@ -30,6 +29,12 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.admin_inventory = adminInventoryAddProduct()
         self.admin_aboutdevCredits = aboutdevCredits()
         self.admin_helpFAQ = helpFAQ()
+        self.change_password = changePassword()
+
+        user_manager.fullname_updated.connect(self.update_fullname_label)
+        # Set initial fullname if already set
+        if user_manager.get_current_fullname():
+            self.update_fullname_label(user_manager.get_current_fullname())
 
         self.ui.maintenanceButton.clicked.connect(self.navigate_maintenance)
         self.ui.inventoryButton.clicked.connect(self.navigate_inventory)
@@ -46,6 +51,9 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
 
+    def update_fullname_label(self, fullname):
+        self.ui.username.setText(fullname)  # Update the label with the fullname
+
     def update_datetime(self):
         # Get current date and time
         current_datetime = QDateTime.currentDateTime()
@@ -57,6 +65,9 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         # Update time label
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
+
+        username = user_manager.get_current_fullname()
+        self.ui.username.setText(username)
 
     def navigate_maintenance(self):
         self.maintenance_signal.emit()

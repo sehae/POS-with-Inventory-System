@@ -79,7 +79,6 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
 
                         # Update Currently logged on user's information
                         self.user_manager.set_department(department)
-                        print("changing current username....")
                         self.user_manager.set_current_username(username)
 
                         self.user_manager.set_current_fullname(full_name)
