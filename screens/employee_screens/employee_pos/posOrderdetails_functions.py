@@ -3,26 +3,31 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_pos.posOrderdetails import Ui_MainWindow
+from shared.navigation_signal import auth_back, pos_back
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.receipt.receipt_dialog import ReceiptDialog
 from PyQt5.QtCore import QTime
 
+from validator.user_manager import userManager
+
 
 class posOrderdetails(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
+    back_cashier_signal = QtCore.pyqtSignal()
     checkout_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     transaction_generated_signal = QtCore.pyqtSignal()
     update_combobox_signal = QtCore.pyqtSignal()
 
-
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
-        self.backBTN.clicked.connect(self.goBack)
+        self.user_manager = userManager()
+
+        self.backBTN.clicked.connect(lambda: pos_back(self.user_manager, self.back_signal, self.back_cashier_signal))
         self.checkoutBTN.clicked.connect(self.goCheckout)
         self.modifyBTN.clicked.connect(self.goModify)
         self.menuBTN.clicked.connect(self.goMenu)

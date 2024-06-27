@@ -9,9 +9,13 @@ from server.local_server import conn
 
 import json
 
+from shared.navigation_signal import auth_back, pos_back
+from validator.user_manager import userManager
+
 
 class posCheckout(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
+    back_cashier_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
@@ -20,7 +24,9 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.backBTN.clicked.connect(self.goBack)
+        self.user_manager = userManager()
+
+        self.backBTN.clicked.connect(lambda: pos_back(self.user_manager, self.back_signal, self.back_cashier_signal))
         self.menuBTN.clicked.connect(self.goMenu)
         self.modifyBTN.clicked.connect(self.goModify)
         self.orderBTN.clicked.connect(self.goOrder)
