@@ -32,8 +32,14 @@ CREATE TABLE `order` (
   `Leftover_ID` int DEFAULT NULL,
   `Customer_Name` varchar(45) DEFAULT NULL,
   `Soup_Variation` varchar(45) DEFAULT NULL,
-  `Guest_Pax` int NOT NULL,
+  `Guest_Pax` int DEFAULT NULL,
   `Time_Status` varchar(45) DEFAULT NULL,
+  `Order_Type` varchar(45) DEFAULT NULL,
+  `Payment_Method` varchar(45) NOT NULL,
+  `Cash_Amount` decimal(10,2) DEFAULT NULL,
+  `Reference_ID` int DEFAULT NULL,
+  `Discount_Type` varchar(45) DEFAULT NULL,
+  `Priority_Order` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   KEY `fk_Package_ID` (`Package_ID`),
   KEY `fk_leftover_id` (`Leftover_ID`),
@@ -48,7 +54,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('POS20240617001','2024-06-17','11:15',NULL,'Pending',2,NULL,'Vanessa Kang',NULL,1,NULL),('POS20240617002','2024-06-17','11:43',NULL,'Pending',1,2,'Kim Minji','Mala soup',4,NULL),('POS20240617003','2024-06-17','11:50',NULL,'Pending',3,NULL,'Hanni Pham','Mala soup',3,NULL),('POS20240617004','2024-06-17','11:55',NULL,'Pending',1,1,'Lee Hyein','Suan la soup',4,NULL),('POS20240617005','2024-06-17','12:19',NULL,'Pending',1,NULL,'Danielle Marsh','Plain soup',6,NULL),('POS20240617006','2024-06-17','12:27',NULL,'Pending',3,NULL,'Yoo Ji Min','Suan la soup',2,NULL),('POS20240617007','2024-06-17','12:38',NULL,'Pending',1,NULL,'Uchinaga Aeri','Tomato soup',3,NULL),('POS20240617008','2024-06-17','12:46',NULL,'Pending',1,NULL,'Kim Jeong','Mala soup',4,NULL),('POS20240617009','2024-06-17','12:52',NULL,'Pending',2,NULL,'Ning Yizhuo',NULL,3,NULL),('POS20240617010','2024-06-17','13:03',NULL,'Pending',3,2,'Hwang Yeji','Mala soup',5,NULL),('POS20240617011','2024-06-17','13:15',NULL,'Pending',1,NULL,'Shin Ryujin','Suan la soup',2,NULL),('POS20240617012','2024-06-17','13:22',NULL,'Pending',1,1,'Shin Yuna','Mala soup',4,NULL),('POS20240617013','2024-06-17','20:31',NULL,'Pending',2,NULL,'Bryan Tiamzon','',3,NULL),('POS20240617014','2024-06-17','20:35',NULL,'Pending',3,NULL,'Leah Villatura','Tomato soup',5,NULL),('POS20240617015','2024-06-17','20:48',NULL,'Pending',1,NULL,'Ymnwl Faurillo','Plain soup',1,NULL),('POS20240617016','2024-06-17','20:48',NULL,'Pending',2,NULL,'Jose Tan','',2,NULL),('POS20240617017','2024-06-17','20:51',NULL,'Pending',2,NULL,'Nathan Paje','',5,NULL),('POS20240617018','2024-06-17','20:57',NULL,'Cancelled',2,NULL,'Jao Agagon','',3,NULL),('POS20240618001','2024-06-18','04:41',NULL,'Pending',2,NULL,'Robert Balite','',2,NULL),('POS20240618002','2024-06-18','06:13',NULL,'Pending',1,NULL,'Harvey Hernandez','Mala soup',3,NULL),('POS20240618003','2024-06-18','16:02',NULL,'Pending',3,NULL,'Kim Seokjin','Suan la soup',7,NULL),('POS20240619001','2024-06-19','08:59',NULL,'Pending',3,NULL,'Karren Lara','Suan la soup',5,NULL),('POS20240619002','2024-06-19','11:08',NULL,'Pending',1,NULL,'Yohan Santos','Mala soup',5,NULL),('POS20240619003','2024-06-19','11:13',NULL,'Pending',3,NULL,'Narpim Ngek','Suan la soup',6,NULL);
+INSERT INTO `order` VALUES ('POS20240626001','2024-06-26','17:51','4889.12','Completed',3,3,'Jose Tan','Plain soup',5,'Completed','Package','Cash',6000.00,NULL,'Senior/PWD',NULL),('POS20240626002','2024-06-26','17:52','179.2','Completed',NULL,1,'Leah Villatura',NULL,NULL,'Completed','Add-ons only','Cash',200.00,987654321,'Senior/PWD',NULL),('POS20240626003','2024-06-26','19:11','112.0','Completed',NULL,NULL,'Aspas Zeyk',NULL,NULL,'Completed','Add-ons only','GCash',120.00,987654321,NULL,NULL),('POS20240626004','2024-06-26','19:17','280.0','Completed',NULL,NULL,'Yohan Santos',NULL,NULL,'Completed','Add-ons only','Pending',NULL,NULL,NULL,NULL),('POS20240626005','2024-06-26','19:23','616.00','Completed',NULL,NULL,'Post Malone',NULL,NULL,'Completed','Add-ons only','Cash',700.00,NULL,NULL,NULL),('POS20240626006','2024-06-26','19:24','224.00','Completed',NULL,NULL,'Aubrey Graham',NULL,NULL,'Completed','Add-ons only','GCash',0.00,987654321,NULL,NULL),('POS20240626007','2024-06-26','20:19',NULL,'Pending',1,2,'Leah Villatura','Plain soup',2,NULL,'Package','Cash',2400.00,NULL,'Senior/PWD',NULL),('POS20240626008','2024-06-26','21:07',NULL,'Pending',1,NULL,'Bryan Tiamzon','Tomato soup',2,NULL,'Package','Pending',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 20:01:52
+-- Dump completed on 2024-06-27 10:51:32
