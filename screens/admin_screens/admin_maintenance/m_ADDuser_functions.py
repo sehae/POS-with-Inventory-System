@@ -4,7 +4,7 @@ import os
 from PyQt5.QtCore import QDateTime, QTimer
 
 from database.DB_Queries import GET_NEXT_ID, ADD_USER
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 from shared.imports import *
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE, INVALID_FIELD_STYLE, \

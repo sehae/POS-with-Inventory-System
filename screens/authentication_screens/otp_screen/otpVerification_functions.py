@@ -4,7 +4,7 @@ from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 
 from database.DB_Queries import GET_USER_ID, GET_USERNAME
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.authentication_screens.otp_screen.otpVerification import Ui_MainWindow
 from screens.authentication_screens.password_recovery.pwRecovery_functions import PasswordRecovery
 from server.local_server import conn

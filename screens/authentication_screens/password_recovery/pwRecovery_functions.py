@@ -1,5 +1,5 @@
 from database.DB_Queries import UPDATE_PASSWORD, GET_USER_ID, GET_USERNAME, GET_PASSWORD_BY_EMAIL
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.authentication_screens.password_recovery.passwordRecovery import Ui_MainWindow
 from shared.imports import *
 from styles.universalStyles import INVALID_FIELD_STYLE_WITH_ICON, INVALID_FIELD_STYLE_WITH_ICON_RIGHT

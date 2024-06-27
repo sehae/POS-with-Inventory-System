@@ -6,8 +6,8 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
-from maintenance.backup_restore import backup_db, load_config, save_config, restore_backup
-from maintenance.user_logs import user_log
+from modules.maintenance.backup_restore import backup_db, load_config, save_config, restore_backup
+from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_maintenance.backup import Ui_MainWindow
 from shared.dialog import create_dialog_box
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW

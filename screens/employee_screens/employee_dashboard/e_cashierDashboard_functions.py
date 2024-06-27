@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime
 
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.employee_screens.employee_dashboard.employee_cashierDashboard import Ui_MainWindow
 from validator.user_manager import userManager
 

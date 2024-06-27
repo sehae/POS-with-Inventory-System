@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
@@ -30,7 +30,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.admin_inventory = adminInventoryAddProduct()
         self.admin_aboutdevCredits = aboutdevCredits()
         self.admin_helpFAQ = helpFAQ()
-        self.change_password = changePassword()
 
         self.ui.maintenanceButton.clicked.connect(self.navigate_maintenance)
         self.ui.inventoryButton.clicked.connect(self.navigate_inventory)
@@ -76,8 +75,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
 
     def navigate_about(self):
         self.about_signal.emit()
-        print("Admin Dashboard: Navigating to About Screen")
-        self.admin_aboutdevCredits.update_username()
 
     def logout(self):
         user_id = user_manager.get_current_user_id()

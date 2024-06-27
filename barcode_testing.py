@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QPixmap
 
-from inventory.barcode_generator import generate_barcode
+from modules.inventory.barcode_generator import generate_barcode
 
 
 def main():

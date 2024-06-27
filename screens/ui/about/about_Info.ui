@@ -230,7 +230,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../../../assets/resourceFile.qrc">
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -364,9 +364,9 @@ QPushButton:pressed {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-379</y>
             <width>903</width>
-            <height>1258</height>
+            <height>1213</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -483,16 +483,6 @@ QPushButton:pressed {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>../../../assets/Other Images/mapScreenshot.png</pixmap>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="label_7">
              <property name="font">
               <font>
@@ -510,7 +500,7 @@ QPushButton:pressed {
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/otherImages/Other Images/mapScreenshot.png</pixmap>
+              <pixmap resource="../../../assets/resourceFile.qrc">:/otherImages/Other Images/mapScreenshot.png</pixmap>
              </property>
             </widget>
            </item>
@@ -526,7 +516,7 @@ QPushButton:pressed {
  </widget>
  <resources>
   <include location="../../../assets/resourceFile.qrc"/>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>

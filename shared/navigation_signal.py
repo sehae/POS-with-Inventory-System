@@ -1,4 +1,4 @@
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 
 
 def auth_back(user_manager, back_signal, back_kitchen_signal, back_cashier_signal):

@@ -56,24 +56,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.frame1 = QtWidgets.QFrame(self.widget_2)
-        self.frame1.setObjectName("frame1")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame1)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.sysTimeDate = QtWidgets.QLabel(self.frame1)
+        self.sysTimeDate = QtWidgets.QLabel(self.widget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.sysTimeDate.setFont(font)
         self.sysTimeDate.setObjectName("sysTimeDate")
-        self.verticalLayout.addWidget(self.sysTimeDate)
-        self.userName = QtWidgets.QLabel(self.frame1)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.userName.setFont(font)
-        self.userName.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.userName.setObjectName("userName")
-        self.verticalLayout.addWidget(self.userName)
-        self.horizontalLayout_2.addWidget(self.frame1)
+        self.horizontalLayout_2.addWidget(self.sysTimeDate)
         self.gridLayout.addWidget(self.widget_2, 0, 0, 1, 2)
         self.navBar = QtWidgets.QWidget(self.frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
@@ -206,54 +194,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.usernameFIELD = QtWidgets.QLineEdit(self.widget)
+        self.unFIELD = QtWidgets.QLineEdit(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.usernameFIELD.sizePolicy().hasHeightForWidth())
-        self.usernameFIELD.setSizePolicy(sizePolicy)
-        self.usernameFIELD.setMinimumSize(QtCore.QSize(350, 46))
-        self.usernameFIELD.setMaximumSize(QtCore.QSize(350, 46))
-        self.usernameFIELD.setStyleSheet("QLineEdit {\n"
+        sizePolicy.setHeightForWidth(self.unFIELD.sizePolicy().hasHeightForWidth())
+        self.unFIELD.setSizePolicy(sizePolicy)
+        self.unFIELD.setMinimumSize(QtCore.QSize(385, 46))
+        self.unFIELD.setMaximumSize(QtCore.QSize(385, 46))
+        self.unFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
-"    border-top: 2px solid #67B99A;\n"
-"    border-left: 2px solid #67B99A;\n"
-"    border-bottom: 2px solid #67B99A;\n"
-"    border-right: none;\n"
-"    border-top-left-radius: 6px;\n"
-"    border-bottom-left-radius: 6px;\n"
-"    border-top-right-radius: 0;\n"
-"    border-bottom-right-radius: 0;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
 "}\n"
 "")
-        self.usernameFIELD.setObjectName("usernameFIELD")
-        self.horizontalLayout_4.addWidget(self.usernameFIELD)
-        self.un_visibility = QtWidgets.QPushButton(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.un_visibility.sizePolicy().hasHeightForWidth())
-        self.un_visibility.setSizePolicy(sizePolicy)
-        self.un_visibility.setMinimumSize(QtCore.QSize(35, 46))
-        self.un_visibility.setMaximumSize(QtCore.QSize(35, 46))
-        self.un_visibility.setStyleSheet("QPushButton {\n"
-"    padding: 5px;\n"
-"    border-top: 2px solid #67B99A;\n"
-"    border-left: none;\n"
-"    border-bottom: 2px solid #67B99A;\n"
-"    border-right: 2px solid #67B99A;\n"
-"    border-top-left-radius: 0;\n"
-"    border-bottom-left-radius: 0;\n"
-"    border-top-right-radius: 6px;\n"
-"    border-bottom-right-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"}\n"
-"")
-        self.un_visibility.setText("")
-        self.un_visibility.setObjectName("un_visibility")
-        self.horizontalLayout_4.addWidget(self.un_visibility)
+        self.unFIELD.setObjectName("unFIELD")
+        self.horizontalLayout_4.addWidget(self.unFIELD)
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.widget)
         self.widget_4 = QtWidgets.QWidget(self.maincontent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -498,7 +456,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label_4.setText(_translate("MainWindow", "CHANGE PASSWORD"))
         self.label_5.setText(_translate("MainWindow", "Username"))

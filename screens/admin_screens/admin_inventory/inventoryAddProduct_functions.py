@@ -3,7 +3,7 @@ from PyQt5.QtCore import QDateTime, QTimer, QDate
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLineEdit, QComboBox
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 
-from inventory.barcode_generator import generate_barcode
+from modules.inventory.barcode_generator import generate_barcode
 from screens.admin_screens.admin_inventory.barcode_functions import BarcodeDialog
 from screens.admin_screens.admin_inventory.inventoryAddProduct import Ui_MainWindow
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
