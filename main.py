@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 
 from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
 from screens.admin_screens.admin_maintenance.backup_functions import adminMaintenanceBACKUP
+from screens.admin_screens.admin_reports.r_inventory_functions import inventoryReport
 from screens.authentication_screens.email_screen.emailScreen_functions import EmailScreen
 from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
@@ -70,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_menu = posMenu()
         self.pos_modify = posModify()
         self.admin_inventorySupplier = adminSupplier()
+        self.report_inventory = inventoryReport()
 
         self.stacked_widget.addWidget(self.login_screen)
         self.stacked_widget.addWidget(self.email_screen)
@@ -99,11 +101,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.pos_orderdetails)
         self.stacked_widget.addWidget(self.pos_menu)
         self.stacked_widget.addWidget(self.pos_modify)
+        self.stacked_widget.addWidget(self.report_inventory)
 
         self.admin_inventorySupplier.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventorySupplier.add_signal.connect(self.show_admin_inventory)
         self.admin_inventorySupplier.modify_signal.connect(self.show_admin_inventory_modify)
         self.admin_inventorySupplier.view_signal.connect(self.show_view_product)
+
+        self.admin_dashboard.report_signal.connect(self.show_report_inventory)
+        self.report_inventory.back_signal.connect(self.show_admin_dashboard)
 
         self.inventory_view.back_signal.connect(self.show_admin_dashboard)
         self.inventory_view.modify_signal.connect(self.show_admin_inventory_modify)
@@ -269,6 +275,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_comboBox_6)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
+
+    def show_report_inventory(self):
+        self.stacked_widget.setCurrentWidget(self.report_inventory)
 
     def show_result_screen(self):
         self.stacked_widget.setCurrentWidget(self.password_result)

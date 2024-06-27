@@ -20,6 +20,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
     help_signal = QtCore.pyqtSignal()
     changepass_signal = QtCore.pyqtSignal()
     pos_signal = QtCore.pyqtSignal()
+    report_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -31,11 +32,6 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.admin_helpFAQ = helpFAQ()
         self.change_password = changePassword()
 
-        user_manager.fullname_updated.connect(self.update_fullname_label)
-        # Set initial fullname if already set
-        if user_manager.get_current_fullname():
-            self.update_fullname_label(user_manager.get_current_fullname())
-
         self.ui.maintenanceButton.clicked.connect(self.navigate_maintenance)
         self.ui.inventoryButton.clicked.connect(self.navigate_inventory)
         self.ui.reportsButton.clicked.connect(self.navigate_reports)
@@ -44,15 +40,13 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.ui.aboutButton.clicked.connect(self.navigate_about)
         self.ui.logoutButton.clicked.connect(self.logout)
         self.ui.posButton.clicked.connect(self.pos_signal.emit)
+        self.ui.reportsButton.clicked.connect(self.report_signal.emit)
 
         # Update date and time labels
         self.update_datetime()
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
-
-    def update_fullname_label(self, fullname):
-        self.ui.username.setText(fullname)  # Update the label with the fullname
 
     def update_datetime(self):
         # Get current date and time
