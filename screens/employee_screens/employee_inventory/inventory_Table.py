@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inventory_Table.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_inventory/inventory_Table.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(801, 600)
+        MainWindow.resize(972, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -204,7 +204,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(15)
         self.searchLBL.setFont(font)
-        self.searchLBL.setIndent(15)
+        self.searchLBL.setIndent(0)
         self.searchLBL.setObjectName("searchLBL")
         self.verticalLayout_5.addWidget(self.searchLBL)
         self.searchFIELD = QtWidgets.QLineEdit(self.Content)
@@ -229,7 +229,7 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.Content)
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout_5.setContentsMargins(15, 15, 15, 0)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setSpacing(7)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.tableWidget_2 = QtWidgets.QTableWidget(self.widget_2)
@@ -257,3 +257,13 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Product"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
