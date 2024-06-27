@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QDateTime, QTimer, Qt
 
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
@@ -19,6 +19,8 @@ class myAdminDashboard(QtWidgets.QMainWindow):
     about_signal = QtCore.pyqtSignal()
     help_signal = QtCore.pyqtSignal()
     changepass_signal = QtCore.pyqtSignal()
+    pos_signal = QtCore.pyqtSignal()
+    report_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -37,6 +39,8 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.ui.helpButton.clicked.connect(self.navigate_help)
         self.ui.aboutButton.clicked.connect(self.navigate_about)
         self.ui.logoutButton.clicked.connect(self.logout)
+        self.ui.posButton.clicked.connect(self.pos_signal.emit)
+        self.ui.reportsButton.clicked.connect(self.report_signal.emit)
 
         # Update date and time labels
         self.update_datetime()
@@ -55,6 +59,9 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         # Update time label
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
+
+        username = user_manager.get_current_fullname()
+        self.ui.username.setText(username)
 
     def navigate_maintenance(self):
         self.maintenance_signal.emit()

@@ -3,12 +3,16 @@ from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from PyQt5.QtCore import QDateTime, QTimer, Qt, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_pos.posModify import Ui_MainWindow
+from shared.navigation_signal import auth_back, pos_back
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
+from validator.user_manager import userManager
+
 
 class posModify(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
+    back_cashier_signal = QtCore.pyqtSignal()
     checkout_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
@@ -17,7 +21,9 @@ class posModify(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.backBTN.clicked.connect(self.goBack)
+        self.user_manager = userManager()
+
+        self.backBTN.clicked.connect(lambda: pos_back(self.user_manager, self.back_signal, self.back_cashier_signal))
         self.checkoutBTN.clicked.connect(self.goCheckout)
         self.menuBTN.clicked.connect(self.goMenu)
         self.orderBTN.clicked.connect(self.goOrder)
@@ -74,10 +80,10 @@ class posModify(QMainWindow, Ui_MainWindow):
             if conn.is_connected():
                 cursor = conn.cursor()
 
-                # Execute the query to retrieve data for specific columns
+                # Execute the query to retrieve data for specific columns including Priority_Order
                 query = """
                     SELECT o.Order_ID, o.Date, o.Time, o.Customer_Name, p.Package_Name, 
-                           o.Soup_Variation, o.Guest_Pax, 
+                           o.Soup_Variation, o.Guest_Pax, o.Priority_Order,
                            CASE
                                WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 120 THEN 'Good'
                                ELSE 'Exceeding'
@@ -85,7 +91,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                     FROM `order` o
                     JOIN `package` p ON o.Package_ID = p.Package_ID
                     WHERE o.Payment_Status = 'Pending'
-                    ORDER BY o.Order_ID ASC
+                    ORDER BY o.Priority_Order DESC, o.Order_ID ASC
                 """
                 cursor.execute(query)
 
@@ -118,6 +124,10 @@ class posModify(QMainWindow, Ui_MainWindow):
                                 elif col == "Exceeding":
                                     item.setBackground(QtGui.QColor(255, 99, 71))  # Light red
 
+                            # Apply conditional formatting for the "Priority Order" column
+                            if column_names[j] == "Priority Order" and col == "Priority":
+                                item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
+
                             self.tableWidget_2.setItem(i, j, item)
 
                     name_column_index = column_names.index("Customer Name")
@@ -136,7 +146,15 @@ class posModify(QMainWindow, Ui_MainWindow):
     def populate_comboBox_5(self):
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending' AND Order_Type = 'Package'")
+            # Execute the query to retrieve Order_IDs based on the specified conditions
+            query = """
+                SELECT Order_ID 
+                FROM `order` 
+                WHERE Payment_Status = 'Pending' 
+                  AND Order_Type = 'Package'
+                  AND (Priority_Order = 'Non-Priority' OR Priority_Order = 'Priority')
+            """
+            cursor.execute(query)
             order_ids = cursor.fetchall()
 
             self.comboBox_5.clear()

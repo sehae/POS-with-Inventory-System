@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1202</width>
-    <height>786</height>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -300,8 +300,7 @@
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -343,8 +342,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -386,8 +384,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -436,8 +433,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {
@@ -479,8 +475,7 @@ QPushButton:pressed {
     color: white;
     border: none;
     border-radius: 5px;
-	text-align: bottom center;
-	padding-bottom: 30px;
+	padding-top: 160px;
 }
 
 QPushButton:hover {

@@ -18,7 +18,7 @@ from server.local_server import conn
 from automated.email_automation import send_username_password
 
 # Security Module
-from security.hash import hash_password, verify_password
+from modules.security.hash import hash_password, verify_password
 
 # Validator
 from validator.password_validator import isValidPassword

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1202, 786)
+        MainWindow.resize(1202, 798)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -122,8 +122,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -147,8 +146,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -172,8 +170,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -199,8 +196,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -224,8 +220,7 @@ class Ui_MainWindow(object):
 "    color: white;\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
-"    text-align: bottom center;\n"
-"    padding-bottom: 30px;\n"
+"    padding-top: 160px;\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
@@ -257,7 +252,7 @@ class Ui_MainWindow(object):
         self.posButton.setText(_translate("MainWindow", "POS"))
         self.aboutButton.setText(_translate("MainWindow", "ABOUT"))
         self.logoutButton.setText(_translate("MainWindow", "LOGOUT"))
-
+import assets.resourceFile_rc
 
 if __name__ == "__main__":
     import sys

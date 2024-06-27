@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMainWindow
 
 from database.DB_Queries import CHECK_EMAIL, GET_USER_ID, GET_USERNAME
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.authentication_screens.email_screen.emailScreen import Ui_MainWindow
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
 from server.local_server import conn

@@ -1,5 +1,5 @@
 from database.DB_Queries import LOGIN, GET_USER_NAME, GET_EMAIL
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.authentication_screens.login_screen.loginScreen import Ui_MainWindow
 from shared.imports import *
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
@@ -80,6 +80,7 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         # Update Currently logged on user's information
                         self.user_manager.set_department(department)
                         self.user_manager.set_current_username(username)
+
                         self.user_manager.set_current_fullname(full_name)
                         self.user_manager.set_current_user_id(user_id)
                         self.user_manager.set_current_email(email)

@@ -147,8 +147,21 @@ QAbstractItemView {
 
 INVALID_FIELD_STYLE = """
 QLineEdit {
+    padding: 5px;
     border: 2px solid red;
     border-radius: 6px;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+"""
+
+VALID_FIELD_STYLE = """
+QLineEdit {
+    padding: 5px;
+    border: 2px solid #67B99A;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
 }
 """
 
@@ -180,22 +193,6 @@ QPushButton {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     background-color: #FFFFFF;
-}
-"""
-
-VALID_FIELD_STYLE = """
-QLineEdit {
-    padding: 5px;
-    border-top: 2px solid #67B99A;
-    border-left: 2px solid #67B99A;
-    border-bottom: 2px solid #67B99A;
-    border-right: none;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
 }
 """
 

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1916, 761)
+        MainWindow.resize(1801, 761)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -377,9 +377,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addItem(spacerItem6)
         self.rightContent_2 = QtWidgets.QWidget(self.mainContent_2)
         self.rightContent_2.setObjectName("rightContent_2")
-        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.rightContent_2)
-        self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.widget_4 = QtWidgets.QWidget(self.rightContent_2)
+        self.widget_4.setGeometry(QtCore.QRect(9, 9, 76, 24))
         self.widget_4.setObjectName("widget_4")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.widget_4)
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -390,118 +389,8 @@ class Ui_MainWindow(object):
         self.label_19.setFont(font)
         self.label_19.setObjectName("label_19")
         self.horizontalLayout_8.addWidget(self.label_19)
-        self.label_20 = QtWidgets.QLabel(self.widget_4)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_20.setFont(font)
-        self.label_20.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_20.setObjectName("label_20")
-        self.horizontalLayout_8.addWidget(self.label_20)
-        self.label_25 = QtWidgets.QLabel(self.widget_4)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_25.sizePolicy().hasHeightForWidth())
-        self.label_25.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_25.setFont(font)
-        self.label_25.setStyleSheet("QLabel {\n"
-"    color: #67B99A;\n"
-"}")
-        self.label_25.setObjectName("label_25")
-        self.horizontalLayout_8.addWidget(self.label_25)
-        self.verticalLayout_10.addWidget(self.widget_4)
-        self.widget_5 = QtWidgets.QWidget(self.rightContent_2)
-        self.widget_5.setObjectName("widget_5")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget_5)
-        self.gridLayout_3.setContentsMargins(0, 10, 0, 10)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.label_26 = QtWidgets.QLabel(self.widget_5)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_26.setFont(font)
-        self.label_26.setObjectName("label_26")
-        self.gridLayout_3.addWidget(self.label_26, 0, 0, 1, 1)
-        self.pushButton_5 = QtWidgets.QPushButton(self.widget_5)
-        self.pushButton_5.setMinimumSize(QtCore.QSize(150, 75))
-        self.pushButton_5.setMaximumSize(QtCore.QSize(150, 75))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.pushButton_5.setFont(font)
-        self.pushButton_5.setStyleSheet("QPushButton {\n"
-"    background-color: #07BEB8;\n"
-"    color: black;\n"
-"    border-radius: 10px;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #06AFA8;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #059A96;\n"
-"}")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.gridLayout_3.addWidget(self.pushButton_5, 1, 3, 1, 1)
-        self.pushButton_4 = QtWidgets.QPushButton(self.widget_5)
-        self.pushButton_4.setMinimumSize(QtCore.QSize(150, 75))
-        self.pushButton_4.setMaximumSize(QtCore.QSize(150, 75))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.pushButton_4.setFont(font)
-        self.pushButton_4.setStyleSheet("QPushButton {\n"
-"    background-color: #07BEB8;\n"
-"    color: black;\n"
-"    border-radius: 10px;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #06AFA8;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #059A96;\n"
-"}")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.gridLayout_3.addWidget(self.pushButton_4, 1, 1, 1, 1)
-        self.label_27 = QtWidgets.QLabel(self.widget_5)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_27.setFont(font)
-        self.label_27.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_27.setObjectName("label_27")
-        self.gridLayout_3.addWidget(self.label_27, 0, 3, 1, 1)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widget_5)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(150, 75))
-        self.pushButton_3.setMaximumSize(QtCore.QSize(150, 75))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setStyleSheet("QPushButton {\n"
-"    background-color: #07BEB8;\n"
-"    color: black;\n"
-"    border-radius: 10px;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #06AFA8;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #059A96;\n"
-"}")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout_3.addWidget(self.pushButton_3, 1, 0, 1, 1)
-        spacerItem7 = QtWidgets.QSpacerItem(25, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem7, 1, 2, 1, 1)
-        self.verticalLayout_10.addWidget(self.widget_5)
         self.widget_8 = QtWidgets.QWidget(self.rightContent_2)
+        self.widget_8.setGeometry(QtCore.QRect(9, 39, 334, 54))
         self.widget_8.setObjectName("widget_8")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.widget_8)
         self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
@@ -545,8 +434,8 @@ class Ui_MainWindow(object):
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_10.addWidget(self.lineEdit)
         self.verticalLayout_13.addWidget(self.widget_7)
-        self.verticalLayout_10.addWidget(self.widget_8)
         self.widget_10 = QtWidgets.QWidget(self.rightContent_2)
+        self.widget_10.setGeometry(QtCore.QRect(9, 99, 296, 54))
         self.widget_10.setObjectName("widget_10")
         self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.widget_10)
         self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
@@ -586,13 +475,8 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.horizontalLayout_11.addWidget(self.lineEdit_2)
         self.verticalLayout_14.addWidget(self.widget_9)
-        self.verticalLayout_10.addWidget(self.widget_10)
-        self.tableWidget_2 = QtWidgets.QTableWidget(self.rightContent_2)
-        self.tableWidget_2.setObjectName("tableWidget_2")
-        self.tableWidget_2.setColumnCount(0)
-        self.tableWidget_2.setRowCount(0)
-        self.verticalLayout_10.addWidget(self.tableWidget_2)
         self.pushButton_2 = QtWidgets.QPushButton(self.rightContent_2)
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 360, 371, 75))
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 75))
         self.pushButton_2.setMaximumSize(QtCore.QSize(16777215, 75))
         font = QtGui.QFont()
@@ -616,7 +500,63 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_10.addWidget(self.pushButton_2)
+        self.frame_2 = QtWidgets.QFrame(self.rightContent_2)
+        self.frame_2.setGeometry(QtCore.QRect(10, 160, 391, 181))
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.layoutWidget_6 = QtWidgets.QWidget(self.frame_2)
+        self.layoutWidget_6.setGeometry(QtCore.QRect(10, 50, 361, 77))
+        self.layoutWidget_6.setObjectName("layoutWidget_6")
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.layoutWidget_6)
+        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.label_30 = QtWidgets.QLabel(self.layoutWidget_6)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_30.setFont(font)
+        self.label_30.setObjectName("label_30")
+        self.horizontalLayout_14.addWidget(self.label_30)
+        spacerItem7 = QtWidgets.QSpacerItem(88, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_14.addItem(spacerItem7)
+        self.pushButton_5 = QtWidgets.QPushButton(self.layoutWidget_6)
+        self.pushButton_5.setMinimumSize(QtCore.QSize(150, 75))
+        self.pushButton_5.setMaximumSize(QtCore.QSize(150, 75))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButton_5.setFont(font)
+        self.pushButton_5.setStyleSheet("QPushButton {\n"
+"    background-color: #07BEB8;\n"
+"    color: black;\n"
+"    border-radius: 10px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #06AFA8;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #059A96;\n"
+"}")
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.horizontalLayout_14.addWidget(self.pushButton_5)
+        self.pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton.setGeometry(QtCore.QRect(290, 10, 75, 25))
+        self.pushButton.setMinimumSize(QtCore.QSize(75, 25))
+        self.pushButton.setMaximumSize(QtCore.QSize(75, 25))
+        self.pushButton.setObjectName("pushButton")
+        self.label_29 = QtWidgets.QLabel(self.frame_2)
+        self.label_29.setGeometry(QtCore.QRect(11, 11, 60, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_29.setFont(font)
+        self.label_29.setObjectName("label_29")
+        self.comboBox_4 = QtWidgets.QComboBox(self.frame_2)
+        self.comboBox_4.setGeometry(QtCore.QRect(80, 10, 200, 25))
+        self.comboBox_4.setMinimumSize(QtCore.QSize(200, 25))
+        self.comboBox_4.setMaximumSize(QtCore.QSize(200, 25))
+        self.comboBox_4.setObjectName("comboBox_4")
         self.horizontalLayout_6.addWidget(self.rightContent_2)
         self.verticalLayout_8.addWidget(self.mainContent_2)
         self.gridLayout_2.addWidget(self.contentContainer_2, 1, 1, 1, 1)
@@ -642,16 +582,13 @@ class Ui_MainWindow(object):
         self.pushButton_10.setText(_translate("MainWindow", "Checkout"))
         self.pushButton_11.setText(_translate("MainWindow", "Discard"))
         self.label_19.setText(_translate("MainWindow", "RECEIPT"))
-        self.label_20.setText(_translate("MainWindow", "GUEST:"))
-        self.label_25.setText(_translate("MainWindow", ""))
-        self.label_26.setText(_translate("MainWindow", "PAYMENT METHOD"))
-        self.pushButton_5.setText(_translate("MainWindow", "SENIOR/PWD"))
-        self.pushButton_4.setText(_translate("MainWindow", "GCASH"))
-        self.label_27.setText(_translate("MainWindow", "APPLY DISCOUNT"))
-        self.pushButton_3.setText(_translate("MainWindow", "CASH"))
         self.label_22.setText(_translate("MainWindow", "PAID IN CASH"))
         self.label_21.setText(_translate("MainWindow", "ADD CASH"))
         self.label_24.setText(_translate("MainWindow", "PAID IN E-WALLET"))
         self.label_23.setText(_translate("MainWindow", "ENTER REFERENCE #"))
         self.pushButton_2.setText(_translate("MainWindow", "PAY NOW"))
+        self.label_30.setText(_translate("MainWindow", "DISCOUNT"))
+        self.pushButton_5.setText(_translate("MainWindow", "PWD/ELDER"))
+        self.pushButton.setText(_translate("MainWindow", "Select"))
+        self.label_29.setText(_translate("MainWindow", "LEFTOVER (Grams)"))
 import assets.resourceFile_rc

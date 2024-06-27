@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: poswithinventorysystem
+-- Host: 127.0.0.1    Database: poswithinventorysystem
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	8.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `leftover` (
   `Grams` decimal(10,2) NOT NULL,
   `Penalty_Fee` decimal(10,2) NOT NULL,
   PRIMARY KEY (`Leftover_ID`),
-  CONSTRAINT `leftover_chk_1` CHECK ((`Leftover_ID` between 1 and 4))
+  CONSTRAINT `leftover_chk_1` CHECK (((`Grams` >= 0) and (`Penalty_Fee` >= 0)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,7 +37,7 @@ CREATE TABLE `leftover` (
 
 LOCK TABLES `leftover` WRITE;
 /*!40000 ALTER TABLE `leftover` DISABLE KEYS */;
-INSERT INTO `leftover` VALUES (1,100.00,50.00),(2,200.00,100.00),(3,300.00,150.00),(4,400.00,200.00);
+INSERT INTO `leftover` VALUES (1,0.00,0.00),(2,50.00,50.00),(3,100.00,100.00),(4,150.00,150.00),(5,200.00,200.00);
 /*!40000 ALTER TABLE `leftover` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 20:01:51
+-- Dump completed on 2024-06-26 14:34:08

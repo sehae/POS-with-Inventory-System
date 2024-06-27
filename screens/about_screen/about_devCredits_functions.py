@@ -1,25 +1,22 @@
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QDateTime, QTimer, Qt
+from PyQt5 import QtCore
+from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow
 from screens.about_screen.about_devCredits import Ui_MainWindow
 from shared.navigation_signal import auth_back
-from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
-from server.local_server import conn
 from validator.user_manager import userManager
 
 class aboutdevCredits(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
     info_signal = QtCore.pyqtSignal()
-    back_employee_signal = QtCore.pyqtSignal()
-
+    back_kitchen_signal = QtCore.pyqtSignal()
+    back_cashier_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
         self.backButton.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
-                                                          self.back_employee_signal))
+                                                          self.back_kitchen_signal, self.back_cashier_signal))
         self.editUserButton.clicked.connect(self.navigate_info)
 
         # Create an instance of userManager
@@ -46,3 +43,11 @@ class aboutdevCredits(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.sysTimeDate.setText(formattedDateTime)
+
+    def update_username(self):
+        user_manager = userManager._instance
+        name = user_manager.get_current_fullname()
+        print(self.userName.text())
+        self.userName.setText(name)
+        print(self.userName.text())
+        print("w", name)

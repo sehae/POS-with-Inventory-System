@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'help_userManual.ui'
+# Form implementation generated from reading ui file 'screens/ui/help/help_userManual.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -202,30 +202,37 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.header, 0, 0, 1, 2)
         self.mainContent = QtWidgets.QWidget(self.frame)
         self.mainContent.setObjectName("mainContent")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.mainContent)
-        self.verticalLayout_8.setContentsMargins(25, 25, 25, 25)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.layoutContainer = QtWidgets.QWidget(self.mainContent)
-        self.layoutContainer.setObjectName("layoutContainer")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutContainer)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.mainContent)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.lineEdit = QtWidgets.QLineEdit(self.layoutContainer)
-        self.lineEdit.setMinimumSize(QtCore.QSize(250, 50))
-        self.lineEdit.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.lineEdit.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}")
-        self.lineEdit.setObjectName("lineEdit")
-        self.verticalLayout.addWidget(self.lineEdit)
-        self.listWidget = QtWidgets.QListWidget(self.layoutContainer)
-        self.listWidget.setObjectName("listWidget")
-        self.verticalLayout.addWidget(self.listWidget)
-        self.verticalLayout_8.addWidget(self.layoutContainer)
+        self.tutorial = QtWidgets.QLabel(self.mainContent)
+        self.tutorial.setText("")
+        self.tutorial.setObjectName("tutorial")
+        self.verticalLayout.addWidget(self.tutorial)
+        self.widget = QtWidgets.QWidget(self.mainContent)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem3)
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 100))
+        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 100))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.pushButton_3 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_3.setMinimumSize(QtCore.QSize(100, 100))
+        self.pushButton_3.setMaximumSize(QtCore.QSize(100, 100))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.horizontalLayout_2.addWidget(self.pushButton_3)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem4)
+        self.verticalLayout.addWidget(self.widget)
         self.gridLayout_2.addWidget(self.mainContent, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -243,7 +250,10 @@ class Ui_MainWindow(object):
         self.titleLabel.setText(_translate("MainWindow", "HELP"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Search in User Manual"))
+        self.pushButton_2.setText(_translate("MainWindow", "Previous"))
+        self.pushButton_3.setText(_translate("MainWindow", "Next"))
+import assets.resourceFile_rc
+
 
 if __name__ == "__main__":
     import sys

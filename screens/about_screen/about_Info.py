@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'about_Info.ui'
+# Form implementation generated from reading ui file 'screens/ui/about/about_Info.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -190,7 +190,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1135, 1312))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -379, 903, 1213))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(50, 50, 50, 50)
@@ -211,11 +211,14 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
         self.label_3 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.label_3.setMinimumSize(QtCore.QSize(200, 0))
+        self.label_3.setMaximumSize(QtCore.QSize(800, 16777215))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_3.setFont(font)
+        self.label_3.setScaledContents(False)
         self.label_3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label_3.setWordWrap(False)
+        self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
         self.label_4 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
@@ -229,8 +232,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_5.setFont(font)
-        self.label_5.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label_5.setWordWrap(False)
         self.label_5.setObjectName("label_5")
         self.verticalLayout.addWidget(self.label_5)
         self.label_6 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
@@ -269,16 +270,10 @@ class Ui_MainWindow(object):
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.label.setText(_translate("MainWindow", "Company Information"))
-        self.label_2.setText(_translate("MainWindow", "Mission"))
-        self.label_3.setText(_translate("MainWindow", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut\n"
-" labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco\n"
-" laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\n"
-" voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."))
-        self.label_4.setText(_translate("MainWindow", "Values"))
-        self.label_5.setText(_translate("MainWindow", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut\n"
-" labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco\n"
-" laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\n"
-" voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."))
+        self.label_2.setText(_translate("MainWindow", "Background"))
+        self.label_3.setText(_translate("MainWindow", "Moon Hey Hotpot and Grill is a buffet-style dining establishment located at 848A. Banawe St. Quezon City, 1114 Metro Manila. Its establishment dates to December 2022. The company was established by Shiela Mae Tan and her business partner, Sedryck Shi."))
+        self.label_4.setText(_translate("MainWindow", "Contact Information"))
+        self.label_5.setText(_translate("MainWindow", "0917 624 9289"))
         self.label_6.setText(_translate("MainWindow", "Location"))
         self.label_7.setText(_translate("MainWindow", "Banawe St. Quezon City. 848A Banawe St., Siena, Quezon City, Philippines."))
 import assets.resourceFile_rc

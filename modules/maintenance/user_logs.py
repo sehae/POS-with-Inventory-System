@@ -1,6 +1,6 @@
 from datetime import datetime
 from database.DB_Queries import GET_ACTION_BY_ID, LOG_ACTIVITY
-from maintenance.pc_details import get_pc_name
+from modules.maintenance.pc_details import get_pc_name
 from shared.imports import conn
 
 

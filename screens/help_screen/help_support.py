@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'help_support.ui'
+# Form implementation generated from reading ui file 'screens/ui/help/help_support.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import assets.resourceFile_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -270,9 +270,15 @@ class Ui_MainWindow(object):
         self.userName_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.mainTitle.setText(_translate("MainWindow", "Contact Support"))
         self.emailTitle.setText(_translate("MainWindow", "E-MAIL"))
-        self.email.setText(_translate("MainWindow", "moonheysupport@gmail.com"))
+        self.email.setText(_translate("MainWindow", "qyjpfaurillo@tip.edu.ph\n"
+"qbdatiamzon@tip.edu.ph\n"
+"qldbvillatura@tip.edu.ph"))
         self.contactTitle.setText(_translate("MainWindow", "CONTACT NUMBER"))
-        self.contactNum.setText(_translate("MainWindow", "+63 9456123481"))
+        self.contactNum.setText(_translate("MainWindow", "09454421238\n"
+"09456123481\n"
+"09563847921"))
+import assets.resourceFile_rc
+
 
 if __name__ == "__main__":
     import sys

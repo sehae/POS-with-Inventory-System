@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import QAction
 from PyQt5.QtWidgets import QMainWindow
 
 from database.DB_Queries import GET_PASSWORD, UPDATE_PASSWORD_BY_USERNAME
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.password_screen.changePassword import Ui_MainWindow
-from security.hash import hash_password, verify_password
+from modules.security.hash import hash_password, verify_password
 from server.local_server import conn
 from shared.dialog import show_error_message, create_dialog_box
 from shared.navigation_signal import auth_back
@@ -20,16 +20,15 @@ from validator.user_manager import userManager
 
 class changePassword(QMainWindow, Ui_MainWindow):
     back_signal = pyqtSignal()
-    back_employee_signal = pyqtSignal()
+    back_cashier_signal = pyqtSignal()
+    back_kitchen_signal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.user_manager = userManager()
-        self.user_manager.username_updated.connect(self.on_username_updated)
-        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_employee_signal))
 
-        self.user_manager.fullname_updated.connect(self.on_fullname_updated)
+        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_cashier_signal, self.back_kitchen_signal))
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -49,11 +48,8 @@ class changePassword(QMainWindow, Ui_MainWindow):
 
         self.UiComponents()
 
-    def on_fullname_updated(self, fullname):
-        self.userName.setText(fullname)
-
     def on_username_updated(self, username):
-        self.usernameFIELD.setText(username)
+        self.unFIELD.setText(username)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -65,11 +61,14 @@ class changePassword(QMainWindow, Ui_MainWindow):
         # Set the text of dateLabel to the formatted date and time
         self.sysTimeDate.setText(formattedDateTime)
 
+        username = self.user_manager.get_current_username()
+        self.on_username_updated(username)
+
     def UiComponents(self):
         self.currentPassFIELD.setEchoMode(QtWidgets.QLineEdit.Password)
         self.newPassFIELD.setEchoMode(QtWidgets.QLineEdit.Password)
         self.retypeFIELD.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.usernameFIELD.setReadOnly(True)
+        self.unFIELD.setReadOnly(True)
 
         # Connect the check_password_match method to the textChanged events of the password fields
         self.newPassFIELD.textChanged.connect(self.check_password_match)
@@ -221,4 +220,3 @@ class changePassword(QMainWindow, Ui_MainWindow):
         user_action = 12
         username = self.user_manager.get_current_username()
         user_log(user_id, user_action, username)
-

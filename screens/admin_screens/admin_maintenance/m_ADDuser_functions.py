@@ -1,10 +1,14 @@
+import datetime
+import os
+
 from PyQt5.QtCore import QDateTime, QTimer
 
 from database.DB_Queries import GET_NEXT_ID, ADD_USER
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_maintenance.maintenanceADDuser import Ui_MainWindow
 from shared.imports import *
-from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE, INVALID_FIELD_STYLE
+from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW, COMBOBOX_DISABLED_STYLE, INVALID_FIELD_STYLE, \
+    VALID_FIELD_STYLE
 from validator.email_validator import validate_email
 from validator.internet_connection import is_connected
 from validator.user_manager import userManager
@@ -21,6 +25,7 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             self.setupUi(self)  # Call the setupUi method to initialize the UI
 
             self.saveBTN.clicked.connect(self.add_user)
+            self.cancelBTN.clicked.connect(self.clearField)
             self.loaBOX.currentTextChanged.connect(self.check_admin)
 
             # Navigation signals
@@ -60,6 +65,8 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         self.deptBox.setStyleSheet(COMBOBOX_STYLE)
         self.deptBox.view().setStyleSheet(COMBOBOX_STYLE_VIEW)
         self.contactNum.setValidator(QRegExpValidator(QRegExp(r'^09\d{9}$')))
+        self.firstName.setValidator(QRegExpValidator(QRegExp(r'^[a-zA-Z\s]*$')))
+        self.lastName.setValidator(QRegExpValidator(QRegExp(r'^[a-zA-Z\s]*$')))
 
     def check_admin(self):
         if self.loaBOX.currentText() == 'Admin':
@@ -80,32 +87,32 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         all_fields_valid = True
 
         # Validate first name
-        if first_name == "" or not first_name.isalpha():
+        if first_name == "" or not all(char.isalpha() or char.isspace() for char in first_name):
             self.firstName.setStyleSheet(INVALID_FIELD_STYLE)
             all_fields_valid = False
         else:
-            self.firstName.setStyleSheet("")
+            self.firstName.setStyleSheet(VALID_FIELD_STYLE)
 
         # Validate last name
         if last_name == "" or not last_name.isalpha():
             self.lastName.setStyleSheet(INVALID_FIELD_STYLE)
             all_fields_valid = False
         else:
-            self.lastName.setStyleSheet("")
+            self.lastName.setStyleSheet(VALID_FIELD_STYLE)
 
         # Validate email
         if email == "" or not validate_email(email):
             self.email.setStyleSheet(INVALID_FIELD_STYLE)
             all_fields_valid = False
         else:
-            self.email.setStyleSheet("")
+            self.email.setStyleSheet(VALID_FIELD_STYLE)
 
         # Validate contact number
         if contact_number == "" or not contact_number.isdigit() or len(contact_number) < 11:
             self.contactNum.setStyleSheet(INVALID_FIELD_STYLE)
             all_fields_valid = False
         else:
-            self.contactNum.setStyleSheet("")
+            self.contactNum.setStyleSheet(VALID_FIELD_STYLE)
 
         # Function to check if required fields are filled
         def are_fields_filled(fields):
@@ -116,16 +123,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
 
         # Check if all required fields are filled and valid
         if not are_fields_filled(required_fields) or not all_fields_valid:
-            show_error_message("Error",
-                               "All fields must be correctly filled. Please correct the fields before adding a user.")
             return
 
         cursor = conn.cursor()
-
-        if LoA == 'Admin':
-            dept_number = '01'
-        else:
-            dept_number = '02'
 
         # Generate password
         password = self.generate_password()
@@ -133,26 +133,21 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
         # Hash the password
         hashed_password = hash_password(password)
 
-        # Get the next ID
-        cursor.execute(GET_NEXT_ID)
-        result = cursor.fetchone()
-        max_id = 0 if result[0] is None else result[0]
-        next_id = max_id + 1
-
         # Generate username
-        initials = first_name[0] + last_name[0]
-        staff_number = str(next_id).zfill(2)
-        username = initials.upper() + dept_number + staff_number
+        username = self.generate_username(first_name, last_name, LoA, dept)
+
+        # Generate user ID
+        user_id = self.generate_userid()
 
         # Add username and password to the respective login table
         if LoA == 'Admin':
             add_query = ADD_USER
             print("Adding user...")
-            user_data = (last_name, first_name, LoA, 'Admin', contact_number, email, username, hashed_password)
+            user_data = (user_id, last_name, first_name, LoA, 'Admin', contact_number, email, username, hashed_password)
         else:
             add_query = ADD_USER
             print("Adding user...")
-            user_data = (last_name, first_name, LoA, dept, contact_number, email, username, hashed_password)
+            user_data = (user_id, last_name, first_name, LoA, dept, contact_number, email, username, hashed_password)
 
         cursor.execute(add_query, user_data)
         conn.commit()
@@ -178,6 +173,9 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
 
         cursor.close()
 
+        create_dialog_box("User added successfully.", "Success")
+        self.clearField()
+
     def generate_password(self):
         length = 8
         all_chars = string.ascii_letters + string.digits + string.punctuation
@@ -187,6 +185,72 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
                     any(c.isdigit() for c in password) and
                     any(c in string.punctuation for c in password)):
                 return password
+
+    def generate_username(self, first_name, last_name, LoA, dept):
+        if LoA == 'Admin':
+            dept_number = '01'
+        else:
+            dept_number = '02'
+
+        # Get the last user ID from the database
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1")
+        result = cursor.fetchone()
+
+        # If the database is not empty, extract the counter from the last user ID
+        if result is not None:
+            last_user_id = result[0]
+            counter = int(last_user_id[-2:])
+        else:
+            counter = 0
+
+        # Increment the counter
+        counter += 1
+
+        # Generate username
+        initials = first_name[0] + last_name[0]
+        staff_number = str(counter).zfill(2)
+        username = initials.upper() + dept_number + staff_number
+        return username
+
+    def generate_userid(self):
+        current_year = str(datetime.datetime.now().year)[-2:]  # Only take the last two digits of the year
+
+        # Get the last user ID from the database
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id FROM user ORDER BY user_id DESC LIMIT 1")
+        result = cursor.fetchone()
+
+        # If the database is not empty, extract the counter and the year from the last user ID
+        if result is not None:
+            last_user_id = result[0]
+            last_year = last_user_id[2:4]  # Only take the last two digits of the year
+            counter = int(last_user_id[-2:])
+            # If the year has changed, reset the counter to 1
+            if last_year != current_year:
+                counter = 1
+            else:
+                # Increment the counter
+                counter += 1
+        else:
+            counter = 1
+
+        counter_str = str(counter).zfill(2)
+        user_id = "MH" + current_year + counter_str
+
+        return user_id
+
+    def clearField(self):
+        self.firstName.clear()
+        self.lastName.clear()
+        self.email.clear()
+        self.contactNum.clear()
+        self.loaBOX.setCurrentIndex(0)
+        self.deptBox.setCurrentIndex(0)
+        self.firstName.setStyleSheet(VALID_FIELD_STYLE)
+        self.lastName.setStyleSheet(VALID_FIELD_STYLE)
+        self.email.setStyleSheet(VALID_FIELD_STYLE)
+        self.contactNum.setStyleSheet(VALID_FIELD_STYLE)
 
     def log_add(self, user_action, specific_action):
         user_manager = userManager._instance

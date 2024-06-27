@@ -2,7 +2,7 @@ from PyQt5.QtCore import QDateTime, QTimer
 
 from database.DB_Queries import SEARCH_USER, FETCH_USER_INFO, CHANGE_USER_TYPE, CHANGE_DEPARTMENT, DISABLE_USER, \
     GET_USER_LOGS, GET_USER_ID
-from maintenance.user_logs import user_log
+from modules.maintenance.user_logs import user_log
 from shared.imports import *
 from screens.admin_screens.admin_maintenance.maintenanceEDIT import Ui_MainWindow
 from styles.loginStyles import ERROR_LBL_HIDDEN, ERROR_LBL_VISIBLE
