@@ -409,6 +409,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 self.update_combobox_signal.emit()
                 self.populate_comboBox_7()
                 self.populate_comboBox_9()
+                self.populate_comboBox_8()
 
                 # Clear input fields after successful save
                 self.lineEdit_9.clear()
