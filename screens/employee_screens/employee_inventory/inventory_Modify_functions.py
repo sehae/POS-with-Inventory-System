@@ -13,7 +13,6 @@ from validator.user_manager import userManager
 user_manager = userManager()
 
 class inventoryModify(QMainWindow, Ui_MainWindow):
-    barcode_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
     inventory_table = QtCore.pyqtSignal()
     product_update_signal = QtCore.pyqtSignal()
@@ -23,7 +22,6 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.pushButton_10.clicked.connect(self.navigate_barcode)
         self.pushButton.clicked.connect(self.back)
         self.pushButton_3.clicked.connect(self.navigate_inventory)
         self.pushButton_4.clicked.connect(self.save_product)
@@ -73,9 +71,6 @@ class inventoryModify(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.label_2.setText(formattedDateTime)
-
-    def navigate_barcode(self):
-        self.barcode_signal.emit()
 
     def navigate_inventory(self):
         self.inventory_table.emit()

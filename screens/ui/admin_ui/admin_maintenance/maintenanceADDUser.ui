@@ -246,7 +246,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../../../../assets/resourceFile.qrc">
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">

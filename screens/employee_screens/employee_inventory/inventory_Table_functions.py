@@ -14,7 +14,6 @@ user_manager = userManager()
 
 class inventoryTable(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
-    barcode_signal = QtCore.pyqtSignal()
     back_signal = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -23,7 +22,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
         self.pushButton_2.clicked.connect(self.navigate_modify)
         self.pushButton.clicked.connect(self.back)
-        self.pushButton_10.clicked.connect(self.navigate_barcode)
 
         self.inventory_modify = inventoryModify()
         self.admin_inventory_modify = adminInventoryModifyProduct()
@@ -78,9 +76,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
     def back(self):
         self.back_signal.emit()
-
-    def navigate_barcode(self):
-        self.barcode_signal.emit()
 
     def populate_table(self):
         try:

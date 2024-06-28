@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow
-from PyQt5.QtCore import QDateTime, QTimer
+from PyQt5.QtCore import QDateTime, QTimer, QRegExp
 
 # Assuming these imports are part of your project structure
 from screens.employee_screens.employee_pos.posMenu import Ui_MainWindow
@@ -29,10 +30,11 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.user_manager = userManager()
 
         self.backBTN.clicked.connect(lambda: pos_back(self.user_manager, self.back_signal, self.back_cashier_signal))
-        self.checkoutBTN.clicked.connect(self.goCheckout)
-        self.modifyBTN.clicked.connect(self.goModify)
-        self.orderBTN.clicked.connect(self.goOrder)
+        self.checkoutBTN.clicked.connect(self.checkout_signal.emit)
+        self.modifyBTN.clicked.connect(self.modify_signal.emit)
+        self.orderBTN.clicked.connect(self.order_signal.emit)
         self.pushButton_8.clicked.connect(self.save_add_on)
+        self.pushButton_9.clicked.connect(self.clear)
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -52,11 +54,15 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.admin_inventory_add.admin_product_update_signal.connect(self.populate_comboBox_6)
         self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
 
+        barcode_regex = QRegExp(r"^\d{13}$")
+        barcode_validator = QRegExpValidator(barcode_regex, self.lineEdit)
+        self.lineEdit.setValidator(barcode_validator)
 
         self.populate_table()
 
         self.populate_comboBox_5()
         self.populate_comboBox_6()
+        self.lineEdit.textChanged.connect(self.check_barcode_length)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -68,17 +74,33 @@ class posMenu(QMainWindow, Ui_MainWindow):
         # Set the text of dateLabel to the formatted date and time
         self.date.setText(formattedDateTime)
 
-    def goBack(self):
-        self.back_signal.emit()
+    def check_barcode_length(self):
+        if len(self.lineEdit.text()) == 13:
+            self.scan_barcode()
 
-    def goCheckout(self):
-        self.checkout_signal.emit()
+    def scan_barcode(self):
+        barcode = self.lineEdit.text()
+        if not self.lineEdit.hasAcceptableInput():
+            QMessageBox.warning(self, "Invalid Barcode", "The barcode must be 13 digits long and contain only numbers.")
+            return
 
-    def goModify(self):
-        self.modify_signal.emit()
+        cursor = conn.cursor()
+        cursor.execute("SELECT product_id FROM inventory WHERE barcode = %s;", (barcode,))
+        product_id = cursor.fetchone()
 
-    def goOrder(self):
-        self.order_signal.emit()
+        if product_id:
+            cursor.execute("SELECT name FROM product WHERE product_id = %s;", (product_id[0],))
+            product_data = cursor.fetchone()
+
+            if product_data:
+                product_name = product_data[0]  # Extract the string from the tuple
+                self.comboBox_6.setCurrentText(product_name)
+            else:
+                QMessageBox.warning(self, "Product Not Found", "Product data not found for the given barcode.")
+        else:
+            QMessageBox.warning(self, "Barcode Not Found", "No product found for the entered barcode.")
+
+        cursor.close()
 
     def populate_comboBox_5(self):
         try:
@@ -266,6 +288,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
             conn.commit()
             QMessageBox.information(self, "Success", "Add-on saved successfully!")
+            self.lineEdit.clear()
+            self.comboBox_6.setCurrentIndex(0)
 
             # Refresh the table to reflect updated quantities
             self.populate_table()
@@ -277,3 +301,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
+
+    def clear(self):
+        self.lineEdit_8.clear()
+        self.comboBox_6.setCurrentIndex(0)
+        self.comboBox_5.setCurrentIndex(0)
+        self.lineEdit.clear()
