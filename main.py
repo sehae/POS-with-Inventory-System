@@ -26,7 +26,6 @@ from screens.help_screen.help_usermanual_functions import helpManual
 from screens.password_screen.changePassword_functions import changePassword
 from screens.employee_screens.employee_dashboard.employeeDashboard_functions import myEmployeeDashboard
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
-from screens.employee_screens.employee_inventory.inventory_Barcode_functions import inventoryBarcode
 from screens.employee_screens.employee_pos.posCheckout_functions import posCheckout
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from screens.employee_screens.employee_pos.posMenu_functions import posMenu
@@ -63,7 +62,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard = myEmployeeDashboard()
         self.employee_dashboard_cashier = myEmployeeDashboard_Cashier()
         self.inventory_modify = inventoryModify()
-        self.inventory_barcode = inventoryBarcode()
         self.inventory_table = inventoryTable()
         self.inventory_view = adminInventoryViewProduct()
         self.pos_checkout = posCheckout()
@@ -96,7 +94,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.employee_dashboard)
         self.stacked_widget.addWidget(self.employee_dashboard_cashier)
         self.stacked_widget.addWidget(self.inventory_modify)
-        self.stacked_widget.addWidget(self.inventory_barcode)
         self.stacked_widget.addWidget(self.inventory_table)
         self.stacked_widget.addWidget(self.inventory_view)
         self.stacked_widget.addWidget(self.pos_checkout)
@@ -131,10 +128,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_view.add_signal.connect(self.show_admin_inventory)
         self.inventory_view.supplier_signal.connect(self.show_inventory_supplier)
         self.inventory_modify.inventory_table.connect(self.show_inventory_table)
-        self.inventory_barcode.inventory_table.connect(self.show_inventory_table)
         self.inventory_table.back_signal.connect(self.show_employee_dashboard)
         self.inventory_table.modify_signal.connect(self.show_employee_inventory)
-        self.inventory_table.barcode_signal.connect(self.show_inventory_barcode)
         self.login_screen.login_successful.connect(self.show_admin_dashboard)
         self.login_screen.show_email_screen_signal.connect(self.show_email_screen)
         self.email_screen.back_signal.connect(self.show_login_screen)
@@ -207,10 +202,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.employee_dashboard_cashier.about_signal.connect(self.show_about_devcredits)
 
         self.employee_dashboard.inventoryModify_signal.connect(self.show_employee_inventory)
-        self.inventory_modify.barcode_signal.connect(self.show_inventory_barcode)
         self.inventory_modify.back_signal.connect(self.show_employee_dashboard)
-        self.inventory_barcode.back_signal.connect(self.show_employee_dashboard)
-        self.inventory_barcode.modify_signal.connect(self.show_employee_inventory)
         self.employee_dashboard.help_signal.connect(self.show_help_faq)
 
         self.employee_dashboard.about_signal.connect(self.show_about_devcredits)
@@ -390,9 +382,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_employee_inventory(self):
         self.stacked_widget.setCurrentWidget(self.inventory_modify)
-
-    def show_inventory_barcode(self):
-        self.stacked_widget.setCurrentWidget(self.inventory_barcode)
 
     def show_inventory_table(self):
         self.stacked_widget.setCurrentWidget(self.inventory_table)
