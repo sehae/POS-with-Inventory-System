@@ -16,29 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `add_on`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `add_on`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `add_on` (
-  `Add_On_ID` int NOT NULL AUTO_INCREMENT,
-  `Order_ID` varchar(45) DEFAULT NULL,
-  `Product_Details` json DEFAULT NULL,
-  PRIMARY KEY (`Add_On_ID`),
-  KEY `Order_ID` (`Order_ID`),
-  CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `user` (
+  `User_ID` varchar(255) NOT NULL,
+  `Last_Name` varchar(45) NOT NULL,
+  `First_Name` varchar(45) NOT NULL,
+  `User_Type` enum('Admin','Employee','System') NOT NULL,
+  `Department` enum('Admin','Cashier','Kitchen') NOT NULL,
+  `Contact_Number` varchar(15) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Username` varchar(45) NOT NULL,
+  `Password` longtext NOT NULL,
+  `is_active` enum('Enabled','Disabled') NOT NULL DEFAULT 'Enabled',
+  PRIMARY KEY (`User_ID`),
+  UNIQUE KEY `Contact_Number_UNIQUE` (`Contact_Number`),
+  UNIQUE KEY `Email_UNIQUE` (`Email`),
+  UNIQUE KEY `Username_UNIQUE` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `add_on`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `add_on` WRITE;
-/*!40000 ALTER TABLE `add_on` DISABLE KEYS */;
-/*!40000 ALTER TABLE `add_on` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('MH2401','Villatura','Leah Desiree','Admin','Admin','09563847921','ld.kirbble@gmail.com','LV0101','b1951c955be8f1c84957e349edca2b7ed4e5c33613eb88408c521b112b420f2f2125b6b8af1349162bb3f0fefe20b92d815416599f5ef692f1f4e0fe09f3f2cd41e7d6cdea69245c48eb70a74ed06b597c4ad3fdc071f9830a89b4c62276399f','Enabled');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
