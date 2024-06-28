@@ -4,6 +4,8 @@ from PyQt5 import QtWidgets
 from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
 from screens.admin_screens.admin_maintenance.backup_functions import adminMaintenanceBACKUP
 from screens.admin_screens.admin_reports.r_inventory_functions import inventoryReport
+from screens.admin_screens.admin_reports.r_sales_functions import salesReport
+from screens.admin_screens.admin_reports.r_trend_functions import trendReport
 from screens.authentication_screens.email_screen.emailScreen_functions import EmailScreen
 from screens.authentication_screens.login_screen.login_functions import myLoginScreen
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
@@ -70,6 +72,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_modify = posModify()
         self.admin_inventorySupplier = adminSupplier()
         self.report_inventory = inventoryReport()
+        self.report_sales = salesReport()
+        self.report_trend = trendReport()
 
         self.stacked_widget.addWidget(self.login_screen)
         self.stacked_widget.addWidget(self.email_screen)
@@ -100,14 +104,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.pos_menu)
         self.stacked_widget.addWidget(self.pos_modify)
         self.stacked_widget.addWidget(self.report_inventory)
+        self.stacked_widget.addWidget(self.report_sales)
+        self.stacked_widget.addWidget(self.report_trend)
 
         self.admin_inventorySupplier.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventorySupplier.add_signal.connect(self.show_admin_inventory)
         self.admin_inventorySupplier.modify_signal.connect(self.show_admin_inventory_modify)
         self.admin_inventorySupplier.view_signal.connect(self.show_view_product)
 
-        self.admin_dashboard.report_signal.connect(self.show_report_inventory)
+        # Reports
+        self.admin_dashboard.report_signal.connect(self.show_report_sales)
         self.report_inventory.back_signal.connect(self.show_admin_dashboard)
+        self.report_inventory.sales_report_signal.connect(self.show_report_sales)
+        self.report_inventory.trend_report_signal.connect(self.show_report_trend)
+
+        self.report_sales.back_signal.connect(self.show_admin_dashboard)
+        self.report_sales.inventory_report_signal.connect(self.show_report_inventory)
+        self.report_sales.trend_report_signal.connect(self.show_report_trend)
+
+        self.report_trend.back_signal.connect(self.show_admin_dashboard)
+        self.report_trend.sales_report_signal.connect(self.show_report_sales)
+        self.report_trend.inventory_report_signal.connect(self.show_report_inventory)
 
         self.inventory_view.back_signal.connect(self.show_admin_dashboard)
         self.inventory_view.modify_signal.connect(self.show_admin_inventory_modify)
@@ -279,6 +296,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_comboBox_6)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
+
+
+    def show_report_sales(self):
+        self.stacked_widget.setCurrentWidget(self.report_sales)
+
+    def show_report_trend(self):
+        self.stacked_widget.setCurrentWidget(self.report_trend)
+
 
     def show_report_inventory(self):
         self.stacked_widget.setCurrentWidget(self.report_inventory)

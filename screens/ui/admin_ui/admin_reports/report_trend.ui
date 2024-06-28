@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1250</width>
-    <height>759</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -364,7 +367,7 @@ QPushButton:pressed {
                 </font>
                </property>
                <property name="text">
-                <string>Inventory Report</string>
+                <string>Trend Analysis</string>
                </property>
               </widget>
              </item>
@@ -654,8 +657,8 @@ QPushButton:pressed {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-1090</y>
-               <width>656</width>
+               <y>-1237</y>
+               <width>401</width>
                <height>1977</height>
               </rect>
              </property>
@@ -766,8 +769,6 @@ QPushButton:pressed {
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../../../../assets/resourceFile.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_reports/report_inventory.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_reports/report_trend.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,11 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1250, 759)
+        MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -327,7 +328,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -1090, 656, 1977))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -1237, 401, 1977))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -388,7 +389,7 @@ class Ui_MainWindow(object):
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "REPORTS"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.automaticbackupLBL.setText(_translate("MainWindow", "Inventory Report"))
+        self.automaticbackupLBL.setText(_translate("MainWindow", "Trend Analysis"))
         self.frequencyLBL.setText(_translate("MainWindow", "Report Frequency"))
         self.frequencyBOX.setItemText(0, _translate("MainWindow", "Daily"))
         self.frequencyBOX.setItemText(1, _translate("MainWindow", "Weekly"))
@@ -401,7 +402,6 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Inventory Levels by Products"))
         self.label_3.setText(_translate("MainWindow", "Inventory Status Overview"))
         self.label_4.setText(_translate("MainWindow", "Expiry Date Analysis"))
-import assets.resourceFile_rc
 
 
 if __name__ == "__main__":

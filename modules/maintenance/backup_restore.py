@@ -15,6 +15,10 @@ def load_config():
 def save_config(backup_path):
     config = configparser.ConfigParser()
     config['DEFAULT'] = {'backup_path': backup_path}
+
+    if backup_path:
+        config.set('DEFAULT', 'backup_path', backup_path)
+
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
 
