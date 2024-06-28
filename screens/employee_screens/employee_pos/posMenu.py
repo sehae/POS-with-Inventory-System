@@ -144,6 +144,27 @@ class Ui_MainWindow(object):
 "}")
         self.modifyBTN.setObjectName("modifyBTN")
         self.verticalLayout_2.addWidget(self.modifyBTN)
+        self.voidBTN = QtWidgets.QPushButton(self.navbar)
+        self.voidBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.voidBTN.setObjectName("voidBTN")
+        self.verticalLayout_2.addWidget(self.voidBTN)
         self.checkoutBTN = QtWidgets.QPushButton(self.navbar)
         self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -195,7 +216,7 @@ class Ui_MainWindow(object):
         self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.backBTN.setFont(font)
         self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -213,9 +234,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN.setIcon(icon)
         self.backBTN.setAutoRepeat(False)
         self.backBTN.setObjectName("backBTN")
         self.verticalLayout_2.addWidget(self.backBTN)
@@ -418,7 +436,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.orderLabel_2 = QtWidgets.QLabel(self.widget_2)
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(18)
         self.orderLabel_2.setFont(font)
         self.orderLabel_2.setObjectName("orderLabel_2")
         self.verticalLayout.addWidget(self.orderLabel_2)
@@ -444,6 +462,7 @@ class Ui_MainWindow(object):
         self.orderBTN.setText(_translate("MainWindow", "Order"))
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
+        self.voidBTN.setText(_translate("MainWindow", "Void"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))

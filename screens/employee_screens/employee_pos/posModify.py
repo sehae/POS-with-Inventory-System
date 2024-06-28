@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posModify.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posModify.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -112,6 +112,27 @@ class Ui_MainWindow(object):
 "}")
         self.modifyBTN.setObjectName("modifyBTN")
         self.verticalLayout_2.addWidget(self.modifyBTN)
+        self.voidBTN = QtWidgets.QPushButton(self.navbar)
+        self.voidBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.voidBTN.setObjectName("voidBTN")
+        self.verticalLayout_2.addWidget(self.voidBTN)
         self.checkoutBTN = QtWidgets.QPushButton(self.navbar)
         self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -163,7 +184,7 @@ class Ui_MainWindow(object):
         self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.backBTN.setFont(font)
         self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -181,9 +202,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN.setIcon(icon)
         self.backBTN.setAutoRepeat(False)
         self.backBTN.setObjectName("backBTN")
         self.verticalLayout_2.addWidget(self.backBTN)
@@ -212,11 +230,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
-        self.frame_2 = QtWidgets.QFrame(self.header)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.date = QtWidgets.QLabel(self.frame_2)
+        self.date = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.date.setFont(font)
@@ -224,18 +238,7 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.date.setObjectName("date")
-        self.verticalLayout.addWidget(self.date)
-        self.time = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.time.setFont(font)
-        self.time.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.time.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.time.setObjectName("time")
-        self.verticalLayout.addWidget(self.time)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.date)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 3)
         self.frame_3 = QtWidgets.QFrame(self.frame)
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -422,12 +425,12 @@ class Ui_MainWindow(object):
         self.orderBTN.setText(_translate("MainWindow", "Order"))
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
+        self.voidBTN.setText(_translate("MainWindow", "Void"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.historyBTN_3.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "POS"))
         self.date.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.time.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.label_6.setText(_translate("MainWindow", "Modify Order Details"))
         self.label_14.setText(_translate("MainWindow", "Order ID"))
         self.label_15.setText(_translate("MainWindow", "Package Type"))
@@ -438,3 +441,13 @@ class Ui_MainWindow(object):
         self.searchLBL.setText(_translate("MainWindow", "Search for Order"))
         self.orderLabel_2.setText(_translate("MainWindow", "Orders List"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
