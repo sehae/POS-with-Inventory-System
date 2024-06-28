@@ -229,6 +229,13 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Void</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="modifyBTN">
             <property name="minimumSize">
              <size>
@@ -798,7 +805,7 @@ QComboBox::down-arrow {
                  <widget class="QLabel" name="orderLabel_2">
                   <property name="font">
                    <font>
-                    <pointsize>15</pointsize>
+                    <pointsize>18</pointsize>
                    </font>
                   </property>
                   <property name="text">
