@@ -398,7 +398,7 @@ QPushButton:pressed {
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>9</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -421,10 +421,6 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>Back</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
              <bool>false</bool>

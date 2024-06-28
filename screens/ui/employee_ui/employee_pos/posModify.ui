@@ -332,7 +332,7 @@ QPushButton:pressed {
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>9</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -355,10 +355,6 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>Back</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
              <bool>false</bool>
@@ -428,46 +424,20 @@ QPushButton:pressed {
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_2">
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QLabel" name="date">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
+           <widget class="QLabel" name="date">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
     color: black;
 }</string>
-               </property>
-               <property name="text">
-                <string>November 28th 2023, 12:07AM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="time">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
-    color: black;
-}</string>
-               </property>
-               <property name="text">
-                <string>Juan Dela Cruz</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </property>
+            <property name="text">
+             <string>November 28th 2023, 12:07AM</string>
+            </property>
            </widget>
           </item>
          </layout>

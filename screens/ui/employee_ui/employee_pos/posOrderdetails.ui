@@ -641,381 +641,6 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_10" native="true">
-               <layout class="QFormLayout" name="formLayout_6">
-                <property name="horizontalSpacing">
-                 <number>15</number>
-                </property>
-                <property name="verticalSpacing">
-                 <number>25</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="label_11">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Void Order</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_24">
-                  <property name="text">
-                   <string>Order ID</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox_11">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QPushButton" name="pushButton_5">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>0</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>9</pointsize>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #F1A40E;
-    color: black;
-    border-radius: 15px;
-    border: none;
-}
-
-QPushButton:hover {
-    background-color: #E1920C;
-}
-
-QPushButton:pressed {
-    background-color: #C77908;
-}
-</string>
-                  </property>
-                  <property name="text">
-                   <string>Void</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_3" native="true">
-               <layout class="QFormLayout" name="formLayout">
-                <property name="horizontalSpacing">
-                 <number>15</number>
-                </property>
-                <property name="verticalSpacing">
-                 <number>25</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="label_13">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Send to Kitchen</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_16">
-                  <property name="text">
-                   <string>Order ID</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_8">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>0</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>9</pointsize>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Send</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_8" native="true">
-               <layout class="QFormLayout" name="formLayout_3">
-                <property name="horizontalSpacing">
-                 <number>15</number>
-                </property>
-                <property name="verticalSpacing">
-                 <number>25</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>25</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="label_8">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Start Timer</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_21">
-                  <property name="text">
-                   <string>Order ID</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox_9">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>400</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>0</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>9</pointsize>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Start</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
               <spacer name="verticalSpacer_2">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -1190,6 +815,43 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="voidBTN">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+            </property>
+            <property name="text">
+             <string>Void</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="checkoutBTN">
             <property name="minimumSize">
              <size>
@@ -1285,7 +947,7 @@ QPushButton:pressed {
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>9</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1308,10 +970,6 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>Back</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
              <bool>false</bool>
