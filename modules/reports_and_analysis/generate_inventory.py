@@ -1,10 +1,15 @@
 import configparser
 import pandas as pd
 from datetime import datetime, timedelta
+
+from PyQt5.QtCore import QDateTime
 from docx import Document
-from docx.shared import Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches, Pt
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
+
+from validator.user_manager import userManager
 
 
 def load_config():
@@ -137,12 +142,36 @@ def save_report_to_excel(report_data, report_type, file_path):
 def save_report_to_word(report_data, report_type, file_path):
     document = Document()
 
-    # Add header with company name and timestamp
-    header = document.sections[0].header
-    company_name = "Moon Hey Hotpot and Grill"  # Replace with your company name
-    today = datetime.now().strftime("%B %d, %Y %I:%M %p")  # Format current date and time
-    header.paragraphs[0].text = f"{company_name} Inventory {report_type} Report\nGenerated on: {today}"
-    header.paragraphs[0].alignment = 1  # Center align
+    section = document.sections[0]
+    header = section.header
+    month = datetime.now().strftime("%B")
+    content_header = [
+        "Moon Hey Hotpot and Grill",
+        "848A Banawe St, Quezon City, 1114 Metro Manila",
+        "0917 624 9289",
+        f"Inventory {report_type} Report",
+        f"({month})",
+    ]
+
+    for content_h in content_header:
+        header_paragraph = header.add_paragraph(content_h)
+        run = header_paragraph.runs[0]
+
+        # Center align the paragraph
+        header_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+        # Remove spacing before and after the paragraph
+        header_paragraph.paragraph_format.space_before = Pt(0)
+        header_paragraph.paragraph_format.space_after = Pt(0)
+
+    footer = section.footer
+    date = datetime.now().strftime("%B %d, %Y")
+    time = datetime.now().strftime("%I:%M %p")
+    user_manager = userManager._instance
+    username = user_manager.get_current_username()
+    footer_paragraph = footer.add_paragraph()
+    footer_paragraph.text = f"{date} | {time}    Created by: {username}"
+    footer_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
     # Compute total spending per supplier
     suppliers = report_data['Supplier_Name'].unique()
