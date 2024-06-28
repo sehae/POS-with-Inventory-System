@@ -77,6 +77,7 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
                 cursor = conn.cursor()
                 query = """
                     SELECT 
+                        product.Product_ID,
                         product.Name,
                         product.Date,
                         product.Time,
@@ -106,6 +107,7 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
 
     def display_records(self, records):
         column_names = [
+            "Product ID",
             "Name",
             "Date",
             "Time",

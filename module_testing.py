@@ -2,6 +2,7 @@ import sys
 
 from PyQt5 import QtWidgets
 
+from screens.admin_screens.admin_inventory.barcode_functions import BarcodeDialog
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 
 
@@ -10,7 +11,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
 
     # Create an instance of your class
-    window = adminMaintenance()
+    window = BarcodeDialog()
 
     # Show your instance
     window.show()

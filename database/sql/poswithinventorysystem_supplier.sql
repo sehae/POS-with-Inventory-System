@@ -30,7 +30,7 @@ CREATE TABLE `supplier` (
   `Address` varchar(45) DEFAULT NULL,
   `Status` varchar(45) NOT NULL,
   PRIMARY KEY (`Supplier_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'Fresh Foods Inc.','09456123481','info@tiamzonfoodco.com','273 Harvard Avenue, Pasig','Active'),(2,'Farm Fresh Produce','09987654321','sales@farmfreshproduce.com','5678 Rizal Avenue, Santa Cruz, Manila','Active'),(3,'Gourmet Grocers','09222345678','orders@gourmetgrocers.com','1356 Gen. Luna Street, Intramuros, Manila','Active'),(4,'Global Food Distributors','09356789101','info@globalfooddist.com','345 P. Burgos Street, Makati','Active'),(5,'Organic Harvest','09051122334','info@organicharvest.com','4827 A. Bonifacio Avenue, Cainta','Active'),(6,'Cocacococo','09183345566','info@cocacococo.com','90 E. Rodriguez Sr. Avenue, Quezon City','Active'),(7,'Global Fresh Seafood','09456123481','info@globalfreshseafood.com','679 Kalayaan Avenue, Makati','Active'),(8,'Tiamzon Food Supplies Co.','09456123481','info@tiamzonfoodco.com','273 Harvard Avenue, Pasig','Active'),(9,'Villatura Softdrink Supply Inc.','09123456789','info@villaturasoftdrinksup.com','693 Araneta Avenue, Cubao, Quezon City','Active'),(10,'Faurillo Fresh Vegatables Co.','09456123469','info@faurillofreshveg.com','428 Rizal Avenue, Taguig','Active'),(11,'Agagon Meat Supplier','09456123481','info@agagonmeatsupplier.com','168 Kabataan Avenue, Marikina','Disabled');
+INSERT INTO `supplier` VALUES (1,'Fresh Foods Inc.','09456123481','info@tiamzonfoodco.com','273 Harvard Avenue, Pasig','Active'),(2,'Farm Fresh Produce','09987654321','sales@farmfreshproduce.com','5678 Rizal Avenue, Santa Cruz, Manila','Active'),(3,'Gourmet Grocers','09222345678','orders@gourmetgrocers.com','1356 Gen. Luna Street, Intramuros, Manila','Active'),(4,'Global Food Distributors','09356789101','info@globalfooddist.com','345 P. Burgos Street, Makati','Active'),(5,'Organic Harvest','09051122334','info@organicharvest.com','4827 A. Bonifacio Avenue, Cainta','Active'),(6,'Cocacococo','09183345566','info@cocacococo.com','90 E. Rodriguez Sr. Avenue, Quezon City','Disabled'),(7,'Global Fresh Seafood','09456123481','info@globalfreshseafood.com','679 Kalayaan Avenue, Makati','Active'),(8,'Tiamzon Food Supplies Co.','09456123481','info@tiamzonfoodco.com','273 Harvard Avenue, Pasig','Active'),(9,'Villatura Softdrink Supply Inc.','09123456789','info@villaturasoftdrinksup.com','693 Araneta Avenue, Cubao, Quezon City','Active'),(10,'Faurillo Fresh Vegatables Co.','09456123469','info@faurillofreshveg.com','428 Rizal Avenue, Taguig','Active'),(11,'Agagon Meat Supplier','09456123481','info@agagonmeatsupplier.com','168 Kabataan Avenue, Marikina','Disabled'),(12,'Aspas Condiments Supplier','09456123481','info@aspascondsup.com','428 Rizal Avenue, Taguig','Disabled');
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-26 14:34:08
+-- Dump completed on 2024-06-28  9:45:01

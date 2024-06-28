@@ -181,29 +181,194 @@ class Ui_MainWindow(object):
         self.Content = QtWidgets.QFrame(self.frame)
         self.Content.setObjectName("Content")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.Content)
-        self.horizontalLayout_3.setContentsMargins(-1, -1, 11, -1)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.widget = QtWidgets.QWidget(self.Content)
-        self.widget.setMinimumSize(QtCore.QSize(250, 0))
-        self.widget.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.widget_3 = QtWidgets.QWidget(self.Content)
+        self.widget_3.setObjectName("widget_3")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget_3)
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.automaticbackupLBL = QtWidgets.QLabel(self.widget_3)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.automaticbackupLBL.setFont(font)
+        self.automaticbackupLBL.setObjectName("automaticbackupLBL")
+        self.verticalLayout_5.addWidget(self.automaticbackupLBL)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_5.addItem(spacerItem3)
+        self.widget = QtWidgets.QWidget(self.widget_3)
         self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.formLayout = QtWidgets.QFormLayout(self.widget)
+        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.formLayout.setHorizontalSpacing(25)
+        self.formLayout.setVerticalSpacing(10)
+        self.formLayout.setObjectName("formLayout")
+        self.frequencyLBL = QtWidgets.QLabel(self.widget)
+        self.frequencyLBL.setObjectName("frequencyLBL")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.frequencyLBL)
+        self.frequencyBOX = QtWidgets.QComboBox(self.widget)
+        self.frequencyBOX.setMinimumSize(QtCore.QSize(270, 0))
+        self.frequencyBOX.setMaximumSize(QtCore.QSize(270, 16777215))
+        self.frequencyBOX.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}")
+        self.frequencyBOX.setObjectName("frequencyBOX")
+        self.frequencyBOX.addItem("")
+        self.frequencyBOX.addItem("")
+        self.frequencyBOX.addItem("")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.frequencyBOX)
+        self.filelocLBL = QtWidgets.QLabel(self.widget)
+        self.filelocLBL.setObjectName("filelocLBL")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.filelocLBL)
+        self.filelocDISPLAY = QtWidgets.QLabel(self.widget)
+        self.filelocDISPLAY.setObjectName("filelocDISPLAY")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.filelocDISPLAY)
+        self.verticalLayout_5.addWidget(self.widget)
+        self.widget_2 = QtWidgets.QWidget(self.widget_3)
+        self.widget_2.setObjectName("widget_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget_2)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.monthlyBTN = QtWidgets.QPushButton(self.widget)
-        self.monthlyBTN.setObjectName("monthlyBTN")
-        self.verticalLayout.addWidget(self.monthlyBTN)
-        self.weeklyBTN = QtWidgets.QPushButton(self.widget)
-        self.weeklyBTN.setObjectName("weeklyBTN")
-        self.verticalLayout.addWidget(self.weeklyBTN)
-        self.dailyBTN = QtWidgets.QPushButton(self.widget)
-        self.dailyBTN.setObjectName("dailyBTN")
-        self.verticalLayout.addWidget(self.dailyBTN)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
-        self.horizontalLayout_3.addWidget(self.widget)
-        self.displayResults = QtWidgets.QLabel(self.Content)
-        self.displayResults.setObjectName("displayResults")
-        self.horizontalLayout_3.addWidget(self.displayResults)
+        self.viewBTN = QtWidgets.QPushButton(self.widget_2)
+        self.viewBTN.setMinimumSize(QtCore.QSize(400, 0))
+        self.viewBTN.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.viewBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.viewBTN.setObjectName("viewBTN")
+        self.verticalLayout.addWidget(self.viewBTN)
+        self.selectfolderBTN = QtWidgets.QPushButton(self.widget_2)
+        self.selectfolderBTN.setMinimumSize(QtCore.QSize(400, 0))
+        self.selectfolderBTN.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.selectfolderBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.selectfolderBTN.setObjectName("selectfolderBTN")
+        self.verticalLayout.addWidget(self.selectfolderBTN)
+        self.generateBTN = QtWidgets.QPushButton(self.widget_2)
+        self.generateBTN.setMinimumSize(QtCore.QSize(400, 50))
+        self.generateBTN.setMaximumSize(QtCore.QSize(400, 50))
+        font = QtGui.QFont()
+        font.setBold(False)
+        self.generateBTN.setFont(font)
+        self.generateBTN.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.generateBTN.setObjectName("generateBTN")
+        self.verticalLayout.addWidget(self.generateBTN)
+        self.verticalLayout_5.addWidget(self.widget_2)
+        self.widget_5 = QtWidgets.QWidget(self.widget_3)
+        self.widget_5.setObjectName("widget_5")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.widget_5)
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_6.setSpacing(10)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.verticalLayout_5.addWidget(self.widget_5)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem4)
+        self.horizontalLayout_3.addWidget(self.widget_3)
+        self.scrollArea = QtWidgets.QScrollArea(self.Content)
+        self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -1090, 656, 1977))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_2 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_3.addWidget(self.label_2)
+        self.levelView = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.levelView.setMinimumSize(QtCore.QSize(0, 600))
+        self.levelView.setMaximumSize(QtCore.QSize(16777215, 600))
+        self.levelView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.levelView.setObjectName("levelView")
+        self.verticalLayout_3.addWidget(self.levelView)
+        self.label_3 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout_3.addWidget(self.label_3)
+        self.statusView = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.statusView.setMinimumSize(QtCore.QSize(0, 600))
+        self.statusView.setMaximumSize(QtCore.QSize(16777215, 600))
+        self.statusView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.statusView.setObjectName("statusView")
+        self.verticalLayout_3.addWidget(self.statusView)
+        self.label_4 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout_3.addWidget(self.label_4)
+        self.expiryView = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.expiryView.setMinimumSize(QtCore.QSize(0, 600))
+        self.expiryView.setMaximumSize(QtCore.QSize(16777215, 600))
+        self.expiryView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.expiryView.setObjectName("expiryView")
+        self.verticalLayout_3.addWidget(self.expiryView)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.horizontalLayout_3.addWidget(self.scrollArea)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -217,19 +382,25 @@ class Ui_MainWindow(object):
         self.salesReportBTN.setText(_translate("MainWindow", "Sales\n"
 "Report"))
         self.inventoryReportBTN.setText(_translate("MainWindow", "Inventory\n"
-"Reports"))
+"Report"))
         self.trendAnalysisBTN.setText(_translate("MainWindow", "Trend\n"
 "Analysis"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "REPORTS"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.monthlyBTN.setText(_translate("MainWindow", "Generate\n"
-"Monthly Inventory Report"))
-        self.weeklyBTN.setText(_translate("MainWindow", "Generate\n"
-"Weekly Inventory Report"))
-        self.dailyBTN.setText(_translate("MainWindow", "Generate\n"
-"Daily Inventory Report"))
-        self.displayResults.setText(_translate("MainWindow", "display?"))
+        self.automaticbackupLBL.setText(_translate("MainWindow", "Inventory Report"))
+        self.frequencyLBL.setText(_translate("MainWindow", "Report Frequency"))
+        self.frequencyBOX.setItemText(0, _translate("MainWindow", "Daily"))
+        self.frequencyBOX.setItemText(1, _translate("MainWindow", "Weekly"))
+        self.frequencyBOX.setItemText(2, _translate("MainWindow", "Monthly"))
+        self.filelocLBL.setText(_translate("MainWindow", "Excel Location"))
+        self.filelocDISPLAY.setText(_translate("MainWindow", "You don\'t have current excel location..."))
+        self.viewBTN.setText(_translate("MainWindow", "View Excel Location"))
+        self.selectfolderBTN.setText(_translate("MainWindow", "Select Excel Location"))
+        self.generateBTN.setText(_translate("MainWindow", "Generate Report"))
+        self.label_2.setText(_translate("MainWindow", "Inventory Levels by Products"))
+        self.label_3.setText(_translate("MainWindow", "Inventory Status Overview"))
+        self.label_4.setText(_translate("MainWindow", "Expiry Date Analysis"))
 import assets.resourceFile_rc
 
 

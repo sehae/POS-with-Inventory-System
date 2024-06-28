@@ -12,6 +12,7 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
     view_signal = QtCore.pyqtSignal()
     supplier_generated_signal = QtCore.pyqtSignal()
+    supplier_updated_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -291,6 +292,7 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
             conn.commit()
             QMessageBox.information(self, "Success", "Supplier updated successfully.")
 
+            self.supplier_updated_signal.emit()
             self.clear_fields()
 
         except Exception as e:

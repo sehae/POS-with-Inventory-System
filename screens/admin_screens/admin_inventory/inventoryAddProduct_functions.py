@@ -61,6 +61,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         self.admin_supplier = adminSupplier()
 
         self.admin_supplier.supplier_generated_signal.connect(self.populateComboBox)
+        self.admin_supplier.supplier_updated_signal.connect(self.populateComboBox)
 
         # Apply QDoubleValidator to buying_cost and selling_cost fields
         double_validator = QDoubleValidator(0.00, 9999.99, 2)
@@ -89,8 +90,6 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.label_2.setText(formattedDateTime)
-
-        self.populateComboBox()
 
     def add_product(self):
         # Get the values entered by the user
@@ -158,18 +157,26 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
                 VALUES (%s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
             """
             product_values = (
-            new_product_id, name, quantity, category, expiry_date, threshold_value, availability, current_date,
-            current_time)
+                new_product_id, name, quantity, category, expiry_date, threshold_value, availability, current_date,
+                current_time)
             cursor.execute(product_query, product_values)
 
             barcode_str = generate_barcode(name)
 
             # Insert into inventory table
-            inventory_query = """
-                INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost, Barcode) 
-                VALUES (%s, %s, %s, %s, %s)
-            """
-            inventory_values = (supplier_id, new_product_id, buying_cost, selling_cost, barcode_str)
+            if category == "Ingredient":
+                inventory_query = """
+                    INSERT INTO inventory (Supplier_ID, Product_ID, Barcode) 
+                    VALUES (%s, %s, %s)
+                """
+                inventory_values = (supplier_id, new_product_id, barcode_str)
+            else:
+                inventory_query = """
+                    INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost, Barcode) 
+                    VALUES (%s, %s, %s, %s, %s)
+                """
+                inventory_values = (supplier_id, new_product_id, buying_cost or None, selling_cost or None, barcode_str)
+
             cursor.execute(inventory_query, inventory_values)
 
             conn.commit()
@@ -209,31 +216,32 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_4.setStyleSheet("border: 1px solid green;")
 
-        if buying_cost:  # Check if buying_cost is not empty
-            try:
-                buying_cost_float = float(buying_cost)
-                if not (buying_cost_float.is_integer() or round(buying_cost_float % 1, 2) == 0.00):
-                    raise ValueError("Buying cost must have exactly two decimal places.")
-                self.lineEdit_5.setStyleSheet("border: 1px solid green;")
-            except ValueError:
+        if category != "Ingredient":
+            if not buying_cost:
+                self.lineEdit_3.setStyleSheet("border: 1px solid red;")
+                valid = False
+            else:
+                try:
+                    buying_cost_float = float(buying_cost)
+                    if not (buying_cost_float.is_integer() or round(buying_cost_float % 1, 2) == 0.00):
+                        raise ValueError("Buying cost must have exactly two decimal places.")
+                    self.lineEdit_3.setStyleSheet("border: 1px solid green;")
+                except ValueError:
+                    self.lineEdit_3.setStyleSheet("border: 1px solid red;")
+                    valid = False
+
+            if not selling_cost:
                 self.lineEdit_5.setStyleSheet("border: 1px solid red;")
                 valid = False
-        else:
-            # Optional field is considered valid if empty
-            self.lineEdit_3.setStyleSheet("border: 1px solid green;")
-
-        if selling_cost:  # Check if selling_cost is not empty
-            try:
-                selling_cost_float = float(selling_cost)
-                if not (selling_cost_float.is_integer() or round(selling_cost_float % 1, 2) == 0.00):
-                    raise ValueError("Selling cost must have exactly two decimal places.")
-                self.lineEdit_4.setStyleSheet("border: 1px solid green;")
-            except ValueError:
-                self.lineEdit_4.setStyleSheet("border: 1px solid red;")
-                valid = False
-        else:
-            # Optional field is considered valid if empty
-            self.lineEdit_5.setStyleSheet("border: 1px solid green;")
+            else:
+                try:
+                    selling_cost_float = float(selling_cost)
+                    if not (selling_cost_float.is_integer() or round(selling_cost_float % 1, 2) == 0.00):
+                        raise ValueError("Selling cost must have exactly two decimal places.")
+                    self.lineEdit_5.setStyleSheet("border: 1px solid green;")
+                except ValueError:
+                    self.lineEdit_5.setStyleSheet("border: 1px solid red;")
+                    valid = False
 
         if not supplier_name:
             self.comboBox_2.setStyleSheet("border: 1px solid red;")
@@ -286,7 +294,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
                 cursor = conn.cursor()
 
                 # Execute the query to retrieve supplier names
-                query = "SELECT Supplier_Name FROM supplier"
+                query = "SELECT Supplier_Name FROM supplier WHERE Status = 'Active'"
                 cursor.execute(query)
 
                 # Fetch all the supplier names

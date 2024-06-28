@@ -14,28 +14,70 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
+        Dialog.resize(459, 336)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.barcodeLBL = QtWidgets.QLabel(Dialog)
         self.barcodeLBL.setAlignment(QtCore.Qt.AlignCenter)
         self.barcodeLBL.setObjectName("barcodeLBL")
         self.verticalLayout.addWidget(self.barcodeLBL)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.verticalLayout.addWidget(self.buttonBox)
+        self.dialogBox = QtWidgets.QWidget(Dialog)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.dialogBox.sizePolicy().hasHeightForWidth())
+        self.dialogBox.setSizePolicy(sizePolicy)
+        self.dialogBox.setObjectName("dialogBox")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.dialogBox)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.printBTN = QtWidgets.QPushButton(self.dialogBox)
+        self.printBTN.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 20px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.printBTN.setObjectName("printBTN")
+        self.horizontalLayout.addWidget(self.printBTN)
+        self.cancelBTN = QtWidgets.QPushButton(self.dialogBox)
+        self.cancelBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 20px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.cancelBTN.setObjectName("cancelBTN")
+        self.horizontalLayout.addWidget(self.cancelBTN)
+        self.verticalLayout.addWidget(self.dialogBox)
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
-        self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.barcodeLBL.setText(_translate("Dialog", "image here"))
+        self.barcodeLBL.setText(_translate("Dialog", "bar"))
+        self.printBTN.setText(_translate("Dialog", "Print File"))
+        self.cancelBTN.setText(_translate("Dialog", "Cancel"))
 
 
 if __name__ == "__main__":

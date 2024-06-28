@@ -26,7 +26,7 @@ CREATE TABLE `user_actions` (
   `action_id` int NOT NULL AUTO_INCREMENT,
   `action` varchar(45) NOT NULL,
   PRIMARY KEY (`action_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `user_actions` (
 
 LOCK TABLES `user_actions` WRITE;
 /*!40000 ALTER TABLE `user_actions` DISABLE KEYS */;
-INSERT INTO `user_actions` VALUES (1,'attempted to login'),(2,'successfully logged in'),(3,'initiated OTP authentication '),(4,'failed OTP authentication '),(5,'cancelled OTP authentication'),(6,'initiated password reset '),(7,'cancelled password reset '),(8,'successfully reseted password '),(9,'logged out'),(10,'added new user'),(11,'update LoA'),(12,'changed password'),(13,'deactivated a user'),(14,'user-initiated backup'),(15,'user-inititated data restoration');
+INSERT INTO `user_actions` VALUES (1,'attempted to login'),(2,'successfully logged in'),(3,'initiated OTP authentication '),(4,'failed OTP authentication '),(5,'cancelled OTP authentication'),(6,'initiated password reset '),(7,'cancelled password reset '),(8,'successfully reseted password '),(9,'logged out'),(10,'added new user'),(11,'update LoA'),(12,'changed password'),(13,'deactivated a user'),(14,'user-initiated backup'),(15,'user-inititated data restoration'),(16,'update quantity'),(17,'created an item');
 /*!40000 ALTER TABLE `user_actions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-27 10:51:32
+-- Dump completed on 2024-06-28  9:47:24

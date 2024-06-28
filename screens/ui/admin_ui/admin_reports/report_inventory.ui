@@ -163,7 +163,7 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>Inventory
-Reports</string>
+Report</string>
             </property>
            </widget>
           </item>
@@ -341,46 +341,289 @@ QPushButton:pressed {
        <item row="1" column="1">
         <widget class="QFrame" name="Content">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <property name="rightMargin">
-           <number>11</number>
-          </property>
           <item>
-           <widget class="QWidget" name="widget" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>250</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>250</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout">
+           <widget class="QWidget" name="widget_3" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
-              <widget class="QPushButton" name="monthlyBTN">
+              <widget class="QLabel" name="automaticbackupLBL">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Generate
-Monthly Inventory Report</string>
+                <string>Inventory Report</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="weeklyBTN">
-               <property name="text">
-                <string>Generate
-Weekly Inventory Report</string>
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
                </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget" native="true">
+               <layout class="QFormLayout" name="formLayout">
+                <property name="horizontalSpacing">
+                 <number>25</number>
+                </property>
+                <property name="verticalSpacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="frequencyLBL">
+                  <property name="text">
+                   <string>Report Frequency</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="frequencyBOX">
+                  <property name="minimumSize">
+                   <size>
+                    <width>270</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>270</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+    padding: 5px;
+    border: 2px solid #07BEB8;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    selection-background-color: darkgray;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: right center;
+    width: 20px;
+    border-left: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+    image: url(:/logos/Icons/gridicons_dropdown.png);
+    width: 20px;
+    height: 20px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Daily</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Weekly</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Monthly</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="filelocLBL">
+                  <property name="text">
+                   <string>Excel Location</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="filelocDISPLAY">
+                  <property name="text">
+                   <string>You don't have current excel location...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="dailyBTN">
-               <property name="text">
-                <string>Generate
-Daily Inventory Report</string>
-               </property>
+              <widget class="QWidget" name="widget_2" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <widget class="QPushButton" name="viewBTN">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>View Excel Location</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="selectfolderBTN">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: white;
+    border: 2px solid #67B99A;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+QPushButton:hover {
+    border: 2px solid #4D926D;
+}
+
+QPushButton:pressed {
+	background-color: #F0F0F0;
+	border: 2px solid #265C42;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Select Excel Location</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="generateBTN">
+                  <property name="minimumSize">
+                   <size>
+                    <width>400</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>400</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Generate Report</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_5" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+               </layout>
               </widget>
              </item>
              <item>
@@ -400,10 +643,118 @@ Daily Inventory Report</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="displayResults">
-            <property name="text">
-             <string>display?</string>
+           <widget class="QScrollArea" name="scrollArea">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
             </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>-1090</y>
+               <width>656</width>
+               <height>1977</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Inventory Levels by Products</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="levelView">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="verticalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Inventory Status Overview</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="statusView">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="verticalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Expiry Date Analysis</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="expiryView">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="verticalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
