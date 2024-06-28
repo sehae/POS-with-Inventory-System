@@ -470,14 +470,14 @@ QComboBox::down-arrow {
                 <item row="1" column="0">
                  <widget class="QLabel" name="filelocLBL">
                   <property name="text">
-                   <string>Excel Location</string>
+                   <string>Save File Location</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
                  <widget class="QLabel" name="filelocDISPLAY">
                   <property name="text">
-                   <string>You don't have current excel location...</string>
+                   <string>You don't have current save location...</string>
                   </property>
                  </widget>
                 </item>
@@ -520,7 +520,7 @@ QPushButton:pressed {
 }</string>
                   </property>
                   <property name="text">
-                   <string>View Excel Location</string>
+                   <string>Open Save Location</string>
                   </property>
                  </widget>
                 </item>
@@ -557,7 +557,7 @@ QPushButton:pressed {
 }</string>
                   </property>
                   <property name="text">
-                   <string>Select Excel Location</string>
+                   <string>Select Save Location</string>
                   </property>
                  </widget>
                 </item>
@@ -650,107 +650,185 @@ QPushButton:pressed {
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents">
+            <widget class="QWidget" name="scrollAreaWidgetContents_2">
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-1090</y>
+               <y>-1325</y>
                <width>656</width>
-               <height>1977</height>
+               <height>1980</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <property name="spacing">
+               <number>15</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="label_2">
-                <property name="font">
-                 <font>
-                  <pointsize>18</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Inventory Levels by Products</string>
-                </property>
+               <widget class="QWidget" name="widget_8" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <property name="spacing">
+                  <number>10</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_5">
+                   <property name="font">
+                    <font>
+                     <pointsize>18</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Inventory Levels by Products</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGraphicsView" name="levelView">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="levelView">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
+               <widget class="QWidget" name="widget_9" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <property name="spacing">
+                  <number>10</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_6">
+                   <property name="font">
+                    <font>
+                     <pointsize>18</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Inventory Status Overview</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGraphicsView" name="statusView">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_3">
-                <property name="font">
-                 <font>
-                  <pointsize>18</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Inventory Status Overview</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="statusView">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="font">
-                 <font>
-                  <pointsize>18</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Expiry Date Analysis</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="expiryView">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>600</height>
-                 </size>
-                </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAlwaysOff</enum>
-                </property>
+               <widget class="QWidget" name="widget_10" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <property name="spacing">
+                  <number>10</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_7">
+                   <property name="font">
+                    <font>
+                     <pointsize>18</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Expiry Date Analysis</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGraphicsView" name="expiryView">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>600</height>
+                    </size>
+                   </property>
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
