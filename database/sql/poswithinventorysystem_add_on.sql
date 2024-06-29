@@ -29,7 +29,7 @@ CREATE TABLE `add_on` (
   PRIMARY KEY (`Add_On_ID`),
   KEY `Order_ID` (`Order_ID`),
   CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `add_on` (
 
 LOCK TABLES `add_on` WRITE;
 /*!40000 ALTER TABLE `add_on` DISABLE KEYS */;
+INSERT INTO `add_on` VALUES (1,'POS20240629002','[{\"quantity\": 3, \"product_id\": \"PRD002\"}, {\"quantity\": 2, \"product_id\": \"PRD011\"}, {\"quantity\": 3, \"product_id\": \"PRD009\"}]');
 /*!40000 ALTER TABLE `add_on` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-28  9:45:02
+-- Dump completed on 2024-06-29 11:17:41

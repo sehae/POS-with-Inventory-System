@@ -37,9 +37,15 @@ CREATE TABLE `order` (
   `Order_Type` varchar(45) DEFAULT NULL,
   `Payment_Method` varchar(45) NOT NULL,
   `Cash_Amount` decimal(10,2) DEFAULT NULL,
-  `Reference_ID` int DEFAULT NULL,
+  `reference_id` varchar(45) DEFAULT NULL,
   `Discount_Type` varchar(45) DEFAULT NULL,
   `Priority_Order` varchar(45) DEFAULT NULL,
+  `Subtotal_Amount` decimal(10,2) DEFAULT NULL,
+  `VAT_Amount` decimal(10,2) DEFAULT NULL,
+  `Discount_Amount` decimal(10,2) DEFAULT NULL,
+  `Change_Amount` decimal(10,2) DEFAULT NULL,
+  `Package_Total_Amount` decimal(10,2) DEFAULT NULL,
+  `Add_Ons_Total_Amount` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   KEY `fk_Package_ID` (`Package_ID`),
   KEY `fk_leftover_id` (`Leftover_ID`),
@@ -54,7 +60,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('POS20240627001','2024-06-27','22:44',NULL,'Cancelled',NULL,NULL,'','',NULL,NULL,'Package','Pending',NULL,NULL,NULL,'Non-priority');
+INSERT INTO `order` VALUES ('POS20240629001','2024-06-29','07:39',NULL,'Cancelled',1,NULL,'Bryan Tiamzon','Mala soup',2,NULL,'Package','Pending',NULL,NULL,NULL,'Non-priority',NULL,NULL,NULL,NULL,NULL,NULL),('POS20240629002','2024-06-29','07:40',NULL,'Pending',1,NULL,'Francesca Madlangbayan','Mala soup',3,NULL,'Package','Cash',5000.00,'945613481','PWD','Priority',2597.00,249.31,519.40,2673.09,2127.00,'470.0'),('POS20240629003','2024-06-29','10:19',NULL,'Pending',2,NULL,'Aspas','',3,NULL,'Package','Pending',0.00,'0',NULL,'Priority',2127.00,255.24,0.00,0.00,2127.00,'0');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-28  9:45:02
+-- Dump completed on 2024-06-29 11:17:41
