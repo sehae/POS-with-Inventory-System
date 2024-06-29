@@ -20,6 +20,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
     menu_signal = QtCore.pyqtSignal()
     transaction_generated_signal = QtCore.pyqtSignal()
     update_combobox_signal = QtCore.pyqtSignal()
+    history_signal = QtCore.pyqtSignal()
+    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -31,6 +33,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.checkoutBTN.clicked.connect(self.goCheckout)
         self.modifyBTN.clicked.connect(self.goModify)
         self.menuBTN.clicked.connect(self.goMenu)
+        self.historyBTN.clicked.connect(self.goHistory)
+        self.voidBTN.clicked.connect(self.void_signal.emit)
         self.pushButton_6.clicked.connect(self.saveOrder)  # Connect saveOrder function to pushButton_6
         self.pushButton.clicked.connect(self.cancel_order)
         self.pushButton_2.clicked.connect(self.start_timer)
@@ -77,6 +81,9 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.date.setText(formattedDateTime)
+
+    def goHistory(self):
+        self.history_signal.emit()
 
     def goBack(self):
         self.back_signal.emit()

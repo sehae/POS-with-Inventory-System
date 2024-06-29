@@ -359,10 +359,6 @@ QPushButton:pressed {
             <property name="text">
              <string>Back</string>
             </property>
-            <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
-            </property>
             <property name="autoRepeat">
              <bool>false</bool>
             </property>
@@ -736,14 +732,14 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
-                   <item row="9" column="0">
+                   <item row="10" column="0">
                     <widget class="QLabel" name="label_29">
                      <property name="text">
                       <string>Change Amount</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="9" column="1">
+                   <item row="10" column="1">
                     <widget class="QLabel" name="changeDISPLAY">
                      <property name="text">
                       <string>put change amount here</string>
@@ -787,7 +783,7 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="0">
+                   <item row="11" column="0">
                     <widget class="QLabel" name="label_17">
                      <property name="font">
                       <font>
@@ -801,7 +797,7 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="1">
+                   <item row="11" column="1">
                     <widget class="QLabel" name="totalamountDISPLAY">
                      <property name="font">
                       <font>
@@ -812,6 +808,23 @@ QPushButton:pressed {
                      </property>
                      <property name="text">
                       <string>total amount here</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="0">
+                    <widget class="QLabel" name="label_22">
+                     <property name="text">
+                      <string>Cash Amount</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="1">
+                    <widget class="QLabel" name="cashamountDISPLAY">
+                     <property name="text">
+                      <string>cash amount here</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1030,6 +1043,30 @@ QPushButton:pressed {
                     </property>
                    </widget>
                   </item>
+                  <item row="4" column="1">
+                   <widget class="QPushButton" name="setBTN">
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Enter</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </item>
                 <item>
@@ -1043,31 +1080,12 @@ QPushButton:pressed {
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Discount</string>
+                     <string>Discount               </string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>18</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
                    <widget class="QComboBox" name="discountBOX">
-                    <property name="mouseTracking">
-                     <bool>false</bool>
-                    </property>
                     <property name="styleSheet">
                      <string notr="true">QComboBox {
     padding: 5px;
@@ -1092,9 +1110,6 @@ QComboBox::down-arrow {
     height: 20px;
 }</string>
                     </property>
-                    <property name="currentText">
-                     <string/>
-                    </property>
                    </widget>
                   </item>
                  </layout>
@@ -1107,7 +1122,7 @@ QComboBox::down-arrow {
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_18">
                     <property name="text">
-                     <string>Leftover</string>
+                     <string>Leftover         </string>
                     </property>
                    </widget>
                   </item>
@@ -1165,49 +1180,6 @@ QComboBox::down-arrow {
                   </item>
                  </layout>
                 </item>
-                <item>
-                 <widget class="Line" name="line_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_27">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Others</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_28">
-                  <property name="text">
-                   <string>Customer Request/Notes</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QTextEdit" name="notesFIELD">
-                  <property name="styleSheet">
-                   <string notr="true">QTextEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Put Customer Requests/Notes here...</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </widget>
              </item>
@@ -1227,116 +1199,19 @@ QComboBox::down-arrow {
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_26">
+                 <widget class="QLabel" name="label_21">
                   <property name="font">
                    <font>
                     <pointsize>18</pointsize>
                    </font>
                   </property>
                   <property name="text">
-                   <string>Receipt</string>
+                   <string>Orders Done</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QGraphicsView" name="receiptVIEW"/>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="kitchenBTN">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Send to Kitchen</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="generateBTN">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Generate Receipt</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="printBTN">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: white;
-    border: 2px solid #67B99A;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    border: 2px solid #4D926D;
-}
-
-QPushButton:pressed {
-	background-color: #F0F0F0;
-	border: 2px solid #265C42;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Print Receipt</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="timerBTN">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-    background-color: #F1A40E;
-    color: white;
-    border: 2px solid #F1A40E;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #E5950C;
-    border: 2px solid #E5950C;
-}
-QPushButton:pressed {
-    background-color: #D7850A;
-    border: 2px solid #D7850A;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Start Timer</string>
-                  </property>
-                 </widget>
+                 <widget class="QTableWidget" name="orderdoneList"/>
                 </item>
                </layout>
               </widget>

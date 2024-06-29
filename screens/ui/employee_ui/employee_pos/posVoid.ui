@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1476</width>
     <height>860</height>
    </rect>
   </property>
@@ -499,6 +499,7 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -512,6 +513,7 @@ QPushButton:pressed {
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -584,46 +586,6 @@ QPushButton:pressed {
            <widget class="QTableWidget" name="orderList"/>
           </item>
           <item>
-           <widget class="QWidget" name="widget_4" native="true">
-            <layout class="QFormLayout" name="formLayout_2">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Subtotal</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Vat (12%)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="subtotalDISPLAY">
-               <property name="text">
-                <string>display subtotal</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="vatDISPLAY">
-               <property name="text">
-                <string>display vat amount</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
            <widget class="QLabel" name="label_7">
             <property name="text">
              <string/>
@@ -668,23 +630,6 @@ QComboBox::down-arrow {
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="barcodeFIELD">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
-               </property>
-               <property name="placeholderText">
-                <string>Put Barcode Here</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QComboBox" name="reasonBox">
                <property name="styleSheet">
                 <string notr="true">QComboBox {
@@ -709,6 +654,30 @@ QComboBox::down-arrow {
     width: 20px;
     height: 20px;
 }</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="checkBTN">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+               </property>
+               <property name="text">
+                <string>Check Order ID</string>
                </property>
               </widget>
              </item>
