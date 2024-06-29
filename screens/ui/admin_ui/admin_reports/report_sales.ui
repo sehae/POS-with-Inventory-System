@@ -230,7 +230,7 @@ Analysis</string>
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>9</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -473,7 +473,7 @@ QComboBox::down-arrow {
                 <item row="1" column="0">
                  <widget class="QLabel" name="filelocLBL">
                   <property name="text">
-                   <string>Save Location</string>
+                   <string>Save File Location</string>
                   </property>
                  </widget>
                 </item>
@@ -523,7 +523,7 @@ QPushButton:pressed {
 }</string>
                   </property>
                   <property name="text">
-                   <string>View Save Location</string>
+                   <string>Open Save Location</string>
                   </property>
                  </widget>
                 </item>
@@ -704,12 +704,12 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="text">
-                    <string>Label_2</string>
+                    <string>Total Sales</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGraphicsView" name="levelView">
+                  <widget class="QGraphicsView" name="viewer1">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -756,12 +756,12 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="text">
-                    <string>Label_3</string>
+                    <string>Sales by Payment Method</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGraphicsView" name="statusView">
+                  <widget class="QGraphicsView" name="viewer2">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -808,12 +808,12 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="text">
-                    <string>Label_4</string>
+                    <string>Sales by Category</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGraphicsView" name="expiryView">
+                  <widget class="QGraphicsView" name="viewer3">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
