@@ -19,10 +19,10 @@ class helpFAQ(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.pushButton_3.clicked.connect(self.navigate_support)
+        self.pushButton_3.clicked.connect(self.support_signal.emit)
         self.backButton_3.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
                                                             self.back_kitchen_signal, self.back_cashier_signal))
-        self.editUserButton_3.clicked.connect(self.navigate_manual)
+        self.editUserButton_3.clicked.connect(self.manual_signal.emit)
 
         # Create an instance of userManager
         self.user_manager = userManager()

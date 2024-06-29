@@ -144,9 +144,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backButton.setIcon(icon)
         self.backButton.setAutoRepeat(False)
         self.backButton.setObjectName("backButton")
         self.verticalLayout_7.addWidget(self.backButton)
@@ -175,11 +172,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.addWidget(self.titleLabel)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_13.addItem(spacerItem2)
-        self.systemLabel = QtWidgets.QFrame(self.header)
-        self.systemLabel.setObjectName("systemLabel")
-        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.systemLabel)
-        self.verticalLayout_12.setObjectName("verticalLayout_12")
-        self.sysTimeDate = QtWidgets.QLabel(self.systemLabel)
+        self.sysTimeDate = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.sysTimeDate.setFont(font)
@@ -187,52 +180,65 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.sysTimeDate.setObjectName("sysTimeDate")
-        self.verticalLayout_12.addWidget(self.sysTimeDate)
-        self.userName = QtWidgets.QLabel(self.systemLabel)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.userName.setFont(font)
-        self.userName.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.userName.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.userName.setObjectName("userName")
-        self.verticalLayout_12.addWidget(self.userName)
-        self.horizontalLayout_13.addWidget(self.systemLabel)
+        self.horizontalLayout_13.addWidget(self.sysTimeDate)
         self.gridLayout_2.addWidget(self.header, 0, 0, 1, 2)
         self.mainContent = QtWidgets.QWidget(self.frame)
         self.mainContent.setObjectName("mainContent")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.mainContent)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.tutorial = QtWidgets.QLabel(self.mainContent)
-        self.tutorial.setText("")
-        self.tutorial.setObjectName("tutorial")
-        self.verticalLayout.addWidget(self.tutorial)
-        self.widget = QtWidgets.QWidget(self.mainContent)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy)
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget)
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.mainContent)
+        self.horizontalLayout_2.setContentsMargins(25, 25, 25, 25)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem3)
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
-        self.pushButton_3 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_3.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_2.addWidget(self.pushButton_3)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem4)
-        self.verticalLayout.addWidget(self.widget)
+        self.pdfViewerPlaceholder = QtWidgets.QLabel(self.mainContent)
+        self.pdfViewerPlaceholder.setText("")
+        self.pdfViewerPlaceholder.setObjectName("pdfViewerPlaceholder")
+        self.horizontalLayout_2.addWidget(self.pdfViewerPlaceholder)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.verticalLayout.setObjectName("verticalLayout")
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem3)
+        self.zoomin = QtWidgets.QPushButton(self.mainContent)
+        self.zoomin.setMinimumSize(QtCore.QSize(25, 25))
+        self.zoomin.setMaximumSize(QtCore.QSize(25, 25))
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.zoomin.setFont(font)
+        self.zoomin.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.zoomin.setObjectName("zoomin")
+        self.verticalLayout.addWidget(self.zoomin)
+        self.zoomout = QtWidgets.QPushButton(self.mainContent)
+        self.zoomout.setMinimumSize(QtCore.QSize(25, 25))
+        self.zoomout.setMaximumSize(QtCore.QSize(25, 25))
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.zoomout.setFont(font)
+        self.zoomout.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.zoomout.setObjectName("zoomout")
+        self.verticalLayout.addWidget(self.zoomout)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.gridLayout_2.addWidget(self.mainContent, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -249,9 +255,8 @@ class Ui_MainWindow(object):
         self.backButton.setText(_translate("MainWindow", "Back"))
         self.titleLabel.setText(_translate("MainWindow", "HELP"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
-        self.pushButton_2.setText(_translate("MainWindow", "Previous"))
-        self.pushButton_3.setText(_translate("MainWindow", "Next"))
+        self.zoomin.setText(_translate("MainWindow", "+"))
+        self.zoomout.setText(_translate("MainWindow", "-"))
 import assets.resourceFile_rc
 
 

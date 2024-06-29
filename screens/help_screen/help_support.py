@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(800, 602)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -144,9 +144,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backButton_3.setIcon(icon)
         self.backButton_3.setAutoRepeat(False)
         self.backButton_3.setObjectName("backButton_3")
         self.verticalLayout_9.addWidget(self.backButton_3)
@@ -175,11 +172,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addWidget(self.titleLabel_3)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_15.addItem(spacerItem2)
-        self.systemLabel_3 = QtWidgets.QFrame(self.header_3)
-        self.systemLabel_3.setObjectName("systemLabel_3")
-        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.systemLabel_3)
-        self.verticalLayout_14.setObjectName("verticalLayout_14")
-        self.sysTimeDate_3 = QtWidgets.QLabel(self.systemLabel_3)
+        self.sysTimeDate_3 = QtWidgets.QLabel(self.header_3)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.sysTimeDate_3.setFont(font)
@@ -187,23 +180,12 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.sysTimeDate_3.setObjectName("sysTimeDate_3")
-        self.verticalLayout_14.addWidget(self.sysTimeDate_3)
-        self.userName_3 = QtWidgets.QLabel(self.systemLabel_3)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.userName_3.setFont(font)
-        self.userName_3.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.userName_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.userName_3.setObjectName("userName_3")
-        self.verticalLayout_14.addWidget(self.userName_3)
-        self.horizontalLayout_15.addWidget(self.systemLabel_3)
+        self.horizontalLayout_15.addWidget(self.sysTimeDate_3)
         self.gridLayout_4.addWidget(self.header_3, 0, 0, 1, 2)
         self.mainContent = QtWidgets.QWidget(self.frame)
         self.mainContent.setObjectName("mainContent")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.mainContent)
-        self.verticalLayout_10.setContentsMargins(50, 50, 50, 50)
+        self.verticalLayout_10.setContentsMargins(25, 25, 25, 25)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.layoutContainer = QtWidgets.QWidget(self.mainContent)
         self.layoutContainer.setObjectName("layoutContainer")
@@ -267,7 +249,6 @@ class Ui_MainWindow(object):
         self.backButton_3.setText(_translate("MainWindow", "Back"))
         self.titleLabel_3.setText(_translate("MainWindow", "HELP"))
         self.sysTimeDate_3.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.userName_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.mainTitle.setText(_translate("MainWindow", "Contact Support"))
         self.emailTitle.setText(_translate("MainWindow", "E-MAIL"))
         self.email.setText(_translate("MainWindow", "qyjpfaurillo@tip.edu.ph\n"

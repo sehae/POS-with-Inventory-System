@@ -256,10 +256,6 @@ QPushButton:pressed {
             <property name="text">
              <string>Back</string>
             </property>
-            <property name="icon">
-             <iconset resource="../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
-            </property>
             <property name="autoRepeat">
              <bool>false</bool>
             </property>
@@ -328,46 +324,20 @@ QPushButton:pressed {
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="systemLabel_3">
-            <layout class="QVBoxLayout" name="verticalLayout_14">
-             <item>
-              <widget class="QLabel" name="sysTimeDate_3">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
+           <widget class="QLabel" name="sysTimeDate_3">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
     color: black;
 }</string>
-               </property>
-               <property name="text">
-                <string>November 28th 2023, 12:07AM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="userName_3">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
-    color: black;
-}</string>
-               </property>
-               <property name="text">
-                <string>Juan Dela Cruz</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </property>
+            <property name="text">
+             <string>November 28th 2023, 12:07AM</string>
+            </property>
            </widget>
           </item>
          </layout>
@@ -377,16 +347,16 @@ QPushButton:pressed {
         <widget class="QWidget" name="mainContent" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_10">
           <property name="leftMargin">
-           <number>50</number>
+           <number>25</number>
           </property>
           <property name="topMargin">
-           <number>50</number>
+           <number>25</number>
           </property>
           <property name="rightMargin">
-           <number>50</number>
+           <number>25</number>
           </property>
           <property name="bottomMargin">
-           <number>50</number>
+           <number>25</number>
           </property>
           <item>
            <widget class="QScrollArea" name="scrollArea">
@@ -401,11 +371,11 @@ QPushButton:pressed {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>578</width>
-               <height>405</height>
+               <width>607</width>
+               <height>837</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
                <widget class="QLabel" name="label">
                 <property name="font">
@@ -420,20 +390,307 @@ QPushButton:pressed {
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_2">
-                <property name="font">
-                 <font>
-                  <pointsize>18</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>General Questions</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QWidget" name="widget" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>500</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>500</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>15</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label_3">
+                     <property name="font">
+                      <font>
+                       <pointsize>12</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>1. Why is my barcode scanner not scanning the code or not showing anything?</string>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>false</bool>
+                     </property>
+                     <property name="wordWrap">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_4">
+                     <property name="font">
+                      <font>
+                       <pointsize>12</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Possible Reasons:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QListWidget" name="listWidget">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>300</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>300</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">QListWidget {
+	background-color: transparent;
+	outline: none;
+}
+QListWidget::item:hover {
+	background-color: transparent;
+}</string>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Plain</enum>
+                     </property>
+                     <property name="verticalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="horizontalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="autoScroll">
+                      <bool>false</bool>
+                     </property>
+                     <property name="editTriggers">
+                      <set>QAbstractItemView::NoEditTriggers</set>
+                     </property>
+                     <property name="selectionMode">
+                      <enum>QAbstractItemView::NoSelection</enum>
+                     </property>
+                     <property name="isWrapping" stdset="0">
+                      <bool>false</bool>
+                     </property>
+                     <property name="viewMode">
+                      <enum>QListView::ListMode</enum>
+                     </property>
+                     <property name="uniformItemSizes">
+                      <bool>false</bool>
+                     </property>
+                     <property name="wordWrap">
+                      <bool>true</bool>
+                     </property>
+                     <property name="sortingEnabled">
+                      <bool>false</bool>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>• You may not have clicked on the barcode field to activate it before scanning.</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>• Ensure that the barcode scanner is properly connected to your computer or device.</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>• Check if the scanner is aligned correctly with the barcode and within the optimal distance for scanning.</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>• Verify that the barcode itself is intact and readable.</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>• Ensure there are no obstructions or glare on the barcode that could affect scanning.</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QWidget" name="widget_2" native="true">
+                     <property name="minimumSize">
+                      <size>
+                       <width>500</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_2">
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>15</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <widget class="QLabel" name="label_5">
+                        <property name="font">
+                         <font>
+                          <pointsize>12</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>2. Why the system is not doing backup automatically?</string>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_6">
+                        <property name="font">
+                         <font>
+                          <pointsize>12</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Possible Reasons:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QListWidget" name="listWidget_2">
+                        <property name="font">
+                         <font>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QListWidget {
+	background-color: transparent;
+	outline: none;
+}
+QListWidget::item:hover {
+	background-color: transparent;
+}</string>
+                        </property>
+                        <property name="frameShape">
+                         <enum>QFrame::NoFrame</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Plain</enum>
+                        </property>
+                        <property name="verticalScrollBarPolicy">
+                         <enum>Qt::ScrollBarAlwaysOff</enum>
+                        </property>
+                        <property name="horizontalScrollBarPolicy">
+                         <enum>Qt::ScrollBarAlwaysOff</enum>
+                        </property>
+                        <property name="autoScroll">
+                         <bool>false</bool>
+                        </property>
+                        <property name="editTriggers">
+                         <set>QAbstractItemView::NoEditTriggers</set>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::NoSelection</enum>
+                        </property>
+                        <property name="isWrapping" stdset="0">
+                         <bool>false</bool>
+                        </property>
+                        <property name="viewMode">
+                         <enum>QListView::ListMode</enum>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                        <property name="sortingEnabled">
+                         <bool>false</bool>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>• If the software is closed or not running, automatic backups will not initiate. </string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>• If you did not initiate automatic backup after opening the software, backups will not occur as scheduled.</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QListView" name="listView"/>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -449,7 +706,7 @@ QPushButton:pressed {
   </widget>
  </widget>
  <resources>
-  <include location="../../assets/resourceFile.qrc"/>
+  <include location="../../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
