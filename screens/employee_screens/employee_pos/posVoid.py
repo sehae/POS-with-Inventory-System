@@ -377,6 +377,24 @@ class Ui_MainWindow(object):
 "}")
         self.checkBTN.setObjectName("checkBTN")
         self.verticalLayout.addWidget(self.checkBTN)
+        self.saveBTN = QtWidgets.QPushButton(self.frame)
+        self.saveBTN.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.saveBTN.setObjectName("saveBTN")
+        self.verticalLayout.addWidget(self.saveBTN)
         self.void_orderBTN = QtWidgets.QPushButton(self.frame)
         self.void_orderBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
@@ -454,6 +472,7 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "Customer Name"))
         self.customerDISPLAY.setText(_translate("MainWindow", "name customer here"))
         self.checkBTN.setText(_translate("MainWindow", "Check Order ID"))
+        self.saveBTN.setText(_translate("MainWindow", "Save Changes"))
         self.void_orderBTN.setText(_translate("MainWindow", "Void"))
         self.label_6.setText(_translate("MainWindow", "Voided Order List"))
 import assets.resourceFile_rc

@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow, QHeaderView
-from PyQt5.QtCore import QDateTime, QTimer, QRegExp, Qt
+from PyQt5.QtGui import QRegExpValidator, QFont
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow
+from PyQt5.QtCore import QDateTime, QTimer, Qt
 from screens.employee_screens.employee_pos.posVoid import Ui_MainWindow
 from shared.navigation_signal import auth_back, pos_back
 from server.local_server import conn
@@ -32,6 +32,7 @@ class posVoid(QMainWindow, Ui_MainWindow):
         self.menuBTN.clicked.connect(self.menu_signal.emit)
         self.historyBTN_2.clicked.connect(self.history_signal.emit)
         self.checkBTN.clicked.connect(self.check_order_details)
+        self.saveBTN.clicked.connect(self.save_order_changes)  # Connect saveBTN to save_order_changes
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -54,15 +55,11 @@ class posVoid(QMainWindow, Ui_MainWindow):
         font.setPointSize(8)  # Set the font size to 8 points
         self.orderList.setFont(font)
 
-        # Make table grid invisible
-        self.orderList.setShowGrid(False)
-
-        self.orderList.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.orderList.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-
         # Hide row numbers
-        self.orderList.verticalHeader().setVisible(False)
         self.orderList.horizontalHeader().setVisible(False)
+
+        # Connect signals for voiding items
+        self.orderList.cellChanged.connect(self.validate_quantity_input)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -98,141 +95,214 @@ class posVoid(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
             return
 
-        def check_order_details(self):
-            order_id = self.orderidBOX.currentText()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type
+                FROM `order` o
+                LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
+                WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
+            """, (order_id,))
+            order_details = cursor.fetchone()
 
-            if not order_id:
-                QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            if not order_details:
+                QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            try:
-                cursor = conn.cursor()
+            customer_name, guest_pax, package_name, package_price, order_type = order_details
+
+            # Check if the order type is "Add-ons only"
+            if order_type != "Add-ons only":
+                QMessageBox.warning(self, "Order Type Error", "Only 'Add-ons only' orders are allowed.")
+                return
+
+            # Clear any existing rows and columns
+            self.orderList.clearContents()
+            self.orderList.setRowCount(0)
+            self.orderList.setColumnCount(4)
+
+            row = 0
+            # Add order details header row
+            self.orderList.insertRow(row)
+            self.orderList.setItem(row, 0, QTableWidgetItem(f"Order Details"))
+            self.orderList.setSpan(row, 0, 1, 4)
+            row += 1
+
+            # Add empty row
+            self.orderList.insertRow(row)
+            row += 1
+
+            # Add add-on details header row
+            self.orderList.insertRow(row)
+            self.orderList.setItem(row, 0, QTableWidgetItem(f"Add-on Details"))
+            self.orderList.setSpan(row, 0, 1, 4)
+            row += 1
+
+            # Fetch add-ons details
+            cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
+            add_on_details = cursor.fetchone()
+
+            if add_on_details:
+                add_ons = json.loads(add_on_details[0])
+
+                add_ons_rows = []
+                for add_on in add_ons:
+                    product_id = add_on['product_id']
+                    quantity = add_on['quantity']
+
+                    cursor.execute("""
+                        SELECT p.Name, i.Selling_Cost
+                        FROM `product` p
+                        JOIN `inventory` i ON p.Product_ID = i.Product_ID
+                        WHERE p.Product_ID = %s
+                    """, (product_id,))
+                    product_details = cursor.fetchone()
+                    if product_details:
+                        product_name, selling_cost = product_details
+                        add_ons_rows.append((product_name, selling_cost, quantity))
+
+                # Add headers for add-ons as a new row
+                self.orderList.insertRow(row)
+                self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
+                self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
+                self.orderList.setItem(row, 3, QTableWidgetItem("Quantity"))
+                row += 1
+
+                # Populate the table widget
+                for product_name, selling_cost, quantity in add_ons_rows:
+                    self.orderList.insertRow(row)
+                    self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
+                    self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
+                    quantity_item = QTableWidgetItem(str(quantity))
+                    if product_name == "Product Name":  # Check if this is the header row
+                        quantity_item.setFlags(quantity_item.flags() & ~Qt.ItemIsEditable)
+                    self.orderList.setItem(row, 3, quantity_item)
+                    row += 1
+
+            else:
+                QMessageBox.warning(self, "Data Error", "No add-ons found for this order.")
+
+        except Exception as e:
+            print(f"Error fetching order details: {e}")  # Debug statement
+            QMessageBox.warning(self, "Error", f"Error in fetching data: {str(e)}")
+        finally:
+            cursor.close()
+
+    def validate_quantity_input(self, row, column):
+        if column == 3:  # Only proceed if the quantity column was changed
+            item = self.orderList.item(row, column)
+            if item and item.flags() & Qt.ItemIsEditable:  # Only proceed if the item is editable
+                quantity_text = item.text()
+                if not quantity_text.isdigit():
+                    QMessageBox.warning(self, "Input Error", "Please enter a valid integer quantity.")
+                    item.setText("0")  # Reset to default value
+                else:
+                    self.update_add_on_quantity(row)
+
+    def update_add_on_quantity(self, row):
+        try:
+            cursor = conn.cursor()
+            product_name = self.orderList.item(row, 0).text()
+            new_quantity_item = self.orderList.item(row, 3)
+
+            # Check if the new quantity item is valid
+            if not new_quantity_item or not new_quantity_item.text().isdigit():
+                QMessageBox.warning(self, "Input Error", "Please enter a valid integer quantity.")
+                return
+
+            new_quantity = int(new_quantity_item.text())
+
+            # Fetch add-on details for the current order
+            cursor.execute("""
+                SELECT ao.Product_Details
+                FROM `add_on` ao
+                WHERE ao.Order_ID = %s
+            """, (self.orderidBOX.currentText(),))
+            result = cursor.fetchone()
+
+            if result:
+                product_details = result[0]
+                add_ons = json.loads(product_details)
+
+                for add_on in add_ons:
+                    if add_on['product_id'] == self.get_product_id_by_name(product_name):
+                        if new_quantity <= 0:
+                            add_ons.remove(add_on)
+                        else:
+                            add_on['quantity'] = new_quantity
+
+                updated_product_details = json.dumps(add_ons)
                 cursor.execute("""
-                    SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type
-                    FROM `order` o
-                    LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
-                    WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
-                """, (order_id,))
-                order_details = cursor.fetchone()
+                    UPDATE `add_on`
+                    SET Product_Details = %s
+                    WHERE Order_ID = %s
+                """, (updated_product_details, self.orderidBOX.currentText()))
 
-                if not order_details:
-                    QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
-                    return
-
-                customer_name, guest_pax, package_name, package_price, order_type = order_details
-
-                # Clear any existing rows and columns
-                self.orderList.clearContents()
-                self.orderList.setRowCount(0)
-                self.orderList.setColumnCount(4)
-
-                row = 0
-                # Add order details header row
-                self.orderList.insertRow(row)
-                self.orderList.setItem(row, 0, QTableWidgetItem(f"Order Details"))
-                self.orderList.setSpan(row, 0, 1, 4)
-                row += 1
-
-                # Add empty row
-                self.orderList.insertRow(row)
-                row += 1
-
-                if order_type == "Package":
-                    # Add package details header row
-                    self.orderList.insertRow(row)
-                    self.orderList.setItem(row, 0, QTableWidgetItem(f"Package Details"))
-                    self.orderList.setSpan(row, 0, 1, 4)
-                    row += 1
-
-                    # Add headers as next row in the table
-                    self.orderList.insertRow(row)
-                    self.orderList.setItem(row, 0, QTableWidgetItem("Package Name"))
-                    self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                    self.orderList.setItem(row, 3, QTableWidgetItem("Quantity"))
-                    row += 1
-
-                    # Add package details
-                    self.orderList.insertRow(row)
-                    self.orderList.setItem(row, 0, QTableWidgetItem(package_name))
-                    self.orderList.setItem(row, 2,
-                                           QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
-                    self.orderList.setItem(row, 3, QTableWidgetItem(str(guest_pax)))
-                    row += 1
-
-                    # Add empty row
-                    self.orderList.insertRow(row)
-                    row += 1
-
-                    # Add add-on details header row
-                    self.orderList.insertRow(row)
-                    self.orderList.setItem(row, 0, QTableWidgetItem(f"Add-on Details"))
-                    self.orderList.setSpan(row, 0, 1, 4)
-                    row += 1
-
-                    # Fetch add-ons details
-                    cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
-                    add_on_details = cursor.fetchone()
-
-                    if add_on_details:
-                        add_ons = json.loads(add_on_details[0])
-
-                        add_ons_rows = []
-                        for add_on in add_ons:
-                            product_id = add_on['product_id']
-                            quantity = add_on['quantity']
-
-                            cursor.execute("""
-                                SELECT p.Name, i.Selling_Cost
-                                FROM `product` p
-                                JOIN `inventory` i ON p.Product_ID = i.Product_ID
-                                WHERE p.Product_ID = %s
-                            """, (product_id,))
-                            product_details = cursor.fetchone()
-                            if product_details:
-                                product_name, selling_cost = product_details
-                                add_ons_rows.append((product_name, selling_cost, quantity))
-
-                        # Add headers for add-ons as a new row
-                        self.orderList.insertRow(row)
-                        self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
-                        self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                        self.orderList.setItem(row, 3, QTableWidgetItem("Quantity"))
-                        row += 1
-
-                        # Populate the table widget
-                        for product_name, selling_cost, quantity in add_ons_rows:
-                            self.orderList.insertRow(row)
-                            self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
-                            self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
-                            self.orderList.setItem(row, 3, QTableWidgetItem(str(quantity)))
-                            row += 1
-
-                    else:
-                        QMessageBox.warning(self, "Data Error", "No add-ons found for this order.")
-
-                elif order_type == "Add-ons only":
-                    QMessageBox.warning(self, "Data Error", "No add-ons found for this order.")
-
-            except Exception as e:
-                print(f"Error fetching order details: {e}")  # Debug statement
-                QMessageBox.warning(self, "Error", f"Error in fetching data: {str(e)}")
-            finally:
-                cursor.close()
-
-    def adjust_column_widths(self):
-        header = self.orderList.horizontalHeader()
-        # Set resize mode for all columns except column 4 (index 3)
-        for col in range(self.orderList.columnCount()):
-            if col != 1 and col != 2 and col != 3:
-                header.setSectionResizeMode(col, QHeaderView.ResizeToContents)
+                conn.commit()
+                QMessageBox.information(self, "Update Successful", "Product quantity updated successfully.")
             else:
-                header.setSectionResizeMode(col, QHeaderView.Fixed)
+                QMessageBox.warning(self, "Data Error", "Product details not found.")
 
-    def adjust_column_widths(self):
-        header = self.orderList.horizontalHeader()
-        # Set resize mode for all columns except column 4 (index 3)
-        for col in range(self.orderList.columnCount()):
-            if col != 1 and col != 2 and col != 3:
-                header.setSectionResizeMode(col, QHeaderView.ResizeToContents)
-            else:
-                header.setSectionResizeMode(col, QHeaderView.Fixed)
+        except Exception as e:
+            print(f"Error updating product quantity: {e}")
+            QMessageBox.warning(self, "Error", f"Error updating quantity: {str(e)}")
+        finally:
+            cursor.close()
+
+    def save_order_changes(self):
+        order_id = self.orderidBOX.currentText()
+
+        if not order_id:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+            return
+
+        try:
+            cursor = conn.cursor()
+
+            add_ons = []
+            row_count = self.orderList.rowCount()
+            for row in range(row_count):
+                product_name_item = self.orderList.item(row, 0)
+                quantity_item = self.orderList.item(row, 3)
+
+                if product_name_item and quantity_item:
+                    product_name = product_name_item.text()
+                    quantity = int(quantity_item.text())
+
+                    cursor.execute("""
+                        SELECT p.Product_ID
+                        FROM `product` p
+                        WHERE p.Name = %s
+                    """, (product_name,))
+                    result = cursor.fetchone()
+
+                    if result:
+                        product_id = result[0]
+                        add_ons.append({'product_id': product_id, 'quantity': quantity})
+
+            updated_product_details = json.dumps(add_ons)
+            cursor.execute("""
+                UPDATE `add_on`
+                SET Product_Details = %s
+                WHERE Order_ID = %s
+            """, (updated_product_details, order_id))
+
+            conn.commit()
+            QMessageBox.information(self, "Save Successful", "Order changes saved successfully.")
+
+        except Exception as e:
+            print(f"Error saving order changes: {e}")
+            QMessageBox.warning(self, "Error", f"Error saving changes: {str(e)}")
+        finally:
+            cursor.close()
+
+    def get_product_id_by_name(self, product_name):
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT p.Product_ID
+            FROM `product` p
+            WHERE p.Name = %s
+        """, (product_name,))
+        result = cursor.fetchone()
+        cursor.close()
+        return result[0] if result else None

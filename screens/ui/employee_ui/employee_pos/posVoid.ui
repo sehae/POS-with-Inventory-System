@@ -682,6 +682,30 @@ QPushButton:pressed {
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="saveBTN">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+               </property>
+               <property name="text">
+                <string>Save Changes</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="void_orderBTN">
                <property name="styleSheet">
                 <string notr="true">QPushButton {
