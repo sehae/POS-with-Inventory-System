@@ -349,13 +349,6 @@ class Ui_MainWindow(object):
         self.label_15 = QtWidgets.QLabel(self.widget_4)
         self.label_15.setObjectName("label_15")
         self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_15)
-        self.label_17 = QtWidgets.QLabel(self.widget_4)
-        self.label_17.setObjectName("label_17")
-        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.totalamountDISPLAY = QtWidgets.QLabel(self.widget_4)
-        self.totalamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.totalamountDISPLAY.setObjectName("totalamountDISPLAY")
-        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.totalamountDISPLAY)
         self.leftoverDISPLAY = QtWidgets.QLabel(self.widget_4)
         self.leftoverDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.leftoverDISPLAY.setObjectName("leftoverDISPLAY")
@@ -393,6 +386,23 @@ class Ui_MainWindow(object):
         self.referenceidDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.referenceidDISPLAY.setObjectName("referenceidDISPLAY")
         self.formLayout_2.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.referenceidDISPLAY)
+        self.label_17 = QtWidgets.QLabel(self.widget_4)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_17.setFont(font)
+        self.label_17.setObjectName("label_17")
+        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_17)
+        self.totalamountDISPLAY = QtWidgets.QLabel(self.widget_4)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.totalamountDISPLAY.setFont(font)
+        self.totalamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalamountDISPLAY.setObjectName("totalamountDISPLAY")
+        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.totalamountDISPLAY)
         self.verticalLayout_4.addWidget(self.widget_4)
         self.frame_2 = QtWidgets.QFrame(self.Checkout)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -425,17 +435,6 @@ class Ui_MainWindow(object):
 "}")
         self.orderidBOX.setObjectName("orderidBOX")
         self.verticalLayout.addWidget(self.orderidBOX)
-        self.barcodeFIELD = QtWidgets.QLineEdit(self.frame_2)
-        self.barcodeFIELD.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.barcodeFIELD.setObjectName("barcodeFIELD")
-        self.verticalLayout.addWidget(self.barcodeFIELD)
         self.checkoutBTN_3 = QtWidgets.QPushButton(self.frame_2)
         self.checkoutBTN_3.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
@@ -492,7 +491,7 @@ class Ui_MainWindow(object):
         self.formLayout_3.setObjectName("formLayout_3")
         self.label_23 = QtWidgets.QLabel(self.PaymentMethod)
         self.label_23.setObjectName("label_23")
-        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_23)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_23)
         self.amountFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
         self.amountFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
@@ -503,13 +502,17 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.amountFIELD.setObjectName("amountFIELD")
-        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.amountFIELD)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.amountFIELD)
         self.label_24 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_24.setFont(font)
         self.label_24.setObjectName("label_24")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_24)
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_24)
         self.label_25 = QtWidgets.QLabel(self.PaymentMethod)
         self.label_25.setObjectName("label_25")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_25)
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_25)
         self.referenceFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
         self.referenceFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
@@ -520,7 +523,14 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.referenceFIELD.setObjectName("referenceFIELD")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.referenceFIELD)
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.referenceFIELD)
+        self.label_30 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_30.setFont(font)
+        self.label_30.setObjectName("label_30")
+        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_30)
         self.verticalLayout_3.addLayout(self.formLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -535,6 +545,7 @@ class Ui_MainWindow(object):
         spacerItem3 = QtWidgets.QSpacerItem(18, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem3)
         self.discountBOX = QtWidgets.QComboBox(self.PaymentMethod)
+        self.discountBOX.setMouseTracking(False)
         self.discountBOX.setStyleSheet("QComboBox {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #07BEB8;\n"
@@ -557,6 +568,7 @@ class Ui_MainWindow(object):
 "    width: 20px;\n"
 "    height: 20px;\n"
 "}")
+        self.discountBOX.setCurrentText("")
         self.discountBOX.setObjectName("discountBOX")
         self.horizontalLayout_2.addWidget(self.discountBOX)
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
@@ -761,8 +773,6 @@ class Ui_MainWindow(object):
         self.label_14.setText(_translate("MainWindow", "Total Add-ons Amount"))
         self.label_16.setText(_translate("MainWindow", "Leftover Cost"))
         self.label_15.setText(_translate("MainWindow", "Discount (Senior/PWD)"))
-        self.label_17.setText(_translate("MainWindow", "Payment"))
-        self.totalamountDISPLAY.setText(_translate("MainWindow", "total amount here"))
         self.leftoverDISPLAY.setText(_translate("MainWindow", "display leftover cost here"))
         self.discountDISPLAY.setText(_translate("MainWindow", "display discount here"))
         self.addonsAmountDISPLAY.setText(_translate("MainWindow", "display add-ons amount here"))
@@ -773,7 +783,8 @@ class Ui_MainWindow(object):
         self.paymentmethodDISPLAY.setText(_translate("MainWindow", "payment method here"))
         self.label_20.setText(_translate("MainWindow", "Reference ID (GCash)"))
         self.referenceidDISPLAY.setText(_translate("MainWindow", "reference id here"))
-        self.barcodeFIELD.setPlaceholderText(_translate("MainWindow", "Put Barcode Here"))
+        self.label_17.setText(_translate("MainWindow", "Payment"))
+        self.totalamountDISPLAY.setText(_translate("MainWindow", "total amount here"))
         self.checkoutBTN_3.setText(_translate("MainWindow", "Check Order ID"))
         self.checkoutBTN_2.setText(_translate("MainWindow", "Checkout"))
         self.label_9.setText(_translate("MainWindow", "Payment Method"))
@@ -782,6 +793,7 @@ class Ui_MainWindow(object):
         self.label_24.setText(_translate("MainWindow", "Gcash"))
         self.label_25.setText(_translate("MainWindow", "Reference Number"))
         self.referenceFIELD.setPlaceholderText(_translate("MainWindow", "Enter Gcash Reference Number"))
+        self.label_30.setText(_translate("MainWindow", "Cash"))
         self.label_31.setText(_translate("MainWindow", "Discount"))
         self.label_18.setText(_translate("MainWindow", "Leftover"))
         self.saveBTN.setText(_translate("MainWindow", "Save changes"))

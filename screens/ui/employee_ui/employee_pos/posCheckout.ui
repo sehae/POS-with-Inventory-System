@@ -696,23 +696,6 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="0">
-                    <widget class="QLabel" name="label_17">
-                     <property name="text">
-                      <string>Payment</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="6" column="1">
-                    <widget class="QLabel" name="totalamountDISPLAY">
-                     <property name="text">
-                      <string>total amount here</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="5" column="1">
                     <widget class="QLabel" name="leftoverDISPLAY">
                      <property name="text">
@@ -804,6 +787,37 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
+                   <item row="10" column="0">
+                    <widget class="QLabel" name="label_17">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Payment</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="10" column="1">
+                    <widget class="QLabel" name="totalamountDISPLAY">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>total amount here</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
@@ -841,23 +855,6 @@ QComboBox::down-arrow {
     width: 20px;
     height: 20px;
 }</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="barcodeFIELD">
-                     <property name="styleSheet">
-                      <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
-                     </property>
-                     <property name="placeholderText">
-                      <string>Put Barcode Here</string>
                      </property>
                     </widget>
                    </item>
@@ -959,14 +956,14 @@ QPushButton:pressed {
                   <property name="bottomMargin">
                    <number>15</number>
                   </property>
-                  <item row="0" column="0">
+                  <item row="1" column="0">
                    <widget class="QLabel" name="label_23">
                     <property name="text">
                      <string>Amount Tendered</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
+                  <item row="1" column="1">
                    <widget class="QLineEdit" name="amountFIELD">
                     <property name="styleSheet">
                      <string notr="true">QLineEdit {
@@ -983,21 +980,27 @@ QPushButton:pressed {
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="0">
+                  <item row="2" column="0">
                    <widget class="QLabel" name="label_24">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Gcash</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
+                  <item row="3" column="0">
                    <widget class="QLabel" name="label_25">
                     <property name="text">
                      <string>Reference Number</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
+                  <item row="3" column="1">
                    <widget class="QLineEdit" name="referenceFIELD">
                     <property name="styleSheet">
                      <string notr="true">QLineEdit {
@@ -1011,6 +1014,19 @@ QPushButton:pressed {
                     </property>
                     <property name="placeholderText">
                      <string>Enter Gcash Reference Number</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_30">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Cash</string>
                     </property>
                    </widget>
                   </item>
@@ -1049,6 +1065,9 @@ QPushButton:pressed {
                   </item>
                   <item>
                    <widget class="QComboBox" name="discountBOX">
+                    <property name="mouseTracking">
+                     <bool>false</bool>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">QComboBox {
     padding: 5px;
@@ -1072,6 +1091,9 @@ QComboBox::down-arrow {
     width: 20px;
     height: 20px;
 }</string>
+                    </property>
+                    <property name="currentText">
+                     <string/>
                     </property>
                    </widget>
                   </item>

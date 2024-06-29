@@ -232,6 +232,9 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Set the default Payment_Status
                 payment_status = 'Waiting for Timer'
 
+                if soup_variation == '':
+                    soup_variation = None
+
                 if order_type == "Add-ons only":
                     package_name = None
                     guest_capacity = None

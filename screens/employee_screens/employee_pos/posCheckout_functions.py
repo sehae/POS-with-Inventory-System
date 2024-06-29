@@ -34,7 +34,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.goOrder)
         self.saveBTN.clicked.connect(self.save_changes)
         self.checkoutBTN_3.clicked.connect(self.check_order_details) #Check order id details
-        #self.checkoutBTN_2.clicked.connect(self.save_order_details) #Pay now save to database
+        self.checkoutBTN_2.clicked.connect(self.save_order_details) #Pay now save to database
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -70,17 +70,26 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderList.verticalHeader().setVisible(False)
         self.orderList.horizontalHeader().setVisible(False)
 
-        self.amountFIELD.setValidator(QDoubleValidator(0.00, 99999.99, 2))
+        #self.amountFIELD.setValidator(QDoubleValidator(0.00, 99999.99, 2))
 
         # Temporary values to be placed in the table
         self.penalty_fee = 0
-        self.cash_amount = 0
+        self.cash_amount = None
         self.reference_id = None
         self.payment_method = None
         self.cash_amount = None
         self.discount_type = None
         self.leftover_grams = None
         self.leftover_id = None
+
+        # Temporary values to be saved in order details
+        self.subtotal_amount = Decimal(0)
+        self.vat_amount = Decimal(0)
+        self.discount_amount = Decimal(0)
+        self.change_amount = Decimal(0)
+        self.package_total_amount = Decimal(0)
+        self.add_ons_total_amount = Decimal(0)
+        self.total_amount = Decimal(0)
 
     def populate_discountBOX(self):
         items = ['Regular', 'PWD', 'Senior']
@@ -128,17 +137,18 @@ class posCheckout(QMainWindow, Ui_MainWindow):
     def save_changes(self):
         # Retrieve and validate the input data
         cash_amount_text = self.amountFIELD.text()
+        self.reference_id = self.referenceFIELD.text()
         try:
             self.cash_amount = Decimal(cash_amount_text) if cash_amount_text else None
         except ValueError:
             self.cash_amount = None
 
-        self.reference_id = self.referenceFIELD.currentText()
         self.leftover_grams = self.leftoverBOX.currentText()
         self.discount_type = self.discountBOX.currentText()
 
         # Determine leftover_id based on leftover_grams
         leftover_mapping = {
+            '': None,
             '0 grams': 1,
             '<= 100 grams': 2,
             '<= 200 grams': 3,
@@ -165,22 +175,20 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         try:
             cursor = conn.cursor()
-            cursor.execute("""
-                UPDATE `order`
-                SET Cash_Amount = %s, reference_id = %s, Leftover_ID = %s, Discount_Type = %s, Payment_Method = %s
-                WHERE Order_ID = %s
-            """, (
-                self.cash_amount,
-                self.reference_id,
-                self.leftover_id,
-                self.discount_type,
-                self.payment_method,
-                order_id
-            ))
-            conn.commit()
 
-            print("Order details updated successfully")
+            # Retrieve the penalty_fee for the selected leftover_id
+            cursor.execute("SELECT Penalty_Fee FROM `leftover` WHERE Leftover_ID = %s", (self.leftover_id,))
+            result = cursor.fetchone()
+
+            if result:
+                self.penalty_fee = result[0]
+            else:
+                self.penalty_fee = 0
+
             self.check_order_details()
+
+            QMessageBox.information(self, "Success", "Order details updated successfully.")
+
         except Exception as e:
             print(f"Error updating order details: {e}")
             QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
@@ -190,20 +198,18 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
     #Populate combobox leftover
     def populate_leftoverBOX(self):
-        items = ['0 grams', '<= 100 grams', '<= 200 grams', '<= 300 grams', '<= 400 grams']
+        items = ['', '0 grams', '<= 100 grams', '<= 200 grams', '<= 300 grams', '<= 400 grams']
         self.leftoverBOX.addItems(items)
 
-    def apply_senior_discount(self):
-        self.discount_type = 'Senior'
 
-    def apply_pwd_discount(self):
-        self.discount_type = 'PWD'
-
-    def apply_regular_discount(self):
-        self.discount_type = 'Regular'
 
     def check_order_details(self):
         order_id = self.orderidBOX.currentText()
+        cash_amount = self.cash_amount
+        reference_id = self.reference_id
+        penalty_fee = self.penalty_fee
+        discount_type = self.discount_type
+        payment_method = self.payment_method
 
         if not order_id:
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
@@ -212,8 +218,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         try:
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type, o.Cash_Amount, 
-                o.Reference_ID, o.Leftover_ID, o.Discount_Type, o.Payment_Method
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type
                 FROM `order` o
                 LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
                 WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
@@ -224,7 +229,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            customer_name, guest_pax, package_name, package_price, order_type, cash_amount, reference_id, leftover_id, discount_type, payment_method = order_details
+            customer_name, guest_pax, package_name, package_price, order_type = order_details
 
             # Set the retrieved values to the corresponding UI elements
             self.label_4.setText(order_id)
@@ -235,7 +240,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             package_total_amount = 0
             if order_type == "Package":
-                package_total_amount = float(package_price) * guest_pax if package_price else 0
+                package_total_amount = package_price * Decimal(guest_pax) if package_price else 0
 
             # Fetch add-ons details
             cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
@@ -258,23 +263,27 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 product_details = cursor.fetchone()
                 if product_details:
                     product_name, selling_cost = product_details
-                    total_amount = float(selling_cost) * quantity
+                    total_amount = Decimal(selling_cost) * quantity
                     add_ons_total_amount += total_amount
                     add_ons_rows.append((product_name, quantity, selling_cost, total_amount))
 
-            subtotal_amount = package_total_amount + add_ons_total_amount
+            subtotal_amount = Decimal(package_total_amount) + Decimal(add_ons_total_amount)
 
-            discount_amount = 0
+            discount_amount = Decimal(0)
 
             if discount_type == "Senior" or discount_type == "PWD":
-                discount_amount = 0.20 * subtotal_amount
+                discount_amount = Decimal("0.20") * subtotal_amount
             elif discount_type == "Regular":
-                discount_amount = 0.00 * subtotal_amount
+                discount_amount = Decimal("0.00") * subtotal_amount
 
+            # Calculate discounted subtotal
             discounted_subtotal = subtotal_amount - discount_amount
-            vat_amount = 0.12 * discounted_subtotal
 
-            pinaka_total_amount = discounted_subtotal + vat_amount + float(self.penalty_fee)
+            vat_amount = Decimal("0.12") * discounted_subtotal
+
+            pinaka_total_amount = discounted_subtotal + vat_amount + Decimal(self.penalty_fee)
+
+            self.discount_amount = discount_amount
 
             # Calculate change amount only if cash amount is entered
             change_amount = 0
@@ -294,13 +303,13 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             # Populate the table widget
             self.orderList.setRowCount(0)  # Clear existing rows
-            self.orderList.setColumnCount(4)
+            self.orderList.setColumnCount(5)
 
             row = 0
             # Add customer name row
             self.orderList.insertRow(row)
             self.orderList.setItem(row, 0, QTableWidgetItem(f"Checkout"))
-            self.orderList.setSpan(row, 0, 1, 4)
+            self.orderList.setSpan(row, 0, 1, 5)
             row += 1
 
             if order_type == "Package":
@@ -311,23 +320,23 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 # Add package details header
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Package Details"))
-                self.orderList.setSpan(row, 0, 1, 4)  # Span across all columns
+                self.orderList.setSpan(row, 0, 1, 5)  # Span across all columns
                 row += 1
 
                 # Add package details column headers
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Package Type"))
-                self.orderList.setItem(row, 1, QTableWidgetItem("Guest Pax"))
-                self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                self.orderList.setItem(row, 3, QTableWidgetItem("Total"))
+                self.orderList.setItem(row, 2, QTableWidgetItem("Guest Pax"))
+                self.orderList.setItem(row, 3, QTableWidgetItem("Price"))
+                self.orderList.setItem(row, 4, QTableWidgetItem("Total"))
                 row += 1
 
                 # Add package details
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem(package_name))
-                self.orderList.setItem(row, 1, QTableWidgetItem(str(guest_pax)))
-                self.orderList.setItem(row, 2, QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
-                self.orderList.setItem(row, 3, QTableWidgetItem(f"{package_total_amount:.2f}"))
+                self.orderList.setItem(row, 2, QTableWidgetItem(str(guest_pax)))
+                self.orderList.setItem(row, 3, QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
+                self.orderList.setItem(row, 4, QTableWidgetItem(f"{package_total_amount:.2f}"))
                 row += 1
 
                 # Only add add-ons section if there are add-ons
@@ -339,24 +348,24 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                     # Add add-ons header
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem("Add-ons Details"))
-                    self.orderList.setSpan(row, 0, 1, 4)  # Span across all columns
+                    self.orderList.setSpan(row, 0, 1, 5)  # Span across all columns
                     row += 1
 
                     # Add add-ons column headers
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
-                    self.orderList.setItem(row, 1, QTableWidgetItem("Quantity"))
-                    self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                    self.orderList.setItem(row, 3, QTableWidgetItem("Total"))
+                    self.orderList.setItem(row, 2, QTableWidgetItem("Quantity"))
+                    self.orderList.setItem(row, 3, QTableWidgetItem("Price"))
+                    self.orderList.setItem(row, 4, QTableWidgetItem("Total"))
                     row += 1
 
                     # Add add-ons details
                     for product_name, quantity, selling_cost, total_amount in add_ons_rows:
                         self.orderList.insertRow(row)
                         self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
-                        self.orderList.setItem(row, 1, QTableWidgetItem(str(quantity)))
-                        self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
-                        self.orderList.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
+                        self.orderList.setItem(row, 2, QTableWidgetItem(str(quantity)))
+                        self.orderList.setItem(row, 3, QTableWidgetItem(f"{selling_cost:.2f}"))
+                        self.orderList.setItem(row, 4, QTableWidgetItem(f"{total_amount:.2f}"))
                         row += 1
 
             elif order_type == "Add-ons only" and add_ons_rows:
@@ -367,23 +376,23 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 # Add add-ons header
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Add-ons"))
-                self.orderList.setSpan(row, 0, 1, 4)  # Span across all columns
+                self.orderList.setSpan(row, 0, 1, 5)  # Span across all columns
                 row += 1
 
                 # Add add-ons column headers
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
-                self.orderList.setItem(row, 1, QTableWidgetItem("Quantity"))
-                self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                self.orderList.setItem(row, 3, QTableWidgetItem("Total"))
+                self.orderList.setItem(row, 2, QTableWidgetItem("Quantity"))
+                self.orderList.setItem(row, 3, QTableWidgetItem("Price"))
+                self.orderList.setItem(row, 4, QTableWidgetItem("Total"))
                 row += 1
 
                 # Add package details
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem(package_name))
-                self.orderList.setItem(row, 1, QTableWidgetItem(str(guest_pax)))
-                self.orderList.setItem(row, 2, QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
-                self.orderList.setItem(row, 3, QTableWidgetItem(f"{package_total_amount:.2f}"))
+                self.orderList.setItem(row, 2, QTableWidgetItem(str(guest_pax)))
+                self.orderList.setItem(row, 3, QTableWidgetItem(f"{package_price:.2f}" if package_price else "0.00"))
+                self.orderList.setItem(row, 4, QTableWidgetItem(f"{package_total_amount:.2f}"))
                 row += 1
 
                 # Only add add-ons section if there are add-ons
@@ -395,25 +404,30 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                     # Add add-ons header
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem("Add-ons Details"))
-                    self.orderList.setSpan(row, 0, 1, 4)  # Span across all columns
+                    self.orderList.setSpan(row, 0, 1, 5)  # Span across all columns
                     row += 1
 
                     # Add add-ons column headers
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
-                    self.orderList.setItem(row, 1, QTableWidgetItem("Quantity"))
-                    self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                    self.orderList.setItem(row, 3, QTableWidgetItem("Total"))
+                    self.orderList.setItem(row, 2, QTableWidgetItem("Quantity"))
+                    self.orderList.setItem(row, 3, QTableWidgetItem("Price"))
+                    self.orderList.setItem(row, 4, QTableWidgetItem("Total"))
                     row += 1
 
                     # Add add-ons details
                     for product_name, quantity, selling_cost, total_amount in add_ons_rows:
                         self.orderList.insertRow(row)
                         self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
-                        self.orderList.setItem(row, 1, QTableWidgetItem(str(quantity)))
-                        self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
-                        self.orderList.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
+                        self.orderList.setItem(row, 2, QTableWidgetItem(str(quantity)))
+                        self.orderList.setItem(row, 3, QTableWidgetItem(f"{selling_cost:.2f}"))
+                        self.orderList.setItem(row, 4, QTableWidgetItem(f"{total_amount:.2f}"))
                         row += 1
+
+            elif order_type == "Add-ons only" and not add_ons_rows:
+                # If there are no add-ons to display, handle as needed
+                QMessageBox.warning(self, "Data Error", "No add-ons found for this order.")
+                return
 
             elif order_type == "Add-ons only" and add_ons_rows:
                 # Add empty row
@@ -423,24 +437,24 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 # Add add-ons header
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Add-ons"))
-                self.orderList.setSpan(row, 0, 1, 4)  # Span across all columns
+                self.orderList.setSpan(row, 0, 1, 5)  # Span across all columns
                 row += 1
 
                 # Add add-ons column headers
                 self.orderList.insertRow(row)
                 self.orderList.setItem(row, 0, QTableWidgetItem("Product Name"))
-                self.orderList.setItem(row, 1, QTableWidgetItem("Quantity"))
-                self.orderList.setItem(row, 2, QTableWidgetItem("Price"))
-                self.orderList.setItem(row, 3, QTableWidgetItem("Total"))
+                self.orderList.setItem(row, 2, QTableWidgetItem("Quantity"))
+                self.orderList.setItem(row, 3, QTableWidgetItem("Price"))
+                self.orderList.setItem(row, 4, QTableWidgetItem("Total"))
                 row += 1
 
                 # Add add-ons details
                 for product_name, quantity, selling_cost, total_amount in add_ons_rows:
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
-                    self.orderList.setItem(row, 1, QTableWidgetItem(str(quantity)))
-                    self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
-                    self.orderList.setItem(row, 3, QTableWidgetItem(f"{total_amount:.2f}"))
+                    self.orderList.setItem(row, 2, QTableWidgetItem(str(quantity)))
+                    self.orderList.setItem(row, 3, QTableWidgetItem(f"{selling_cost:.2f}"))
+                    self.orderList.setItem(row, 4, QTableWidgetItem(f"{total_amount:.2f}"))
                     row += 1
 
             self.orderList.setColumnWidth(1, 100)
@@ -451,6 +465,19 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             conn.commit()
             cursor.close()
 
+            self.total_amount = Decimal(pinaka_total_amount).quantize(Decimal('0.00'))
+            self.change_amount = Decimal(change_amount).quantize(Decimal('0.00'))
+            self.package_total_amount = Decimal(package_total_amount).quantize(Decimal('0.00'))
+            self.add_ons_total_amount = Decimal(add_ons_total_amount).quantize(Decimal('0.00'))
+            self.vat_amount = Decimal(vat_amount).quantize(Decimal('0.00'))
+            self.subtotal_amount = Decimal(subtotal_amount).quantize(Decimal('0.00'))
+
+            print(self.total_amount)
+            print(self.change_amount)
+            print(self.package_total_amount)
+            print(self.add_ons_total_amount)
+            print(self.vat_amount)
+            print(self.subtotal_amount)
 
         except Exception as e:
             print(f"Error fetching order details: {e}")  # Debug statement
@@ -467,33 +494,30 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             else:
                 header.setSectionResizeMode(col, QHeaderView.Fixed)
 
-'''
     def save_order_details(self):
         order_id = self.orderidBOX.currentText()
         try:
             # Update the order table with relevant fields
             cursor = conn.cursor()
+            # Insert or update order details in the database
             cursor.execute("""
-                UPDATE `order`
-                SET Subtotal_Amount = %s, VAT_Amount = %s,
-                    Discount_Amount = %s, Change_Amount = %s, Package_Total_Amount = %s, Add_Ons_Total_Amount = %s
+                UPDATE `order` SET 
+                Total_Amount = %s, Subtotal_Amount = %s, VAT_Amount = %s, Discount_Amount = %s, Change_Amount = %s, 
+                Package_Total_Amount = %s, Add_Ons_Total_Amount = %s, Discount_Type = %s, Leftover_ID = %s, 
+                Cash_Amount = %s, Reference_ID = %s, Payment_Method = %s, Payment_Status = 'Completed'
                 WHERE Order_ID = %s
-            """, (
-                subtotal_amount,
-                vat_amount,
-                discount_amount,
-                change_amount,
-                package_total_amount,
-                add_ons_total_amount,
-                order_id
-            ))
+            """, (self.total_amount, self.subtotal_amount, self.vat_amount, self.discount_amount, self.change_amount,
+                  self.package_total_amount, self.add_ons_total_amount, self.discount_type, self.leftover_id,
+                  self.cash_amount, self.reference_id, self.payment_method, order_id))
 
             conn.commit()
+            self.populate_comboBox()
+
+            QMessageBox.information(self, "Success", "Order details saved successfully.")
         except Exception as e:
-            print(f"Error fetching order details: {e}")  # Debug statement
-            QMessageBox.warning(self, "Error", f"Error in fetching data: {str(e)}")
+            print(f"Error updating order details: {e}")  # Debug statement
+            QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
         finally:
             cursor.close()
 
-'''
 
