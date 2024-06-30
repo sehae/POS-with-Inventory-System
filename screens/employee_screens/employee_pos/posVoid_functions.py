@@ -1,14 +1,15 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtGui import QRegExpValidator, QFont
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow
-from PyQt5.QtCore import QDateTime, QTimer, Qt
-from screens.employee_screens.employee_pos.posVoid import Ui_MainWindow
-from shared.navigation_signal import auth_back, pos_back
+from PyQt5.QtCore import QDateTime, QTimer
 from server.local_server import conn
 from validator.user_manager import userManager
+from screens.employee_screens.employee_pos.posVoid import Ui_MainWindow
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
+from shared.navigation_signal import auth_back, pos_back
 from decimal import Decimal
 import json
+
 
 class posVoid(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -58,8 +59,17 @@ class posVoid(QMainWindow, Ui_MainWindow):
         # Hide row numbers
         self.orderList.horizontalHeader().setVisible(False)
 
+        # Remove table grids
+        self.orderList.setShowGrid(False)
+
         # Connect signals for voiding items
         self.orderList.cellChanged.connect(self.validate_quantity_input)
+
+        self.populate_reasonBox()
+
+    def populate_reasonBox(self):
+        items = ['Change of Mind', 'Defect']
+        self.reasonBox.addItems(items)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -174,8 +184,6 @@ class posVoid(QMainWindow, Ui_MainWindow):
                     self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
                     self.orderList.setItem(row, 2, QTableWidgetItem(f"{selling_cost:.2f}"))
                     quantity_item = QTableWidgetItem(str(quantity))
-                    if product_name == "Product Name":  # Check if this is the header row
-                        quantity_item.setFlags(quantity_item.flags() & ~Qt.ItemIsEditable)
                     self.orderList.setItem(row, 3, quantity_item)
                     row += 1
 
@@ -191,13 +199,11 @@ class posVoid(QMainWindow, Ui_MainWindow):
     def validate_quantity_input(self, row, column):
         if column == 3:  # Only proceed if the quantity column was changed
             item = self.orderList.item(row, column)
-            if item and item.flags() & Qt.ItemIsEditable:  # Only proceed if the item is editable
-                quantity_text = item.text()
-                if not quantity_text.isdigit():
-                    QMessageBox.warning(self, "Input Error", "Please enter a valid integer quantity.")
-                    item.setText("0")  # Reset to default value
-                else:
-                    self.update_add_on_quantity(row)
+            if item and not item.text().isdigit():
+                # Reset to previous valid value or empty string
+                item.setText("Quantity")
+            else:
+                self.update_add_on_quantity(row)
 
     def update_add_on_quantity(self, row):
         try:
@@ -212,12 +218,22 @@ class posVoid(QMainWindow, Ui_MainWindow):
 
             new_quantity = int(new_quantity_item.text())
 
+            order_id = self.orderidBOX.currentText()
+            reason = self.reasonBox.currentText()
+
+            if not order_id or not reason:
+                QMessageBox.warning(self, "Input Error", "Please select an order ID and a reason.")
+                return
+
+            add_ons = []
+            void_items = []
+
             # Fetch add-on details for the current order
             cursor.execute("""
                 SELECT ao.Product_Details
                 FROM `add_on` ao
                 WHERE ao.Order_ID = %s
-            """, (self.orderidBOX.currentText(),))
+            """, (order_id,))
             result = cursor.fetchone()
 
             if result:
@@ -226,20 +242,31 @@ class posVoid(QMainWindow, Ui_MainWindow):
 
                 for add_on in add_ons:
                     if add_on['product_id'] == self.get_product_id_by_name(product_name):
+                        original_quantity = add_on['quantity']
+
                         if new_quantity <= 0:
                             add_ons.remove(add_on)
+                            void_quantity = original_quantity
                         else:
                             add_on['quantity'] = new_quantity
+                            if new_quantity < original_quantity:
+                                void_quantity = original_quantity - new_quantity
+                            else:
+                                void_quantity = 0
+
+                        void_items.append({'product_id': add_on['product_id'], 'quantity': void_quantity})
 
                 updated_product_details = json.dumps(add_ons)
+                void_product_details = json.dumps(void_items)
+
                 cursor.execute("""
                     UPDATE `add_on`
-                    SET Product_Details = %s
+                    SET Product_Details = %s, Void = %s, Reason = %s
                     WHERE Order_ID = %s
-                """, (updated_product_details, self.orderidBOX.currentText()))
+                """, (updated_product_details, void_product_details, reason, order_id))
 
                 conn.commit()
-                QMessageBox.information(self, "Update Successful", "Product quantity updated successfully.")
+
             else:
                 QMessageBox.warning(self, "Data Error", "Product details not found.")
 
@@ -249,60 +276,63 @@ class posVoid(QMainWindow, Ui_MainWindow):
         finally:
             cursor.close()
 
+    def get_product_id_by_name(self, product_name):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT Product_ID FROM `product` WHERE Name = %s", (product_name,))
+            result = cursor.fetchone()
+            if result:
+                return result[0]
+            else:
+                return None
+        except Exception as e:
+            print(f"Error fetching product ID: {e}")
+            return None
+        finally:
+            cursor.close()
+
     def save_order_changes(self):
         order_id = self.orderidBOX.currentText()
+        reason = self.reasonBox.currentText()
 
-        if not order_id:
-            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
+        if not order_id or not reason:
+            QMessageBox.warning(self, "Input Error", "Please select an order ID and a reason.")
             return
 
         try:
             cursor = conn.cursor()
 
-            add_ons = []
-            row_count = self.orderList.rowCount()
-            for row in range(row_count):
-                product_name_item = self.orderList.item(row, 0)
-                quantity_item = self.orderList.item(row, 3)
-
-                if product_name_item and quantity_item:
-                    product_name = product_name_item.text()
-                    quantity = int(quantity_item.text())
-
-                    cursor.execute("""
-                        SELECT p.Product_ID
-                        FROM `product` p
-                        WHERE p.Name = %s
-                    """, (product_name,))
-                    result = cursor.fetchone()
-
-                    if result:
-                        product_id = result[0]
-                        add_ons.append({'product_id': product_id, 'quantity': quantity})
-
-            updated_product_details = json.dumps(add_ons)
+            # Fetch add-on details for the current order
             cursor.execute("""
-                UPDATE `add_on`
-                SET Product_Details = %s
-                WHERE Order_ID = %s
-            """, (updated_product_details, order_id))
+                SELECT ao.Product_Details
+                FROM `add_on` ao
+                WHERE ao.Order_ID = %s
+            """, (order_id,))
+            result = cursor.fetchone()
 
-            conn.commit()
-            QMessageBox.information(self, "Save Successful", "Order changes saved successfully.")
+            if result:
+                product_details = result[0]
+                add_ons = json.loads(product_details)
+
+                updated_product_details = json.dumps(add_ons)
+
+                # Update Product_Details, Void, and Reason in add_on table
+                cursor.execute("""
+                    UPDATE `add_on`
+                    SET Product_Details = %s, Void = %s, Reason = %s
+                    WHERE Order_ID = %s
+                """, (updated_product_details, None, reason, order_id))
+
+                conn.commit()
+                QMessageBox.information(self, "Save Successful", "Order changes saved successfully.")
+
+            else:
+                QMessageBox.warning(self, "Data Error", "Product details not found.")
 
         except Exception as e:
             print(f"Error saving order changes: {e}")
-            QMessageBox.warning(self, "Error", f"Error saving changes: {str(e)}")
+            QMessageBox.warning(self, "Error", f"Error saving order changes: {str(e)}")
         finally:
             cursor.close()
 
-    def get_product_id_by_name(self, product_name):
-        cursor = conn.cursor()
-        cursor.execute("""
-            SELECT p.Product_ID
-            FROM `product` p
-            WHERE p.Name = %s
-        """, (product_name,))
-        result = cursor.fetchone()
-        cursor.close()
-        return result[0] if result else None
+

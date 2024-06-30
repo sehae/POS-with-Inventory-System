@@ -1,7 +1,6 @@
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QDateTime, QTimer, Qt
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow
 from screens.employee_screens.employee_pos.posOrderdetails import Ui_MainWindow
 from shared.navigation_signal import auth_back, pos_back
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
@@ -72,6 +71,62 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         # Populate order id for receipt
         self.populate_comboBox_9()
 
+        self.populate_table()
+
+    def populate_table(self):
+        try:
+            if conn.is_connected():
+                cursor = conn.cursor()
+                query = """
+                    SELECT 
+                        Order_ID,
+                        Customer_Name,
+                        Order_Type,
+                        Priority_Order
+                    FROM `order`
+                    WHERE Payment_Status = 'Waiting for Timer'
+                    ORDER BY Priority_Order DESC, Order_ID ASC
+                """
+                cursor.execute(query)
+                records = cursor.fetchall()
+                self.display_records(records)
+
+        except Exception as e:
+            print("Error occurred while populating table:", e)
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def display_records(self, records):
+        column_names = [
+            "Order ID",
+            "Customer Name",
+            "Order Type",
+            "Priority Order"
+        ]
+
+        if records:
+            self.tableWidget.setRowCount(len(records))
+            self.tableWidget.setColumnCount(len(column_names))
+
+            for j, name in enumerate(column_names):
+                item = QTableWidgetItem(name)
+                self.tableWidget.setHorizontalHeaderItem(j, item)
+
+            for i, row in enumerate(records):
+                for j, col in enumerate(row):
+                    item = QTableWidgetItem(str(col))  # Always convert to string
+                    item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Make cell non-clickable
+                    self.tableWidget.setItem(i, j, item)
+
+                    # Apply conditional formatting for the "Priority Order" column
+                    if column_names[j] == "Priority Order" and col == "Priority":
+                        item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
+
+        else:
+            print("No records found.")
+
     def updateDateTime(self):
         # Get the current date and time
         currentDateTime = QDateTime.currentDateTime()
@@ -117,7 +172,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
             self.comboBox_3.clear()
 
             # Add blank/null option
-            self.comboBox_3.addItem("")  # Add a blank item
+            self.comboBox_3.addItem("None")  # Add a blank item
 
             # Add specific values
             self.comboBox_3.addItems(["Mala soup", "Plain soup", "Suan la soup", "Tomato soup"])
@@ -236,11 +291,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 soup_variation = self.comboBox_3.currentText()
                 priority_order = self.comboBox_5.currentText()
 
-                # Set the default Payment_Status
                 payment_status = 'Waiting for Timer'
-
-                if soup_variation == '':
-                    soup_variation = None
 
                 if order_type == "Add-ons only":
                     package_name = None
@@ -279,6 +330,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 self.lineEdit_7.clear()
                 self.comboBox_2.setCurrentIndex(-1)
                 self.comboBox_3.setCurrentIndex(-1)
+
+                self.populate_table()
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error occurred while saving order: {str(e)}")

@@ -69,7 +69,6 @@ class posHistory(QMainWindow, Ui_MainWindow):
                 records = cursor.fetchall()
                 self.display_records(records)
 
-                self.tableWidget_2.setColumnWidth(0, 150)  # Adjust the index if necessary
         except Exception as e:
             print("Error occurred while populating table:", e)
         finally:
@@ -101,11 +100,13 @@ class posHistory(QMainWindow, Ui_MainWindow):
                     item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)  # Make cell non-clickable
                     self.tableWidget_2.setItem(i, j, item)
 
-            # Resize rows to fit contents
-            self.tableWidget_2.resizeRowsToContents()
+            # Set the width of the first column and 8th column to 100
+            self.tableWidget_2.setColumnWidth(0, 100)
+            self.tableWidget_2.setColumnWidth(8, 100)
 
-            # Stretch columns to fill available horizontal space
-            self.tableWidget_2.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            # Stretch remaining columns to fill available horizontal space
+            for col in range(1, len(column_names)):
+                self.tableWidget_2.horizontalHeader().setSectionResizeMode(col, QHeaderView.Stretch)
 
             # Optional: Adjust header alignment and wrap text in header cells
             self.tableWidget_2.horizontalHeader().setDefaultAlignment(Qt.AlignCenter)
