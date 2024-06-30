@@ -428,6 +428,13 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             self.orderList.setColumnWidth(3, 50)
             self.adjust_column_widths()
 
+            self.total_amount = Decimal(pinaka_total_amount).quantize(Decimal('0.00'))
+            self.change_amount = Decimal(change_amount).quantize(Decimal('0.00'))
+            self.package_total_amount = Decimal(package_total_amount).quantize(Decimal('0.00'))
+            self.add_ons_total_amount = Decimal(add_ons_total_amount).quantize(Decimal('0.00'))
+            self.vat_amount = Decimal(vat_amount).quantize(Decimal('0.00'))
+            self.subtotal_amount = Decimal(subtotal_amount).quantize(Decimal('0.00'))
+
             conn.commit()
         except Exception as e:
             print(f"Error fetching order details: {e}")  # Handle exception more gracefully
