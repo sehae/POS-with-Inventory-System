@@ -100,31 +100,50 @@ def generate_monthly_report():
 
 # Function to generate plots
 def plot_reports(report_data, frequency, file_path):
-    # Total Sales
+    # Convert DateTime to string format for plotting
+    report_data['DateTime_str'] = report_data['DateTime'].dt.strftime('%B %d, %Y')
+
+    # Resample data by week for weekly plotting
+    report_data_weekly = report_data.resample('W', on='DateTime').sum().reset_index()
+    report_data_weekly['DateTime_str'] = report_data_weekly['DateTime'].dt.strftime('%B %d, %Y')
+
+    # Get today's date and the date 30 days ago
+    today = datetime.today()
+    start_date = today - timedelta(days=30)
+    date_range = f'{start_date.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+
+    # Total Sales plot
     plt.figure(figsize=(10, 6))
-    plt.plot(report_data['DateTime'], report_data['Total_Amount'], color='blue')
+    if frequency == 'Daily':
+        plt.plot(report_data['DateTime_str'], report_data['Total_Amount'], color='blue')
+        plt.title(f'{frequency} Total Sales ({today.strftime("%B %d, %Y")})')
+    else:
+        plt.plot(report_data_weekly['DateTime_str'], report_data_weekly['Total_Amount'], color='blue')
+        plt.title(f'{frequency} Total Sales ({date_range})')
     plt.xlabel('Date')
     plt.ylabel('Total Amount')
-    plt.title(f'Total Sales ({frequency})')
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=0)
+    plt.grid(True)
     plt.tight_layout()
     plt.savefig(f'{file_path}/total_sales_{frequency.lower()}.png')
     plt.close()
 
-    # Sales by Payment Method
+    # Sales by Payment Method pie chart
     payment_counts = report_data['Payment_Method'].value_counts()
     plt.figure(figsize=(8, 6))
-    plt.pie(payment_counts, labels=payment_counts.index, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Sales by Payment Method ({frequency})')
+    plt.pie(payment_counts, labels=payment_counts.index, autopct=lambda pct: f'{pct:.1f}% ({int(pct/100*sum(payment_counts))})', startangle=140)
+    plt.title(f'{frequency} Sales by Payment Method ({date_range})')
+    plt.legend(loc='best')
     plt.tight_layout()
     plt.savefig(f'{file_path}/sales_payment_method_{frequency.lower()}.png')
     plt.close()
 
-    # Sales by Category (Food and Beverage)
+    # Sales by Category (Order Type) pie chart
     category_counts = report_data['Order_Type'].value_counts()
     plt.figure(figsize=(8, 6))
-    plt.pie(category_counts, labels=category_counts.index, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Sales by Category ({frequency})')
+    plt.pie(category_counts, labels=category_counts.index, autopct=lambda pct: f'{pct:.1f}% ({int(pct/100*sum(category_counts))})', startangle=140)
+    plt.title(f'{frequency} Sales by Category ({date_range})')
+    plt.legend(loc='best')
     plt.tight_layout()
     plt.savefig(f'{file_path}/sales_category_{frequency.lower()}.png')
     plt.close()
