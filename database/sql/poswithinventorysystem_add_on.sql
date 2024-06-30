@@ -26,6 +26,8 @@ CREATE TABLE `add_on` (
   `Add_On_ID` int NOT NULL AUTO_INCREMENT,
   `Order_ID` varchar(45) DEFAULT NULL,
   `Product_Details` json DEFAULT NULL,
+  `Void` json DEFAULT NULL,
+  `Reason` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Add_On_ID`),
   KEY `Order_ID` (`Order_ID`),
   CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-29 21:44:18
+-- Dump completed on 2024-06-30 16:16:09
