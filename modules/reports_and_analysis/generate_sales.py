@@ -100,13 +100,43 @@ def generate_monthly_report():
 
 # Function to generate plots
 def plot_reports(report_data, frequency, file_path):
+    # Convert DateTime to string format for plotting
+    report_data['DateTime_str'] = report_data['DateTime'].dt.strftime('%B %d, %Y')
+    report_data['Time'] = report_data['DateTime'].dt.strftime('%I:%M %p')
+
+    today = datetime.today()
+    date_today = today.strftime("%B %d, %Y")
+    last_month = today - timedelta(days=30)
+    last_month_range = f'{last_month.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+    last_week = today - timedelta(days=7)
+    last_week_range = f'{last_week.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+
+    # Sort report data by DateTime for chronological order
+    sorted_report_data = report_data.sort_values(by='Total_Amount', ascending=True)
+
+    # Group 'x' data by weeks within the month
+    weekly_dates = sorted_report_data.groupby(pd.Grouper(key='DateTime', freq='W'))['DateTime_str'].first()
+
+    # Group 'y' data by weeks within the month
+    sorted_report_data['Total_Amount'] = sorted_report_data['Total_Amount'].astype(float)
+    weekly_total_amount = sorted_report_data.groupby(pd.Grouper(key='DateTime', freq='W'))['Total_Amount'].sum()
+
     # Total Sales
     plt.figure(figsize=(10, 6))
-    plt.plot(report_data['DateTime'], report_data['Total_Amount'], color='blue')
     plt.xlabel('Date')
     plt.ylabel('Total Amount')
-    plt.title(f'Total Sales ({frequency})')
-    plt.xticks(rotation=90)
+    if frequency == 'Daily':
+        plt.plot(report_data['Time'], sorted_report_data['Total_Amount'], color='blue', marker='o')
+        plt.title(f'{frequency} Total Sales ({date_today})')
+    elif frequency == 'Weekly':
+        plt.plot(report_data['DateTime_str'], sorted_report_data['Total_Amount'], color='blue', marker='o')
+        plt.title(f'{frequency} Total Sales ({last_week_range})')
+    elif frequency == 'Monthly':
+        plt.plot(weekly_dates, weekly_total_amount, color='blue', marker='o')
+        plt.title(f'{frequency} Total Sales ({last_month_range})')
+
+    plt.xticks(rotation=45)
+    plt.grid(True)
     plt.tight_layout()
     plt.savefig(f'{file_path}/total_sales_{frequency.lower()}.png')
     plt.close()
@@ -114,20 +144,35 @@ def plot_reports(report_data, frequency, file_path):
     # Sales by Payment Method
     payment_counts = report_data['Payment_Method'].value_counts()
     plt.figure(figsize=(8, 6))
-    plt.pie(payment_counts, labels=payment_counts.index, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Sales by Payment Method ({frequency})')
+    plt.pie(payment_counts, labels=payment_counts.index,
+            autopct=lambda pct: f'{pct:.1f}% ({int(pct / 100 * sum(payment_counts))})', startangle=140)
+    if frequency == 'Daily':
+        plt.title(f'{frequency} Sales by Payment Method ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'{frequency} Sales by Payment Method ({last_week_range})')
+    elif frequency == 'Monthly':
+        plt.title(f'{frequency} Sales by Payment Method ({last_month_range})')
+    plt.legend(loc='best')
     plt.tight_layout()
     plt.savefig(f'{file_path}/sales_payment_method_{frequency.lower()}.png')
     plt.close()
 
-    # Sales by Category (Food and Beverage)
+    # Sales by Category
     category_counts = report_data['Order_Type'].value_counts()
     plt.figure(figsize=(8, 6))
-    plt.pie(category_counts, labels=category_counts.index, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Sales by Category ({frequency})')
+    plt.pie(category_counts, labels=category_counts.index,
+            autopct=lambda pct: f'{pct:.1f}% ({int(pct / 100 * sum(category_counts))})', startangle=140)
+    if frequency == 'Daily':
+        plt.title(f'{frequency} Sales by Category ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'{frequency} Sales by Category ({last_week_range})')
+    elif frequency == 'Monthly':
+        plt.title(f'{frequency} Sales by Category ({last_month_range})')
+    plt.legend(loc='best')
     plt.tight_layout()
     plt.savefig(f'{file_path}/sales_category_{frequency.lower()}.png')
     plt.close()
+
 
 def save_report_to_excel(report_data, report_type, file_path):
     filename = f'{file_path}/{report_type}_report.xlsx'
@@ -179,6 +224,7 @@ def save_report_to_word(report_data, report_type, file_path):
     sales_by_category = report_data['Order_Type'].value_counts()
     total_discounts = report_data['Discount_Amount'].astype(float).sum()
     total_add_ons = report_data['Add_Ons_Total_Amount'].astype(float).sum()
+    payment_counts = report_data['Payment_Method'].value_counts()
 
     # Calculating profit
     report_data['Profit'] = report_data['Total_Amount'].astype(float) - report_data['Subtotal_Amount'].astype(float)
@@ -196,7 +242,8 @@ def save_report_to_word(report_data, report_type, file_path):
 
     document.add_heading("Sales by Payment Method", level=2)
     for method, percent in payment_methods.items():
-        document.add_paragraph(f"{method}: {percent:.2f}%")
+        count = payment_counts[method]
+        document.add_paragraph(f"{method}: {count} ({percent:.2f}%)")
 
     document.add_heading("Sales by Category", level=2)
     for category, count in sales_by_category.items():

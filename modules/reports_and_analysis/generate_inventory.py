@@ -98,13 +98,29 @@ def generate_monthly_report():
 
 # Function to generate plots
 def plot_reports(report_data, frequency, file_path):
+    today = datetime.now().today()
+    date_today = today.strftime('%B %d, %Y')
+    last_month = today - timedelta(days=30)
+    last_month_range = f'{last_month.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+    last_week = today - timedelta(days=7)
+    last_week_range = f'{last_week.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+
     # Inventory Levels by Product
     plt.figure(figsize=(10, 6))
     plt.bar(report_data['Name'], report_data['Quantity'], color='blue')
     plt.xlabel('Product Name')
     plt.ylabel('Quantity')
     plt.title(f'Inventory Levels by Product ({frequency})')
-    plt.xticks(rotation=90)
+
+    if frequency == 'Daily':
+        plt.title(f'({frequency}) Inventory Levels by Product ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'({frequency}) Inventory Levels by Product ({last_week_range})')
+    else:
+        plt.title(f'({frequency}) Inventory Levels by Product ({last_month_range})')
+
+    plt.xticks(rotation=45)
+    plt.plot(True)
     plt.tight_layout()
     plt.savefig(f'{file_path}/inventory_levels_{frequency.lower()}.png')
     plt.close()
@@ -112,8 +128,16 @@ def plot_reports(report_data, frequency, file_path):
     # Inventory Status Overview
     status_counts = report_data['Status'].value_counts()
     plt.figure(figsize=(8, 6))
-    plt.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Inventory Status Overview ({frequency})')
+
+    plt.pie(status_counts, labels=status_counts.index,
+            autopct=lambda pct: f'{pct:.1f}% ({int(pct / 100 * sum(status_counts))})', startangle=140)
+    if frequency == 'Daily':
+        plt.title(f'Inventory Status Overview ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'Inventory Status Overview ({last_week_range})')
+    else:
+        plt.title(f'Inventory Status Overview ({last_month_range})')
+
     plt.tight_layout()
     plt.savefig(f'{file_path}/inventory_status_{frequency.lower()}.png')
     plt.close()
@@ -121,15 +145,25 @@ def plot_reports(report_data, frequency, file_path):
     # Expiry Date Analysis
     report_data['Expiry_Date'] = pd.to_datetime(report_data['Expiry_Date'])
     upcoming_expiry = report_data[report_data['Expiry_Date'] >= datetime.now()].copy()
-    upcoming_expiry['Expiry_Week'] = upcoming_expiry['Expiry_Date'].dt.isocalendar().week
-    expiry_counts = upcoming_expiry['Expiry_Week'].value_counts().sort_index()
-    plt.figure(figsize=(10, 6))
-    plt.bar(expiry_counts.index, expiry_counts.values, color='green')
-    plt.xlabel('Week Number')
+    upcoming_expiry['Expiry_Date'] = upcoming_expiry['Expiry_Date'].dt.date  # Convert to date for clarity
+    expiry_counts = upcoming_expiry['Expiry_Date'].value_counts().sort_index()
+
+    # Plotting
+    plt.figure(figsize=(12, 6))
+    plt.plot(expiry_counts.index, expiry_counts.values, marker='o', linestyle='-')
+    plt.xlabel('Expiry Date')
     plt.ylabel('Number of Products')
-    plt.title(f'Expiry Date Analysis ({frequency})')
+    if frequency == 'Daily':
+        plt.title(f'{frequency} Upcoming Expiry Date Analysis ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_week_range})')
+    else:
+        plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_month_range})')
+
+    plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig(f'{file_path}/expiry_date_{frequency.lower()}.png')
+    plt.grid(True)
+    plt.savefig(f'{file_path}/expiry_date_time_series_{frequency.lower()}.png')
     plt.close()
 
 

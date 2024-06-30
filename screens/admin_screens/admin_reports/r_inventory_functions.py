@@ -107,7 +107,7 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
 
         levelViewPixmap = QPixmap(f'{self.directory}/inventory_levels_{frequency.lower()}.png')
         statusViewPixmap = QPixmap(f'{self.directory}/inventory_status_{frequency.lower()}.png')
-        expiryViewPixmap = QPixmap(f'{self.directory}/expiry_date_{frequency.lower()}.png')
+        expiryViewPixmap = QPixmap(f'{self.directory}/expiry_date_time_series_{frequency.lower()}.png')
 
         levelViewScene.addItem(QGraphicsPixmapItem(levelViewPixmap))
         statusViewScene.addItem(QGraphicsPixmapItem(statusViewPixmap))
