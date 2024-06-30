@@ -22,6 +22,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
     checkout_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
+    history_signal = QtCore.pyqtSignal()
+    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -35,6 +37,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.order_signal.emit)
         self.pushButton_8.clicked.connect(self.save_add_on)
         self.pushButton_9.clicked.connect(self.clear)
+        self.historyBTN_2.clicked.connect(self.history_signal.emit)
+        self.voidBTN.clicked.connect(self.void_signal.emit)
 
         self.pos_orderdetails = posOrderdetails()
 

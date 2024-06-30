@@ -16,6 +16,8 @@ class posModify(QMainWindow, Ui_MainWindow):
     checkout_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
+    history_signal = QtCore.pyqtSignal()
+    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -28,6 +30,8 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.menuBTN.clicked.connect(self.goMenu)
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_8.clicked.connect(self.modifyOrder)
+        self.historyBTN_3.clicked.connect(self.history_signal.emit)
+        self.voidBTN.clicked.connect(self.void_signal.emit)
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -209,6 +213,9 @@ class posModify(QMainWindow, Ui_MainWindow):
                 package_name = self.comboBox_6.currentText()
                 guest_pax = self.lineEdit_8.text().strip()
                 soup_variation = self.comboBox_7.currentText()
+
+                if soup_variation == '':
+                    soup_variation = None
 
                 # Fetch Package_ID based on selected Package_Name
                 cursor.execute(f"SELECT Package_ID FROM `package` WHERE Package_Name = '{package_name}'")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posCheckout.ui'
+# Form implementation generated from reading ui file 'posCheckout.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1801, 766)
+        MainWindow.resize(1801, 846)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -92,27 +92,6 @@ class Ui_MainWindow(object):
 "}")
         self.menuBTN.setObjectName("menuBTN")
         self.verticalLayout_6.addWidget(self.menuBTN)
-        self.voidBTN = QtWidgets.QPushButton(self.navbar_2)
-        self.voidBTN.setMinimumSize(QtCore.QSize(100, 100))
-        self.voidBTN.setMaximumSize(QtCore.QSize(100, 100))
-        self.voidBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.voidBTN.setObjectName("voidBTN")
-        self.verticalLayout_6.addWidget(self.voidBTN)
         self.modifyBTN = QtWidgets.QPushButton(self.navbar_2)
         self.modifyBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.modifyBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -134,6 +113,27 @@ class Ui_MainWindow(object):
 "}")
         self.modifyBTN.setObjectName("modifyBTN")
         self.verticalLayout_6.addWidget(self.modifyBTN)
+        self.voidBTN = QtWidgets.QPushButton(self.navbar_2)
+        self.voidBTN.setMinimumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setMaximumSize(QtCore.QSize(100, 100))
+        self.voidBTN.setStyleSheet("QPushButton {\n"
+"    background-color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    color: black;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 2px solid #4D926D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #F0F0F0;\n"
+"    border: 2px solid #265C42;\n"
+"}")
+        self.voidBTN.setObjectName("voidBTN")
+        self.verticalLayout_6.addWidget(self.voidBTN)
         self.checkoutBTN = QtWidgets.QPushButton(self.navbar_2)
         self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -203,9 +203,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN.setIcon(icon)
         self.backBTN.setAutoRepeat(False)
         self.backBTN.setObjectName("backBTN")
         self.verticalLayout_6.addWidget(self.backBTN)
@@ -279,6 +276,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_8)
@@ -286,6 +284,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.label_4.setFont(font)
         self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_4.setObjectName("label_4")
@@ -347,13 +346,6 @@ class Ui_MainWindow(object):
         self.label_15 = QtWidgets.QLabel(self.widget_4)
         self.label_15.setObjectName("label_15")
         self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_15)
-        self.label_17 = QtWidgets.QLabel(self.widget_4)
-        self.label_17.setObjectName("label_17")
-        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_17)
-        self.totalamountDISPLAY = QtWidgets.QLabel(self.widget_4)
-        self.totalamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.totalamountDISPLAY.setObjectName("totalamountDISPLAY")
-        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.totalamountDISPLAY)
         self.leftoverDISPLAY = QtWidgets.QLabel(self.widget_4)
         self.leftoverDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.leftoverDISPLAY.setObjectName("leftoverDISPLAY")
@@ -372,11 +364,49 @@ class Ui_MainWindow(object):
         self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.packageAmountDISPLAY)
         self.label_29 = QtWidgets.QLabel(self.widget_4)
         self.label_29.setObjectName("label_29")
-        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_29)
+        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_29)
         self.changeDISPLAY = QtWidgets.QLabel(self.widget_4)
         self.changeDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.changeDISPLAY.setObjectName("changeDISPLAY")
-        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.changeDISPLAY)
+        self.formLayout_2.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.changeDISPLAY)
+        self.label_19 = QtWidgets.QLabel(self.widget_4)
+        self.label_19.setObjectName("label_19")
+        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_19)
+        self.paymentmethodDISPLAY = QtWidgets.QLabel(self.widget_4)
+        self.paymentmethodDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.paymentmethodDISPLAY.setObjectName("paymentmethodDISPLAY")
+        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.paymentmethodDISPLAY)
+        self.label_20 = QtWidgets.QLabel(self.widget_4)
+        self.label_20.setObjectName("label_20")
+        self.formLayout_2.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.label_20)
+        self.referenceidDISPLAY = QtWidgets.QLabel(self.widget_4)
+        self.referenceidDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.referenceidDISPLAY.setObjectName("referenceidDISPLAY")
+        self.formLayout_2.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.referenceidDISPLAY)
+        self.label_17 = QtWidgets.QLabel(self.widget_4)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_17.setFont(font)
+        self.label_17.setObjectName("label_17")
+        self.formLayout_2.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_17)
+        self.totalamountDISPLAY = QtWidgets.QLabel(self.widget_4)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.totalamountDISPLAY.setFont(font)
+        self.totalamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalamountDISPLAY.setObjectName("totalamountDISPLAY")
+        self.formLayout_2.setWidget(11, QtWidgets.QFormLayout.FieldRole, self.totalamountDISPLAY)
+        self.label_22 = QtWidgets.QLabel(self.widget_4)
+        self.label_22.setObjectName("label_22")
+        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_22)
+        self.cashamountDISPLAY = QtWidgets.QLabel(self.widget_4)
+        self.cashamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.cashamountDISPLAY.setObjectName("cashamountDISPLAY")
+        self.formLayout_2.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.cashamountDISPLAY)
         self.verticalLayout_4.addWidget(self.widget_4)
         self.frame_2 = QtWidgets.QFrame(self.Checkout)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -409,19 +439,8 @@ class Ui_MainWindow(object):
 "}")
         self.orderidBOX.setObjectName("orderidBOX")
         self.verticalLayout.addWidget(self.orderidBOX)
-        self.barcodeFIELD = QtWidgets.QLineEdit(self.frame_2)
-        self.barcodeFIELD.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.barcodeFIELD.setObjectName("barcodeFIELD")
-        self.verticalLayout.addWidget(self.barcodeFIELD)
-        self.void_orderBTN = QtWidgets.QPushButton(self.frame_2)
-        self.void_orderBTN.setStyleSheet("QPushButton {\n"
+        self.checkoutBTN_3 = QtWidgets.QPushButton(self.frame_2)
+        self.checkoutBTN_3.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
@@ -436,8 +455,26 @@ class Ui_MainWindow(object):
 "    background-color: #4D9C7F;\n"
 "    border: 2px solid #4D9C7F;\n"
 "}")
-        self.void_orderBTN.setObjectName("void_orderBTN")
-        self.verticalLayout.addWidget(self.void_orderBTN)
+        self.checkoutBTN_3.setObjectName("checkoutBTN_3")
+        self.verticalLayout.addWidget(self.checkoutBTN_3)
+        self.checkoutBTN_2 = QtWidgets.QPushButton(self.frame_2)
+        self.checkoutBTN_2.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.checkoutBTN_2.setObjectName("checkoutBTN_2")
+        self.verticalLayout.addWidget(self.checkoutBTN_2)
         self.verticalLayout_4.addWidget(self.frame_2)
         self.horizontalLayout_3.addWidget(self.Checkout)
         self.PaymentMethod = QtWidgets.QWidget(self.mainContent_2)
@@ -458,24 +495,7 @@ class Ui_MainWindow(object):
         self.formLayout_3.setObjectName("formLayout_3")
         self.label_23 = QtWidgets.QLabel(self.PaymentMethod)
         self.label_23.setObjectName("label_23")
-        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_23)
-        self.label_24 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_24.setObjectName("label_24")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_24)
-        self.label_25 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_25.setObjectName("label_25")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_25)
-        self.referenceFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
-        self.referenceFIELD.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.referenceFIELD.setObjectName("referenceFIELD")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.referenceFIELD)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_23)
         self.amountFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
         self.amountFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
@@ -486,13 +506,54 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.amountFIELD.setObjectName("amountFIELD")
-        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.amountFIELD)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.amountFIELD)
+        self.label_24 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_24.setFont(font)
+        self.label_24.setObjectName("label_24")
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_24)
+        self.label_25 = QtWidgets.QLabel(self.PaymentMethod)
+        self.label_25.setObjectName("label_25")
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_25)
+        self.referenceFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
+        self.referenceFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.referenceFIELD.setObjectName("referenceFIELD")
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.referenceFIELD)
+        self.label_30 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_30.setFont(font)
+        self.label_30.setObjectName("label_30")
+        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_30)
+        self.setBTN = QtWidgets.QPushButton(self.PaymentMethod)
+        self.setBTN.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.setBTN.setObjectName("setBTN")
+        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.setBTN)
         self.verticalLayout_3.addLayout(self.formLayout_3)
-        self.line = QtWidgets.QFrame(self.PaymentMethod)
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.verticalLayout_3.addWidget(self.line)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_31 = QtWidgets.QLabel(self.PaymentMethod)
@@ -503,69 +564,31 @@ class Ui_MainWindow(object):
         self.label_31.setSizePolicy(sizePolicy)
         self.label_31.setObjectName("label_31")
         self.horizontalLayout_2.addWidget(self.label_31)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem3)
-        self.pwdBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.pwdBTN.setMinimumSize(QtCore.QSize(125, 100))
-        self.pwdBTN.setMaximumSize(QtCore.QSize(125, 100))
-        self.pwdBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
-        self.pwdBTN.setObjectName("pwdBTN")
-        self.horizontalLayout_2.addWidget(self.pwdBTN)
-        self.seniorBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.seniorBTN.setMinimumSize(QtCore.QSize(125, 100))
-        self.seniorBTN.setMaximumSize(QtCore.QSize(125, 100))
-        self.seniorBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
-        self.seniorBTN.setObjectName("seniorBTN")
-        self.horizontalLayout_2.addWidget(self.seniorBTN)
-        self.regularBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.regularBTN.setMinimumSize(QtCore.QSize(125, 100))
-        self.regularBTN.setMaximumSize(QtCore.QSize(125, 100))
-        self.regularBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
+        self.discountBOX = QtWidgets.QComboBox(self.PaymentMethod)
+        self.discountBOX.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
 "}\n"
 "\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
 "}")
-        self.regularBTN.setObjectName("regularBTN")
-        self.horizontalLayout_2.addWidget(self.regularBTN)
+        self.discountBOX.setObjectName("discountBOX")
+        self.horizontalLayout_2.addWidget(self.discountBOX)
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
         self.formLayout_4 = QtWidgets.QFormLayout()
         self.formLayout_4.setHorizontalSpacing(25)
@@ -573,6 +596,24 @@ class Ui_MainWindow(object):
         self.label_18 = QtWidgets.QLabel(self.PaymentMethod)
         self.label_18.setObjectName("label_18")
         self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_18)
+        self.saveBTN = QtWidgets.QPushButton(self.PaymentMethod)
+        self.saveBTN.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.saveBTN.setObjectName("saveBTN")
+        self.formLayout_4.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.saveBTN)
         self.leftoverBOX = QtWidgets.QComboBox(self.PaymentMethod)
         self.leftoverBOX.setStyleSheet("QComboBox {\n"
 "    padding: 5px;\n"
@@ -599,119 +640,23 @@ class Ui_MainWindow(object):
         self.leftoverBOX.setObjectName("leftoverBOX")
         self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.leftoverBOX)
         self.verticalLayout_3.addLayout(self.formLayout_4)
-        self.line_2 = QtWidgets.QFrame(self.PaymentMethod)
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
-        self.verticalLayout_3.addWidget(self.line_2)
-        self.label_27 = QtWidgets.QLabel(self.PaymentMethod)
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_27.setFont(font)
-        self.label_27.setObjectName("label_27")
-        self.verticalLayout_3.addWidget(self.label_27)
-        self.label_28 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_28.setObjectName("label_28")
-        self.verticalLayout_3.addWidget(self.label_28)
-        self.notesFIELD = QtWidgets.QTextEdit(self.PaymentMethod)
-        self.notesFIELD.setStyleSheet("QTextEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.notesFIELD.setObjectName("notesFIELD")
-        self.verticalLayout_3.addWidget(self.notesFIELD)
         self.horizontalLayout_3.addWidget(self.PaymentMethod)
         self.Receipt = QtWidgets.QWidget(self.mainContent_2)
         self.Receipt.setObjectName("Receipt")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.Receipt)
         self.verticalLayout_2.setContentsMargins(15, 0, 15, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.label_26 = QtWidgets.QLabel(self.Receipt)
+        self.label_21 = QtWidgets.QLabel(self.Receipt)
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.label_26.setFont(font)
-        self.label_26.setObjectName("label_26")
-        self.verticalLayout_2.addWidget(self.label_26)
-        self.receiptVIEW = QtWidgets.QGraphicsView(self.Receipt)
-        self.receiptVIEW.setObjectName("receiptVIEW")
-        self.verticalLayout_2.addWidget(self.receiptVIEW)
-        self.kitchenBTN = QtWidgets.QPushButton(self.Receipt)
-        self.kitchenBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
-        self.kitchenBTN.setObjectName("kitchenBTN")
-        self.verticalLayout_2.addWidget(self.kitchenBTN)
-        self.generateBTN = QtWidgets.QPushButton(self.Receipt)
-        self.generateBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #67B99A;\n"
-"    color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
-        self.generateBTN.setObjectName("generateBTN")
-        self.verticalLayout_2.addWidget(self.generateBTN)
-        self.printBTN = QtWidgets.QPushButton(self.Receipt)
-        self.printBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.printBTN.setObjectName("printBTN")
-        self.verticalLayout_2.addWidget(self.printBTN)
-        self.timerBTN = QtWidgets.QPushButton(self.Receipt)
-        self.timerBTN.setStyleSheet("QPushButton {\n"
-"    background-color: #F1A40E;\n"
-"    color: white;\n"
-"    border: 2px solid #F1A40E;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 15px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #E5950C;\n"
-"    border: 2px solid #E5950C;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: #D7850A;\n"
-"    border: 2px solid #D7850A;\n"
-"}")
-        self.timerBTN.setObjectName("timerBTN")
-        self.verticalLayout_2.addWidget(self.timerBTN)
+        self.label_21.setFont(font)
+        self.label_21.setObjectName("label_21")
+        self.verticalLayout_2.addWidget(self.label_21)
+        self.orderdoneList = QtWidgets.QTableWidget(self.Receipt)
+        self.orderdoneList.setObjectName("orderdoneList")
+        self.orderdoneList.setColumnCount(0)
+        self.orderdoneList.setRowCount(0)
+        self.verticalLayout_2.addWidget(self.orderdoneList)
         self.horizontalLayout_3.addWidget(self.Receipt)
         self.verticalLayout_8.addWidget(self.mainContent_2)
         self.gridLayout_2.addWidget(self.contentContainer_2, 1, 1, 1, 1)
@@ -726,8 +671,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.orderBTN.setText(_translate("MainWindow", "Order"))
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
-        self.voidBTN.setText(_translate("MainWindow", "Void"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
+        self.voidBTN.setText(_translate("MainWindow", "Void"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
@@ -750,44 +695,32 @@ class Ui_MainWindow(object):
         self.label_14.setText(_translate("MainWindow", "Total Add-ons Amount"))
         self.label_16.setText(_translate("MainWindow", "Leftover Cost"))
         self.label_15.setText(_translate("MainWindow", "Discount (Senior/PWD)"))
-        self.label_17.setText(_translate("MainWindow", "Payment"))
-        self.totalamountDISPLAY.setText(_translate("MainWindow", "total amount here"))
         self.leftoverDISPLAY.setText(_translate("MainWindow", "display leftover cost here"))
         self.discountDISPLAY.setText(_translate("MainWindow", "display discount here"))
         self.addonsAmountDISPLAY.setText(_translate("MainWindow", "display add-ons amount here"))
         self.packageAmountDISPLAY.setText(_translate("MainWindow", "display package amount here"))
         self.label_29.setText(_translate("MainWindow", "Change Amount"))
         self.changeDISPLAY.setText(_translate("MainWindow", "put change amount here"))
-        self.barcodeFIELD.setPlaceholderText(_translate("MainWindow", "Put Barcode Here"))
-        self.void_orderBTN.setText(_translate("MainWindow", "Pay"))
+        self.label_19.setText(_translate("MainWindow", "Payment Method"))
+        self.paymentmethodDISPLAY.setText(_translate("MainWindow", "payment method here"))
+        self.label_20.setText(_translate("MainWindow", "Reference ID (GCash)"))
+        self.referenceidDISPLAY.setText(_translate("MainWindow", "reference id here"))
+        self.label_17.setText(_translate("MainWindow", "Payment"))
+        self.totalamountDISPLAY.setText(_translate("MainWindow", "total amount here"))
+        self.label_22.setText(_translate("MainWindow", "Cash Amount"))
+        self.cashamountDISPLAY.setText(_translate("MainWindow", "cash amount here"))
+        self.checkoutBTN_3.setText(_translate("MainWindow", "Check Order ID"))
+        self.checkoutBTN_2.setText(_translate("MainWindow", "Checkout"))
         self.label_9.setText(_translate("MainWindow", "Payment Method"))
         self.label_23.setText(_translate("MainWindow", "Amount Tendered"))
+        self.amountFIELD.setPlaceholderText(_translate("MainWindow", "Enter Amount"))
         self.label_24.setText(_translate("MainWindow", "Gcash"))
         self.label_25.setText(_translate("MainWindow", "Reference Number"))
         self.referenceFIELD.setPlaceholderText(_translate("MainWindow", "Enter Gcash Reference Number"))
-        self.amountFIELD.setPlaceholderText(_translate("MainWindow", "Enter Amount"))
-        self.label_31.setText(_translate("MainWindow", "Discount"))
-        self.pwdBTN.setText(_translate("MainWindow", "PWD"))
-        self.seniorBTN.setText(_translate("MainWindow", "Senior\n"
-"Citizen"))
-        self.regularBTN.setText(_translate("MainWindow", "Regular"))
-        self.label_18.setText(_translate("MainWindow", "Leftover"))
-        self.label_27.setText(_translate("MainWindow", "Others"))
-        self.label_28.setText(_translate("MainWindow", "Customer Request/Notes"))
-        self.notesFIELD.setPlaceholderText(_translate("MainWindow", "Put Customer Requests/Notes here..."))
-        self.label_26.setText(_translate("MainWindow", "Receipt"))
-        self.kitchenBTN.setText(_translate("MainWindow", "Send to Kitchen"))
-        self.generateBTN.setText(_translate("MainWindow", "Generate Receipt"))
-        self.printBTN.setText(_translate("MainWindow", "Print Receipt"))
-        self.timerBTN.setText(_translate("MainWindow", "Start Timer"))
+        self.label_30.setText(_translate("MainWindow", "Cash"))
+        self.setBTN.setText(_translate("MainWindow", "Enter"))
+        self.label_31.setText(_translate("MainWindow", "Discount               "))
+        self.label_18.setText(_translate("MainWindow", "Leftover         "))
+        self.saveBTN.setText(_translate("MainWindow", "Save changes"))
+        self.label_21.setText(_translate("MainWindow", "Orders Done"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
