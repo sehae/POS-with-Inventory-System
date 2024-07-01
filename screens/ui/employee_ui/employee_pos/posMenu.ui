@@ -543,28 +543,7 @@ QPushButton:pressed {
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -590,14 +569,7 @@ QComboBox::down-arrow {
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -744,28 +716,7 @@ QPushButton:pressed {
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -798,14 +749,7 @@ QComboBox::down-arrow {
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>

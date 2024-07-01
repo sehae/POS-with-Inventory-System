@@ -563,7 +563,7 @@ QPushButton:pressed {
                       </font>
                      </property>
                      <property name="text">
-                      <string>put order id here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -580,7 +580,7 @@ QPushButton:pressed {
                    <item row="2" column="1">
                     <widget class="QLabel" name="packageDISPLAY">
                      <property name="text">
-                      <string>package type here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -614,7 +614,7 @@ QPushButton:pressed {
                    <item row="1" column="1">
                     <widget class="QLabel" name="customerFIELD">
                      <property name="text">
-                      <string>customer name here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -647,7 +647,7 @@ QPushButton:pressed {
                    <item row="2" column="1">
                     <widget class="QLabel" name="subtotalDISPLAY">
                      <property name="text">
-                      <string>display subtotal</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -657,7 +657,7 @@ QPushButton:pressed {
                    <item row="3" column="1">
                     <widget class="QLabel" name="vatDISPLAY">
                      <property name="text">
-                      <string>display vat amount</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -695,7 +695,7 @@ QPushButton:pressed {
                    <item row="5" column="1">
                     <widget class="QLabel" name="leftoverDISPLAY">
                      <property name="text">
-                      <string>display leftover cost here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -705,7 +705,7 @@ QPushButton:pressed {
                    <item row="4" column="1">
                     <widget class="QLabel" name="discountDISPLAY">
                      <property name="text">
-                      <string>display discount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -715,7 +715,7 @@ QPushButton:pressed {
                    <item row="1" column="1">
                     <widget class="QLabel" name="addonsAmountDISPLAY">
                      <property name="text">
-                      <string>display add-ons amount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -725,7 +725,7 @@ QPushButton:pressed {
                    <item row="0" column="1">
                     <widget class="QLabel" name="packageAmountDISPLAY">
                      <property name="text">
-                      <string>display package amount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -742,7 +742,7 @@ QPushButton:pressed {
                    <item row="10" column="1">
                     <widget class="QLabel" name="changeDISPLAY">
                      <property name="text">
-                      <string>put change amount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -759,7 +759,7 @@ QPushButton:pressed {
                    <item row="7" column="1">
                     <widget class="QLabel" name="paymentmethodDISPLAY">
                      <property name="text">
-                      <string>payment method here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -776,7 +776,7 @@ QPushButton:pressed {
                    <item row="8" column="1">
                     <widget class="QLabel" name="referenceidDISPLAY">
                      <property name="text">
-                      <string>reference id here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -807,7 +807,7 @@ QPushButton:pressed {
                       </font>
                      </property>
                      <property name="text">
-                      <string>total amount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -824,7 +824,7 @@ QPushButton:pressed {
                    <item row="9" column="1">
                     <widget class="QLabel" name="cashamountDISPLAY">
                      <property name="text">
-                      <string>cash amount here</string>
+                      <string/>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1070,6 +1070,18 @@ QPushButton:pressed {
                  </layout>
                 </item>
                 <item>
+                 <widget class="QLabel" name="label_21">
+                  <property name="font">
+                   <font>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Apply Discount/Leftover</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
                    <widget class="QLabel" name="label_31">
@@ -1198,21 +1210,6 @@ QComboBox::down-arrow {
                 <property name="bottomMargin">
                  <number>0</number>
                 </property>
-                <item>
-                 <widget class="QLabel" name="label_21">
-                  <property name="font">
-                   <font>
-                    <pointsize>18</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Orders Done</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QTableWidget" name="orderdoneList"/>
-                </item>
                </layout>
               </widget>
              </item>

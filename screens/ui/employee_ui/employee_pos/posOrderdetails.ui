@@ -108,14 +108,14 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
+             <item row="2" column="0">
               <widget class="QLabel" name="label_10">
                <property name="text">
                 <string>Customer Name</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
+             <item row="2" column="1">
               <widget class="QLineEdit" name="lineEdit_9">
                <property name="minimumSize">
                 <size>
@@ -130,72 +130,18 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_14">
-               <property name="text">
-                <string>Order Type</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="comboBox_4">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
+             <item row="4" column="0">
               <widget class="QLabel" name="label_20">
                <property name="text">
                 <string>Package Type</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
+             <item row="4" column="1">
               <widget class="QComboBox" name="comboBox_2">
                <property name="minimumSize">
                 <size>
@@ -210,39 +156,18 @@ QComboBox::down-arrow {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
+             <item row="5" column="0">
               <widget class="QLabel" name="label_19">
                <property name="text">
                 <string>Guest Pax</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
+             <item row="5" column="1">
               <widget class="QLineEdit" name="lineEdit_7">
                <property name="minimumSize">
                 <size>
@@ -257,25 +182,18 @@ QComboBox::down-arrow {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-    padding: 5px;
-    border: 2px solid #67B99A;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
-             <item row="7" column="0">
+             <item row="8" column="0">
               <widget class="QLabel" name="label_15">
                <property name="text">
                 <string/>
                </property>
               </widget>
              </item>
-             <item row="7" column="1">
+             <item row="8" column="1">
               <widget class="QWidget" name="widget_5" native="true">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -400,14 +318,14 @@ QPushButton:pressed {
                </layout>
               </widget>
              </item>
-             <item row="5" column="0">
+             <item row="6" column="0">
               <widget class="QLabel" name="label_17">
                <property name="text">
                 <string>Soup Variation</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
+             <item row="6" column="1">
               <widget class="QComboBox" name="comboBox_3">
                <property name="minimumSize">
                 <size>
@@ -422,39 +340,18 @@ QPushButton:pressed {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
+             <item row="7" column="0">
               <widget class="QLabel" name="label_18">
                <property name="text">
                 <string>Priority</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="1">
+             <item row="7" column="1">
               <widget class="QComboBox" name="comboBox_5">
                <property name="minimumSize">
                 <size>
@@ -469,28 +366,33 @@ QComboBox::down-arrow {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="comboBox_4">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Order Type</string>
                </property>
               </widget>
              </item>
@@ -518,10 +420,192 @@ QComboBox::down-arrow {
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_22">
+             <item row="1" column="0" colspan="2">
+              <widget class="QTableWidget" name="tableWidget"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Start Timer</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="label_23">
                <property name="text">
                 <string>Order ID</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QComboBox" name="comboBox_8">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+               </property>
+               <property name="text">
+                <string>Start</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+               </property>
+               <property name="text">
+                <string>Send</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_24">
+               <property name="text">
+                <string>Order ID</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QComboBox" name="comboBox_9">
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="font">
+                <font>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Send to Kitchen</string>
                </property>
               </widget>
              </item>
@@ -540,40 +624,26 @@ QComboBox::down-arrow {
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_7">
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_22">
+               <property name="text">
+                <string>Order ID</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_6">
                <property name="font">
                 <font>
                  <pointsize>18</pointsize>
                 </font>
                </property>
                <property name="text">
-                <string/>
+                <string>Cancel Order</string>
                </property>
               </widget>
              </item>
@@ -620,234 +690,27 @@ QPushButton:pressed {
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_8">
+             <item row="8" column="1">
+              <widget class="QLabel" name="label_12">
                <property name="font">
                 <font>
-                 <pointsize>18</pointsize>
+                 <pointsize>10</pointsize>
                 </font>
                </property>
                <property name="text">
-                <string>Start Timer</string>
+                <string>(Note: Send Receipt to Kitchen First)</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
-              <widget class="QLabel" name="label_23">
-               <property name="text">
-                <string>Order ID</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="1">
-              <widget class="QComboBox" name="comboBox_8">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="label_9">
+             <item row="5" column="1">
+              <widget class="QLabel" name="label_13">
                <property name="font">
                 <font>
-                 <pointsize>18</pointsize>
+                 <pointsize>10</pointsize>
                 </font>
                </property>
                <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="1">
-              <widget class="QPushButton" name="pushButton_2">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>0</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>9</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-               </property>
-               <property name="text">
-                <string>Start</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="font">
-                <font>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Send Receipt</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="0">
-              <widget class="QLabel" name="label_24">
-               <property name="text">
-                <string>Order ID</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="1">
-              <widget class="QComboBox" name="comboBox_9">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QComboBox {
-    padding: 5px;
-    border: 2px solid #07BEB8;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    selection-background-color: darkgray;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
-               </property>
-              </widget>
-             </item>
-             <item row="10" column="1">
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="minimumSize">
-                <size>
-                 <width>400</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>0</width>
-                 <height>35</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>9</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-    background-color: #67B99A;
-    color: white;
-    border: 2px solid #67B99A;
-    padding: 8px 16px;
-    border-radius: 15px;
-}
-QPushButton:hover {
-    background-color: #5CAE8B;
-    border: 2px solid #5CAE8B;
-}
-QPushButton:pressed {
-    background-color: #4D9C7F;
-	border: 2px solid #4D9C7F;
-}</string>
-               </property>
-               <property name="text">
-                <string>Send</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QTableWidget" name="tableWidget"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="font">
-                <font>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Cancel Order</string>
+                <string>(Note: For  Package Order Type Only)</string>
                </property>
               </widget>
              </item>

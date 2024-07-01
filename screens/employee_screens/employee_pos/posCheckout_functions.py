@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from screens.employee_screens.employee_pos.posCheckout import Ui_MainWindow
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from server.local_server import conn
+from screens.receipt.checkout_receipt_dialog import CheckoutReceiptDialog
 
 import json
 
@@ -82,7 +83,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.cash_amount = None
         self.reference_id = None
         self.payment_method = None
-        self.cash_amount = None
         self.discount_type = None
         self.leftover_grams = None
         self.leftover_id = None
@@ -95,6 +95,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.package_total_amount = Decimal(0)
         self.add_ons_total_amount = Decimal(0)
         self.total_amount = Decimal(0)
+        self.add_ons_rows = []
 
     def populate_discountBOX(self):
         items = ['Regular', 'PWD', 'Senior']
@@ -160,7 +161,9 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             self.reference_id = None
         else:
             # If both cash amount and reference ID are provided
-            self.payment_method = 'Cash'
+            self.payment_method = None
+            QMessageBox.warning(self, "Input Error", "Please provide either Cash Amount or Reference ID (GCash).")
+            return
 
 
         # Trigger checking of order details based on the updated values
@@ -271,8 +274,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             add_ons = json.loads(add_on_details[0]) if add_on_details else []
 
-            add_ons_total_amount = 0
-            add_ons_rows = []
+            self.add_ons_total_amount = 0
+            self.add_ons_rows = []
             for add_on in add_ons:
                 product_id = add_on['product_id']
                 quantity = add_on['quantity']
@@ -287,15 +290,15 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 if product_details:
                     product_name, selling_cost = product_details
                     total_amount = Decimal(selling_cost) * quantity
-                    add_ons_total_amount += total_amount
+                    self.add_ons_total_amount += total_amount
 
                     # Only add the row if product_name is not None or empty, quantity is not None,
                     # and selling_cost and total_amount are not 0.00
                     if product_name and quantity is not None and selling_cost != Decimal(
                             "0.00") and total_amount != Decimal("0.00"):
-                        add_ons_rows.append((product_name, quantity, selling_cost, total_amount))
+                        self.add_ons_rows.append((product_name, quantity, selling_cost, total_amount))
 
-            subtotal_amount = Decimal(package_total_amount) + Decimal(add_ons_total_amount)
+            subtotal_amount = Decimal(package_total_amount) + Decimal(self.add_ons_total_amount)
 
             discount_amount = Decimal(0)
 
@@ -320,7 +323,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             # Set the calculated values to the corresponding labels
             self.packageAmountDISPLAY.setText(f"{package_total_amount:.2f}")
-            self.addonsAmountDISPLAY.setText(f"{add_ons_total_amount:.2f}")
+            self.addonsAmountDISPLAY.setText(f"{self.add_ons_total_amount:.2f}")
             self.subtotalDISPLAY.setText(f"{subtotal_amount:.2f}")
             self.vatDISPLAY.setText(f"{vat_amount:.2f}")
             self.discountDISPLAY.setText(f"{discount_amount:.2f}")
@@ -367,7 +370,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 row += 1
 
                 # Only add add-ons section if there are add-ons
-                if add_ons_rows:
+                if self.add_ons_rows:
                     # Add empty row before add-ons section
                     self.orderList.insertRow(row)
                     row += 1
@@ -387,7 +390,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                     row += 1
 
                     # Add add-ons details
-                    for product_name, quantity, selling_cost, total_amount in add_ons_rows:
+                    for product_name, quantity, selling_cost, total_amount in self.add_ons_rows:
                         self.orderList.insertRow(row)
                         self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
                         self.orderList.setItem(row, 2, QTableWidgetItem(str(quantity)))
@@ -395,7 +398,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                         self.orderList.setItem(row, 4, QTableWidgetItem(f"{total_amount:.2f}"))
                         row += 1
 
-            elif order_type == "Add-ons only" and add_ons_rows:
+            elif order_type == "Add-ons only" and self.add_ons_rows:
                 # Add empty row
                 self.orderList.insertRow(row)
                 row += 1
@@ -415,7 +418,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 row += 1
 
                 # Add add-ons details
-                for product_name, quantity, selling_cost, total_amount in add_ons_rows:
+                for product_name, quantity, selling_cost, total_amount in self.add_ons_rows:
                     self.orderList.insertRow(row)
                     self.orderList.setItem(row, 0, QTableWidgetItem(product_name))
                     self.orderList.setItem(row, 2, QTableWidgetItem(str(quantity)))
@@ -431,7 +434,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             self.total_amount = Decimal(pinaka_total_amount).quantize(Decimal('0.00'))
             self.change_amount = Decimal(change_amount).quantize(Decimal('0.00'))
             self.package_total_amount = Decimal(package_total_amount).quantize(Decimal('0.00'))
-            self.add_ons_total_amount = Decimal(add_ons_total_amount).quantize(Decimal('0.00'))
+            self.add_ons_total_amount = Decimal(self.add_ons_total_amount).quantize(Decimal('0.00'))
             self.vat_amount = Decimal(vat_amount).quantize(Decimal('0.00'))
             self.subtotal_amount = Decimal(subtotal_amount).quantize(Decimal('0.00'))
 
@@ -452,6 +455,12 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
     def save_order_details(self):
         order_id = self.orderidBOX.currentText()
+
+        # Check if cash amount and reference ID are set
+        if not self.cash_amount:
+            QMessageBox.warning(self, "Payment Details Required", "Please set the cash amount before checkout.")
+            return
+
         try:
             # Update the order table with relevant fields
             cursor = conn.cursor()
@@ -467,13 +476,74 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                   self.cash_amount, self.reference_id, self.payment_method, order_id))
 
             conn.commit()
+            self.print_receipt()
             self.populate_comboBox()
-
-            QMessageBox.information(self, "Success", "Order details saved successfully.")
         except Exception as e:
             print(f"Error updating order details: {e}")  # Debug statement
             QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
         finally:
             cursor.close()
 
+    def print_receipt(self):
+        order_id = self.orderidBOX.currentText()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT Customer_Name, Order_Type
+                FROM `order` 
+                WHERE Order_ID = %s 
+            """, (order_id,))
+            order_details = cursor.fetchone()
+
+            if not order_details:
+                QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
+                return
+
+            customer_name, order_type = order_details
+
+            receipt_text = f"""
+                           Moonhey Hotpot and Grill 
+            848A Banawe St, Quezon City, 1114 Metro Manila
+                            Official Receipt
+
+    Date and Time: {self.label_11.text()}
+
+    Order ID: {self.orderidBOX.currentText()}
+    Customer Name: {customer_name}
+    """
+
+            if order_type == "Package":
+                receipt_text += f"""
+    Package Details
+    {"Package Type":<15} {"Guest Pax":<10} {"Price":<10} {"Total":>10}
+    {self.packageDISPLAY.text():<15} {self.customerFIELD.text():<10} {self.packageAmountDISPLAY.text():<10} {self.package_total_amount:>10.2f}
+    """
+
+            elif order_type == 'Add-ons only':
+                receipt_text += f"""
+    Add-ons Details
+    {"Product Name":<15} {"Quantity":<10} {"Price":<10} {"Total":>10}
+    """
+
+                # Append each add-on row to the receipt text
+                for product_name, quantity, selling_cost, total_amount in self.add_ons_rows:
+                    receipt_text += f"{product_name:<15} {quantity:<10} {selling_cost:.2f} {total_amount:.2f}\n"
+
+            receipt_text += f"""
+    {"Total Amount":<30} {self.totalamountDISPLAY.text():>10}
+    {"VAT (12%)":<30} {self.vat_amount:>10.2f}
+    {"Discount (" + self.discount_type + ")":<30} {self.discount_amount:>10.2f}
+    {"Leftover Cost":<30} {self.penalty_fee:>10.2f}
+    {"Payment Method":<30} {self.payment_method}
+    {"Reference ID (if GCash)":<30} {self.reference_id}
+    {"Cash Amount":<30} {self.cash_amount}
+    {"Change Amount":<30} {self.change_amount}
+    """
+
+            # Show receipt in dialog
+            dialog = CheckoutReceiptDialog(receipt_text)
+            dialog.exec_()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Error generating receipt: {str(e)}")
 
