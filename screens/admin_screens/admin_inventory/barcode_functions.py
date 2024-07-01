@@ -8,22 +8,15 @@ from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 from screens.admin_screens.admin_inventory.barcode import Ui_Dialog  # Import the generated dialog class
 
-# Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
 class BarcodeDialog(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Setup the UI from the generated class
 
-        logging.debug("Initializing BarcodeDialog")
-
         pixmap = QPixmap()
         pixmap.loadFromData(open("debug_barcode.png", "rb").read(), "png")
 
         self.barcodeLBL.setPixmap(pixmap)
-        logging.debug("Barcode image set in the label")
 
         self.printBTN.clicked.connect(self.print_barcode)
         self.cancelBTN.clicked.connect(self.close)
@@ -44,6 +37,5 @@ class BarcodeDialog(QDialog, Ui_Dialog):
             painter.drawPixmap(0, 0, self.barcodeLBL.pixmap())  # Draw at position (0, 0) using the full size of the pixmap
             painter.end()
 
-            logging.debug("Barcode printed successfully")
         else:
-            logging.debug("Printing cancelled or failed")
+            print('Print cancelled')
