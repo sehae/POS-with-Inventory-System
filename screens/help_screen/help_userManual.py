@@ -144,6 +144,9 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.backButton.setIcon(icon)
         self.backButton.setAutoRepeat(False)
         self.backButton.setObjectName("backButton")
         self.verticalLayout_7.addWidget(self.backButton)
@@ -187,15 +190,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.mainContent)
         self.horizontalLayout_2.setContentsMargins(25, 25, 25, 25)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.pdfViewerPlaceholder = QtWidgets.QLabel(self.mainContent)
-        self.pdfViewerPlaceholder.setText("")
+        self.pdfViewerPlaceholder = QtWidgets.QWidget(self.mainContent)
         self.pdfViewerPlaceholder.setObjectName("pdfViewerPlaceholder")
         self.horizontalLayout_2.addWidget(self.pdfViewerPlaceholder)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
+        self.verticalLayout_2.addItem(spacerItem3)
         self.zoomin = QtWidgets.QPushButton(self.mainContent)
         self.zoomin.setMinimumSize(QtCore.QSize(25, 25))
         self.zoomin.setMaximumSize(QtCore.QSize(25, 25))
@@ -204,19 +205,19 @@ class Ui_MainWindow(object):
         self.zoomin.setFont(font)
         self.zoomin.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
+"    border: none;\n"
 "    color: white;\n"
-"    border: 2px solid #67B99A;\n"
+"    border-radius: 20px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
 "}\n"
 "QPushButton:pressed {\n"
 "    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
+"}\n"
+"")
         self.zoomin.setObjectName("zoomin")
-        self.verticalLayout.addWidget(self.zoomin)
+        self.verticalLayout_2.addWidget(self.zoomin)
         self.zoomout = QtWidgets.QPushButton(self.mainContent)
         self.zoomout.setMinimumSize(QtCore.QSize(25, 25))
         self.zoomout.setMaximumSize(QtCore.QSize(25, 25))
@@ -225,20 +226,20 @@ class Ui_MainWindow(object):
         self.zoomout.setFont(font)
         self.zoomout.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
+"    border: none;\n"
 "    color: white;\n"
-"    border: 2px solid #67B99A;\n"
+"    border-radius: 20px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #5CAE8B;\n"
-"    border: 2px solid #5CAE8B;\n"
 "}\n"
 "QPushButton:pressed {\n"
 "    background-color: #4D9C7F;\n"
-"    border: 2px solid #4D9C7F;\n"
-"}")
+"}\n"
+"")
         self.zoomout.setObjectName("zoomout")
-        self.verticalLayout.addWidget(self.zoomout)
-        self.horizontalLayout_2.addLayout(self.verticalLayout)
+        self.verticalLayout_2.addWidget(self.zoomout)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
         self.gridLayout_2.addWidget(self.mainContent, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)

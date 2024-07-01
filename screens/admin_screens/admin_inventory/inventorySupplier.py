@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inventorySupplier.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_inventory/inventorySupplier.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -55,11 +55,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.frame_2 = QtWidgets.QFrame(self.header)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label_2 = QtWidgets.QLabel(self.frame_2)
+        self.label_2 = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
@@ -67,18 +63,7 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
-        self.label_3 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.label_2)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.navbar = QtWidgets.QWidget(self.frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
@@ -491,7 +476,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.pushButton_11.setText(_translate("MainWindow", "Inventory"))
         self.pushButton_2.setText(_translate("MainWindow", "Add"))
         self.pushButton_10.setText(_translate("MainWindow", "Modify"))
@@ -514,3 +498,13 @@ class Ui_MainWindow(object):
         self.pushButton_6.setText(_translate("MainWindow", "Modify Supplier"))
         self.pushButton_7.setText(_translate("MainWindow", "Discard"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

@@ -200,43 +200,6 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="voidBTN">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-    background-color: white;
-    border: 2px solid #67B99A;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 10px;
-}
-
-QPushButton:hover {
-    border: 2px solid #4D926D;
-}
-
-QPushButton:pressed {
-	background-color: #F0F0F0;
-	border: 2px solid #265C42;
-}</string>
-            </property>
-            <property name="text">
-             <string>Void</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="checkoutBTN">
             <property name="minimumSize">
              <size>

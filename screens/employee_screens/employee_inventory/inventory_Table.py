@@ -170,11 +170,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
-        self.frame_2 = QtWidgets.QFrame(self.header)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label_2 = QtWidgets.QLabel(self.frame_2)
+        self.label_2 = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
@@ -182,18 +178,7 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
-        self.label_3 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.label_2)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.Content = QtWidgets.QFrame(self.frame)
         self.Content.setObjectName("Content")
@@ -254,7 +239,6 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Product"))
 import assets.resourceFile_rc
 
