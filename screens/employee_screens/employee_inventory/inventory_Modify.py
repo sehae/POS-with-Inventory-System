@@ -91,27 +91,6 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_2.setObjectName("pushButton_2")
         self.verticalLayout_2.addWidget(self.pushButton_2)
-        self.pushButton_10 = QtWidgets.QPushButton(self.navbar)
-        self.pushButton_10.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.verticalLayout_2.addWidget(self.pushButton_10)
         self.pushButton = QtWidgets.QPushButton(self.navbar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -121,7 +100,7 @@ class Ui_MainWindow(object):
         self.pushButton.setMinimumSize(QtCore.QSize(100, 100))
         self.pushButton.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -139,9 +118,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon)
         self.pushButton.setAutoRepeat(False)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout_2.addWidget(self.pushButton)
@@ -328,7 +304,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_3.setText(_translate("MainWindow", "Inventory"))
         self.pushButton_2.setText(_translate("MainWindow", "Modify"))
-        self.pushButton_10.setText(_translate("MainWindow", "Barcode"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))

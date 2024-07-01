@@ -163,43 +163,6 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-    background-color: white;
-    border: 2px solid #67B99A;
-    color: black;
-    padding: 8px 16px;
-    border-radius: 10px;
-}
-
-QPushButton:hover {
-    border: 2px solid #4D926D;
-}
-
-QPushButton:pressed {
-	background-color: #F0F0F0;
-	border: 2px solid #265C42;
-}</string>
-            </property>
-            <property name="text">
-             <string>Barcode</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="pushButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -244,10 +207,6 @@ QPushButton:pressed {
             </property>
             <property name="text">
              <string>Back</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../../../../assets/resourceFile.qrc">
-              <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
              <bool>false</bool>
@@ -317,46 +276,20 @@ QPushButton:pressed {
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_2">
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
     color: black;
 }</string>
-               </property>
-               <property name="text">
-                <string>November 28th 2023, 12:07AM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLabel {
-    color: black;
-}</string>
-               </property>
-               <property name="text">
-                <string>Juan Dela Cruz</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </property>
+            <property name="text">
+             <string>November 28th 2023, 12:07AM</string>
+            </property>
            </widget>
           </item>
          </layout>

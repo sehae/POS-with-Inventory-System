@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.backBTN.setFont(font)
         self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -140,9 +140,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/newPrefix/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN.setIcon(icon)
         self.backBTN.setAutoRepeat(False)
         self.backBTN.setObjectName("backBTN")
         self.verticalLayout_2.addWidget(self.backBTN)
@@ -500,11 +497,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem5)
-        self.frame_2 = QtWidgets.QFrame(self.header)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.dateDISPLAY = QtWidgets.QLabel(self.frame_2)
+        self.dateDISPLAY = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.dateDISPLAY.setFont(font)
@@ -512,18 +505,7 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.dateDISPLAY.setObjectName("dateDISPLAY")
-        self.verticalLayout.addWidget(self.dateDISPLAY)
-        self.usernameDISPLAY = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.usernameDISPLAY.setFont(font)
-        self.usernameDISPLAY.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.usernameDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.usernameDISPLAY.setObjectName("usernameDISPLAY")
-        self.verticalLayout.addWidget(self.usernameDISPLAY)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.dateDISPLAY)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -568,7 +550,6 @@ class Ui_MainWindow(object):
         self.logTABLE.setSortingEnabled(__sortingEnabled)
         self.label.setText(_translate("MainWindow", "MAINTENANCE"))
         self.dateDISPLAY.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.usernameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
 import assets.resourceFile_rc
 
 

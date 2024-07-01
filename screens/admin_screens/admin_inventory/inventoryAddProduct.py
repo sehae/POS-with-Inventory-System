@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inventoryAddProduct.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_inventory/inventoryAddProduct.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 708)
+        MainWindow.resize(800, 740)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -142,7 +142,7 @@ class Ui_MainWindow(object):
         self.pushButton.setMinimumSize(QtCore.QSize(100, 100))
         self.pushButton.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -160,9 +160,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/Icons/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon)
         self.pushButton.setAutoRepeat(False)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout_2.addWidget(self.pushButton)
@@ -351,11 +348,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem4)
-        self.frame_2 = QtWidgets.QFrame(self.header)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label_2 = QtWidgets.QLabel(self.frame_2)
+        self.label_2 = QtWidgets.QLabel(self.header)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
@@ -363,18 +356,7 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
-        self.label_3 = QtWidgets.QLabel(self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("QLabel {\n"
-"    color: black;\n"
-"}")
-        self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.label_2)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -404,7 +386,14 @@ class Ui_MainWindow(object):
         self.pushButton_5.setText(_translate("MainWindow", "Discard"))
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
-        self.label_3.setText(_translate("MainWindow", "Juan Dela Cruz"))
-
 import assets.resourceFile_rc
 
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

@@ -31,6 +31,7 @@ from screens.employee_screens.employee_pos.posOrderdetails_functions import posO
 from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.employee_screens.employee_pos.posModify_functions import posModify
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
+from screens.employee_screens.employee_pos.posHistory_functions import posHistory
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -72,6 +73,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.report_inventory = inventoryReport()
         self.report_sales = salesReport()
         self.report_trend = trendReport()
+        self.pos_history = posHistory()
 
         self.stacked_widget.addWidget(self.login_screen)
         self.stacked_widget.addWidget(self.email_screen)
@@ -103,6 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.report_inventory)
         self.stacked_widget.addWidget(self.report_sales)
         self.stacked_widget.addWidget(self.report_trend)
+        self.stacked_widget.addWidget(self.pos_history)
 
         self.admin_inventorySupplier.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventorySupplier.add_signal.connect(self.show_admin_inventory)
@@ -141,8 +144,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.password_result.login_signal.connect(self.show_login_screen)
         self.admin_dashboard.logout_signal.connect(self.show_login_screen)
         self.admin_dashboard.maintenance_signal.connect(self.show_admin_maintenance)
-        self.admin_dashboard.about_signal.connect(self.show_about_devcredits)
-        self.admin_dashboard.pos_signal.connect(self.show_pos_menu)
+        self.admin_dashboard.about_signal.connect(self.show_about_info)
+        self.admin_dashboard.pos_signal.connect(self.show_pos_orderdetails)
 
         self.admin_maintenance.backup_recovery_signal.connect(self.show_admin_maintenance_backup)
         self.admin_maintenance.edit_signal.connect(self.show_admin_maintenance_edit)
@@ -156,7 +159,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_maintenance_backup.back_signal.connect(self.show_admin_dashboard)
         self.admin_maintenance_backup.edit_signal.connect(self.show_admin_maintenance_edit)
 
-        self.admin_dashboard.inventory_signal.connect(self.show_admin_inventory)
+        self.admin_dashboard.inventory_signal.connect(self.show_view_product)
         self.admin_inventory.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventory.modify_signal.connect(self.show_admin_inventory_modify)
         self.admin_inventory.supplier_signal.connect(self.show_inventory_supplier)
@@ -192,14 +195,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.login_screen.login_successful_kitchen.connect(self.show_employee_dashboard)
         self.employee_dashboard.logout_signal.connect(self.show_login_screen)
         self.employee_dashboard.help_signal.connect(self.show_help_faq)
-        self.employee_dashboard.about_signal.connect(self.show_about_devcredits)
+        self.employee_dashboard.about_signal.connect(self.show_about_info)
 
         self.login_screen.login_successful_cashier.connect(self.show_employee_dashboard_cashier)
         self.employee_dashboard_cashier.logout_signal.connect(self.show_login_screen)
         self.employee_dashboard_cashier.pos_signal.connect(self.show_pos_orderdetails)
         self.employee_dashboard_cashier.changepass_signal.connect(self.show_change_password)
         self.employee_dashboard_cashier.help_signal.connect(self.show_help_faq)
-        self.employee_dashboard_cashier.about_signal.connect(self.show_about_devcredits)
+        self.employee_dashboard_cashier.about_signal.connect(self.show_about_info)
 
         self.employee_dashboard.inventoryModify_signal.connect(self.show_employee_inventory)
         self.inventory_modify.back_signal.connect(self.show_employee_dashboard)
@@ -222,24 +225,35 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.checkout_signal.connect(self.show_pos_checkout)
         self.pos_orderdetails.menu_signal.connect(self.show_pos_menu)
         self.pos_orderdetails.modify_signal.connect(self.show_pos_modify)
+        self.pos_orderdetails.history_signal.connect(self.show_pos_history)
 
         self.pos_checkout.back_signal.connect(self.show_admin_dashboard)
         self.pos_checkout.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_checkout.menu_signal.connect(self.show_pos_menu)
         self.pos_checkout.order_signal.connect(self.show_pos_orderdetails)
         self.pos_checkout.modify_signal.connect(self.show_pos_modify)
+        self.pos_checkout.history_signal.connect(self.show_pos_history)
 
         self.pos_menu.order_signal.connect(self.show_pos_orderdetails)
         self.pos_menu.back_signal.connect(self.show_admin_dashboard)
         self.pos_menu.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_menu.modify_signal.connect(self.show_pos_modify)
         self.pos_menu.checkout_signal.connect(self.show_pos_checkout)
+        self.pos_menu.history_signal.connect(self.show_pos_history)
 
         self.pos_modify.order_signal.connect(self.show_pos_orderdetails)
         self.pos_modify.back_signal.connect(self.show_admin_dashboard)
         self.pos_modify.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_modify.checkout_signal.connect(self.show_pos_checkout)
         self.pos_modify.menu_signal.connect(self.show_pos_menu)
+        self.pos_modify.history_signal.connect(self.show_pos_history)
+
+        self.pos_history.back_signal.connect(self.show_admin_dashboard)
+        self.pos_history.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_history.order_signal.connect(self.show_pos_orderdetails)
+        self.pos_history.checkout_signal.connect(self.show_pos_checkout)
+        self.pos_history.menu_signal.connect(self.show_pos_menu)
+        self.pos_history.modify_signal.connect(self.show_pos_modify)
 
         # Ensure the inventoryTable instance uses the inventoryModify instance from MainWindow
         self.inventory_table.inventory_modify = self.inventory_modify
@@ -258,8 +272,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_menu.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.update_combobox_signal.connect(self.pos_menu.populate_comboBox_5)
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_menu.populate_comboBox_5)
-
-        # Repopulate combo box
 
         # Repopulate combo box when order has been generated
         self.pos_checkout.pos_orderdetails = self.pos_orderdetails
@@ -392,6 +404,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def show_inventory_supplier(self):
         self.stacked_widget.setCurrentWidget(self.admin_inventorySupplier)
 
+    def show_pos_history(self):
+        self.stacked_widget.setCurrentWidget(self.pos_history)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

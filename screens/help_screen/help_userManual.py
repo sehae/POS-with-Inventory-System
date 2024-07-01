@@ -187,15 +187,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.mainContent)
         self.horizontalLayout_2.setContentsMargins(25, 25, 25, 25)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.pdfViewerPlaceholder = QtWidgets.QLabel(self.mainContent)
-        self.pdfViewerPlaceholder.setText("")
+        self.pdfViewerPlaceholder = QtWidgets.QWidget(self.mainContent)
         self.pdfViewerPlaceholder.setObjectName("pdfViewerPlaceholder")
         self.horizontalLayout_2.addWidget(self.pdfViewerPlaceholder)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
+        self.verticalLayout_2.addItem(spacerItem3)
         self.zoomin = QtWidgets.QPushButton(self.mainContent)
         self.zoomin.setMinimumSize(QtCore.QSize(25, 25))
         self.zoomin.setMaximumSize(QtCore.QSize(25, 25))
@@ -206,6 +204,7 @@ class Ui_MainWindow(object):
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
+"    border-radius: 25px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #5CAE8B;\n"
@@ -216,7 +215,7 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.zoomin.setObjectName("zoomin")
-        self.verticalLayout.addWidget(self.zoomin)
+        self.verticalLayout_2.addWidget(self.zoomin)
         self.zoomout = QtWidgets.QPushButton(self.mainContent)
         self.zoomout.setMinimumSize(QtCore.QSize(25, 25))
         self.zoomout.setMaximumSize(QtCore.QSize(25, 25))
@@ -227,6 +226,7 @@ class Ui_MainWindow(object):
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
+"    border-radius: 25px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #5CAE8B;\n"
@@ -237,8 +237,8 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.zoomout.setObjectName("zoomout")
-        self.verticalLayout.addWidget(self.zoomout)
-        self.horizontalLayout_2.addLayout(self.verticalLayout)
+        self.verticalLayout_2.addWidget(self.zoomout)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
         self.gridLayout_2.addWidget(self.mainContent, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -249,7 +249,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.addUserButton.setText(_translate("MainWindow", "FAQ"))
+        self.addUserButton.setText(_translate("MainWindow", "FAQs"))
         self.editUserButton.setText(_translate("MainWindow", "Manual"))
         self.pushButton.setText(_translate("MainWindow", "Support"))
         self.backButton.setText(_translate("MainWindow", "Back"))
