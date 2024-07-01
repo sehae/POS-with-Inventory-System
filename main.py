@@ -31,6 +31,8 @@ from screens.employee_screens.employee_pos.posOrderdetails_functions import posO
 from screens.employee_screens.employee_pos.posMenu_functions import posMenu
 from screens.employee_screens.employee_pos.posModify_functions import posModify
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
+from screens.employee_screens.employee_pos.posHistory_functions import posHistory
+from screens.employee_screens.employee_pos.posVoid_functions import posVoid
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -72,6 +74,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.report_inventory = inventoryReport()
         self.report_sales = salesReport()
         self.report_trend = trendReport()
+        self.pos_history = posHistory()
+        self.pos_void = posVoid()
 
         self.stacked_widget.addWidget(self.login_screen)
         self.stacked_widget.addWidget(self.email_screen)
@@ -103,6 +107,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.report_inventory)
         self.stacked_widget.addWidget(self.report_sales)
         self.stacked_widget.addWidget(self.report_trend)
+        self.stacked_widget.addWidget(self.pos_history)
+        self.stacked_widget.addWidget(self.pos_void)
 
         self.admin_inventorySupplier.back_signal.connect(self.show_admin_dashboard)
         self.admin_inventorySupplier.add_signal.connect(self.show_admin_inventory)
@@ -222,24 +228,49 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.checkout_signal.connect(self.show_pos_checkout)
         self.pos_orderdetails.menu_signal.connect(self.show_pos_menu)
         self.pos_orderdetails.modify_signal.connect(self.show_pos_modify)
+        self.pos_orderdetails.history_signal.connect(self.show_pos_history)
+        self.pos_orderdetails.void_signal.connect(self.show_pos_void)
 
         self.pos_checkout.back_signal.connect(self.show_admin_dashboard)
         self.pos_checkout.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_checkout.menu_signal.connect(self.show_pos_menu)
         self.pos_checkout.order_signal.connect(self.show_pos_orderdetails)
         self.pos_checkout.modify_signal.connect(self.show_pos_modify)
+        self.pos_checkout.history_signal.connect(self.show_pos_history)
+        self.pos_checkout.void_signal.connect(self.show_pos_void)
 
         self.pos_menu.order_signal.connect(self.show_pos_orderdetails)
         self.pos_menu.back_signal.connect(self.show_admin_dashboard)
         self.pos_menu.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_menu.modify_signal.connect(self.show_pos_modify)
         self.pos_menu.checkout_signal.connect(self.show_pos_checkout)
+        self.pos_menu.history_signal.connect(self.show_pos_history)
+        self.pos_menu.void_signal.connect(self.show_pos_void)
 
         self.pos_modify.order_signal.connect(self.show_pos_orderdetails)
         self.pos_modify.back_signal.connect(self.show_admin_dashboard)
         self.pos_modify.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
         self.pos_modify.checkout_signal.connect(self.show_pos_checkout)
         self.pos_modify.menu_signal.connect(self.show_pos_menu)
+        self.pos_modify.history_signal.connect(self.show_pos_history)
+        self.pos_modify.void_signal.connect(self.show_pos_void)
+
+        self.pos_history.back_signal.connect(self.show_admin_dashboard)
+        self.pos_history.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_history.order_signal.connect(self.show_pos_orderdetails)
+        self.pos_history.checkout_signal.connect(self.show_pos_checkout)
+        self.pos_history.menu_signal.connect(self.show_pos_menu)
+        self.pos_history.modify_signal.connect(self.show_pos_modify)
+        self.pos_history.void_signal.connect(self.show_pos_void)
+
+        self.pos_void.back_signal.connect(self.show_admin_dashboard)
+        self.pos_void.back_cashier_signal.connect(self.show_employee_dashboard_cashier)
+        self.pos_void.order_signal.connect(self.show_pos_orderdetails)
+        self.pos_void.checkout_signal.connect(self.show_pos_checkout)
+        self.pos_void.menu_signal.connect(self.show_pos_menu)
+        self.pos_void.modify_signal.connect(self.show_pos_modify)
+        self.pos_void.history_signal.connect(self.show_pos_history)
+
 
         # Ensure the inventoryTable instance uses the inventoryModify instance from MainWindow
         self.inventory_table.inventory_modify = self.inventory_modify
@@ -259,12 +290,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.update_combobox_signal.connect(self.pos_menu.populate_comboBox_5)
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_menu.populate_comboBox_5)
 
-        # Repopulate combo box
+        # Repopulate combo box in void
+        self.pos_void.pos_orderdetails = self.pos_orderdetails
+        self.pos_orderdetails.transaction_generated_signal.connect(self.pos_void.populate_comboBox)
+        self.pos_orderdetails.update_combobox_signal.connect(self.pos_void.populate_comboBox)
 
         # Repopulate combo box when order has been generated
         self.pos_checkout.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_checkout.populate_comboBox)
         self.pos_orderdetails.update_combobox_signal.connect(self.pos_checkout.populate_comboBox)
+
 
         # Repopulate combo box when supplier has been generated
         self.admin_inventory.admin_inventorySupplier = self.admin_inventorySupplier
@@ -391,6 +426,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_inventory_supplier(self):
         self.stacked_widget.setCurrentWidget(self.admin_inventorySupplier)
+
+    def show_pos_history(self):
+        self.stacked_widget.setCurrentWidget(self.pos_history)
+
+    def show_pos_void(self):
+        self.stacked_widget.setCurrentWidget(self.pos_void)
 
 
 if __name__ == "__main__":

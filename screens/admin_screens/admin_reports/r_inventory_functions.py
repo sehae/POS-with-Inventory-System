@@ -75,7 +75,6 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
             return
 
         frequency = self.frequencyBOX.currentText()
-        frequency = self.frequencyBOX.currentText()
         success = False
         if frequency == "Daily":
             report_data = generate_daily_report()
@@ -97,7 +96,7 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
             success = True
 
         if success:
-            QMessageBox.information(self, "Success", f"Generated {frequency} report successfully.")
+            QMessageBox.information(self, "Success", f"{frequency.capitalize()} report has been generated and saved to '{self.directory}'")
 
         self.displayReport(frequency)
 
@@ -108,7 +107,7 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
 
         levelViewPixmap = QPixmap(f'{self.directory}/inventory_levels_{frequency.lower()}.png')
         statusViewPixmap = QPixmap(f'{self.directory}/inventory_status_{frequency.lower()}.png')
-        expiryViewPixmap = QPixmap(f'{self.directory}/expiry_date_{frequency.lower()}.png')
+        expiryViewPixmap = QPixmap(f'{self.directory}/expiry_date_time_series_{frequency.lower()}.png')
 
         levelViewScene.addItem(QGraphicsPixmapItem(levelViewPixmap))
         statusViewScene.addItem(QGraphicsPixmapItem(statusViewPixmap))

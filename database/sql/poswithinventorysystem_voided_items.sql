@@ -16,35 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `add_on`
+-- Table structure for table `voided_items`
 --
 
-DROP TABLE IF EXISTS `add_on`;
+DROP TABLE IF EXISTS `voided_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `add_on` (
-  `Add_On_ID` int NOT NULL AUTO_INCREMENT,
-  `Order_ID` varchar(45) DEFAULT NULL,
-  `Product_Details` json DEFAULT NULL,
-  `Void` json DEFAULT NULL,
-  `Reason` varchar(45) DEFAULT NULL,
-  `Defect` json DEFAULT NULL,
-  `Supplier_ID` int DEFAULT NULL,
-  PRIMARY KEY (`Add_On_ID`),
+CREATE TABLE `voided_items` (
+  `Void_ID` int NOT NULL AUTO_INCREMENT,
+  `Order_ID` varchar(45) NOT NULL,
+  `Product_ID` varchar(45) NOT NULL,
+  `Voided_Quantity` int NOT NULL,
+  `Reason` varchar(45) NOT NULL,
+  PRIMARY KEY (`Void_ID`),
   KEY `Order_ID` (`Order_ID`),
-  KEY `add_on_ibfk_2` (`Supplier_ID`),
-  CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
-  CONSTRAINT `add_on_ibfk_2` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `Product_ID` (`Product_ID`),
+  CONSTRAINT `voided_items_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
+  CONSTRAINT `voided_items_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `add_on`
+-- Dumping data for table `voided_items`
 --
 
-LOCK TABLES `add_on` WRITE;
-/*!40000 ALTER TABLE `add_on` DISABLE KEYS */;
-/*!40000 ALTER TABLE `add_on` ENABLE KEYS */;
+LOCK TABLES `voided_items` WRITE;
+/*!40000 ALTER TABLE `voided_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `voided_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-30 22:57:42
+-- Dump completed on 2024-06-30 22:57:41
