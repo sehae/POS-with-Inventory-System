@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posMenu.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -255,7 +256,28 @@ class Ui_MainWindow(object):
         self.comboBox_5 = QtWidgets.QComboBox(self.widget_6)
         self.comboBox_5.setMinimumSize(QtCore.QSize(400, 35))
         self.comboBox_5.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_5.setStyleSheet("")
+        self.comboBox_5.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}")
         self.comboBox_5.setObjectName("comboBox_5")
         self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.comboBox_5)
         self.label_16 = QtWidgets.QLabel(self.widget_6)
@@ -264,7 +286,14 @@ class Ui_MainWindow(object):
         self.lineEdit_8 = QtWidgets.QLineEdit(self.widget_6)
         self.lineEdit_8.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_8.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit_8.setStyleSheet("")
+        self.lineEdit_8.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
         self.lineEdit_8.setObjectName("lineEdit_8")
         self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_8)
         self.widget_7 = QtWidgets.QWidget(self.widget_6)
@@ -335,7 +364,28 @@ class Ui_MainWindow(object):
         self.comboBox_6 = QtWidgets.QComboBox(self.widget_6)
         self.comboBox_6.setMinimumSize(QtCore.QSize(400, 35))
         self.comboBox_6.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_6.setStyleSheet("")
+        self.comboBox_6.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}")
         self.comboBox_6.setObjectName("comboBox_6")
         self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox_6)
         self.label_15 = QtWidgets.QLabel(self.widget_6)
@@ -347,7 +397,14 @@ class Ui_MainWindow(object):
         self.lineEdit = QtWidgets.QLineEdit(self.widget_6)
         self.lineEdit.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit.setStyleSheet("")
+        self.lineEdit.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
         self.lineEdit.setObjectName("lineEdit")
         self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
         self.horizontalLayout_5.addWidget(self.widget_6)
@@ -396,3 +453,13 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Scan Product"))
         self.orderLabel_2.setText(_translate("MainWindow", "Menu List"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

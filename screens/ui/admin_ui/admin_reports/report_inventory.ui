@@ -227,7 +227,7 @@ Analysis</string>
             </property>
             <property name="font">
              <font>
-              <pointsize>9</pointsize>
+              <pointsize>10</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -654,7 +654,7 @@ QPushButton:pressed {
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
+               <y>-1325</y>
                <width>656</width>
                <height>1980</height>
               </rect>

@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
 import os
-from server.local_server import conn
 
 class ReceiptDialog(QDialog):
     def __init__(self, order_details):
@@ -33,7 +32,6 @@ class ReceiptDialog(QDialog):
             printer_name = "Gprinter GP-1424D"
             with open(printer_name, "w") as printer:
                 printer.write(self.order_details)
-
             QMessageBox.information(self, "Printing", "Order receipt sent to printer.")
             self.accept()  # Close the dialog after printing
 
