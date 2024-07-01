@@ -1,45 +1,33 @@
 # checkout_receipt_dialog.py
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QDialog, QLabel, QVBoxLayout
+
 
 class CheckoutReceiptDialog(QDialog):
-    def __init__(self, order_details):
-        super().__init__()
-        self.setWindowTitle("Order Receipt")
-        self.order_details = order_details
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Checkout Receipt")
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
 
-        main_layout = QVBoxLayout()
+    def set_receipt_details(self, order_id, customer_name, package_name, guest_pax, order_type, cash_amount,
+                            penalty_fee):
+        receipt_content = f"""
+        Moon Hey Hotpot and Grill
 
-        # Example: Display order details
-        details_label = QLabel(order_details)
-        main_layout.addWidget(details_label)
+        ----------------------------------------
 
-        # Button layout
-        button_layout = QHBoxLayout()
-        print_button = QPushButton("Print Now")
-        cancel_button = QPushButton("Cancel")
-        button_layout.addWidget(print_button)
-        button_layout.addWidget(cancel_button)
+        Order ID: {order_id}
+        Customer Name: {customer_name}
 
-        # Connect buttons to slots or functions
-        print_button.clicked.connect(self.print_order)
-        cancel_button.clicked.connect(self.reject)  # Close the dialog on cancel
+        -- Order Details --
+        Package Name: {package_name}
+        Guest Pax: {guest_pax}
+        Order Type: {order_type}
+        Cash Amount: {cash_amount}
+        Penalty Fee: {penalty_fee}
 
-        main_layout.addLayout(button_layout)
-        self.setLayout(main_layout)
+        Thank you for dining with us!
 
-    def print_order(self):
-        try:
-            printer_name = "Gprinter GP-1424D"
-            with open(printer_name, "w") as printer:
-                printer.write(self.order_details)
-            QMessageBox.information(self, "Printing", "Order receipt sent to printer.")
-            self.accept()  # Close the dialog after printing
-
-        except FileNotFoundError:
-            QMessageBox.critical(self, "Error", f"Printer '{printer_name}' not found.")
-
-        except PermissionError:
-            QMessageBox.critical(self, "Error", "Permission denied to access printer.")
-
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error printing: {str(e)}")
+        [Leave space for any additional notes or signatures]
+        """
+        self.layout.addWidget(QLabel(receipt_content))

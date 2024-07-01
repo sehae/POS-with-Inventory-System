@@ -26,15 +26,9 @@ CREATE TABLE `add_on` (
   `Add_On_ID` int NOT NULL AUTO_INCREMENT,
   `Order_ID` varchar(45) DEFAULT NULL,
   `Product_Details` json DEFAULT NULL,
-  `Void` json DEFAULT NULL,
-  `Reason` varchar(45) DEFAULT NULL,
-  `Defect` json DEFAULT NULL,
-  `Supplier_ID` int DEFAULT NULL,
   PRIMARY KEY (`Add_On_ID`),
   KEY `Order_ID` (`Order_ID`),
-  KEY `add_on_ibfk_2` (`Supplier_ID`),
-  CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`),
-  CONSTRAINT `add_on_ibfk_2` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
+  CONSTRAINT `add_on_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `order` (`Order_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-30 22:57:42
+-- Dump completed on 2024-06-28  9:45:02
