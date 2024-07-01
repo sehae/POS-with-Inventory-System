@@ -169,7 +169,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         # Trigger checking of order details based on the updated values
         self.check_order_details()
 
-        QMessageBox.information(self, "Success", "Payment details updated successfully.")
 
     def save_changes(self):
         # Ensure order ID is selected
@@ -213,8 +212,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 self.penalty_fee = 0
 
             self.check_order_details()
-
-            QMessageBox.information(self, "Success", "Order details updated successfully.")
 
         except Exception as e:
             print(f"Error updating order details: {e}")
@@ -489,9 +486,10 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         try:
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT Customer_Name, Order_Type
-                FROM `order` 
-                WHERE Order_ID = %s 
+                SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type
+                FROM `order` o
+                LEFT JOIN `package` p ON o.Package_ID = p.Package_ID
+                WHERE o.Order_ID = %s 
             """, (order_id,))
             order_details = cursor.fetchone()
 
@@ -499,14 +497,22 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            customer_name, order_type = order_details
+            reference_id = self.reference_id if self.reference_id else ''
+
+            customer_name, guest_pax, package_name, package_price, order_type = order_details
 
             receipt_text = f"""
-                           Moonhey Hotpot and Grill 
+                    Moonhey Hotpot and Grill 
             848A Banawe St, Quezon City, 1114 Metro Manila
-                            Official Receipt
+                Contact Number: 0917 123 4567
+                        Sales Invoice
 
-    Date and Time: {self.label_11.text()}
+
+
+
+
+
+    Date & Time: {self.label_11.text()}
 
     Order ID: {self.orderidBOX.currentText()}
     Customer Name: {customer_name}
@@ -515,8 +521,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             if order_type == "Package":
                 receipt_text += f"""
     Package Details
-    {"Package Type":<15} {"Guest Pax":<10} {"Price":<10} {"Total":>10}
-    {self.packageDISPLAY.text():<15} {self.customerFIELD.text():<10} {self.packageAmountDISPLAY.text():<10} {self.package_total_amount:>10.2f}
+    {"Package Type":<15} {"Guest Pax":<11} {"Price":<10} {"Total":>10}
+    {self.packageDISPLAY.text():<17} {guest_pax:<13} {self.packageAmountDISPLAY.text():<10} {package_price:>10.2f}
     """
 
             elif order_type == 'Add-ons only':
@@ -530,14 +536,14 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                     receipt_text += f"{product_name:<15} {quantity:<10} {selling_cost:.2f} {total_amount:.2f}\n"
 
             receipt_text += f"""
-    {"Total Amount":<30} {self.totalamountDISPLAY.text():>10}
-    {"VAT (12%)":<30} {self.vat_amount:>10.2f}
-    {"Discount (" + self.discount_type + ")":<30} {self.discount_amount:>10.2f}
-    {"Leftover Cost":<30} {self.penalty_fee:>10.2f}
-    {"Payment Method":<30} {self.payment_method}
-    {"Reference ID (if GCash)":<30} {self.reference_id}
-    {"Cash Amount":<30} {self.cash_amount}
-    {"Change Amount":<30} {self.change_amount}
+    {"VAT (12%):":} {self.vat_amount:.2f}
+    {"Discount (" + self.discount_type + "):":} {self.discount_amount:.2f}
+    {"Leftover Cost:":} {self.penalty_fee:>.2f}
+    {"Payment Method:":} {self.payment_method}
+    {"Cash Amount:":} {self.cash_amount}
+    {"Change Amount:":} {self.change_amount}
+    
+    {"Total Amount:":} {self.totalamountDISPLAY.text():}
     """
 
             # Show receipt in dialog
