@@ -28,8 +28,7 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.user_manager = userManager()
 
-        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_kitchen_signal,
-                                                       self.back_cashier_signal))
+        self.backBTN.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal, self.back_cashier_signal, self.back_kitchen_signal))
 
         # Create a QTimer object
         self.timer = QTimer()

@@ -406,7 +406,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem7)
-        self.dateDISPLAY = QtWidgets.QLabel(self.header)
+        self.frame_2 = QtWidgets.QFrame(self.header)
+        self.frame_2.setObjectName("frame_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.dateDISPLAY = QtWidgets.QLabel(self.frame_2)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.dateDISPLAY.setFont(font)
@@ -414,7 +418,18 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.dateDISPLAY.setObjectName("dateDISPLAY")
-        self.horizontalLayout_2.addWidget(self.dateDISPLAY)
+        self.verticalLayout.addWidget(self.dateDISPLAY)
+        self.usernameDISPLAY = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.usernameDISPLAY.setFont(font)
+        self.usernameDISPLAY.setStyleSheet("QLabel {\n"
+"    color: black;\n"
+"}")
+        self.usernameDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.usernameDISPLAY.setObjectName("usernameDISPLAY")
+        self.verticalLayout.addWidget(self.usernameDISPLAY)
+        self.horizontalLayout_2.addWidget(self.frame_2)
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -445,6 +460,7 @@ class Ui_MainWindow(object):
         self.restoreBTN.setText(_translate("MainWindow", "Restore"))
         self.label.setText(_translate("MainWindow", "MAINTENANCE"))
         self.dateDISPLAY.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
+        self.usernameDISPLAY.setText(_translate("MainWindow", "Juan Dela Cruz"))
 
 
 if __name__ == "__main__":

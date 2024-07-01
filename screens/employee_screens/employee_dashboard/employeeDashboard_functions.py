@@ -34,6 +34,13 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
 
+        # Connect the fullname_updated signal to the slot
+        user_manager.fullname_updated.connect(self.update_fullname_label)
+
+        # Set initial fullname if already set
+        if user_manager.get_current_fullname():
+            self.update_fullname_label(user_manager.get_current_fullname())
+
     def update_fullname_label(self, fullname):
         self.ui.username.setText(fullname)  # Update the label with the fullname
 
@@ -48,7 +55,6 @@ class myEmployeeDashboard(QtWidgets.QMainWindow):
         # Update time label
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
-        self.update_fullname_label(user_manager.get_current_fullname())
 
     def navigate_changepw(self):
         self.changepass_signal.emit()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_maintenance/maintenanceADDUser.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_maintenance/maintenanceADDuser.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -170,7 +170,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.addWidget(self.titleLabel)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_13.addItem(spacerItem2)
-        self.sysTimeDate = QtWidgets.QLabel(self.header)
+        self.systemLabel = QtWidgets.QFrame(self.header)
+        self.systemLabel.setObjectName("systemLabel")
+        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.systemLabel)
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.sysTimeDate = QtWidgets.QLabel(self.systemLabel)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.sysTimeDate.setFont(font)
@@ -178,7 +182,18 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "}")
         self.sysTimeDate.setObjectName("sysTimeDate")
-        self.horizontalLayout_13.addWidget(self.sysTimeDate)
+        self.verticalLayout_12.addWidget(self.sysTimeDate)
+        self.userName = QtWidgets.QLabel(self.systemLabel)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.userName.setFont(font)
+        self.userName.setStyleSheet("QLabel {\n"
+"    color: black;\n"
+"}")
+        self.userName.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.userName.setObjectName("userName")
+        self.verticalLayout_12.addWidget(self.userName)
+        self.horizontalLayout_13.addWidget(self.systemLabel)
         self.gridLayout_2.addWidget(self.header, 0, 0, 1, 2)
         self.mainContent = QtWidgets.QWidget(self.frame)
         self.mainContent.setObjectName("mainContent")
@@ -441,6 +456,7 @@ class Ui_MainWindow(object):
         self.backButton.setText(_translate("MainWindow", "Back"))
         self.titleLabel.setText(_translate("MainWindow", "MAINTENANCE"))
         self.sysTimeDate.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
+        self.userName.setText(_translate("MainWindow", "Juan Dela Cruz"))
         self.contentLabel.setText(_translate("MainWindow", "Add New Employee"))
         self.firstNameLBL.setText(_translate("MainWindow", "First Name"))
         self.lastNameLBL.setText(_translate("MainWindow", "Last Name"))

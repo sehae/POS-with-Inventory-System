@@ -32,9 +32,6 @@ class myEmployeeDashboard_Cashier(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.update_datetime)
         self.timer.start(1000)  # Update every second
 
-    def update_fullname_label(self, fullname):
-        self.ui.username.setText(fullname)
-
     def update_datetime(self):
         # Get current date and time
         current_datetime = QDateTime.currentDateTime()
@@ -46,7 +43,6 @@ class myEmployeeDashboard_Cashier(QtWidgets.QMainWindow):
         # Update time label
         time = current_datetime.toString("hh:mm:ss AP")
         self.ui.time.setText(time)
-        self.update_fullname_label(user_manager.get_current_fullname())
 
     def logout(self):
         user_id = user_manager.get_current_user_id()

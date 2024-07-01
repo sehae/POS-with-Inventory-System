@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1292</width>
-    <height>800</height>
+    <height>799</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -218,7 +218,7 @@ QPushButton:pressed {
              <string>Back</string>
             </property>
             <property name="icon">
-             <iconset resource="../../../assets/resourceFile.qrc">
+             <iconset>
               <normaloff>:/logos/Icons/entypo_back.png</normaloff>:/logos/Icons/entypo_back.png</iconset>
             </property>
             <property name="autoRepeat">
@@ -289,20 +289,46 @@ QPushButton:pressed {
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="sysTimeDate">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
+           <widget class="QFrame" name="systemLabel">
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QLabel" name="sysTimeDate">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
     color: black;
 }</string>
-            </property>
-            <property name="text">
-             <string>November 28th 2023, 12:07AM</string>
-            </property>
+               </property>
+               <property name="text">
+                <string>November 28th 2023, 12:07AM</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="userName">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+    color: black;
+}</string>
+               </property>
+               <property name="text">
+                <string>Juan Dela Cruz</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -732,7 +758,7 @@ QPushButton:pressed {
  </widget>
  <resources>
   <include location="../../../assets/resourceFile.qrc"/>
-  <include location="../../../assets/resourceFile.qrc"/>
+  <include location="../../assets/resourceFile.qrc"/>
  </resources>
  <connections/>
 </ui>
