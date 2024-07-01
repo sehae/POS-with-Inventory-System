@@ -22,6 +22,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
     checkout_signal = QtCore.pyqtSignal()
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
+    history_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -35,6 +36,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.order_signal.emit)
         self.pushButton_8.clicked.connect(self.save_add_on)
         self.pushButton_9.clicked.connect(self.clear)
+        self.historyBTN_2.clicked.connect(self.history_signal.emit)
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -226,9 +228,16 @@ class posMenu(QMainWindow, Ui_MainWindow):
         product_name = self.comboBox_6.currentText()
         quantity = self.lineEdit_8.text()
 
+        # Store the original style sheet of lineEdit_8
+        original_style_lineEdit_8 = self.lineEdit_8.styleSheet()
+
         if not quantity.isdigit() or int(quantity) <= 0:
-            QMessageBox.warning(self, "Invalid Input", "Quantity must be a positive integer.")
+            self.lineEdit_8.setStyleSheet(original_style_lineEdit_8 + "border: 1px solid red;")
+            QMessageBox.warning(self, "Invalid Input", "Error: Required Input/Quantity must be a positive integer.")
             return
+
+        # Reset the style sheet to the original if the quantity is valid
+        self.lineEdit_8.setStyleSheet(original_style_lineEdit_8 + "border: 1px solid green;")
 
         quantity = int(quantity)
 
@@ -236,7 +245,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
             cursor = conn.cursor()
 
             # Get the product_id and current quantity for the selected product_name
-            cursor.execute("SELECT Product_ID, Quantity FROM `product` WHERE Name = %s AND Status = 'Active'", (product_name,))
+            cursor.execute("SELECT Product_ID, Quantity FROM `product` WHERE Name = %s AND Status = 'Active'",
+                           (product_name,))
             product_record = cursor.fetchone()
             if not product_record:
                 QMessageBox.warning(self, "Invalid Product", "Selected product is not available.")
@@ -288,8 +298,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
             conn.commit()
             QMessageBox.information(self, "Success", "Add-on saved successfully!")
-            self.lineEdit.clear()
-            self.comboBox_6.setCurrentIndex(0)
+            self.clear()
 
             # Refresh the table to reflect updated quantities
             self.populate_table()
@@ -304,6 +313,5 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
     def clear(self):
         self.lineEdit_8.clear()
-        self.comboBox_6.setCurrentIndex(0)
-        self.comboBox_5.setCurrentIndex(0)
         self.lineEdit.clear()
+        self.lineEdit_8.setStyleSheet("")

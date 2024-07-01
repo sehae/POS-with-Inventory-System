@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
         self.backBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.backBTN.setMaximumSize(QtCore.QSize(100, 100))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(9)
         self.backBTN.setFont(font)
         self.backBTN.setStyleSheet("QPushButton {\n"
 "    background-color: white;\n"
@@ -103,9 +103,6 @@ class Ui_MainWindow(object):
 "    background-color: #F0F0F0;\n"
 "    border: 2px solid #265C42;\n"
 "}")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/newPrefix/entypo_back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.backBTN.setIcon(icon)
         self.backBTN.setAutoRepeat(False)
         self.backBTN.setObjectName("backBTN")
         self.verticalLayout_2.addWidget(self.backBTN)
@@ -113,6 +110,7 @@ class Ui_MainWindow(object):
         self.Content = QtWidgets.QWidget(self.frame)
         self.Content.setObjectName("Content")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.maincontent = QtWidgets.QWidget(self.Content)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -122,7 +120,7 @@ class Ui_MainWindow(object):
         self.maincontent.setSizePolicy(sizePolicy)
         self.maincontent.setObjectName("maincontent")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.maincontent)
-        self.verticalLayout_3.setContentsMargins(50, 50, -1, -1)
+        self.verticalLayout_3.setContentsMargins(25, 25, -1, -1)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.label_4 = QtWidgets.QLabel(self.maincontent)
         font = QtGui.QFont()

@@ -16,6 +16,7 @@ class posModify(QMainWindow, Ui_MainWindow):
     checkout_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
+    history_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -28,6 +29,7 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.menuBTN.clicked.connect(self.goMenu)
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_8.clicked.connect(self.modifyOrder)
+        self.historyBTN_3.clicked.connect(self.history_signal.emit)
 
         self.pos_orderdetails = posOrderdetails()
 
@@ -52,6 +54,8 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.populate_comboBox_5()
         self.populate_comboBox_6()
         self.populate_comboBox_7()
+
+        self.comboBox_6.setCurrentIndex(-1)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -83,7 +87,9 @@ class posModify(QMainWindow, Ui_MainWindow):
                 # Execute the query to retrieve data for specific columns including Priority_Order
                 query = """
                     SELECT o.Order_ID, o.Date, o.Time, o.Customer_Name, p.Package_Name, 
-                           o.Soup_Variation, o.Guest_Pax, o.Priority_Order,
+                           CASE WHEN o.Soup_Variation = 'None' THEN '-' ELSE o.Soup_Variation END AS Soup_Variation, 
+                           CASE WHEN o.Guest_Pax = 'None' THEN '-' ELSE o.Guest_Pax END AS Guest_Pax, 
+                           o.Priority_Order,
                            CASE
                                WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 120 THEN 'Good'
                                ELSE 'Exceeding'
@@ -128,11 +134,17 @@ class posModify(QMainWindow, Ui_MainWindow):
                             if column_names[j] == "Priority Order" and col == "Priority":
                                 item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
 
+                            # Replace 'None' strings with '-'
+                            if col == 'None':
+                                item.setText('-')
+
                             self.tableWidget_2.setItem(i, j, item)
 
                     name_column_index = column_names.index("Customer Name")
                     self.tableWidget_2.setColumnWidth(name_column_index, 200)
 
+                    # Resize columns to fit contents
+                    self.tableWidget_2.resizeColumnsToContents()
                 else:
                     print("No records found in the inventory table.")
 
@@ -200,15 +212,48 @@ class posModify(QMainWindow, Ui_MainWindow):
             print(f"Error occurred while populating comboBox_7: {e}")
 
     def modifyOrder(self):
+        # Get input values
+        order_id = self.comboBox_5.currentText()
+        package_name = self.comboBox_6.currentText()
+        guest_pax = self.lineEdit_8.text().strip()
+        soup_variation = self.comboBox_7.currentText()
+
+        valid = True
+
+        # Validate package_name
+        if not package_name:
+            self.comboBox_6.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.comboBox_6.setStyleSheet("border: 1px solid green;")
+
+        # Validate guest_pax
+        if not guest_pax:
+            self.lineEdit_8.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.lineEdit_8.setStyleSheet("border: 1px solid green;")
+
+        if package_name != 'Grill' and not soup_variation:
+            self.comboBox_7.setStyleSheet("border: 1px solid red;")
+            valid = False
+        elif package_name == 'Grill' and soup_variation:
+            QMessageBox.critical(self, "Error", "Grill package cannot have soup variation.")
+            self.comboBox_7.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            self.comboBox_7.setStyleSheet("border: 1px solid green;")
+
+        # If validation fails, show an error message and return
+        if not valid:
+            QMessageBox.critical(self, "Error", "Please fill in all required fields.")
+            return
         try:
             if conn.is_connected():
                 cursor = conn.cursor()
 
-                # Get input values
-                order_id = self.comboBox_5.currentText()
-                package_name = self.comboBox_6.currentText()
-                guest_pax = self.lineEdit_8.text().strip()
-                soup_variation = self.comboBox_7.currentText()
+                if soup_variation == '':
+                    soup_variation = None
 
                 # Fetch Package_ID based on selected Package_Name
                 cursor.execute(f"SELECT Package_ID FROM `package` WHERE Package_Name = '{package_name}'")
@@ -225,14 +270,22 @@ class posModify(QMainWindow, Ui_MainWindow):
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order modified successfully.")
+                self.clear()  # Clear input fields and styles after successful modification
                 self.populate_table()  # Refresh the table after modification
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error occurred while modifying order: {str(e)}")
-
+            print(f"Error occurred while modifying: {e}")
         finally:
             if conn.is_connected():
                 cursor.close()
+
+    def clear(self):
+        self.comboBox_6.setCurrentIndex(-1)
+        self.comboBox_7.setCurrentIndex(-1)
+        self.lineEdit_8.clear()
+        self.comboBox_6.setStyleSheet("")
+        self.comboBox_7.setStyleSheet("")
+        self.lineEdit_8.setStyleSheet("")
 
     def search_table(self):
         search_text = self.searchFIELD.text().lower()
