@@ -200,63 +200,120 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.navbar, 1, 0, 1, 1)
         self.Content = QtWidgets.QFrame(self.frame)
         self.Content.setObjectName("Content")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
-        self.verticalLayout_4.setContentsMargins(25, 25, 25, 25)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.Content)
+        self.verticalLayout_3.setContentsMargins(25, 25, 25, 25)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.widget = QtWidgets.QWidget(self.Content)
         self.widget.setObjectName("widget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.searchLBL = QtWidgets.QLabel(self.widget)
-        self.searchLBL.setGeometry(QtCore.QRect(-10, 0, 221, 41))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(18)
         self.searchLBL.setFont(font)
         self.searchLBL.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
-        self.searchLBL.setIndent(10)
+        self.searchLBL.setIndent(0)
         self.searchLBL.setObjectName("searchLBL")
+        self.verticalLayout.addWidget(self.searchLBL)
+        self.searchFIELD = QtWidgets.QLineEdit(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.searchFIELD.sizePolicy().hasHeightForWidth())
+        self.searchFIELD.setSizePolicy(sizePolicy)
+        self.searchFIELD.setMinimumSize(QtCore.QSize(800, 46))
+        self.searchFIELD.setMaximumSize(QtCore.QSize(800, 46))
+        self.searchFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
+        self.searchFIELD.setObjectName("searchFIELD")
+        self.verticalLayout.addWidget(self.searchFIELD)
         self.tableWidget = QtWidgets.QTableWidget(self.widget)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 110, 1281, 221))
+        self.tableWidget.setMinimumSize(QtCore.QSize(0, 350))
+        self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 600))
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
-        self.widget_6 = QtWidgets.QWidget(self.widget)
-        self.widget_6.setGeometry(QtCore.QRect(7, 372, 616, 451))
+        self.verticalLayout.addWidget(self.tableWidget)
+        self.verticalLayout_3.addWidget(self.widget)
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.widget_6 = QtWidgets.QWidget(self.Content)
         self.widget_6.setObjectName("widget_6")
-        self.label_7 = QtWidgets.QLabel(self.widget_6)
-        self.label_7.setGeometry(QtCore.QRect(0, 0, 162, 29))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
+        self.formLayout = QtWidgets.QFormLayout(self.widget_6)
+        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.formLayout.setHorizontalSpacing(50)
+        self.formLayout.setVerticalSpacing(15)
+        self.formLayout.setObjectName("formLayout")
         self.label_15 = QtWidgets.QLabel(self.widget_6)
-        self.label_15.setGeometry(QtCore.QRect(0, 54, 68, 16))
         self.label_15.setObjectName("label_15")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_15)
+        self.lineEdit_13 = QtWidgets.QLineEdit(self.widget_6)
+        self.lineEdit_13.setMinimumSize(QtCore.QSize(400, 35))
+        self.lineEdit_13.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_13.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
+        self.lineEdit_13.setObjectName("lineEdit_13")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_13)
         self.label_16 = QtWidgets.QLabel(self.widget_6)
-        self.label_16.setGeometry(QtCore.QRect(0, 114, 78, 16))
         self.label_16.setObjectName("label_16")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_16)
         self.lineEdit_10 = QtWidgets.QLineEdit(self.widget_6)
-        self.lineEdit_10.setGeometry(QtCore.QRect(162, 114, 400, 35))
         self.lineEdit_10.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_10.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_10.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
         self.lineEdit_10.setObjectName("lineEdit_10")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.lineEdit_10)
         self.label_17 = QtWidgets.QLabel(self.widget_6)
-        self.label_17.setGeometry(QtCore.QRect(0, 174, 24, 16))
         self.label_17.setObjectName("label_17")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_17)
         self.lineEdit_11 = QtWidgets.QLineEdit(self.widget_6)
-        self.lineEdit_11.setGeometry(QtCore.QRect(162, 174, 400, 35))
         self.lineEdit_11.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_11.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_11.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
         self.lineEdit_11.setObjectName("lineEdit_11")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_11)
         self.label_18 = QtWidgets.QLabel(self.widget_6)
-        self.label_18.setGeometry(QtCore.QRect(0, 234, 39, 16))
         self.label_18.setObjectName("label_18")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_18)
         self.lineEdit_12 = QtWidgets.QLineEdit(self.widget_6)
-        self.lineEdit_12.setGeometry(QtCore.QRect(162, 234, 400, 35))
         self.lineEdit_12.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_12.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_12.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
         self.lineEdit_12.setObjectName("lineEdit_12")
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_12)
         self.widget_7 = QtWidgets.QWidget(self.widget_6)
-        self.widget_7.setGeometry(QtCore.QRect(160, 290, 454, 35))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget_7.sizePolicy().hasHeightForWidth())
@@ -278,7 +335,7 @@ class Ui_MainWindow(object):
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
+"    padding: 3px 16px;\n"
 "    border-radius: 15px;\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -303,7 +360,7 @@ class Ui_MainWindow(object):
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
-"    padding: 8px 16px;\n"
+"    padding: 3px 16px;\n"
 "    border-radius: 15px;\n"
 "}\n"
 "\n"
@@ -319,84 +376,133 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addWidget(self.pushButton_9)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem3)
-        self.lineEdit_13 = QtWidgets.QLineEdit(self.widget_6)
-        self.lineEdit_13.setGeometry(QtCore.QRect(160, 50, 400, 35))
-        self.lineEdit_13.setMinimumSize(QtCore.QSize(400, 35))
-        self.lineEdit_13.setMaximumSize(QtCore.QSize(400, 35))
-        self.lineEdit_13.setObjectName("lineEdit_13")
-        self.line = QtWidgets.QFrame(self.widget)
-        self.line.setGeometry(QtCore.QRect(627, 372, 20, 401))
-        self.line.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.searchFIELD = QtWidgets.QLineEdit(self.widget)
-        self.searchFIELD.setGeometry(QtCore.QRect(0, 40, 800, 46))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.searchFIELD.sizePolicy().hasHeightForWidth())
-        self.searchFIELD.setSizePolicy(sizePolicy)
-        self.searchFIELD.setMinimumSize(QtCore.QSize(800, 46))
-        self.searchFIELD.setMaximumSize(QtCore.QSize(800, 46))
-        self.searchFIELD.setStyleSheet("QLineEdit {\n"
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.widget_7)
+        self.label_7 = QtWidgets.QLabel(self.widget_6)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.SpanningRole, self.label_7)
+        self.horizontalLayout_3.addWidget(self.widget_6)
+        self.widget_4 = QtWidgets.QWidget(self.Content)
+        self.widget_4.setObjectName("widget_4")
+        self.formLayout_2 = QtWidgets.QFormLayout(self.widget_4)
+        self.formLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.formLayout_2.setHorizontalSpacing(50)
+        self.formLayout_2.setVerticalSpacing(15)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_6 = QtWidgets.QLabel(self.widget_4)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.SpanningRole, self.label_6)
+        self.label_10 = QtWidgets.QLabel(self.widget_4)
+        self.label_10.setObjectName("label_10")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_10)
+        self.comboBox = QtWidgets.QComboBox(self.widget_4)
+        self.comboBox.setMinimumSize(QtCore.QSize(400, 35))
+        self.comboBox.setMaximumSize(QtCore.QSize(400, 35))
+        self.comboBox.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}")
+        self.comboBox.setObjectName("comboBox")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox)
+        self.label_11 = QtWidgets.QLabel(self.widget_4)
+        self.label_11.setObjectName("label_11")
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_11)
+        self.lineEdit_7 = QtWidgets.QLineEdit(self.widget_4)
+        self.lineEdit_7.setMinimumSize(QtCore.QSize(400, 35))
+        self.lineEdit_7.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_7.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #67B99A;\n"
 "    border-radius: 6px;\n"
 "    background-color: #FFFFFF;\n"
 "    selection-background-color: darkgray;\n"
 "}")
-        self.searchFIELD.setObjectName("searchFIELD")
-        self.widget_4 = QtWidgets.QWidget(self.widget)
-        self.widget_4.setGeometry(QtCore.QRect(687, 372, 616, 414))
-        self.widget_4.setObjectName("widget_4")
-        self.label_6 = QtWidgets.QLabel(self.widget_4)
-        self.label_6.setGeometry(QtCore.QRect(0, 0, 162, 29))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
-        self.label_10 = QtWidgets.QLabel(self.widget_4)
-        self.label_10.setGeometry(QtCore.QRect(0, 54, 68, 16))
-        self.label_10.setObjectName("label_10")
-        self.comboBox = QtWidgets.QComboBox(self.widget_4)
-        self.comboBox.setGeometry(QtCore.QRect(162, 54, 400, 35))
-        self.comboBox.setMinimumSize(QtCore.QSize(400, 35))
-        self.comboBox.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox.setObjectName("comboBox")
-        self.label_11 = QtWidgets.QLabel(self.widget_4)
-        self.label_11.setGeometry(QtCore.QRect(0, 114, 78, 16))
-        self.label_11.setObjectName("label_11")
-        self.lineEdit_7 = QtWidgets.QLineEdit(self.widget_4)
-        self.lineEdit_7.setGeometry(QtCore.QRect(162, 114, 400, 35))
-        self.lineEdit_7.setMinimumSize(QtCore.QSize(400, 35))
-        self.lineEdit_7.setMaximumSize(QtCore.QSize(400, 35))
         self.lineEdit_7.setObjectName("lineEdit_7")
+        self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_7)
         self.label_12 = QtWidgets.QLabel(self.widget_4)
-        self.label_12.setGeometry(QtCore.QRect(0, 174, 24, 16))
         self.label_12.setObjectName("label_12")
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_12)
         self.lineEdit_8 = QtWidgets.QLineEdit(self.widget_4)
-        self.lineEdit_8.setGeometry(QtCore.QRect(162, 174, 400, 35))
         self.lineEdit_8.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_8.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_8.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
         self.lineEdit_8.setObjectName("lineEdit_8")
-        self.label_13 = QtWidgets.QLabel(self.widget_4)
-        self.label_13.setGeometry(QtCore.QRect(0, 234, 39, 16))
-        self.label_13.setObjectName("label_13")
+        self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_8)
         self.lineEdit_9 = QtWidgets.QLineEdit(self.widget_4)
-        self.lineEdit_9.setGeometry(QtCore.QRect(162, 234, 400, 35))
         self.lineEdit_9.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_9.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit_9.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}")
         self.lineEdit_9.setObjectName("lineEdit_9")
-        self.label_14 = QtWidgets.QLabel(self.widget_4)
-        self.label_14.setGeometry(QtCore.QRect(0, 300, 31, 16))
-        self.label_14.setObjectName("label_14")
+        self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEdit_9)
         self.comboBox_2 = QtWidgets.QComboBox(self.widget_4)
-        self.comboBox_2.setGeometry(QtCore.QRect(160, 290, 400, 35))
         self.comboBox_2.setMinimumSize(QtCore.QSize(400, 35))
         self.comboBox_2.setMaximumSize(QtCore.QSize(400, 35))
+        self.comboBox_2.setStyleSheet("QComboBox {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #07BEB8;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: right center;\n"
+"    width: 20px;\n"
+"    border-left: none;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/logos/Icons/gridicons_dropdown.png);\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"}")
         self.comboBox_2.setObjectName("comboBox_2")
+        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.comboBox_2)
+        self.label_13 = QtWidgets.QLabel(self.widget_4)
+        self.label_13.setObjectName("label_13")
+        self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_13)
+        self.label_14 = QtWidgets.QLabel(self.widget_4)
+        self.label_14.setObjectName("label_14")
+        self.formLayout_2.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_14)
         self.widget_5 = QtWidgets.QWidget(self.widget_4)
-        self.widget_5.setGeometry(QtCore.QRect(160, 350, 454, 35))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -419,7 +525,7 @@ class Ui_MainWindow(object):
 "    background-color: #67B99A;\n"
 "    color: white;\n"
 "    border: 2px solid #67B99A;\n"
-"    padding: 8px 16px;\n"
+"    padding: 3px 16px;\n"
 "    border-radius: 15px;\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -444,7 +550,7 @@ class Ui_MainWindow(object):
 "    background-color: white;\n"
 "    border: 2px solid #67B99A;\n"
 "    color: black;\n"
-"    padding: 8px 16px;\n"
+"    padding: 3px 16px;\n"
 "    border-radius: 15px;\n"
 "}\n"
 "\n"
@@ -460,7 +566,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.pushButton_7)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem4)
-        self.verticalLayout_4.addWidget(self.widget)
+        self.formLayout_2.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.widget_5)
+        self.horizontalLayout_3.addWidget(self.widget_4)
+        self.horizontalLayout_7.addLayout(self.horizontalLayout_3)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem5)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_7)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem6)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -479,13 +592,13 @@ class Ui_MainWindow(object):
         self.pushButton_12.setText(_translate("MainWindow", "Supplier"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Supplier"))
-        self.label_7.setText(_translate("MainWindow", "Add Supplier"))
         self.label_15.setText(_translate("MainWindow", "Supplier Name"))
         self.label_16.setText(_translate("MainWindow", "Contact Number"))
         self.label_17.setText(_translate("MainWindow", "Email"))
         self.label_18.setText(_translate("MainWindow", "Address"))
         self.pushButton_8.setText(_translate("MainWindow", "Add Supplier"))
         self.pushButton_9.setText(_translate("MainWindow", "Discard"))
+        self.label_7.setText(_translate("MainWindow", "Add Supplier"))
         self.label_6.setText(_translate("MainWindow", "Modify Supplier"))
         self.label_10.setText(_translate("MainWindow", "Supplier Name"))
         self.label_11.setText(_translate("MainWindow", "Contact Number"))

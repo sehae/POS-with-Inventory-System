@@ -16,14 +16,14 @@ def load_config():
     config.read('config.ini')
     return config
 
-def save_config(report_path):
+def save_config(sales_path):
     config = configparser.ConfigParser()
     config.read('config.ini')
 
-    if report_path:
+    if sales_path:
         if 'DEFAULT' not in config:
             config['DEFAULT'] = {}
-        config['DEFAULT']['report_path'] = report_path
+        config['DEFAULT']['sales_path'] = sales_path
 
     with open('config.ini', 'w') as configfile:
         config.write(configfile)

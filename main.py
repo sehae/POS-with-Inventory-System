@@ -154,7 +154,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_maintenanceEDIT.add_signal.connect(self.show_admin_maintenance)
         self.admin_maintenanceEDIT.back_signal.connect(self.show_admin_dashboard)
         self.admin_maintenanceEDIT.backup_recovery_signal.connect(self.show_admin_maintenance_backup)
-
         self.admin_maintenance_backup.add_signal.connect(self.show_admin_maintenance)
         self.admin_maintenance_backup.back_signal.connect(self.show_admin_dashboard)
         self.admin_maintenance_backup.edit_signal.connect(self.show_admin_maintenance_edit)
@@ -304,7 +303,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_comboBox_6)
         self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
-
 
     def show_report_sales(self):
         self.stacked_widget.setCurrentWidget(self.report_sales)
