@@ -17,7 +17,6 @@ class posModify(QMainWindow, Ui_MainWindow):
     menu_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
     history_signal = QtCore.pyqtSignal()
-    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -31,7 +30,6 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.orderBTN.clicked.connect(self.goOrder)
         self.pushButton_8.clicked.connect(self.modifyOrder)
         self.historyBTN_3.clicked.connect(self.history_signal.emit)
-        self.voidBTN.clicked.connect(self.void_signal.emit)
 
         self.pos_orderdetails = posOrderdetails()
 

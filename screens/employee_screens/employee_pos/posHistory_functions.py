@@ -14,7 +14,6 @@ class posHistory(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
     menu_signal = QtCore.pyqtSignal()
-    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -27,7 +26,6 @@ class posHistory(QMainWindow, Ui_MainWindow):
         self.modifyBTN.clicked.connect(self.modify_signal.emit)
         self.orderBTN.clicked.connect(self.order_signal.emit)
         self.menuBTN.clicked.connect(self.menu_signal.emit)
-        self.voidBTN.clicked.connect(self.void_signal.emit)
 
         # Create a QTimer object
         self.timer = QTimer()

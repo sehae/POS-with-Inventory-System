@@ -15,6 +15,7 @@ from validator.user_manager import userManager
 
 from decimal import Decimal
 
+user_manager = userManager()
 
 class posCheckout(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -23,7 +24,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
     modify_signal = QtCore.pyqtSignal()
     order_signal = QtCore.pyqtSignal()
     history_signal = QtCore.pyqtSignal()
-    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -35,7 +35,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.menuBTN.clicked.connect(self.goMenu)
         self.modifyBTN.clicked.connect(self.goModify)
         self.orderBTN.clicked.connect(self.goOrder)
-        self.voidBTN.clicked.connect(self.void_signal.emit)
         self.historyBTN_2.clicked.connect(self.goHistory)
         self.setBTN.clicked.connect(self.set_changes)
         self.saveBTN.clicked.connect(self.save_changes)
@@ -101,6 +100,9 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         items = ['Regular', 'PWD', 'Senior']
         self.discountBOX.addItems(items)
 
+    def update_fullname_label(self, fullname):
+        self.cashierDISPLAY.setText(fullname)
+
     def updateDateTime(self):
         # Get the current date and time
         currentDateTime = QDateTime.currentDateTime()
@@ -110,6 +112,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.label_11.setText(formattedDateTime)
+        self.update_fullname_label(self.user_manager.get_current_fullname())
 
     def goHistory(self):
         self.history_signal.emit()

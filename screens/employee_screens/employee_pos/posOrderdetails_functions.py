@@ -20,7 +20,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
     transaction_generated_signal = QtCore.pyqtSignal()
     update_combobox_signal = QtCore.pyqtSignal()
     history_signal = QtCore.pyqtSignal()
-    void_signal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -33,7 +32,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.modifyBTN.clicked.connect(self.goModify)
         self.menuBTN.clicked.connect(self.goMenu)
         self.historyBTN.clicked.connect(self.goHistory)
-        self.voidBTN.clicked.connect(self.void_signal.emit)
         self.pushButton_6.clicked.connect(self.saveOrder)
         self.pushButton.clicked.connect(self.cancel_order)
         self.pushButton_2.clicked.connect(self.start_timer)

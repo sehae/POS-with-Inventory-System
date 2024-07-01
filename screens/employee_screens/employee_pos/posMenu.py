@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posMenu.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -143,27 +144,6 @@ class Ui_MainWindow(object):
 "}")
         self.modifyBTN.setObjectName("modifyBTN")
         self.verticalLayout_2.addWidget(self.modifyBTN)
-        self.voidBTN = QtWidgets.QPushButton(self.navbar)
-        self.voidBTN.setMinimumSize(QtCore.QSize(100, 100))
-        self.voidBTN.setMaximumSize(QtCore.QSize(100, 100))
-        self.voidBTN.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.voidBTN.setObjectName("voidBTN")
-        self.verticalLayout_2.addWidget(self.voidBTN)
         self.checkoutBTN = QtWidgets.QPushButton(self.navbar)
         self.checkoutBTN.setMinimumSize(QtCore.QSize(100, 100))
         self.checkoutBTN.setMaximumSize(QtCore.QSize(100, 100))
@@ -405,7 +385,6 @@ class Ui_MainWindow(object):
         self.orderBTN.setText(_translate("MainWindow", "Order"))
         self.menuBTN.setText(_translate("MainWindow", "Menu"))
         self.modifyBTN.setText(_translate("MainWindow", "Modify"))
-        self.voidBTN.setText(_translate("MainWindow", "Void"))
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
@@ -418,3 +397,13 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Scan Product"))
         self.orderLabel_2.setText(_translate("MainWindow", "Menu List"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
