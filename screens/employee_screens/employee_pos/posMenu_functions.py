@@ -61,10 +61,74 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.lineEdit.setValidator(barcode_validator)
 
         self.populate_table()
+        self.populate_table_2()
 
         self.populate_comboBox_5()
         self.populate_comboBox_6()
         self.lineEdit.textChanged.connect(self.check_barcode_length)
+
+        self.tableWidget_2.itemSelectionChanged.connect(self.on_table_item_selected)
+        self.tableWidget_3.itemSelectionChanged.connect(self.on_table_3_item_selected)
+
+    def populate_table_2(self):
+        try:
+            if conn.is_connected():
+                cursor = conn.cursor()
+                query = """
+                    SELECT 
+                        Order_ID,
+                        Customer_Name,
+                        Order_Type,
+                        Payment_Status,
+                        Priority_Order
+                    FROM `order`
+                    WHERE (Order_Type = 'Package' AND Payment_status = 'Pending')
+                    OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending')
+                    ORDER BY Priority_Order DESC, Order_ID ASC
+                """
+                cursor.execute(query)
+                records_2 = cursor.fetchall()
+                self.display_records_2(records_2)
+                self.tableWidget_3.setColumnWidth(3, 60)
+                self.tableWidget_3.setColumnWidth(4, 120)
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def display_records_2(self, records_2):
+        column_names = [
+            "Order ID",
+            "Customer Name",
+            "Order Type",
+            "Payment Status",
+            "Priority Order"
+        ]
+
+        if records_2:
+            self.tableWidget_3.setRowCount(len(records_2))
+            self.tableWidget_3.setColumnCount(len(column_names))
+
+            for j, name in enumerate(column_names):
+                item = QTableWidgetItem(name)
+                self.tableWidget_3.setHorizontalHeaderItem(j, item)
+
+            for i, row in enumerate(records_2):
+                for j, col in enumerate(row):
+                    item = QTableWidgetItem(str(col))  # Always convert to string
+                    self.tableWidget_3.setItem(i, j, item)
+
+                    # Apply conditional formatting for the "Priority Order" column
+                    if column_names[j] == "Priority Order" and col == "Priority":
+                        item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
+
+    def on_table_3_item_selected(self):
+        selected_items = self.tableWidget_3.selectedItems()
+        if selected_items:
+            selected_order_id = selected_items[0].text()  # Assuming Product Name is in the first column (index 0)
+            index = self.comboBox_5.findText(selected_order_id)
+            if index != -1:
+                self.comboBox_5.setCurrentIndex(index)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -110,7 +174,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
             query = """
                 SELECT Order_ID 
                 FROM `order` 
-                WHERE Payment_Status = 'Pending' or Payment_Status = 'Waiting for Timer'
+                WHERE (Order_Type = 'Package' AND Payment_Status = 'Pending')
+                OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending')
+                ORDER BY Priority_Order DESC, Order_ID ASC
             """
             cursor.execute(query)
             order_ids = cursor.fetchall()
@@ -198,14 +264,13 @@ class posMenu(QMainWindow, Ui_MainWindow):
             for i, row in enumerate(records):
                 for j, col in enumerate(row):
                     item = QTableWidgetItem("-" if col is None else str(col))
-                    item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Make cell non-clickable
-
+                    item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Make cell selectable
                     # Color coding for Inventory Status
                     if j == 6:  # Assuming Inventory Status is the last column
                         if col == 'Out of Stock':
-                            item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
+                            item.setBackground(QtGui.QColor(255, 99, 71))  # Light red
                         elif col == 'Low Stock':
-                            item.setBackground(QtGui.QColor(255, 165, 0))   # Light orange
+                            item.setBackground(QtGui.QColor(255, 165, 0))  # Light orange
                         elif col == 'In Stock':
                             item.setBackground(QtGui.QColor(144, 238, 144))  # Light green
 
@@ -213,15 +278,12 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
             # Set column widths
             self.tableWidget_2.setColumnWidth(0, 200)  # Name column width
-            self.tableWidget_2.setColumnWidth(1, 150)  # Category column width
-            self.tableWidget_2.setColumnWidth(2, 100)  # Quantity column width
-            self.tableWidget_2.setColumnWidth(3, 100)  # Price column width
-            self.tableWidget_2.setColumnWidth(4, 150)  # Threshold Value column width
-            self.tableWidget_2.setColumnWidth(5, 150)  # Expiry Date column width
-            self.tableWidget_2.setColumnWidth(6, 150)  # Inventory Status column width
-
-        else:
-            print("No records found for products with status 'Active' and category 'Beverage' or 'Food'.")
+            self.tableWidget_2.setColumnWidth(1, 70)  # Category column width
+            self.tableWidget_2.setColumnWidth(2, 60)  # Quantity column width
+            self.tableWidget_2.setColumnWidth(3, 50)  # Price column width
+            self.tableWidget_2.setColumnWidth(4, 90)  # Threshold Value column width
+            self.tableWidget_2.setColumnWidth(5, 90)  # Expiry Date column width
+            self.tableWidget_2.setColumnWidth(6, 100)  # Inventory Status column width
 
     def save_add_on(self):
         order_id = self.comboBox_5.currentText()
@@ -310,6 +372,16 @@ class posMenu(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
+
+
+    def on_table_item_selected(self):
+        selected_items = self.tableWidget_2.selectedItems()
+        if selected_items:
+            selected_product_name = selected_items[0].text()  # Assuming Product Name is in the first column (index 0)
+            index = self.comboBox_6.findText(selected_product_name)
+            if index != -1:
+                self.comboBox_6.setCurrentIndex(index)
+
 
     def clear(self):
         self.lineEdit_8.clear()

@@ -153,11 +153,11 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
 
             # Insert into product table
             product_query = """
-                INSERT INTO product (Product_ID, Name, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status, Date, Time) 
+                INSERT INTO product (Product_ID, Name, Original_Quantity, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status, Date, Time) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
             """
             product_values = (
-                new_product_id, name, quantity, category, expiry_date, threshold_value, availability, current_date,
+                new_product_id, name, quantity, quantity, category, expiry_date, threshold_value, availability, current_date,
                 current_time)
             cursor.execute(product_query, product_values)
 
@@ -175,7 +175,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
                     INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost, Barcode) 
                     VALUES (%s, %s, %s, %s, %s)
                 """
-                inventory_values = (supplier_id, new_product_id, buying_cost or None, selling_cost or None, barcode_str)
+                inventory_values = (supplier_id, new_product_id, buying_cost, selling_cost or None, barcode_str)
 
             cursor.execute(inventory_query, inventory_values)
 
@@ -216,20 +216,27 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_4.setStyleSheet("border: 1px solid green;")
 
-        if category != "Ingredient":
-            if not buying_cost:
+        if not buying_cost:
+            self.lineEdit_3.setStyleSheet("border: 1px solid red;")
+            valid = False
+        else:
+            try:
+                buying_cost_float = float(buying_cost)
+                if not (buying_cost_float.is_integer() or round(buying_cost_float % 1, 2) == 0.00):
+                    raise ValueError("Buying cost must have exactly two decimal places.")
+                self.lineEdit_3.setStyleSheet("border: 1px solid green;")
+            except ValueError:
                 self.lineEdit_3.setStyleSheet("border: 1px solid red;")
                 valid = False
-            else:
-                try:
-                    buying_cost_float = float(buying_cost)
-                    if not (buying_cost_float.is_integer() or round(buying_cost_float % 1, 2) == 0.00):
-                        raise ValueError("Buying cost must have exactly two decimal places.")
-                    self.lineEdit_3.setStyleSheet("border: 1px solid green;")
-                except ValueError:
-                    self.lineEdit_3.setStyleSheet("border: 1px solid red;")
-                    valid = False
 
+        if category == "Ingredient":
+            if selling_cost:
+                self.lineEdit_5.setStyleSheet("border: 1px solid red;")
+                valid = False
+                QMessageBox.warning(self, "Warning", "Selling price should not be provided for Ingredients.")
+            else:
+                self.lineEdit_5.setStyleSheet("border: 1px solid green;")
+        else:
             if not selling_cost:
                 self.lineEdit_5.setStyleSheet("border: 1px solid red;")
                 valid = False

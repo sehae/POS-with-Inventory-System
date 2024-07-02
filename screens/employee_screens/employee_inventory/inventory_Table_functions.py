@@ -131,9 +131,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                     name_column_index = column_names.index("Name")
                     self.tableWidget_2.setColumnWidth(name_column_index, 200)
 
-                else:
-                    print("No records found in the inventory table.")
-
         except Exception as e:
             print("Error occurred while populating table:", e)
 

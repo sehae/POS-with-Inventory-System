@@ -462,6 +462,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             return
 
         try:
+            cashier_name = self.user_manager.get_current_fullname()
             # Update the order table with relevant fields
             cursor = conn.cursor()
             # Insert or update order details in the database
@@ -469,11 +470,12 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 UPDATE `order` SET 
                 Total_Amount = %s, Subtotal_Amount = %s, VAT_Amount = %s, Discount_Amount = %s, Change_Amount = %s, 
                 Package_Total_Amount = %s, Add_Ons_Total_Amount = %s, Discount_Type = %s, Leftover_ID = %s, 
-                Cash_Amount = %s, Reference_ID = %s, Payment_Method = %s, Payment_Status = 'Completed'
+                Cash_Amount = %s, Reference_ID = %s, Payment_Method = %s, Payment_Status = 'Completed', 
+                Cash_Register = %s
                 WHERE Order_ID = %s
             """, (self.total_amount, self.subtotal_amount, self.vat_amount, self.discount_amount, self.change_amount,
                   self.package_total_amount, self.add_ons_total_amount, self.discount_type, self.leftover_id,
-                  self.cash_amount, self.reference_id, self.payment_method, order_id))
+                  self.cash_amount, self.reference_id, self.payment_method, cashier_name, order_id))
 
             conn.commit()
             self.print_receipt()
@@ -486,6 +488,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
     def print_receipt(self):
         order_id = self.orderidBOX.currentText()
+
         try:
             cursor = conn.cursor()
             cursor.execute("""
@@ -500,23 +503,26 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
                 return
 
-            reference_id = self.reference_id if self.reference_id else ''
-
             customer_name, guest_pax, package_name, package_price, order_type = order_details
 
-            receipt_text = f"""
-                    Moonhey Hotpot and Grill 
-            848A Banawe St, Quezon City, 1114 Metro Manila
-                Contact Number: 0917 123 4567
-                        Sales Invoice
+            # Define constants and width for the receipt
+            business_name = "Moonhey Hotpot and Grill"
+            business_address = "848A Banawe St, Quezon City, 1114 Metro Manila"
+            business_contact1 = "0917 123 4567"
 
+            receipt_width = 46
 
+            # Start building the receipt text
+            receipt_header = f"""
+    {business_name.center(receipt_width)}
+    {business_address.center(receipt_width)}
+    Contact Number: {business_contact1}
+    {'=' * receipt_width}
+    Sales Invoice
+    """
 
-
-
-
+            receipt_text = receipt_header + f"""
     Date & Time: {self.label_11.text()}
-
     Order ID: {self.orderidBOX.currentText()}
     Customer Name: {customer_name}
     """
@@ -525,7 +531,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 receipt_text += f"""
     Package Details
     {"Package Type":<15} {"Guest Pax":<11} {"Price":<10} {"Total":>10}
-    {self.packageDISPLAY.text():<17} {guest_pax:<13} {self.packageAmountDISPLAY.text():<10} {package_price:>10.2f}
+    {package_name:<17} {guest_pax:<13} {self.packageAmountDISPLAY.text():<10} {package_price:>10.2f}
     """
 
             elif order_type == 'Add-ons only':
@@ -545,7 +551,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
     {"Payment Method:":} {self.payment_method}
     {"Cash Amount:":} {self.cash_amount}
     {"Change Amount:":} {self.change_amount}
-    
+
     {"Total Amount:":} {self.totalamountDISPLAY.text():}
     """
 
@@ -555,4 +561,3 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error generating receipt: {str(e)}")
-

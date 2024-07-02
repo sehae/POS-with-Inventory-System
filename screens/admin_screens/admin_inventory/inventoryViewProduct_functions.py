@@ -152,9 +152,6 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
             name_column_index = column_names.index("Name")
             self.tableWidget.setColumnWidth(name_column_index, 200)
 
-        else:
-            print("No records found in the inventory, product, and supplier tables.")
-
     def search_table(self):
         search_text = self.searchFIELD.text().lower()
 

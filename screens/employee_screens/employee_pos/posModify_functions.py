@@ -135,7 +135,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                                 item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
 
                             # Replace 'None' strings with '-'
-                            if col == 'None':
+                            if col == 'None' or col == '':
                                 item.setText('-')
 
                             self.tableWidget_2.setItem(i, j, item)
@@ -145,8 +145,7 @@ class posModify(QMainWindow, Ui_MainWindow):
 
                     # Resize columns to fit contents
                     self.tableWidget_2.resizeColumnsToContents()
-                else:
-                    print("No records found in the inventory table.")
+
 
         except Exception as e:
             print("Error occurred while populating table:", e)

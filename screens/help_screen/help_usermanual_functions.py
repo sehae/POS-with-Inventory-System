@@ -1,7 +1,7 @@
 import os
 
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
+#from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtCore import QDateTime, QTimer, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
@@ -22,41 +22,41 @@ class helpManual(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.zoom_level = 1.0
+        #self.zoom_level = 1.0
 
-        self.backButton.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
-                                                          self.back_kitchen_signal, self.back_cashier_signal))
-        self.addUserButton.clicked.connect(self.faq_signal.emit)
-        self.pushButton.clicked.connect(self.support_signal.emit)
+        #self.backButton.clicked.connect(lambda: auth_back(self.user_manager, self.back_signal,
+                                                          #self.back_kitchen_signal, self.back_cashier_signal))
+        #self.addUserButton.clicked.connect(self.faq_signal.emit)
+        #self.pushButton.clicked.connect(self.support_signal.emit)
 
-        self.web_view = QWebEngineView()
-        self.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
-        self.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
-        layout = QVBoxLayout(self.pdfViewerPlaceholder)
-        layout.addWidget(self.web_view)
+        #self.web_view = QWebEngineView()
+        #self.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
+        #self.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
+        #layout = QVBoxLayout(self.pdfViewerPlaceholder)
+        #layout.addWidget(self.web_view)
 
-        self.pdf_path = os.path.abspath("User_Manual.pdf")
+       # self.pdf_path = os.path.abspath("User_Manual.pdf")
 
-        if self.pdf_path:
-            if os.path.isfile(self.pdf_path):
-                self.web_view.setUrl(QtCore.QUrl.fromLocalFile(self.pdf_path))
-            else:
-                print(f"Error: File not found: {self.pdf_path}")
+        #if self.pdf_path:
+            #if os.path.isfile(self.pdf_path):
+                #self.web_view.setUrl(QtCore.QUrl.fromLocalFile(self.pdf_path))
+            #else:
+                #print(f"Error: File not found: {self.pdf_path}")
 
-        self.zoomin.clicked.connect(self.zoom_in)
-        self.zoomout.clicked.connect(self.zoom_out)
+        #self.zoomin.clicked.connect(self.zoom_in)
+        #self.zoomout.clicked.connect(self.zoom_out)
 
         # Create an instance of userManager
-        self.user_manager = userManager()
+        #self.user_manager = userManager()
 
         # Create a QTimer object
-        self.timer = QTimer()
+        #self.timer = QTimer()
 
         # Connect the timeout signal of the timer to the updateDateTime slot
-        self.timer.timeout.connect(self.updateDateTime)
+        #self.timer.timeout.connect(self.updateDateTime)
 
         # Set the interval for the timer (in milliseconds)
-        self.timer.start(1000)  # Update every second
+        #self.timer.start(1000)  # Update every second
 
     def execute_zoom_script(self):
         script = f"""

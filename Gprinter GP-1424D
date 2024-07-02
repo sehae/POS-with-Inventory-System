@@ -1,28 +1,24 @@
 
-                Moon Hey Hotpot and Grill
-                
-                Order ID: POS20240627001
-                Date: 2024-06-27
-                Time: 2:06:20 pm
-                Customer Name: Bryan Tiamzon
+               Moonhey Hotpot and Grill           
+    848A Banawe St, Quezon City, 1114 Metro Manila
+    Contact Number: 0917 123 4567
+    ==============================================
+    Sales Invoice
+    
+    Date & Time: July 2, 2024, 07:59:58 AM
+    Order ID: POS20240702003
+    Customer Name: Aspas
+    
+    Package Details
+    Package Type    Guest Pax   Price           Total
+    Hotpot and Grill  3             3027.00       1009.00
+    
+    VAT (12%): 290.59
+    Discount (PWD): 605.40
+    Leftover Cost: 0.00
+    Payment Method: Cash
+    Cash Amount: 2720.00
+    Change Amount: 7.81
 
-                -- Order Details --
-                Package Name: Hotpot
-                Guest Capacity: 2
-                Order Type: Package
-                Soup Variation: Suan la soup
-                Priority Order: Non-priority
-
-
-                -- Kitchen Note --
-                [Leave space for kitchen staff to add any necessary notes or special instructions.]
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+    Total Amount: 2712.19
+    
