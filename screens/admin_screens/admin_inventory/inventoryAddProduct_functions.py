@@ -154,7 +154,7 @@ class adminInventoryAddProduct(QMainWindow, Ui_MainWindow):
             # Insert into product table
             product_query = """
                 INSERT INTO product (Product_ID, Name, Original_Quantity, Quantity, Category, Expiry_Date, Threshold_Value, Availability, Status, Date, Time) 
-                VALUES (%s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
             """
             product_values = (
                 new_product_id, name, quantity, quantity, category, expiry_date, threshold_value, availability, current_date,
