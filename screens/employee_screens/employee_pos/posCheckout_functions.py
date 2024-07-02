@@ -480,6 +480,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             conn.commit()
             self.print_receipt()
             self.populate_comboBox()
+            self.reset_checkout()
+            self.populate_table()
         except Exception as e:
             print(f"Error updating order details: {e}")  # Debug statement
             QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
@@ -561,3 +563,43 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error generating receipt: {str(e)}")
+
+    def reset_checkout(self):
+        self.penalty_fee = 0
+        self.cash_amount = None
+        self.reference_id = None
+        self.payment_method = None
+        self.discount_type = None
+        self.leftover_grams = None
+        self.leftover_id = None
+
+        self.amountFIELD.clear()
+        self.referenceFIELD.clear()
+
+        self.discountBOX.setCurrentIndex(0)
+        self.leftoverBOX.setCurrentIndex(1)
+
+        self.label_4.setText('')
+        self.customerFIELD.setText('')
+        self.packageDISPLAY.setText('')
+        self.paymentmethodDISPLAY.setText('')
+        self.referenceidDISPLAY.setText('')
+        self.cashamountDISPLAY.setText('')
+        self.packageAmountDISPLAY.setText('')
+        self.addonsAmountDISPLAY.setText('')
+        self.subtotalDISPLAY.setText('')
+        self.vatDISPLAY.setText('')
+        self.discountDISPLAY.setText('')
+        self.leftoverDISPLAY.setText('')
+        self.totalamountDISPLAY.setText('')
+        self.changeDISPLAY.setText('')
+
+        self.subtotal_amount = Decimal(0)
+        self.vat_amount = Decimal(0)
+        self.discount_amount = Decimal(0)
+        self.change_amount = Decimal(0)
+        self.package_total_amount = Decimal(0)
+        self.add_ons_total_amount = Decimal(0)
+        self.total_amount = Decimal(0)
+        self.add_ons_rows = []
+

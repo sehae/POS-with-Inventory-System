@@ -8,7 +8,7 @@ from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from validator.user_manager import userManager
-
+from PyQt5.QtGui import QIntValidator
 
 class posModify(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -56,6 +56,9 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.populate_comboBox_7()
 
         self.comboBox_6.setCurrentIndex(-1)
+
+        self.int_validator = QIntValidator()
+        self.lineEdit_8.setValidator(self.int_validator)
 
     def updateDateTime(self):
         # Get the current date and time

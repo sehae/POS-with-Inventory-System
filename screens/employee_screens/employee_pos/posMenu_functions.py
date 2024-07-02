@@ -10,6 +10,7 @@ from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
+from PyQt5.QtGui import QIntValidator
 
 import json
 
@@ -69,6 +70,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         self.tableWidget_2.itemSelectionChanged.connect(self.on_table_item_selected)
         self.tableWidget_3.itemSelectionChanged.connect(self.on_table_3_item_selected)
+
+        self.int_validator = QIntValidator()
+        self.lineEdit_8.setValidator(self.int_validator)
 
     def populate_table_2(self):
         try:

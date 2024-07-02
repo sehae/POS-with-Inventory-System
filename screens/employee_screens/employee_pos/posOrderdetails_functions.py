@@ -3,10 +3,11 @@ from PyQt5.QtCore import QDateTime, QTimer, Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow, QRadioButton, QButtonGroup
 from screens.employee_screens.employee_pos.posOrderdetails import Ui_MainWindow
 from shared.navigation_signal import auth_back, pos_back
-from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.receipt.receipt_dialog import ReceiptDialog
 from PyQt5.QtCore import QTime
+from PyQt5.QtGui import QIntValidator, QRegularExpressionValidator
+from PyQt5.QtCore import QRegularExpression
 
 from validator.user_manager import userManager
 
@@ -74,16 +75,23 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.radioButton.setChecked(True)
         self.radioButton_3.setChecked(True)
 
+        self.int_validator = QIntValidator()
+        self.lineEdit_7.setValidator(self.int_validator)
+
+        # Initialize QRegExpValidator for letter-only input
+        regex = QRegularExpression("[a-zA-Z]+")  # Regular expression for letters only
+        self.letter_validator = QRegularExpressionValidator(regex)
+        self.lineEdit_9.setValidator(self.letter_validator)
+
     def updateDateTimeAndTable(self):
         self.updateDateTime()
         self.populate_table()
 
     def discard(self):
-        return
-        #self.lineEdit_9.clear()
-        #self.lineEdit_7.clear()
-        #self.comboBox_2.setCurrentIndex(-1)
-        #self.comboBox_3.setCurrentIndex(-1)
+        self.lineEdit_9.clear()
+        self.lineEdit_7.clear()
+        self.comboBox_2.setCurrentIndex(0)
+        self.comboBox_3.setCurrentIndex(0)
 
     def populate_table(self):
         try:
@@ -176,7 +184,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
             self.comboBox_2.clear()
 
             # Add blank/null option
-            self.comboBox_2.addItem("")  # Add a blank item
+            self.comboBox_2.addItem("None")  # Add a blank item
 
             # Add specific values
             self.comboBox_2.addItems(["Hotpot", "Grill", "Hotpot and Grill"])
@@ -190,7 +198,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
             self.comboBox_3.clear()
 
             # Add blank/null option
-            self.comboBox_3.addItem("")  # Add a blank item
+            self.comboBox_3.addItem("None")  # Add a blank item
 
             # Add specific values
             self.comboBox_3.addItems(["Mala soup", "Plain soup", "Suan la soup", "Tomato soup"])
@@ -215,48 +223,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             print(f"Error occurred while populating comboBox_7: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
-    def populate_comboBox_8(self):
-        try:
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT Order_ID FROM `order` 
-                WHERE Payment_Status = 'Waiting for Timer' 
-                ORDER BY Priority_Order DESC, Order_ID ASC
-            """)
-            order_ids = cursor.fetchall()
-
-            self.comboBox_8.clear()
-            for order_id in order_ids:
-                self.comboBox_8.addItem(str(order_id[0]))
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_8: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
-    def populate_comboBox_9(self):
-        try:
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT Order_ID FROM `order` 
-                WHERE Payment_Status = 'Waiting for Receipt'
-                ORDER BY Priority_Order DESC, Order_ID ASC
-            """)
-            order_ids = cursor.fetchall()
-
-            self.comboBox_9.clear()
-            for order_id in order_ids:
-                self.comboBox_9.addItem(str(order_id[0]))
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_9: {e}")
 
         finally:
             if conn.is_connected():
@@ -330,8 +296,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
                 self.update_combobox_signal.emit()
                 self.populate_comboBox_7()
-                self.populate_comboBox_9()
-                self.populate_comboBox_8()
+
 
                 # Clear input fields after successful save
                 self.lineEdit_9.clear()
@@ -364,7 +329,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_9.setStyleSheet("border: 1px solid green;")
 
-        if not package_name:
+        if not package_name or package_name == "None":
             self.comboBox_2.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -376,10 +341,10 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_7.setStyleSheet("border: 1px solid green;")
 
-        if package_name == "Grill" and soup_variation != "":
+        if not soup_variation or (soup_variation == 'None' and package_name != "Grill"):
             self.comboBox_3.setStyleSheet("border: 1px solid red;")
             valid = False
-        elif package_name != "Grill" and not soup_variation:
+        elif package_name == "Grill" and soup_variation != "None":
             self.comboBox_3.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -399,7 +364,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_9.setStyleSheet("border: 1px solid green;")
 
-        if package_name != "":
+        if package_name != "None":
             self.comboBox_2.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -411,7 +376,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_7.setStyleSheet("border: 1px solid green;")
 
-        if soup_variation != "":
+        if soup_variation != "None":
             self.comboBox_3.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
