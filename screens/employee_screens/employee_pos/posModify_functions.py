@@ -34,7 +34,6 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.pos_orderdetails = posOrderdetails()
 
         self.pos_orderdetails.transaction_generated_signal.connect(self.populate_table)
-        self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox_5)
 
         # Create QTimer objects
         self.timer = QTimer()
@@ -51,7 +50,6 @@ class posModify(QMainWindow, Ui_MainWindow):
         self.searchFIELD.returnPressed.connect(self.search_table)
 
         self.populate_table()
-        self.populate_comboBox_5()
         self.populate_comboBox_6()
         self.populate_comboBox_7()
 
@@ -59,6 +57,38 @@ class posModify(QMainWindow, Ui_MainWindow):
 
         self.int_validator = QIntValidator()
         self.lineEdit_8.setValidator(self.int_validator)
+
+        self.lineEdit.setReadOnly(True)
+
+        self.tableWidget_2.itemSelectionChanged.connect(self.on_table_item_selected)
+
+    def on_table_item_selected(self):
+        selected_items = self.tableWidget_2.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            order_id = self.tableWidget_2.item(selected_row, 0).text()  # Assuming 'Order ID' is in the first column
+            package_name = self.tableWidget_2.item(selected_row, 4).text()
+            guest_pax = self.tableWidget_2.item(selected_row, 6).text()
+            soup_variation = self.tableWidget_2.item(selected_row, 5).text()
+
+            if soup_variation == '-':
+                soup_variation = "None"
+
+            # Set order ID
+            self.lineEdit.setText(order_id)
+
+            # Set comboBox_6 to package_name
+            package_index = self.comboBox_6.findText(package_name)
+            if package_index >= 0:
+                self.comboBox_6.setCurrentIndex(package_index)
+
+            # Set comboBox_7 to soup_variation
+            soup_index = self.comboBox_7.findText(soup_variation)
+            if soup_index >= 0:
+                self.comboBox_7.setCurrentIndex(soup_index)
+
+            # Set guest_pax
+            self.lineEdit_8.setText(guest_pax)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -157,31 +187,6 @@ class posModify(QMainWindow, Ui_MainWindow):
             if conn.is_connected():
                 cursor.close()
 
-    def populate_comboBox_5(self):
-        try:
-            cursor = conn.cursor()
-            # Execute the query to retrieve Order_IDs based on the specified conditions
-            query = """
-                SELECT Order_ID 
-                FROM `order` 
-                WHERE Payment_Status = 'Pending' 
-                  AND Order_Type = 'Package'
-                  AND (Priority_Order = 'Non-Priority' OR Priority_Order = 'Priority')
-            """
-            cursor.execute(query)
-            order_ids = cursor.fetchall()
-
-            self.comboBox_5.clear()
-            for order_id in order_ids:
-                self.comboBox_5.addItem(str(order_id[0]))
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_5: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
     def populate_comboBox_6(self):
         try:
             cursor = conn.cursor()
@@ -205,7 +210,7 @@ class posModify(QMainWindow, Ui_MainWindow):
             self.comboBox_7.clear()
 
             # Add blank/null option
-            self.comboBox_7.addItem("")  # Add a blank item
+            self.comboBox_7.addItem("None")  # Add a blank item
 
             # Add specific values
             self.comboBox_7.addItems(["Mala soup", "Plain soup", "Suan la soup", "Tomato soup"])
@@ -215,7 +220,7 @@ class posModify(QMainWindow, Ui_MainWindow):
 
     def modifyOrder(self):
         # Get input values
-        order_id = self.comboBox_5.currentText()
+        order_id = self.lineEdit.text()
         package_name = self.comboBox_6.currentText()
         guest_pax = self.lineEdit_8.text().strip()
         soup_variation = self.comboBox_7.currentText()
@@ -239,8 +244,8 @@ class posModify(QMainWindow, Ui_MainWindow):
         if package_name != 'Grill' and not soup_variation:
             self.comboBox_7.setStyleSheet("border: 1px solid red;")
             valid = False
-        elif package_name == 'Grill' and soup_variation:
-            QMessageBox.critical(self, "Error", "Grill package cannot have soup variation.")
+        elif package_name == 'Grill' and soup_variation != "None":
+            QMessageBox.critical(self, "Error", "Grill package cannot have soup variation. Set it to None.")
             self.comboBox_7.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -254,7 +259,7 @@ class posModify(QMainWindow, Ui_MainWindow):
             if conn.is_connected():
                 cursor = conn.cursor()
 
-                if soup_variation == '':
+                if soup_variation == "None":
                     soup_variation = None
 
                 # Fetch Package_ID based on selected Package_Name
@@ -282,6 +287,7 @@ class posModify(QMainWindow, Ui_MainWindow):
                 cursor.close()
 
     def clear(self):
+        self.lineEdit.clear()
         self.comboBox_6.setCurrentIndex(-1)
         self.comboBox_7.setCurrentIndex(-1)
         self.lineEdit_8.clear()

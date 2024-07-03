@@ -463,37 +463,21 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
                <string>Order ID</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="comboBox_5">
-              <property name="minimumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_15">
               <property name="text">
                <string>Package Type</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="1">
              <widget class="QComboBox" name="comboBox_6">
               <property name="minimumSize">
                <size>
@@ -509,14 +493,14 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_16">
               <property name="text">
                <string>Capacity</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="QLineEdit" name="lineEdit_8">
               <property name="minimumSize">
                <size>
@@ -532,14 +516,14 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="5" column="0">
              <widget class="QLabel" name="label_17">
               <property name="text">
                <string>Soup Variation</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="5" column="1">
              <widget class="QComboBox" name="comboBox_7">
               <property name="minimumSize">
                <size>
@@ -555,7 +539,7 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="6" column="1">
              <widget class="QWidget" name="widget_7" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -681,6 +665,22 @@ QPushButton:pressed {
                 </spacer>
                </item>
               </layout>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="minimumSize">
+               <size>
+                <width>400</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>35</height>
+               </size>
+              </property>
              </widget>
             </item>
            </layout>

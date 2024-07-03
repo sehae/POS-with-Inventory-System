@@ -39,10 +39,10 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.pushButton_9.clicked.connect(self.clear)
         self.historyBTN_2.clicked.connect(self.history_signal.emit)
 
-        self.pos_orderdetails = posOrderdetails()
+        #self.pos_orderdetails = posOrderdetails()
 
-        self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox_5)
-        self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox_5)
+        #self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox_5)
+        #self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox_5)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -53,9 +53,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
 
-        self.admin_inventory_add = adminInventoryAddProduct()
-        self.admin_inventory_add.admin_product_update_signal.connect(self.populate_comboBox_6)
-        self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
+        #self.admin_inventory_add = adminInventoryAddProduct()
+        #self.admin_inventory_add.admin_product_update_signal.connect(self.populate_comboBox_6)
+        #self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
 
         barcode_regex = QRegExp(r"^\d{13}$")
         barcode_validator = QRegExpValidator(barcode_regex, self.lineEdit)
@@ -64,8 +64,6 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.populate_table()
         self.populate_table_2()
 
-        self.populate_comboBox_5()
-        self.populate_comboBox_6()
         self.lineEdit.textChanged.connect(self.check_barcode_length)
 
         self.tableWidget_2.itemSelectionChanged.connect(self.on_table_item_selected)
@@ -73,6 +71,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         self.int_validator = QIntValidator()
         self.lineEdit_8.setValidator(self.int_validator)
+
+        self.lineEdit_2.setReadOnly(True)
+        self.lineEdit_3.setReadOnly(True)
 
     def populate_table_2(self):
         try:
@@ -86,8 +87,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
                         Payment_Status,
                         Priority_Order
                     FROM `order`
-                    WHERE (Order_Type = 'Package' AND Payment_status = 'Pending')
-                    OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending')
+                    WHERE Order_Type = 'Add-ons only' AND Payment_Status = 'Pending'
                     ORDER BY Priority_Order DESC, Order_ID ASC
                 """
                 cursor.execute(query)
@@ -129,10 +129,16 @@ class posMenu(QMainWindow, Ui_MainWindow):
     def on_table_3_item_selected(self):
         selected_items = self.tableWidget_3.selectedItems()
         if selected_items:
-            selected_order_id = selected_items[0].text()  # Assuming Product Name is in the first column (index 0)
-            index = self.comboBox_5.findText(selected_order_id)
-            if index != -1:
-                self.comboBox_5.setCurrentIndex(index)
+            selected_row = selected_items[0].row()
+            order_id = self.tableWidget_3.item(selected_row, 0).text()  # Assuming 'Order ID' is in the first column
+            self.lineEdit_2.setText(order_id)
+
+    def on_table_item_selected(self):
+        selected_items = self.tableWidget_2.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            product_name = self.tableWidget_2.item(selected_row, 0).text()  # Assuming 'Product Name' is in the first column
+            self.lineEdit_3.setText(product_name)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -148,66 +154,32 @@ class posMenu(QMainWindow, Ui_MainWindow):
         if len(self.lineEdit.text()) == 13:
             self.scan_barcode()
 
+
     def scan_barcode(self):
         barcode = self.lineEdit.text()
         if not self.lineEdit.hasAcceptableInput():
             QMessageBox.warning(self, "Invalid Barcode", "The barcode must be 13 digits long and contain only numbers.")
             return
 
-        cursor = conn.cursor()
-        cursor.execute("SELECT product_id FROM inventory WHERE barcode = %s;", (barcode,))
-        product_id = cursor.fetchone()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT product_id FROM inventory WHERE barcode = %s;", (barcode,))
+            product_id = cursor.fetchone()
 
-        if product_id:
-            cursor.execute("SELECT name FROM product WHERE product_id = %s;", (product_id[0],))
-            product_data = cursor.fetchone()
+            if product_id:
+                cursor.execute("SELECT name FROM product WHERE product_id = %s;", (product_id[0],))
+                product_data = cursor.fetchone()
 
-            if product_data:
-                product_name = product_data[0]  # Extract the string from the tuple
-                self.comboBox_6.setCurrentText(product_name)
+                if product_data:
+                    product_name = product_data[0]  # Extract the string from the tuple
+                    self.lineEdit_3.setText(product_name)  # Set the text of lineEdit_3
+                else:
+                    QMessageBox.warning(self, "Product Not Found", "Product data not found for the given barcode.")
             else:
-                QMessageBox.warning(self, "Product Not Found", "Product data not found for the given barcode.")
-        else:
-            QMessageBox.warning(self, "Barcode Not Found", "No product found for the entered barcode.")
-
-        cursor.close()
-
-    def populate_comboBox_5(self):
-        try:
-            cursor = conn.cursor()
-            query = """
-                SELECT Order_ID 
-                FROM `order` 
-                WHERE (Order_Type = 'Package' AND Payment_Status = 'Pending')
-                OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending')
-                ORDER BY Priority_Order DESC, Order_ID ASC
-            """
-            cursor.execute(query)
-            order_ids = cursor.fetchall()
-
-            self.comboBox_5.clear()
-            for order_id in order_ids:
-                self.comboBox_5.addItem(str(order_id[0]))
+                QMessageBox.warning(self, "Barcode Not Found", "No product found for the entered barcode.")
 
         except Exception as e:
-            print(f"Error occurred while populating comboBox_5: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
-    def populate_comboBox_6(self):
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT Name FROM `product` WHERE Status = 'Active' AND Category IN ('Beverage', 'Food')")
-            product_names = cursor.fetchall()
-
-            self.comboBox_6.clear()
-            for name in product_names:
-                self.comboBox_6.addItem(name[0])
-
-        except Exception as e:
-            print(f"Error occurred while populating comboBox_6: {e}")
+            print(f"Error occurred while scanning barcode: {e}")
 
         finally:
             if conn.is_connected():
@@ -290,8 +262,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
             self.tableWidget_2.setColumnWidth(6, 100)  # Inventory Status column width
 
     def save_add_on(self):
-        order_id = self.comboBox_5.currentText()
-        product_name = self.comboBox_6.currentText()
+        order_id = self.lineEdit_2.text()
+        product_name = self.lineEdit_3.text()
         quantity = self.lineEdit_8.text()
 
         # Store the original style sheet of lineEdit_8
@@ -376,15 +348,6 @@ class posMenu(QMainWindow, Ui_MainWindow):
         finally:
             if conn.is_connected():
                 cursor.close()
-
-
-    def on_table_item_selected(self):
-        selected_items = self.tableWidget_2.selectedItems()
-        if selected_items:
-            selected_product_name = selected_items[0].text()  # Assuming Product Name is in the first column (index 0)
-            index = self.comboBox_6.findText(selected_product_name)
-            if index != -1:
-                self.comboBox_6.setCurrentIndex(index)
 
 
     def clear(self):

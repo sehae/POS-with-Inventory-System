@@ -478,10 +478,10 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                   self.cash_amount, self.reference_id, self.payment_method, cashier_name, order_id))
 
             conn.commit()
+            self.populate_table()
             self.print_receipt()
             self.populate_comboBox()
             self.reset_checkout()
-            self.populate_table()
         except Exception as e:
             print(f"Error updating order details: {e}")  # Debug statement
             QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
@@ -508,8 +508,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             customer_name, guest_pax, package_name, package_price, order_type = order_details
 
             # Define constants and width for the receipt
-            business_name = "Moonhey Hotpot and Grill"
-            business_address = "848A Banawe St, Quezon City, 1114 Metro Manila"
+            business_name = "MOON HEY HOTPOT AND GRILL"
+            business_address = "848"
             business_contact1 = "0917 123 4567"
 
             receipt_width = 46

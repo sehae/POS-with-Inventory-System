@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posModify.ui'
+# Form implementation generated from reading ui file 'posModify.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -242,36 +242,31 @@ class Ui_MainWindow(object):
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_6)
         self.label_14 = QtWidgets.QLabel(self.widget_6)
         self.label_14.setObjectName("label_14")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_14)
-        self.comboBox_5 = QtWidgets.QComboBox(self.widget_6)
-        self.comboBox_5.setMinimumSize(QtCore.QSize(400, 35))
-        self.comboBox_5.setMaximumSize(QtCore.QSize(400, 35))
-        self.comboBox_5.setObjectName("comboBox_5")
-        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.comboBox_5)
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_14)
         self.label_15 = QtWidgets.QLabel(self.widget_6)
         self.label_15.setObjectName("label_15")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_15)
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_15)
         self.comboBox_6 = QtWidgets.QComboBox(self.widget_6)
         self.comboBox_6.setMinimumSize(QtCore.QSize(400, 35))
         self.comboBox_6.setMaximumSize(QtCore.QSize(400, 35))
         self.comboBox_6.setObjectName("comboBox_6")
-        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.comboBox_6)
+        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.comboBox_6)
         self.label_16 = QtWidgets.QLabel(self.widget_6)
         self.label_16.setObjectName("label_16")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_16)
+        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_16)
         self.lineEdit_8 = QtWidgets.QLineEdit(self.widget_6)
         self.lineEdit_8.setMinimumSize(QtCore.QSize(400, 35))
         self.lineEdit_8.setMaximumSize(QtCore.QSize(400, 35))
         self.lineEdit_8.setObjectName("lineEdit_8")
-        self.formLayout_3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEdit_8)
+        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEdit_8)
         self.label_17 = QtWidgets.QLabel(self.widget_6)
         self.label_17.setObjectName("label_17")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_17)
+        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_17)
         self.comboBox_7 = QtWidgets.QComboBox(self.widget_6)
         self.comboBox_7.setMinimumSize(QtCore.QSize(400, 35))
         self.comboBox_7.setMaximumSize(QtCore.QSize(400, 35))
         self.comboBox_7.setObjectName("comboBox_7")
-        self.formLayout_3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.comboBox_7)
+        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.comboBox_7)
         self.widget_7 = QtWidgets.QWidget(self.widget_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -336,7 +331,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.pushButton_9)
         spacerItem3 = QtWidgets.QSpacerItem(58, 32, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem3)
-        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.widget_7)
+        self.formLayout_3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.widget_7)
+        self.lineEdit = QtWidgets.QLineEdit(self.widget_6)
+        self.lineEdit.setMinimumSize(QtCore.QSize(400, 35))
+        self.lineEdit.setMaximumSize(QtCore.QSize(400, 35))
+        self.lineEdit.setObjectName("lineEdit")
+        self.formLayout_3.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
         self.layoutWidget = QtWidgets.QWidget(self.widget)
         self.layoutWidget.setGeometry(QtCore.QRect(20, 20, 1171, 461))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -419,13 +419,3 @@ class Ui_MainWindow(object):
         self.searchLBL.setText(_translate("MainWindow", "Search for Order"))
         self.orderLabel_2.setText(_translate("MainWindow", "Orders List"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
