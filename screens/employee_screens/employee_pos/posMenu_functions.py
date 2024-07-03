@@ -253,13 +253,16 @@ class posMenu(QMainWindow, Ui_MainWindow):
                     self.tableWidget_2.setItem(i, j, item)
 
             # Set column widths
-            self.tableWidget_2.setColumnWidth(0, 200)  # Name column width
-            self.tableWidget_2.setColumnWidth(1, 70)  # Category column width
-            self.tableWidget_2.setColumnWidth(2, 60)  # Quantity column width
-            self.tableWidget_2.setColumnWidth(3, 50)  # Price column width
-            self.tableWidget_2.setColumnWidth(4, 90)  # Threshold Value column width
-            self.tableWidget_2.setColumnWidth(5, 90)  # Expiry Date column width
-            self.tableWidget_2.setColumnWidth(6, 100)  # Inventory Status column width
+            # self.tableWidget_2.setColumnWidth(0, 200)  # Name column width
+            # self.tableWidget_2.setColumnWidth(1, 70)  # Category column width
+            # self.tableWidget_2.setColumnWidth(2, 60)  # Quantity column width
+            # self.tableWidget_2.setColumnWidth(3, 50)  # Price column width
+            # self.tableWidget_2.setColumnWidth(4, 90)  # Threshold Value column width
+            # self.tableWidget_2.setColumnWidth(5, 90)  # Expiry Date column width
+            # self.tableWidget_2.setColumnWidth(6, 100)  # Inventory Status column width
+            # header.tableWidget_2(QtWidgets.QHeaderView.Stretch)
+            header = self.tableWidget_2.horizontalHeader()
+            header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     def save_add_on(self):
         order_id = self.lineEdit_2.text()

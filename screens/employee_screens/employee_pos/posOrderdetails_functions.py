@@ -116,8 +116,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 records = cursor.fetchall()
                 self.display_records(records)
 
-                self.tableWidget.setColumnWidth(3, 60)
-                self.tableWidget.setColumnWidth(4, 120)
+                header = self.tableWidget.horizontalHeader()
+                header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
         except Exception as e:
             print("Error occurred while populating table:", e)

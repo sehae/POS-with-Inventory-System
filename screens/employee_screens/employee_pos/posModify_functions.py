@@ -62,6 +62,7 @@ class posModify(QMainWindow, Ui_MainWindow):
 
         self.tableWidget_2.itemSelectionChanged.connect(self.on_table_item_selected)
 
+
     def on_table_item_selected(self):
         selected_items = self.tableWidget_2.selectedItems()
         if selected_items:
@@ -173,12 +174,12 @@ class posModify(QMainWindow, Ui_MainWindow):
 
                             self.tableWidget_2.setItem(i, j, item)
 
-                    name_column_index = column_names.index("Customer Name")
-                    self.tableWidget_2.setColumnWidth(name_column_index, 200)
-
-                    # Resize columns to fit contents
-                    self.tableWidget_2.resizeColumnsToContents()
-
+                    header = self.tableWidget_2.horizontalHeader()
+                    header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+                    header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+                    header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+                    header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
+                    header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
 
         except Exception as e:
             print("Error occurred while populating table:", e)
