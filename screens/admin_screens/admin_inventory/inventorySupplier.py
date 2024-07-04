@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_inventory/inventorySupplier.ui'
+# Form implementation generated from reading ui file 'inventorySupplier.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -102,48 +102,6 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_11.setObjectName("pushButton_11")
         self.verticalLayout_2.addWidget(self.pushButton_11)
-        self.pushButton_2 = QtWidgets.QPushButton(self.navbar)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
-        self.pushButton_10 = QtWidgets.QPushButton(self.navbar)
-        self.pushButton_10.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.verticalLayout_2.addWidget(self.pushButton_10)
         self.pushButton_12 = QtWidgets.QPushButton(self.navbar)
         self.pushButton_12.setMinimumSize(QtCore.QSize(100, 100))
         self.pushButton_12.setMaximumSize(QtCore.QSize(100, 100))
@@ -587,8 +545,6 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.pushButton_11.setText(_translate("MainWindow", "Inventory"))
-        self.pushButton_2.setText(_translate("MainWindow", "Add"))
-        self.pushButton_10.setText(_translate("MainWindow", "Modify"))
         self.pushButton_12.setText(_translate("MainWindow", "Supplier"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Supplier"))
@@ -608,13 +564,3 @@ class Ui_MainWindow(object):
         self.pushButton_6.setText(_translate("MainWindow", "Modify Supplier"))
         self.pushButton_7.setText(_translate("MainWindow", "Discard"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

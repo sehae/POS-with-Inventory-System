@@ -18,9 +18,7 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.pushButton_2.clicked.connect(self.navigate_add)
         self.pushButton.clicked.connect(self.back)
-        self.pushButton_10.clicked.connect(self.navigate_modify)
         self.pushButton_11.clicked.connect(self.navigate_view)
         self.pushButton_8.clicked.connect(self.add_supplier)
         self.pushButton_9.clicked.connect(self.confirm_clear_fields)
@@ -48,12 +46,6 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
     def populate_comboBox_2(self):
         items = ["Active", "Disabled"]
         self.comboBox_2.addItems(items)
-
-    def navigate_modify(self):
-        self.modify_signal.emit()
-
-    def navigate_add(self):
-        self.add_signal.emit()
 
     def navigate_view(self):
         self.view_signal.emit()
