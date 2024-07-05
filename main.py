@@ -11,8 +11,6 @@ from screens.authentication_screens.login_screen.login_functions import myLoginS
 from screens.admin_screens.admin_dashboard.adminDashboard_functions import myAdminDashboard
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
 from screens.admin_screens.admin_maintenance.m_EDITuser_functions import adminMaintenanceEDIT
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
-from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.about_screen.about_Info_functions import aboutInfo
 from screens.authentication_screens.otp_screen.otpVerification_functions import OtpVerification
@@ -52,8 +50,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_dashboard = myAdminDashboard()
         self.admin_maintenance = adminMaintenance()
         self.admin_maintenanceEDIT = adminMaintenanceEDIT()
-        self.admin_inventory = adminInventoryAddProduct()
-        self.admin_inventoryMODIFY = adminInventoryModifyProduct()
         self.about_devCredits = aboutdevCredits()
         self.about_info = aboutInfo()
         self.help_FAQ = helpFAQ()
@@ -84,8 +80,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.admin_maintenance_backup)
         self.stacked_widget.addWidget(self.admin_maintenance)
         self.stacked_widget.addWidget(self.admin_maintenanceEDIT)
-        self.stacked_widget.addWidget(self.admin_inventory)
-        self.stacked_widget.addWidget(self.admin_inventoryMODIFY)
         self.stacked_widget.addWidget(self.admin_inventorySupplier)
         self.stacked_widget.addWidget(self.about_devCredits)
         self.stacked_widget.addWidget(self.about_info)
@@ -108,8 +102,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.pos_history)
 
         self.admin_inventorySupplier.back_signal.connect(self.show_admin_dashboard)
-        self.admin_inventorySupplier.add_signal.connect(self.show_admin_inventory)
-        self.admin_inventorySupplier.modify_signal.connect(self.show_admin_inventory_modify)
         self.admin_inventorySupplier.view_signal.connect(self.show_view_product)
 
         # Reports
@@ -127,8 +119,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.report_trend.inventory_report_signal.connect(self.show_report_inventory)
 
         self.inventory_view.back_signal.connect(self.show_admin_dashboard)
-        self.inventory_view.modify_signal.connect(self.show_admin_inventory_modify)
-        self.inventory_view.add_signal.connect(self.show_admin_inventory)
         self.inventory_view.supplier_signal.connect(self.show_inventory_supplier)
         self.inventory_modify.inventory_table.connect(self.show_inventory_table)
         self.inventory_table.back_signal.connect(self.show_employee_dashboard)
@@ -159,14 +149,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.admin_maintenance_backup.edit_signal.connect(self.show_admin_maintenance_edit)
 
         self.admin_dashboard.inventory_signal.connect(self.show_view_product)
-        self.admin_inventory.back_signal.connect(self.show_admin_dashboard)
-        self.admin_inventory.modify_signal.connect(self.show_admin_inventory_modify)
-        self.admin_inventory.supplier_signal.connect(self.show_inventory_supplier)
-        self.admin_inventory.view_signal.connect(self.show_view_product)
-        self.admin_inventoryMODIFY.add_signal.connect(self.show_admin_inventory)
-        self.admin_inventoryMODIFY.back_signal.connect(self.show_admin_dashboard)
-        self.admin_inventoryMODIFY.supplier_signal.connect(self.show_inventory_supplier)
-        self.admin_inventoryMODIFY.view_signal.connect(self.show_view_product)
         self.about_devCredits.back_signal.connect(self.show_admin_dashboard)
         self.about_devCredits.info_signal.connect(self.show_about_info)
         self.about_info.back_signal.connect(self.show_admin_dashboard)
@@ -258,10 +240,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.inventory_table.inventory_modify = self.inventory_modify
         self.inventory_modify.product_update_signal.connect(self.inventory_table.populate_table)
 
-        # Repopulate table
-        self.inventory_view.admin_inventoryMODIFY = self.admin_inventoryMODIFY
-        self.admin_inventoryMODIFY.product_update_signal.connect(self.inventory_view.populate_table)
-
         # Repopulate table from pos modify when order has been generated
         self.pos_modify.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_modify.populate_table)
@@ -271,31 +249,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_checkout.populate_comboBox)
         self.pos_orderdetails.update_combobox_signal.connect(self.pos_checkout.populate_comboBox)
 
-        # Repopulate combo box when supplier has been generated
-        self.admin_inventory.admin_inventorySupplier = self.admin_inventorySupplier
-        self.admin_inventorySupplier.supplier_generated_signal.connect(self.admin_inventory.populateComboBox)
-        # Repopulate combo box when supplier has been updated
-        self.admin_inventorySupplier.supplier_updated_signal.connect(self.admin_inventory.populateComboBox)
-
         # Repopulate admin inventory table from modification changes by employee
         self.inventory_view.inventory_modify = self.inventory_modify
         self.inventory_modify.employee_update_signal.connect(self.inventory_view.populate_table)
-
-        # Repopulate table from inventoryAddProduct
-        self.inventory_view.admin_inventory = self.admin_inventory
-        self.admin_inventory.product_update_signal.connect(self.inventory_view.populate_table)
-
-        # Repopulate table from modify changes in admin to employee
-        self.inventory_table.admin_inventoryMODIFY = self.admin_inventoryMODIFY
-        self.admin_inventoryMODIFY.admin_product_update_signal.connect(self.inventory_table.populate_table)
-        self.admin_inventoryMODIFY.admin_product_update_signal.connect(self.inventory_modify.populate_comboBox_2)
-
-        # Repopulate table from add changes in admin to employee
-        self.inventory_table.admin_inventory = self.admin_inventory
-        self.admin_inventory.admin_product_update_signal.connect(self.inventory_table.populate_table)
-        self.admin_inventory.admin_product_update_signal.connect(self.inventory_modify.populate_comboBox_2)
-        self.admin_inventory.admin_product_update_signal.connect(self.admin_inventoryMODIFY.populate_comboBox_3)
-        self.admin_inventory.admin_product_update_signal.connect(self.pos_menu.populate_table)
 
     def show_report_sales(self):
         self.stacked_widget.setCurrentWidget(self.report_sales)
@@ -340,12 +296,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_admin_maintenance_edit(self):
         self.stacked_widget.setCurrentWidget(self.admin_maintenanceEDIT)
-
-    def show_admin_inventory(self):
-        self.stacked_widget.setCurrentWidget(self.admin_inventory)
-
-    def show_admin_inventory_modify(self):
-        self.stacked_widget.setCurrentWidget(self.admin_inventoryMODIFY)
 
     def show_about_devcredits(self):
         self.stacked_widget.setCurrentWidget(self.about_devCredits)

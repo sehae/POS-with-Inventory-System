@@ -5,9 +5,6 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_inventory.inventory_Table import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
-from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
-from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from validator.user_manager import userManager
 
 user_manager = userManager()
@@ -22,14 +19,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
         self.pushButton_2.clicked.connect(self.navigate_modify)
         self.pushButton.clicked.connect(self.back)
-
-        self.inventory_modify = inventoryModify()
-        self.admin_inventory_modify = adminInventoryModifyProduct()
-        self.admin_inventory_add = adminInventoryAddProduct()
-
-        self.inventory_modify.product_update_signal.connect(self.populate_table)
-        self.admin_inventory_modify.admin_product_update_signal.connect(self.populate_table)
-        self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
 
         self.populate_table()
 

@@ -5,8 +5,6 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.admin_screens.admin_inventory.inventoryViewProduct import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
-from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
 from screens.admin_screens.admin_inventory.barcode_functions import BarcodeDialog
 from screens.admin_screens.admin_inventory.inventorySupplier_functions import adminSupplier
@@ -31,12 +29,6 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
         self.pushButton_12.clicked.connect(self.navigate_supplier)
         self.pushButton_4.clicked.connect(self.open_add_dialog)
         self.pushButton_5.clicked.connect(self.open_modify_dialog)
-
-        self.admin_inventory_modify = adminInventoryModifyProduct()
-        self.admin_inventory_modify.product_update_signal.connect(self.populate_table)
-
-        self.admin_inventory = adminInventoryAddProduct()
-        self.admin_inventory.product_update_signal.connect(self.populate_table)
 
         # Employee modifications display
         self.inventory_modify = inventoryModify()

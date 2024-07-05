@@ -8,7 +8,6 @@ from screens.employee_screens.employee_pos.posMenu import Ui_MainWindow
 from shared.navigation_signal import auth_back, pos_back
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from PyQt5.QtGui import QIntValidator
 

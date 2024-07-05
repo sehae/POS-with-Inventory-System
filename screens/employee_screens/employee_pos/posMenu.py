@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posMenu.ui'
+# Form implementation generated from reading ui file 'posMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -375,9 +375,42 @@ class Ui_MainWindow(object):
         self.pushButton_9.setObjectName("pushButton_9")
         self.horizontalLayout_4.addWidget(self.pushButton_9)
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.widget_7)
+        self.label_17 = QtWidgets.QLabel(self.widget_6)
+        self.label_17.setText("")
+        self.label_17.setObjectName("label_17")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_17)
         self.verticalLayout.addWidget(self.widget_6)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
+        self.label_7 = QtWidgets.QLabel(self.widget_2)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.verticalLayout.addWidget(self.label_7)
+        self.pushButton_10 = QtWidgets.QPushButton(self.widget_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_10.sizePolicy().hasHeightForWidth())
+        self.pushButton_10.setSizePolicy(sizePolicy)
+        self.pushButton_10.setMinimumSize(QtCore.QSize(400, 50))
+        self.pushButton_10.setMaximumSize(QtCore.QSize(400, 50))
+        self.pushButton_10.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.verticalLayout.addWidget(self.pushButton_10)
         self.horizontalLayout_6.addWidget(self.widget_2)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSpacing(15)
@@ -422,15 +455,7 @@ class Ui_MainWindow(object):
         self.label_16.setText(_translate("MainWindow", "Quantity"))
         self.pushButton_8.setText(_translate("MainWindow", "Confirm"))
         self.pushButton_9.setText(_translate("MainWindow", "Discard"))
+        self.label_7.setText(_translate("MainWindow", "Add Multiple Product/s"))
+        self.pushButton_10.setText(_translate("MainWindow", "Add Products"))
         self.orderLabel_3.setText(_translate("MainWindow", "Menu List"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

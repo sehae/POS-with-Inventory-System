@@ -763,21 +763,69 @@ QPushButton:pressed {
                         </layout>
                        </widget>
                       </item>
+                      <item row="5" column="0">
+                       <widget class="QLabel" name="label_17">
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </widget>
                    </item>
                    <item>
-                    <spacer name="verticalSpacer_2">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
+                    <widget class="QLabel" name="label_7">
+                     <property name="font">
+                      <font>
+                       <pointsize>18</pointsize>
+                      </font>
                      </property>
-                     <property name="sizeHint" stdset="0">
+                     <property name="text">
+                      <string>Add Multiple Product/s</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_10">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
                       <size>
-                       <width>20</width>
-                       <height>40</height>
+                       <width>400</width>
+                       <height>50</height>
                       </size>
                      </property>
-                    </spacer>
+                     <property name="maximumSize">
+                      <size>
+                       <width>400</width>
+                       <height>50</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+    background-color: #67B99A;
+    color: white;
+    border: 2px solid #67B99A;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+QPushButton:hover {
+    background-color: #5CAE8B;
+    border: 2px solid #5CAE8B;
+}
+QPushButton:pressed {
+    background-color: #4D9C7F;
+	border: 2px solid #4D9C7F;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string>Add Products</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
