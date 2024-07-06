@@ -76,7 +76,7 @@ class trendReport(QMainWindow, Ui_MainWindow):
 
         avg_guest_pax = analyze_avg_guest_pax(dataframe, frequency.lower())
         preferred_soup_variations = analyze_preferred_soup_variations(dataframe, frequency.lower())
-        best_selling_product = analyze_best_selling_product(dataframe)
+        best_selling_product = analyze_best_selling_product(dataframe, frequency.lower())
 
         # Generate and save report
         save_report_to_word(dataframe, frequency, self.directory, avg_guest_pax, preferred_soup_variations,

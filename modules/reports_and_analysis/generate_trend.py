@@ -11,12 +11,10 @@ import matplotlib.pyplot as plt
 
 from validator.user_manager import userManager
 
-
 def load_config():
     config = configparser.ConfigParser()
     config.read('config.ini')
     return config
-
 
 def save_config(trend_path):
     config = configparser.ConfigParser()
@@ -29,7 +27,6 @@ def save_config(trend_path):
 
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
-
 
 # Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
 engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
@@ -58,7 +55,6 @@ LEFT JOIN
     add_on a ON o.Order_ID = a.Order_ID
 """
 
-
 dataframe = pd.read_sql(query, engine)
 
 # Combine Date and Time into a single DateTime column
@@ -66,11 +62,36 @@ dataframe['DateTime'] = dataframe['Date'].astype(str) + ' ' + dataframe['Time'].
 dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
 def load_product_data():
-    product_query = """
-    SELECT Product_ID, Name FROM product
-    """
+    # Query to get Product_Details and Order_ID from add_on table
+    product_details_query = "SELECT Product_Details, Order_ID FROM add_on"
+    product_details_data = pd.read_sql(product_details_query, engine)
+
+    # Parse JSON and extract Product_ID and Quantity
+    product_id_quantity_list = []
+    for index, row in product_details_data.iterrows():
+        product_details_json = json.loads(row['Product_Details'])
+        for product in product_details_json:
+            product_id_quantity_list.append((row['Order_ID'], product['product_id'], product['quantity']))
+
+    # Convert list to DataFrame
+    product_id_quantity_df = pd.DataFrame(product_id_quantity_list, columns=['Order_ID', 'Product_ID', 'Quantity'])
+
+    # Join with product table to get Name
+    product_query = "SELECT Product_ID, Name FROM product"
     product_data = pd.read_sql(product_query, engine)
-    return product_data
+    product_data = pd.merge(product_id_quantity_df, product_data, on='Product_ID')
+
+    # Join with order table to get DateTime
+    order_query = "SELECT Order_ID, Date, Time FROM `order`"
+    order_data = pd.read_sql(order_query, engine)
+    order_data['DateTime'] = pd.to_datetime(order_data['Date'].astype(str) + ' ' + order_data['Time'].astype(str))
+    product_data = pd.merge(product_data, order_data, on='Order_ID')
+
+    # Group by Order_ID, Product_ID, Name, and DateTime, then sum the Quantity
+    product_data_grouped = product_data.groupby(['Order_ID', 'Product_ID', 'Name', 'DateTime'])['Quantity'].sum().reset_index()
+    product_data_grouped.rename(columns={'Quantity': 'Total_Sold'}, inplace=True)
+
+    return product_data_grouped
 
 # Function to generate a daily report
 def generate_daily_report():
@@ -95,13 +116,16 @@ def generate_monthly_report():
     monthly_data = data[(data['DateTime'].dt.date >= last_month) & (data['DateTime'].dt.date <= today)]
     return monthly_data
 
-
 def analyze_avg_guest_pax(df, frequency):
     if frequency == 'daily':
-        # Filter data for 11am to 12am
-        df_hourly = df[(df['DateTime'].dt.hour == 11)]
+        # Define start and end times
+        start_time = datetime.now().replace(hour=11, minute=0, second=0, microsecond=0)
+        end_time = start_time + timedelta(days=1)
 
-        avg_guest_pax_hourly = df_hourly['Guest_Pax'].mean()
+        # Filter data for 11am today to 12am tomorrow
+        df_filtered = df[(df['DateTime'] >= start_time) & (df['DateTime'] < end_time)]
+
+        avg_guest_pax_hourly = df_filtered['Guest_Pax'].mean()
         return avg_guest_pax_hourly
 
     elif frequency == 'weekly':
@@ -119,74 +143,72 @@ def analyze_avg_guest_pax(df, frequency):
     else:
         raise ValueError("Invalid frequency. Choose from 'daily', 'weekly', or 'monthly'.")
 
-
 def analyze_preferred_soup_variations(df, frequency):
     if frequency == 'daily':
-        # Filter data for 11am to 12am
-        df_hourly = df[(df['DateTime'].dt.hour == 11)]
+        # Define start and end times
+        start_time = datetime.now().replace(hour=11, minute=0, second=0, microsecond=0)
+        end_time = start_time + timedelta(days=1)
 
-        preferred_soup_variations_hourly = df_hourly['Soup_Variation'].value_counts()
-        return preferred_soup_variations_hourly
+        # Filter data for 11am today to 12am tomorrow
+        df_filtered = df[(df['DateTime'] >= start_time) & (df['DateTime'] < end_time)]
+
+        preferred_soup_variations = df_filtered['Soup_Variation'].value_counts()
+        return preferred_soup_variations
 
     elif frequency == 'weekly':
-        # Group by week and calculate preferred soup variations
-        df['Week'] = df['DateTime'].dt.isocalendar().week
-        preferred_soup_variations_weekly = df.groupby('Week')['Soup_Variation'].value_counts().unstack().fillna(0)
-        return preferred_soup_variations_weekly
+        preferred_soup_variations = df['Soup_Variation'].value_counts()
+        return preferred_soup_variations
 
     elif frequency == 'monthly':
-        # Group by month and calculate preferred soup variations
-        df['Month'] = df['DateTime'].dt.month
-        preferred_soup_variations_monthly = df.groupby('Month')['Soup_Variation'].value_counts().unstack().fillna(0)
-        return preferred_soup_variations_monthly
-
+        preferred_soup_variations = df['Soup_Variation'].value_counts()
+        return preferred_soup_variations
     else:
         raise ValueError("Invalid frequency. Choose from 'daily', 'weekly', or 'monthly'.")
 
-def analyze_best_selling_product(df):
-    # Filter for orders where Order_Type is "add-ons only"
-    add_ons = df[df['Order_Type'] == 'add-ons only']
 
-    # Convert Product_Details from JSON string to Python dictionary
-    add_ons['Product_Details'] = add_ons['Product_Details'].apply(lambda x: json.loads(x))
-
-    # Flatten the list of products from JSON
-    products = [product for sublist in add_ons['Product_Details'].tolist() for product in sublist]
-
-    # Create DataFrame from products list
-    products_df = pd.DataFrame(products)
-
-    # Load product data from MySQL
+def analyze_best_selling_product(df, frequency):
+    # Load product data
     product_data = load_product_data()
 
-    # Merge with product_data to get Product_Name
-    products_df = products_df.merge(product_data, how='left', left_on='Product_ID', right_on='Product_ID')
+    # Convert DateTime to the correct frequency
+    if frequency == 'daily':
+        product_data['Period'] = product_data['DateTime'].dt.date
+    elif frequency == 'weekly':
+        product_data['Period'] = product_data['DateTime'].dt.to_period('W')
+    elif frequency == 'monthly':
+        product_data['Period'] = product_data['DateTime'].dt.to_period('M')
+    else:
+        raise ValueError("Invalid frequency. Choose from 'daily', 'weekly', or 'monthly'.")
 
-    # Check for any null values after the merge
-    null_counts = products_df['Product_Name'].isnull().sum()
-    if null_counts > 0:
-        print(f"Warning: {null_counts} rows have null values for Product_Name after merge.")
+    # Group by Period, Product_ID and Name, then sum the Total_Sold
+    product_data_grouped = product_data.groupby(['Period', 'Product_ID', 'Name'])['Total_Sold'].sum().reset_index()
 
-    # Count occurrences of each product
-    best_selling_product = products_df['Product_Name'].value_counts().idxmax()
+    # Sort by Total_Sold in descending order and select the top product for each period
+    best_selling_product = product_data_grouped.sort_values('Total_Sold', ascending=False).groupby('Period').first().reset_index()
 
     return best_selling_product
-
 
 # Save Report to Word
 def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_variations, best_selling_product):
     document = Document()
 
+    today = datetime.today()
+    date_today = today.strftime("%B %d, %Y")
+    last_month = today - timedelta(days=30)
+    last_month_range = f'{last_month.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+    last_week = today - timedelta(days=7)
+    last_week_range = f'{last_week.strftime("%B %d, %Y")} to {today.strftime("%B %d, %Y")}'
+
     # Set up sections and headers
     section = document.sections[0]
     header = section.header
-    month = datetime.now().strftime("%B")
+    month_year_today = today.strftime("%B %Y")
     content_header = [
         "Moon Hey Hotpot and Grill",
         "848A Banawe St, Quezon City, 1114 Metro Manila",
         "0917 624 9289",
-        "Trend Analysis Report",
-        f"({month})",
+        f"Trend Analysis {frequency} Report",
+        f"({month_year_today})",
     ]
 
     # Add header content
@@ -196,79 +218,93 @@ def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_
         header_paragraph.paragraph_format.space_before = Pt(0)
         header_paragraph.paragraph_format.space_after = Pt(0)
 
-    # Add introductory paragraph
-    intro_paragraph = document.add_paragraph()
-    intro_paragraph.add_run("\nIntroduction\n").bold = True
-    intro_text = (
-        f"This report analyzes the sales trends at Moon Hey Hotpot and Grill "
-        f"for the {frequency.lower()} period. It includes average guest pax analysis, "
-        f"preferred soup variations, and best-selling products."
-    )
-    intro_paragraph.add_run(intro_text)
+    document.add_heading(f"Average Guest Pax", level=1)
 
     # Add Average Guest Pax Analysis section
+    avg_guest_pax_value = avg_guest_pax.mean()
     avg_guest_pax_section = document.add_paragraph()
-    avg_guest_pax_section.add_run("\nAverage Guest Pax Analysis\n").bold = True
     avg_guest_pax_text = (
         f"The average number of guests per visit during the {frequency.lower()} period was "
-        f"{avg_guest_pax:.2f}. This indicates..."
+        f"{avg_guest_pax_value:.2f}. This indicates that on average, each customer visit "
+        f"had approximately {avg_guest_pax_value:.2f} guests."
     )
     avg_guest_pax_section.add_run(avg_guest_pax_text)
 
     # Add Preferred Soup Variations section
-    soup_variations_section = document.add_paragraph()
-    soup_variations_section.add_run("\nPreferred Soup Variations\n").bold = True
-    soup_variations_text = (
-        f"The following table shows the preferred soup variations "
-        f"during the {frequency.lower()} period:\n"
-    )
-    soup_variations_section.add_run(soup_variations_text)
+    document.add_heading(f"Preferred Soup Variations", level=1)
 
-    # Create a table for soup variations
-    if isinstance(preferred_soup_variations, pd.DataFrame):
-        preferred_soup_variations_table = document.add_table(rows=len(preferred_soup_variations) + 1, cols=len(preferred_soup_variations.columns))
-        # Add column headers
-        for i, col in enumerate(preferred_soup_variations.columns):
-            preferred_soup_variations_table.cell(0, i).text = col
-        # Add data rows
-        for index, row in preferred_soup_variations.iterrows():
-            for i, value in enumerate(row):
-                preferred_soup_variations_table.cell(index + 1, i).text = str(value)
+    # Define a color dictionary
+    color_dict = {
+        'Mala soup': '#FF5733',
+        'Plain soup': '#FFC300',
+        'Suan la soup': '#DAF7A6',
+        'Tomato soup': '#C70039'
+    }
 
-    # Add Best Selling Product section
-    best_selling_product_section = document.add_paragraph()
-    best_selling_product_section.add_run("\nBest Selling Product\n").bold = True
-    best_selling_product_text = (
-        f"The best-selling product during the {frequency.lower()} period was '{best_selling_product}'. "
-        f"This product was highly favored among customers, contributing significantly to overall sales."
-    )
-    best_selling_product_section.add_run(best_selling_product_text)
+    # Ensure all soup variations are present in the data
+    for soup_variation in color_dict.keys():
+        if soup_variation not in preferred_soup_variations.index:
+            preferred_soup_variations.loc[soup_variation] = 0
 
-    # Add plots (example)
-    # Example: Plot of Average Guest Pax over time
+    # Sort the index to ensure consistent order
+    preferred_soup_variations.index = preferred_soup_variations.index.astype(str)
+    preferred_soup_variations.sort_index(inplace=True)
+
+    # Get the colors for the bars
+    bar_colors = [color_dict.get(soup_variation, '#000000') for soup_variation in preferred_soup_variations.index]
+
+    # Plot preferred soup variations
     plt.figure(figsize=(8, 6))
-    plt.plot(df['DateTime'], df['Guest_Pax'], marker='o', linestyle='-', color='b')
-    plt.title(f'Average Guest Pax Trend ({frequency.capitalize()})')
-    plt.xlabel('Date')
-    plt.ylabel('Average Guest Pax')
-    plt.grid(True)
+    preferred_soup_variations.plot(kind='bar', color=bar_colors, zorder=2)
+    if frequency == 'Daily':
+        plt.title(f'Preferred Soup Variations ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'Preferred Soup Variations ({last_week_range})')
+    elif frequency == 'Monthly':
+        plt.title(f'Preferred Soup Variations ({last_month_range})')
+    plt.xlabel('Soup Variations')
+    plt.xticks(rotation=45)
+    plt.grid(True, zorder=1)
+    plt.ylabel('Count')
     plt.tight_layout()
-    avg_guest_pax_plot_path = f'{file_path}/avg_guest_pax_plot_{frequency.lower()}.png'
-    plt.savefig(avg_guest_pax_plot_path)
+    soup_path = f'{file_path}/preferred_soup_{frequency.lower()}.png'
+    plt.savefig(soup_path)
     plt.close()
 
     # Insert the plot into the document
-    document.add_picture(avg_guest_pax_plot_path, width=Inches(6))
+    document.add_picture(soup_path, width=Inches(6))
+
+    # Add Best Selling Product section
+    document.add_heading(f"Best Selling Product", level=1)
+    for period, product in best_selling_product.iterrows():
+        document.add_paragraph(f"Period: {product['Period']} - {product['Name']} (Total Sold: {product['Total_Sold']})")
+
+    # Generate and insert the best selling product plot
+    best_selling_product_grouped = best_selling_product.groupby('Name')['Total_Sold'].sum()
+    plt.figure(figsize=(8, 6))
+    best_selling_product_grouped.plot(kind='bar', color='#FF5733', zorder=2)
+    plt.title(f'Best Selling Product ({frequency.capitalize()})')
+    plt.xlabel('Product')
+    plt.xticks(rotation=45)
+    plt.grid(True, zorder=1)
+    plt.ylabel('Total Sold')
+    plt.tight_layout()
+    best_selling_product_plot_path = f'{file_path}/best_selling_product_{frequency.lower()}.png'
+    plt.savefig(best_selling_product_plot_path)
+    plt.close()
+
+    # Insert the best selling product plot into the document
+    document.add_picture(best_selling_product_plot_path, width=Inches(6))
 
     # Add footer
     footer = section.footer
     date = datetime.now().strftime("%B %d, %Y")
     time = datetime.now().strftime("%I:%M %p")
-    username = userManager.get_current_username()  # Assuming userManager handles current user
+    user_manager = userManager._instance
+    username = user_manager.get_current_username()
     footer_paragraph = footer.add_paragraph()
     footer_paragraph.text = f"{date} | {time}    Created by: {username}"
     footer_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
     # Save document
     document.save(f'{file_path}/Sales_Trend_Report_{frequency.lower()}.docx')
-
