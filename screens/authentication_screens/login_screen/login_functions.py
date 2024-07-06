@@ -74,13 +74,12 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                         full_name = f"{first_name} {last_name}"
                         cursor.execute(GET_EMAIL, (user_id,))
                         email = cursor.fetchone()[0]
-                        print(f"Login successful as {department}: Welcome {full_name}!")
                         user_log(user_id, login_action, username)
 
                         # Update Currently logged on user's information
                         self.user_manager.set_department(department)
                         self.user_manager.set_current_username(username)
-
+                        self.user_manager.set_first_name(first_name)
                         self.user_manager.set_current_fullname(full_name)
                         self.user_manager.set_current_user_id(user_id)
                         self.user_manager.set_current_email(email)

@@ -156,8 +156,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         items = ['Regular', 'PWD', 'Senior']
         self.discountBOX.addItems(items)
 
-    def update_fullname_label(self, fullname):
-        self.cashierDISPLAY.setText(fullname)
+    def update_fullname_label(self, firstname):
+        self.cashierDISPLAY.setText(firstname)
 
     def updateDateTime(self):
         # Get the current date and time
@@ -168,7 +168,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.label_11.setText(formattedDateTime)
-        self.update_fullname_label(self.user_manager.get_current_fullname())
+        self.update_fullname_label(self.user_manager.get_first_name())
 
     def goHistory(self):
         self.history_signal.emit()
@@ -518,7 +518,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             return
 
         try:
-            cashier_name = self.user_manager.get_current_fullname()
+            cashier_name = self.user_manager.get_first_name()
             # Update the order table with relevant fields
             cursor = conn.cursor()
             # Insert or update order details in the database
