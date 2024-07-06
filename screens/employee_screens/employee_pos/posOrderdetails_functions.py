@@ -44,7 +44,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
-        self.timer.timeout.connect(self.updateDateTimeAndTable)
+        self.timer.timeout.connect(self.populate_table)
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
@@ -52,8 +52,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         # Connect the selection change signal of the table widget
         self.tableWidget.itemSelectionChanged.connect(self.on_table_selection_changed)
 
-
-        # Populate order id for guide
+        # Populate the table initially
         self.populate_table()
 
     def open_addon_dialog(self):
@@ -64,10 +63,20 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
         self.dialog = AddOrderDialog()
         self.dialog.exec_()
 
+    def goHistory(self):
+        self.history_signal.emit()
 
-    def updateDateTimeAndTable(self):
-        self.updateDateTime()
-        self.populate_table()
+    def goBack(self):
+        self.back_signal.emit()
+
+    def goCheckout(self):
+        self.checkout_signal.emit()
+
+    def goModify(self):
+        self.modify_signal.emit()
+
+    def goMenu(self):
+        self.menu_signal.emit()
 
     def populate_table(self):
         try:
@@ -82,12 +91,17 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                         Payment_Status,
                         Priority_Order
                     FROM `order`
-                    WHERE Payment_Status = 'Waiting for Receipt' or Payment_Status = 'Waiting for Timer'
-                    OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending')
+                    WHERE (Payment_Status = 'Waiting for Receipt' OR Payment_Status = 'Waiting for Timer'
+                    OR (Order_Type = 'Add-ons only' AND Payment_Status = 'Pending'))
+                    AND Payment_Status != 'Cancelled'
                     ORDER BY Priority_Order DESC, Order_ID ASC
                 """
                 cursor.execute(query)
                 records = cursor.fetchall()
+
+                # Clear only the rows in the table widget
+                self.tableWidget.setRowCount(0)
+
                 self.display_records(records)
 
                 header = self.tableWidget.horizontalHeader()
@@ -128,7 +142,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                     if column_names[j] == "Priority Order" and col == "Priority":
                         item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
 
-
     def updateDateTime(self):
         # Get the current date and time
         currentDateTime = QDateTime.currentDateTime()
@@ -138,21 +151,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
         # Set the text of dateLabel to the formatted date and time
         self.date.setText(formattedDateTime)
-
-    def goHistory(self):
-        self.history_signal.emit()
-
-    def goBack(self):
-        self.back_signal.emit()
-
-    def goCheckout(self):
-        self.checkout_signal.emit()
-
-    def goModify(self):
-        self.modify_signal.emit()
-
-    def goMenu(self):
-        self.menu_signal.emit()
 
     def print_receipt(self):
         order_id = self.comboBox_7.text()
@@ -191,8 +189,6 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 WHERE Order_ID = %s
             """, (order_id,))
             conn.commit()
-
-            self.populate_table()
 
             # Fetch detailed order information
             cursor.execute("""
@@ -260,6 +256,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
                 # Create and show the receipt dialog
                 receipt_dialog = ReceiptDialog(order_details_text)
                 receipt_dialog.exec_()
+
+                self.populate_table()
 
             else:
                 QMessageBox.warning(self, "Error", f"No order found for Order ID: {order_id}")
@@ -340,6 +338,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
                 QMessageBox.information(self, "Order Cancelled", "The order has been successfully cancelled.")
 
+                self.comboBox_7.clear()
                 self.populate_table()
 
             else:
@@ -380,6 +379,8 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
                         QMessageBox.information(self, "Timer Started", "The order timer has been started successfully.")
                         self.transaction_generated_signal.emit()
+                        self.comboBox_7.clear()
+
                 else:
                     QMessageBox.warning(self, "Timer Error", "Unsupported order type for timer operation.")
 
@@ -618,9 +619,6 @@ class AddOrderDialog(QDialog):
             # Clear existing items
             self.comboBox_2.clear()
 
-            # Add blank/null option
-            self.comboBox_2.addItem("None")  # Add a blank item
-
             # Add specific values
             self.comboBox_2.addItems(["Hotpot", "Grill", "Hotpot and Grill"])
 
@@ -685,14 +683,14 @@ class AddOrderDialog(QDialog):
                 # Construct the insert query with proper handling of NULL for Guest_Pax
                 insert_query = f"""
                                  INSERT INTO `order` (Order_ID, Date, Time, Package_ID, Payment_Status, 
-                                                      Guest_Pax, Customer_Name, Soup_Variation, Order_Type, Payment_Method, Priority_Order)
+                                                      Guest_Pax, Customer_Name, Soup_Variation, Order_Type, Priority_Order)
                                  VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), 
                                          (SELECT Package_ID FROM package WHERE Package_Name = %s), 
-                                         %s, %s, %s, %s, %s, %s, %s)
+                                         %s, %s, %s, %s, %s, %s)
                              """
                 cursor.execute(insert_query, (
                     new_order_id, current_date, package_name, payment_status, guest_capacity, customer_name,
-                    soup_variation, order_type, 'Pending', priority_order))
+                    soup_variation, order_type, priority_order))
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")
@@ -727,7 +725,7 @@ class AddOrderDialog(QDialog):
         else:
             self.lineEdit_9.setStyleSheet("border: 1px solid green;")
 
-        if not package_name or package_name == "None":
+        if not package_name:
             self.comboBox_2.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -739,14 +737,18 @@ class AddOrderDialog(QDialog):
         else:
             self.lineEdit_7.setStyleSheet("border: 1px solid green;")
 
-        if not soup_variation or (soup_variation == 'None' and package_name != "Grill"):
-            self.comboBox_3.setStyleSheet("border: 1px solid red;")
-            valid = False
-        elif package_name == "Grill" and soup_variation != "None":
-            self.comboBox_3.setStyleSheet("border: 1px solid red;")
-            valid = False
+        if package_name == "Grill":
+            if soup_variation is not None:
+                self.comboBox_3.setStyleSheet("border: 1px solid red;")
+                valid = False
+            else:
+                self.comboBox_3.setStyleSheet("border: 1px solid green;")
         else:
-            self.comboBox_3.setStyleSheet("border: 1px solid green;")
+            if not soup_variation or soup_variation == "None":
+                self.comboBox_3.setStyleSheet("border: 1px solid red;")
+                valid = False
+            else:
+                self.comboBox_3.setStyleSheet("border: 1px solid green;")
 
         if not valid:
             QMessageBox.warning(self, "Warning", "Please fill in all fields correctly.")
@@ -950,11 +952,11 @@ class AddonsDialog(QDialog):
                 # Construct the insert query with proper handling of NULL for Guest_Pax
                 insert_query = """
                                INSERT INTO `order` (Order_ID, Date, Time, Payment_Status, Customer_Name, 
-                                                    Order_Type, Payment_Method, Priority_Order)
-                               VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), %s, %s, %s, %s, %s)
+                                                    Order_Type, Priority_Order)
+                               VALUES (%s, %s, TIME_FORMAT(NOW(), '%H:%i'), %s, %s, %s, %s)
                                """
                 cursor.execute(insert_query, (
-                    new_order_id, current_date, payment_status, customer_name, order_type, 'Pending', priority_order))
+                    new_order_id, current_date, payment_status, customer_name, order_type, priority_order))
                 conn.commit()
 
                 QMessageBox.information(self, "Success", "Order saved successfully.")

@@ -46,6 +46,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox)
         self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox)
 
+        self.populate_table_2()
+
         #Populate orderidBOX
         self.populate_comboBox()
         self.populate_discountBOX()
@@ -95,6 +97,60 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.add_ons_total_amount = Decimal(0)
         self.total_amount = Decimal(0)
         self.add_ons_rows = []
+
+    def populate_table_2(self):
+        try:
+            if conn.is_connected():
+                cursor = conn.cursor()
+                query = """
+                    SELECT 
+                        Order_ID,
+                        Customer_Name,
+                        Order_Type,
+                        Payment_Status,
+                        Priority_Order
+                    FROM `order`
+                    WHERE Payment_Status = 'Pending'
+                    ORDER BY Priority_Order DESC, Order_ID ASC
+                """
+                cursor.execute(query)
+                records_2 = cursor.fetchall()
+                self.display_records_2(records_2)
+                self.orderList_2.setColumnWidth(3, 60)
+                self.orderList_2.setColumnWidth(4, 120)
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def display_records_2(self, records_2):
+        column_names = [
+            "Order ID",
+            "Customer Name",
+            "Order Type",
+            "Payment Status",
+            "Priority Order"
+        ]
+
+        if records_2:
+            self.orderList_2.setRowCount(len(records_2))
+            self.orderList_2.setColumnCount(len(column_names))
+
+            for j, name in enumerate(column_names):
+                item = QTableWidgetItem(name)
+                self.orderList_2.setHorizontalHeaderItem(j, item)
+
+            for i, row in enumerate(records_2):
+                for j, col in enumerate(row):
+                    item = QTableWidgetItem(str(col))  # Always convert to string
+                    self.orderList_2.setItem(i, j, item)
+
+                    # Apply conditional formatting for the "Priority Order" column
+                    if column_names[j] == "Priority Order" and col == "Priority":
+                        item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
+
+            header = self.orderList_2.horizontalHeader()
+            header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     def populate_discountBOX(self):
         items = ['Regular', 'PWD', 'Senior']

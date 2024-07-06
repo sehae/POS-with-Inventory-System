@@ -221,7 +221,7 @@ class AddDialog(QDialog):
         self.pushButton_5.clicked.connect(self.confirm_clear_fields)
 
         # Add items to comboBox
-        self.comboBox.addItems(["Ingredient", "Beverage", "Food", "Miscellaneous"])
+        self.comboBox.addItems(["Ingredient", "Beverage"])
         self.comboBox.setCurrentIndex(-1)  # No initial selection
 
         # Call populateComboBox to fill comboBox_2 with supplier names
@@ -468,7 +468,7 @@ class AddDialog(QDialog):
 
             if latest_product_id:
                 # Extract numeric part and increment
-                numeric_part = latest_product_id[3:]  # Assuming Product_ID format is POSNNN
+                numeric_part = latest_product_id[3:]  # Assuming Product_ID format is PRDNNN
                 product_number = int(numeric_part)
                 new_product_number = product_number + 1
                 next_product_number = f"{new_product_number:03d}"
@@ -501,8 +501,8 @@ class AddDialog(QDialog):
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'Active', %s, %s)
             """
             product_values = (
-                new_product_id, name, quantity, quantity, category, expiry_date, threshold_value, availability, current_date,
-                current_time)
+            new_product_id, name, quantity, quantity, category, expiry_date, threshold_value, availability,
+            current_date, current_time)
             cursor.execute(product_query, product_values)
 
             barcode_str = generate_barcode(name)
@@ -510,10 +510,10 @@ class AddDialog(QDialog):
             # Insert into inventory table
             if category == "Ingredient":
                 inventory_query = """
-                    INSERT INTO inventory (Supplier_ID, Product_ID, Barcode) 
-                    VALUES (%s, %s, %s)
+                    INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Barcode) 
+                    VALUES (%s, %s, %s, %s)
                 """
-                inventory_values = (supplier_id, new_product_id, barcode_str)
+                inventory_values = (supplier_id, new_product_id, buying_cost, barcode_str)
             else:
                 inventory_query = """
                     INSERT INTO inventory (Supplier_ID, Product_ID, Buying_Cost, Selling_Cost, Barcode) 
@@ -547,7 +547,7 @@ class AddDialog(QDialog):
         else:
             self.lineEdit_2.setStyleSheet("border: 1px solid green;")
 
-        if category not in ["Ingredient", "Beverage", "Food", "Miscellaneous"]:
+        if category not in ["Ingredient", "Beverage"]:
             self.comboBox.setStyleSheet("border: 1px solid red;")
             valid = False
         else:
@@ -565,9 +565,10 @@ class AddDialog(QDialog):
         else:
             try:
                 buying_cost_float = float(buying_cost)
-                if not (buying_cost_float.is_integer() or round(buying_cost_float % 1, 2) == 0.00):
+                if round(buying_cost_float % 1, 2) == 0.00:
+                    self.lineEdit_3.setStyleSheet("border: 1px solid green;")
+                else:
                     raise ValueError("Buying cost must have exactly two decimal places.")
-                self.lineEdit_3.setStyleSheet("border: 1px solid green;")
             except ValueError:
                 self.lineEdit_3.setStyleSheet("border: 1px solid red;")
                 valid = False
@@ -586,9 +587,10 @@ class AddDialog(QDialog):
             else:
                 try:
                     selling_cost_float = float(selling_cost)
-                    if not (selling_cost_float.is_integer() or round(selling_cost_float % 1, 2) == 0.00):
+                    if round(selling_cost_float % 1, 2) == 0.00:
+                        self.lineEdit_5.setStyleSheet("border: 1px solid green;")
+                    else:
                         raise ValueError("Selling cost must have exactly two decimal places.")
-                    self.lineEdit_5.setStyleSheet("border: 1px solid green;")
                 except ValueError:
                     self.lineEdit_5.setStyleSheet("border: 1px solid red;")
                     valid = False
@@ -670,7 +672,6 @@ class AddDialog(QDialog):
     def open_barcode(self):
         self.barcode_dialog = BarcodeDialog()
         self.barcode_dialog.show()
-
 
 class ModifyDialog(QDialog):
     product_update_signal = QtCore.pyqtSignal()
@@ -930,7 +931,7 @@ class ModifyDialog(QDialog):
         valid = True
 
 
-        if category not in ["Ingredient", "Beverage", "Food", "Miscellaneous"]:
+        if category not in ["Ingredient", "Beverage"]:
             self.comboBox_2.setStyleSheet("border: 1px solid red;")
             valid = False
         else:

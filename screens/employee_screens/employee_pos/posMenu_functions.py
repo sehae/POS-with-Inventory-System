@@ -48,6 +48,8 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
+        self.timer.timeout.connect(self.populate_table)
+        self.timer.timeout.connect(self.populate_table_2)
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
@@ -124,6 +126,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
                     # Apply conditional formatting for the "Priority Order" column
                     if column_names[j] == "Priority Order" and col == "Priority":
                         item.setBackground(QtGui.QColor(255, 215, 0))  # Gold color for priority
+
+            header = self.tableWidget_3.horizontalHeader()
+            header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     def on_table_3_item_selected(self):
         selected_items = self.tableWidget_3.selectedItems()
