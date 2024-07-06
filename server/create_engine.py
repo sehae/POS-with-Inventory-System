@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine
 
 def get_db_engine():
-    # Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
-    engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
+    username = 'root'
+    password = 'root'
+    host = 'localhost'
+    engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}/poswithinventorysystem')
     return engine
