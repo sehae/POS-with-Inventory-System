@@ -8,9 +8,7 @@ from screens.receipt.receipt_dialog import ReceiptDialog
 from PyQt5.QtCore import QTime
 from PyQt5.QtGui import QIntValidator, QRegularExpressionValidator
 from PyQt5.QtCore import QRegularExpression
-
 from validator.user_manager import userManager
-
 
 class posOrderdetails(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()

@@ -111,8 +111,6 @@ class posHistory(QMainWindow, Ui_MainWindow):
             for i in range(len(column_names)):
                 header_item = self.tableWidget_2.horizontalHeaderItem(i)
                 header_item.setTextAlignment(Qt.AlignCenter | Qt.TextWordWrap)
-        else:
-            print("No records found in the order table.")
 
     def search_table(self):
         search_text = self.searchFIELD.text().lower()

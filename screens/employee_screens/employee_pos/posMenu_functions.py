@@ -1,8 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QMainWindow
-from PyQt5.QtCore import QDateTime, QTimer, QRegExp
-
+from PyQt5.QtCore import QDateTime, QTimer, QRegExp, Qt
 # Assuming these imports are part of your project structure
 from screens.employee_screens.employee_pos.posMenu import Ui_MainWindow
 from shared.navigation_signal import auth_back, pos_back
@@ -10,6 +9,8 @@ from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
 from screens.employee_screens.employee_pos.posOrderdetails_functions import posOrderdetails
 from PyQt5.QtGui import QIntValidator
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+
 
 import json
 
@@ -75,6 +76,90 @@ class posMenu(QMainWindow, Ui_MainWindow):
 
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_3.setReadOnly(True)
+
+        self.pushButton_10.clicked.connect(self.open_add_on_dialog)
+
+    def open_add_on_dialog(self):
+        selected_items = self.tableWidget_2.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "No Selection", "Please select products to add as add-ons.")
+            return
+
+        selected_products = set()  # Use a set to store unique product names
+        for item in selected_items:
+            row = item.row()
+            product_name = self.tableWidget_2.item(row, 0).text()  # Assuming product name is in the first column
+            product_id = self.get_product_id_by_name(product_name)  # Implement this method to get product ID
+            selected_products.add((product_id, product_name))  # Use a tuple (product_id, product_name) for uniqueness
+
+        # Convert set of tuples back to a list of dictionaries for dialog initialization
+        selected_products = [{"id": prod[0], "name": prod[1]} for prod in selected_products]
+
+        dialog = AddOnDialog(self, selected_products)
+        if dialog.exec_():
+            product_quantities = dialog.save_add_on()
+            self.process_add_on(product_quantities)
+
+    def get_product_id_by_name(self, product_name):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT Product_ID FROM product WHERE Name = %s AND Status = 'Active'", (product_name,))
+            product_id = cursor.fetchone()
+            return product_id[0] if product_id else None
+        except Exception as e:
+            print(f"Error fetching product ID: {e}")
+        finally:
+            if conn.is_connected():
+                cursor.close()
+
+    def process_add_on(self, product_quantities):
+        order_id = self.lineEdit_2.text()
+        try:
+            cursor = conn.cursor()
+
+            for product in product_quantities:
+                product_id = product["product_id"]
+                quantity = product["quantity"]
+
+                cursor.execute("SELECT Quantity FROM product WHERE Product_ID = %s AND Status = 'Active'", (product_id,))
+                current_quantity = cursor.fetchone()[0]
+
+                if current_quantity < quantity:
+                    QMessageBox.warning(self, "Insufficient Stock", f"Only {current_quantity} units available for {product['name']}.")
+                    return
+
+                cursor.execute("SELECT Product_Details FROM add_on WHERE Order_ID = %s", (order_id,))
+                existing_record = cursor.fetchone()
+
+                if existing_record:
+                    product_details = json.loads(existing_record[0])
+                    updated = False
+                    for item in product_details:
+                        if item['product_id'] == product_id:
+                            item['quantity'] += quantity
+                            updated = True
+                            break
+                    if not updated:
+                        product_details.append({"product_id": product_id, "quantity": quantity})
+                    cursor.execute("UPDATE add_on SET Product_Details = %s WHERE Order_ID = %s", (json.dumps(product_details), order_id))
+                else:
+                    product_details = [{"product_id": product_id, "quantity": quantity}]
+                    cursor.execute("INSERT INTO add_on (Order_ID, Product_Details) VALUES (%s, %s)", (order_id, json.dumps(product_details)))
+
+                new_quantity = current_quantity - quantity
+                cursor.execute("UPDATE product SET Quantity = %s WHERE Product_ID = %s", (new_quantity, product_id))
+
+            conn.commit()
+            QMessageBox.information(self, "Success", "Add-ons saved successfully!")
+            self.populate_table()
+
+        except Exception as e:
+            conn.rollback()
+            QMessageBox.critical(self, "Error", f"An error occurred while saving the add-ons: {e}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
 
     def populate_table_2(self):
         try:
@@ -290,7 +375,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
             cursor = conn.cursor()
 
             # Get the product_id and current quantity for the selected product_name
-            cursor.execute("SELECT Product_ID, Quantity FROM `product` WHERE Name = %s AND Status = 'Active'",
+            cursor.execute("SELECT Product_ID, Quantity FROM product WHERE Name = %s AND Status = 'Active'",
                            (product_name,))
             product_record = cursor.fetchone()
             if not product_record:
@@ -303,7 +388,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
                 return
 
             # Check if the order_id already exists in the add_on table
-            cursor.execute("SELECT Product_Details FROM `add_on` WHERE Order_ID = %s", (order_id,))
+            cursor.execute("SELECT Product_Details FROM add_on WHERE Order_ID = %s", (order_id,))
             existing_record = cursor.fetchone()
 
             if existing_record:
@@ -322,7 +407,7 @@ class posMenu(QMainWindow, Ui_MainWindow):
                     product_details.append({"product_id": product_id, "quantity": quantity})
 
                 cursor.execute(
-                    "UPDATE `add_on` SET Product_Details = %s WHERE Order_ID = %s",
+                    "UPDATE add_on SET Product_Details = %s WHERE Order_ID = %s",
                     (json.dumps(product_details), order_id)
                 )
 
@@ -330,14 +415,14 @@ class posMenu(QMainWindow, Ui_MainWindow):
                 # Order_ID does not exist, insert a new record
                 product_details = [{"product_id": product_id, "quantity": quantity}]
                 cursor.execute(
-                    "INSERT INTO `add_on` (Order_ID, Product_Details) VALUES (%s, %s)",
+                    "INSERT INTO add_on (Order_ID, Product_Details) VALUES (%s, %s)",
                     (order_id, json.dumps(product_details))
                 )
 
             # Deduct the quantity from the product table
             new_quantity = current_quantity - quantity
             cursor.execute(
-                "UPDATE `product` SET Quantity = %s WHERE Product_ID = %s",
+                "UPDATE product SET Quantity = %s WHERE Product_ID = %s",
                 (new_quantity, product_id)
             )
 
@@ -361,3 +446,71 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.lineEdit_8.clear()
         self.lineEdit.clear()
         self.lineEdit_8.setStyleSheet("")
+
+class AddOnDialog(QDialog):
+    def __init__(self, parent=None, selected_products=[]):
+        super().__init__(parent)
+        self.setWindowTitle("Add Add-ons")
+        self.selected_products = selected_products
+        self.init_ui()
+
+    def init_ui(self):
+        layout = QVBoxLayout()
+
+        # Header labels
+        header_layout = QHBoxLayout()
+        header_product_name = QLabel("Product Name")
+        header_quantity = QLabel("Quantity")
+        header_quantity.setAlignment(Qt.AlignRight | Qt.AlignVCenter)  # Align quantity label to the right
+        header_layout.addWidget(header_product_name)
+        header_layout.addWidget(header_quantity)
+        layout.addLayout(header_layout)
+
+        self.product_quantity_inputs = []
+
+        for product in self.selected_products:
+            product_layout = QHBoxLayout()
+
+            product_name_label = QLabel(product["name"])
+            product_name_label.setMinimumWidth(150)  # Adjust width as needed
+            product_layout.addWidget(product_name_label)
+
+            quantity_input = QLineEdit()
+            quantity_input.setValidator(QIntValidator())
+            quantity_input.setFixedWidth(80)  # Set a fixed width for the QLineEdit
+            product_layout.addWidget(quantity_input)
+
+            product_layout.setAlignment(Qt.AlignLeft)  # Align the product layout to the left
+
+            self.product_quantity_inputs.append({
+                "product_id": product["id"],
+                "name": product["name"],
+                "quantity_input": quantity_input
+            })
+
+            layout.addLayout(product_layout)
+
+            # Add some spacing between each product's layout
+            layout.addSpacing(10)  # Adjust as needed for spacing between rows
+
+        self.save_button = QPushButton("Save")
+        self.save_button.clicked.connect(self.save_add_on)
+        layout.addWidget(self.save_button)
+
+        self.setLayout(layout)
+
+    def save_add_on(self):
+        product_quantities = []
+        for product_input in self.product_quantity_inputs:
+            quantity_text = product_input["quantity_input"].text()
+            if not quantity_text.isdigit() or int(quantity_text) <= 0:
+                QMessageBox.warning(self, "Invalid Input", f"Invalid quantity for {product_input['name']}. Please enter a positive integer.")
+                return
+
+            product_quantities.append({
+                "product_id": product_input["product_id"],
+                "quantity": int(quantity_text)
+            })
+
+        self.accept()
+        return product_quantities
