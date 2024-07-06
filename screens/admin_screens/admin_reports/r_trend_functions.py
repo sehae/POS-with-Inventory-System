@@ -2,10 +2,11 @@ import os
 from PyQt5 import QtCore
 from PyQt5.QtCore import QDateTime
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
-from modules.reports_and_analysis.generate_trend import load_config, save_config, generate_report, dataframe
+from modules.reports_and_analysis.generate_trend import load_config, save_config, analyze_avg_guest_pax, \
+    analyze_preferred_soup_variations, analyze_best_selling_product, save_report_to_word, generate_daily_report, \
+    generate_weekly_report, generate_monthly_report
 from screens.admin_screens.admin_reports.report_trend import Ui_MainWindow
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
-
 
 class trendReport(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -64,15 +65,27 @@ class trendReport(QMainWindow, Ui_MainWindow):
             return
 
         frequency = self.frequencyBOX.currentText()
-        try:
-            generate_report(dataframe, frequency, self.directory)
-            QMessageBox.information(self, "Success",
-                                    f"{frequency.capitalize()} report has been generated and saved to '{self.directory}'")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        success = False
 
-        self.displayReport(frequency)
+        if frequency == "Daily":
+            dataframe = generate_daily_report()
+        elif frequency == "Weekly":
+            dataframe = generate_weekly_report()
+        elif frequency == "Monthly":
+            dataframe = generate_monthly_report()
 
-    def displayReport(self, frequency):
-        # Logic to display the generated report, if needed
-        pass
+        avg_guest_pax = analyze_avg_guest_pax(dataframe, frequency.lower())
+        preferred_soup_variations = analyze_preferred_soup_variations(dataframe, frequency.lower())
+        best_selling_product = analyze_best_selling_product(dataframe)
+
+        # Generate and save report
+        save_report_to_word(dataframe, frequency, self.directory, avg_guest_pax, preferred_soup_variations,
+                            best_selling_product)
+        success = True
+
+        if success:
+            print("Report generated successfully.")
+
+            # Optional: Display a message box or update UI to notify the user
+            QMessageBox.information(self, "Report Generated",
+                                    f"Sales Trend Report ({frequency}): Successfully generated and saved.")
