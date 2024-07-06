@@ -9,6 +9,7 @@ from docx.shared import Inches, Pt
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
+from server.create_engine import get_db_engine
 from validator.user_manager import userManager
 
 def load_config():
@@ -28,8 +29,7 @@ def save_config(sales_path):
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
 
-# Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
-engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
+engine = get_db_engine()
 
 # Query to join order, leftover, and package tables
 query = """
@@ -184,15 +184,17 @@ def save_report_to_excel(report_data, report_type, file_path):
 def save_report_to_word(report_data, report_type, file_path):
     document = Document()
 
+    # Set up sections and headers
     section = document.sections[0]
     header = section.header
-    month = datetime.now().strftime("%B")
+    today = datetime.today()
+    month_year_today = today.strftime("%B %Y")
     content_header = [
         "Moon Hey Hotpot and Grill",
         "848A Banawe St, Quezon City, 1114 Metro Manila",
         "0917 624 9289",
-        f"Sales {report_type} Report",
-        f"({month})",
+        f"Trend Analysis {report_type} Report",
+        f"({month_year_today})",
     ]
 
     for content_h in content_header:

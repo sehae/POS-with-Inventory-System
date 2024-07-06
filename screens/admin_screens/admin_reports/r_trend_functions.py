@@ -1,12 +1,17 @@
 import os
 from PyQt5 import QtCore
-from PyQt5.QtCore import QDateTime
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from PyQt5.QtCore import QDateTime, QTimer
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QGraphicsPixmapItem, QGraphicsScene
+
+from modules.maintenance.user_logs import user_log
 from modules.reports_and_analysis.generate_trend import load_config, save_config, analyze_avg_guest_pax, \
     analyze_preferred_soup_variations, analyze_best_selling_product, save_report_to_word, generate_daily_report, \
     generate_weekly_report, generate_monthly_report
 from screens.admin_screens.admin_reports.report_trend import Ui_MainWindow
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
+from validator.user_manager import userManager
+
 
 class trendReport(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
@@ -28,6 +33,10 @@ class trendReport(QMainWindow, Ui_MainWindow):
         self.directory = config.get('DEFAULT', 'trend_path', fallback=None)
         if self.directory:
             self.filelocDISPLAY.setText(self.directory)
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.updateDateTime)
+        self.timer.start(1000)  # Update every second
 
         self.UiComponents()
 
@@ -88,4 +97,26 @@ class trendReport(QMainWindow, Ui_MainWindow):
 
             # Optional: Display a message box or update UI to notify the user
             QMessageBox.information(self, "Report Generated",
-                                    f"Sales Trend Report ({frequency}): Successfully generated and saved.")
+                                    f"{frequency} Trend Report: Successfully generated and saved.")
+
+            user_manager = userManager._instance
+            current_id = user_manager.get_current_user_id()
+            username = user_manager.get_current_username()
+            user_log(current_id, 18, username, f"Trend Report ({frequency})")
+        else:
+            QMessageBox.warning(self, "Failed", f"Failed to generate {frequency} report.")
+
+        self.displayReport(frequency)
+
+    def displayReport(self, frequency):
+        viewer1scene = QGraphicsScene()
+        viewer2scene = QGraphicsScene()
+
+        viewer1Pixmap = QPixmap(f'{self.directory}/preferred_soup_{frequency.lower()}.png')
+        viewer2Pixmap = QPixmap(f'{self.directory}/best_selling_product_{frequency.lower()}.png')
+
+        viewer1scene.addPixmap(viewer1Pixmap)
+        viewer2scene.addPixmap(viewer2Pixmap)
+
+        self.viewer1.setScene(viewer1scene)
+        self.viewer2.setScene(viewer2scene)

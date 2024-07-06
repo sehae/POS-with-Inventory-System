@@ -5,10 +5,12 @@ from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QGraphicsScene, QGraphicsPixmapItem
 
+from modules.maintenance.user_logs import user_log
 from modules.reports_and_analysis.generate_sales import save_config, load_config, generate_daily_report, generate_weekly_report, \
     generate_monthly_report, plot_reports, save_report_to_excel, save_report_to_word
 from screens.admin_screens.admin_reports.report_sales import Ui_MainWindow
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
+from validator.user_manager import userManager
 
 
 class salesReport(QMainWindow, Ui_MainWindow):
@@ -96,7 +98,15 @@ class salesReport(QMainWindow, Ui_MainWindow):
             success = True
 
         if success:
-            QMessageBox.information(self, "Success", f"{frequency.capitalize()} report has been generated and saved to '{self.directory}'")
+            QMessageBox.information(self, "Report Generated",
+                                    f"{frequency} Sales Report: Successfully generated and saved.")
+
+            user_manager = userManager._instance
+            current_id = user_manager.get_current_user_id()
+            username = user_manager.get_current_username()
+            user_log(current_id, 18, username, f"Sales Report ({frequency})")
+        else:
+            QMessageBox.warning(self, "Failed", f"Failed to generate {frequency} report.")
 
         self.displayReport(frequency)
 
@@ -116,5 +126,3 @@ class salesReport(QMainWindow, Ui_MainWindow):
         self.viewer1.setScene(viewer1scene)
         self.viewer2.setScene(viewer2scene)
         self.viewer3.setScene(viewer3scene)
-
-

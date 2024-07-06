@@ -9,6 +9,7 @@ from docx.shared import Inches, Pt
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
+from server.create_engine import get_db_engine
 from validator.user_manager import userManager
 
 def load_config():
@@ -28,8 +29,7 @@ def save_config(trend_path):
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
 
-# Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
-engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
+engine = get_db_engine()
 
 # Query to join order, leftover, package, and add_on tables
 query = """
@@ -283,7 +283,12 @@ def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_
     best_selling_product_grouped = best_selling_product.groupby('Name')['Total_Sold'].sum()
     plt.figure(figsize=(8, 6))
     best_selling_product_grouped.plot(kind='bar', color='#FF5733', zorder=2)
-    plt.title(f'Best Selling Product ({frequency.capitalize()})')
+    if frequency == 'Daily':
+        plt.title(f'Best Selling Product ({date_today})')
+    elif frequency == 'Weekly':
+        plt.title(f'Best Selling Product ({last_week_range})')
+    elif frequency == 'Monthly':
+        plt.title(f'Best Selling Product ({last_month_range})')
     plt.xlabel('Product')
     plt.xticks(rotation=45)
     plt.grid(True, zorder=1)

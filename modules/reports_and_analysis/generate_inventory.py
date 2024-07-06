@@ -9,6 +9,7 @@ from docx.shared import Inches, Pt
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
+from server.create_engine import get_db_engine
 from validator.user_manager import userManager
 
 
@@ -30,9 +31,7 @@ def save_config(report_path):
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
 
-
-# Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
-engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
+engine = get_db_engine()
 
 # Query to join product, supplier, and inventory tables
 query = """
@@ -41,7 +40,7 @@ SELECT
     p.Date,
     p.Time,
     p.Name, 
-    p.Quantity, 
+    p.Original_Quantity, 
     p.Threshold_Value, 
     p.Expiry_Date, 
     p.Availability, 
@@ -107,7 +106,7 @@ def plot_reports(report_data, frequency, file_path):
 
     # Inventory Levels by Product
     plt.figure(figsize=(10, 6))
-    plt.bar(report_data['Name'], report_data['Quantity'], color='blue')
+    plt.bar(report_data['Name'], report_data['Original_Quantity'], color='blue')
     plt.xlabel('Product Name')
     plt.ylabel('Quantity')
     plt.title(f'Inventory Levels by Product ({frequency})')
@@ -176,17 +175,18 @@ def save_report_to_excel(report_data, report_type, file_path):
 def save_report_to_word(report_data, report_type, file_path):
     document = Document()
 
+    # Set up sections and headers
     section = document.sections[0]
     header = section.header
-    month = datetime.now().strftime("%B")
+    today = datetime.today()
+    month_year_today = today.strftime("%B %Y")
     content_header = [
         "Moon Hey Hotpot and Grill",
         "848A Banawe St, Quezon City, 1114 Metro Manila",
         "0917 624 9289",
-        f"Inventory {report_type} Report",
-        f"({month})",
+        f"Trend Analysis {report_type} Report",
+        f"({month_year_today})",
     ]
-
     for content_h in content_header:
         header_paragraph = header.add_paragraph(content_h)
         run = header_paragraph.runs[0]
@@ -212,7 +212,7 @@ def save_report_to_word(report_data, report_type, file_path):
     supplier_totals = {}
     for supplier in suppliers:
         supplier_data = report_data[report_data['Supplier_Name'] == supplier]
-        total_spent = (supplier_data['Buying_Cost'] * supplier_data['Quantity']).sum()
+        total_spent = (supplier_data['Buying_Cost'] * supplier_data['Original_Quantity']).sum()
         supplier_totals[supplier] = total_spent
 
     # Add supplier-wise information
@@ -225,7 +225,7 @@ def save_report_to_word(report_data, report_type, file_path):
         products = supplier_data['Name'].unique()
         for product in products:
             product_data = supplier_data[supplier_data['Name'] == product]
-            total_product_spent = (product_data['Buying_Cost'] * product_data['Quantity']).sum()
+            total_product_spent = (product_data['Buying_Cost'] * product_data['Original_Quantity']).sum()
             price = product_data['Buying_Cost'].iloc[0]
 
             # Include expiry date and date of purchase
@@ -235,7 +235,7 @@ def save_report_to_word(report_data, report_type, file_path):
             document.add_paragraph(f"Product: {product}")
             document.add_paragraph(f"Total spent on this product: ₱{total_product_spent:,.2f}")
             document.add_paragraph(f"Price per unit: ₱{price:,.2f}")
-            document.add_paragraph(f"Quantity bought: {product_data['Quantity'].sum()}")
+            document.add_paragraph(f"Quantity bought: {product_data['Original_Quantity'].sum()}")
             document.add_paragraph(f"Expiry Date: {expiry_date}")
             document.add_paragraph(f"Date of Purchase: {date_of_purchase}\n")
 
@@ -246,7 +246,7 @@ def save_report_to_word(report_data, report_type, file_path):
     plot_paths = {
         'Inventory Levels': f'{file_path}/inventory_levels_{report_type.lower()}.png',
         'Inventory Status': f'{file_path}/inventory_status_{report_type.lower()}.png',
-        'Expiry Date Analysis': f'{file_path}/expiry_date_{report_type.lower()}.png'
+        'Expiry Date Analysis': f'{file_path}/expiry_date_time_series_{report_type.lower()}.png'
     }
 
     for title, path in plot_paths.items():
