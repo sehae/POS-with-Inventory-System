@@ -43,13 +43,10 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         self.pos_orderdetails = posOrderdetails()
 
-        self.pos_orderdetails.transaction_generated_signal.connect(self.populate_comboBox)
-        self.pos_orderdetails.update_combobox_signal.connect(self.populate_comboBox)
+        self.orderList_2.itemSelectionChanged.connect(self.on_orderid_selected)
 
         self.populate_table_2()
 
-        #Populate orderidBOX
-        self.populate_comboBox()
         self.populate_discountBOX()
         self.populate_leftoverBOX()
 
@@ -58,6 +55,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         # Connect the timeout signal of the timer to the updateDateTime slot
         self.timer.timeout.connect(self.updateDateTime)
+        self.timer.timeout.connect(self.populate_table_2)
 
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
@@ -76,6 +74,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         # Hide row numbers
         self.orderList.verticalHeader().setVisible(False)
         self.orderList.horizontalHeader().setVisible(False)
+
+        self.orderidFIELD.setReadOnly(True)
 
         self.amountFIELD.setValidator(QDoubleValidator(0.00, 99999.99, 2))
 
@@ -97,6 +97,13 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.add_ons_total_amount = Decimal(0)
         self.total_amount = Decimal(0)
         self.add_ons_rows = []
+
+    def on_orderid_selected(self):
+        selected_items = self.orderList_2.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            order_id = self.orderList_2.item(selected_row, 0).text()  # Assuming 'Order ID' is in the first column
+            self.orderidFIELD.setText(order_id)
 
     def populate_table_2(self):
         try:
@@ -185,23 +192,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
     def goOrder(self):
         self.order_signal.emit()
 
-    def populate_comboBox(self):
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT Order_ID FROM `order` WHERE Payment_Status = 'Pending'")
-            order_ids = cursor.fetchall()
-
-            self.orderidBOX.clear()
-            for order_id in order_ids:
-                self.orderidBOX.addItem(str(order_id[0]))
-
-        except Exception as e:
-            print(f"Error occurred while populating orderidBOX: {e}")
-
-        finally:
-            if conn.is_connected():
-                cursor.close()
-
     def set_changes(self):
         cash_amount_text = self.amountFIELD.text()
         self.reference_id = self.referenceFIELD.text()
@@ -231,7 +221,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
     def save_changes(self):
         # Ensure order ID is selected
-        order_id = self.orderidBOX.currentText()
+        order_id = self.orderidFIELD.text()
         if not order_id:
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
             return
@@ -253,7 +243,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         print(f"Leftover ID: {self.leftover_id}")  # Debug statement
 
         # Ensure order ID is selected
-        order_id = self.orderidBOX.currentText()
+        order_id = self.orderidFIELD.text()
         if not order_id:
             QMessageBox.warning(self, "Input Error", "Please select an order ID.")
             return
@@ -285,7 +275,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.leftoverBOX.addItems(items)
 
     def check_order_details(self):
-        order_id = self.orderidBOX.currentText()
+        order_id = self.orderidFIELD.text()
         cash_amount = self.cash_amount
         reference_id = self.reference_id
         penalty_fee = self.penalty_fee
@@ -510,7 +500,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 header.setSectionResizeMode(col, QHeaderView.Fixed)
 
     def save_order_details(self):
-        order_id = self.orderidBOX.currentText()
+        order_id = self.orderidFIELD.text()
 
         # Check if cash amount and reference ID are set
         if not self.cash_amount:
@@ -545,7 +535,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             cursor.close()
 
     def print_receipt(self):
-        order_id = self.orderidBOX.currentText()
+        order_id = self.orderidFIELD.text()
 
         try:
             cursor = conn.cursor()
@@ -581,7 +571,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             receipt_text = receipt_header + f"""
     Date & Time: {self.label_11.text()}
-    Order ID: {self.orderidBOX.currentText()}
+    Order ID: {self.orderidFIELD.text()}
     Customer Name: {customer_name}
     """
 

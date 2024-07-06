@@ -539,95 +539,10 @@ QPushButton:pressed {
                    <property name="bottomMargin">
                     <number>15</number>
                    </property>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_3">
-                     <property name="text">
-                      <string>Subtotal</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Vat (12%)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLabel" name="subtotalDISPLAY">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QLabel" name="vatDISPLAY">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_13">
                      <property name="text">
                       <string>Total Package Amount</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_14">
-                     <property name="text">
-                      <string>Total Add-ons Amount</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_16">
-                     <property name="text">
-                      <string>Leftover Cost</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="label_15">
-                     <property name="text">
-                      <string>Discount (Senior/PWD)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="1">
-                    <widget class="QLabel" name="leftoverDISPLAY">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="1">
-                    <widget class="QLabel" name="discountDISPLAY">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLabel" name="addonsAmountDISPLAY">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -641,15 +556,83 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="0">
-                    <widget class="QLabel" name="label_29">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_14">
                      <property name="text">
-                      <string>Change Amount</string>
+                      <string>Total Add-ons Amount</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="1">
-                    <widget class="QLabel" name="changeDISPLAY">
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="addonsAmountDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_3">
+                     <property name="text">
+                      <string>Subtotal</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="subtotalDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_5">
+                     <property name="text">
+                      <string>Vat (12%)</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QLabel" name="vatDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_15">
+                     <property name="text">
+                      <string>Discount (Senior/PWD)</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QLabel" name="discountDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_16">
+                     <property name="text">
+                      <string>Leftover Cost</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QLabel" name="leftoverDISPLAY">
                      <property name="text">
                       <string/>
                      </property>
@@ -692,6 +675,40 @@ QPushButton:pressed {
                      </property>
                     </widget>
                    </item>
+                   <item row="9" column="0">
+                    <widget class="QLabel" name="label_22">
+                     <property name="text">
+                      <string>Cash Amount</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="1">
+                    <widget class="QLabel" name="cashamountDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="10" column="0">
+                    <widget class="QLabel" name="label_29">
+                     <property name="text">
+                      <string>Change Amount</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="10" column="1">
+                    <widget class="QLabel" name="changeDISPLAY">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="11" column="0">
                     <widget class="QLabel" name="label_17">
                      <property name="font">
@@ -715,23 +732,6 @@ QPushButton:pressed {
                        <bold>true</bold>
                       </font>
                      </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="9" column="0">
-                    <widget class="QLabel" name="label_22">
-                     <property name="text">
-                      <string>Cash Amount</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="9" column="1">
-                    <widget class="QLabel" name="cashamountDISPLAY">
                      <property name="text">
                       <string/>
                      </property>
@@ -765,30 +765,19 @@ QPushButton:pressed {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QComboBox" name="orderidBOX">
+                    <widget class="QLineEdit" name="orderidFIELD">
                      <property name="styleSheet">
-                      <string notr="true">QComboBox {
+                      <string notr="true">QLineEdit {
     padding: 5px;
-    border: 2px solid #07BEB8;
+    border: 2px solid #67B99A;
     border-radius: 6px;
     background-color: #FFFFFF;
     selection-background-color: darkgray;
 }
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: right center;
-    width: 20px;
-    border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-    image: url(:/logos/Icons/gridicons_dropdown.png);
-    width: 20px;
-    height: 20px;
-}</string>
+</string>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Select Order ID From Queue</string>
                      </property>
                     </widget>
                    </item>

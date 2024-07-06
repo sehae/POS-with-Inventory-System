@@ -244,11 +244,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pos_modify.pos_orderdetails = self.pos_orderdetails
         self.pos_orderdetails.transaction_generated_signal.connect(self.pos_modify.populate_table)
 
-        # Repopulate combo box when order has been generated
-        self.pos_checkout.pos_orderdetails = self.pos_orderdetails
-        self.pos_orderdetails.transaction_generated_signal.connect(self.pos_checkout.populate_comboBox)
-        self.pos_orderdetails.update_combobox_signal.connect(self.pos_checkout.populate_comboBox)
-
         # Repopulate admin inventory table from modification changes by employee
         self.inventory_view.inventory_modify = self.inventory_modify
         self.inventory_modify.employee_update_signal.connect(self.inventory_view.populate_table)
@@ -258,7 +253,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_report_trend(self):
         self.stacked_widget.setCurrentWidget(self.report_trend)
-
 
     def show_report_inventory(self):
         self.stacked_widget.setCurrentWidget(self.report_inventory)

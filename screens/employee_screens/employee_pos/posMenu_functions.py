@@ -80,6 +80,11 @@ class posMenu(QMainWindow, Ui_MainWindow):
         self.pushButton_10.clicked.connect(self.open_add_on_dialog)
 
     def open_add_on_dialog(self):
+        order_id = self.lineEdit_2.text()
+        if not order_id:
+            QMessageBox.warning(self, "No Selection", "Please select Order ID.")
+            return
+
         selected_items = self.tableWidget_2.selectedItems()
         if not selected_items:
             QMessageBox.warning(self, "No Selection", "Please select products to add as add-ons.")
