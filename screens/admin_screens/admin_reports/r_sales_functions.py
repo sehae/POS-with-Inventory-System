@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QGraphicsScen
 
 from modules.maintenance.user_logs import user_log
 from modules.reports_and_analysis.generate_sales import save_config, load_config, generate_daily_report, generate_weekly_report, \
-    generate_monthly_report, plot_reports, save_report_to_excel, save_report_to_word
+    generate_monthly_report, plot_reports, save_report_to_excel, save_report_to_pdf
 from screens.admin_screens.admin_reports.report_sales import Ui_MainWindow
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
 from validator.user_manager import userManager
@@ -82,19 +82,19 @@ class salesReport(QMainWindow, Ui_MainWindow):
             report_data = generate_daily_report()
             plot_reports(report_data, frequency, self.directory)
             save_report_to_excel(report_data, frequency, self.directory)
-            save_report_to_word(report_data, frequency, self.directory)
+            save_report_to_pdf(report_data, frequency, self.directory)
             success = True
         elif frequency == "Weekly":
             report_data = generate_weekly_report()
             plot_reports(report_data, frequency, self.directory)
             save_report_to_excel(report_data, frequency, self.directory)
-            save_report_to_word(report_data, frequency, self.directory)
+            save_report_to_pdf(report_data, frequency, self.directory)
             success = True
         elif frequency == "Monthly":
             report_data = generate_monthly_report()
             plot_reports(report_data, frequency, self.directory)
             save_report_to_excel(report_data, frequency, self.directory)
-            save_report_to_word(report_data, frequency, self.directory)
+            save_report_to_pdf(report_data, frequency, self.directory)
             success = True
 
         if success:

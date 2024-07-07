@@ -1,4 +1,6 @@
 import configparser
+import os
+
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -6,6 +8,7 @@ from PyQt5.QtCore import QDateTime
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
+from docx2pdf import convert
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
@@ -253,7 +256,16 @@ def save_report_to_word(report_data, report_type, file_path):
         document.add_heading(f"{title} ({report_type})", level=1)
         document.add_picture(path, width=Inches(6))
 
-    # Save the document
-    filename = f'{file_path}/{report_type}_report.docx'
-    document.save(filename)
-    print(f"{report_type.capitalize()} report has been generated and saved to '{filename}'")
+    # Save the document as a .docx file
+    docx_filename = f'{file_path}/{report_type}_Inventory_report_{date}.docx'
+    document.save(docx_filename)
+    print(f"{report_type.capitalize()} report has been generated and saved to '{docx_filename}'")
+
+    # Convert the .docx file to a .pdf file
+    pdf_filename = f'{file_path}/{report_type}_report.pdf'
+    convert(docx_filename, pdf_filename)
+    print(f"{report_type.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
+
+    # Delete the .docx file after conversion
+    os.remove(docx_filename)
+    print(f"{docx_filename} has been deleted")

@@ -1,11 +1,13 @@
 import configparser
 import json
+import os
 
 import pandas as pd
 from datetime import datetime, timedelta
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
+from docx2pdf import convert
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
@@ -220,8 +222,12 @@ def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_
 
     document.add_heading(f"Average Guest Pax", level=1)
 
-    # Add Average Guest Pax Analysis section
-    avg_guest_pax_value = avg_guest_pax.mean()
+    # Assuming avg_guest_pax is a Series and you want the mean value
+    if isinstance(avg_guest_pax, pd.Series):
+        avg_guest_pax_value = avg_guest_pax.mean()
+    else:
+        avg_guest_pax_value = avg_guest_pax  # Assuming avg_guest_pax is already a scalar
+
     avg_guest_pax_section = document.add_paragraph()
     avg_guest_pax_text = (
         f"The average number of guests per visit during the {frequency.lower()} period was "
@@ -311,5 +317,16 @@ def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_
     footer_paragraph.text = f"{date} | {time}    Created by: {username}"
     footer_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
-    # Save document
-    document.save(f'{file_path}/Sales_Trend_Report_{frequency.lower()}.docx')
+    # Save the document as a .docx file
+    docx_filename = f'{file_path}/{frequency}_trend_report_{date}.docx'
+    document.save(docx_filename)
+    print(f"{frequency.capitalize()} report has been generated and saved to '{docx_filename}'")
+
+    # Convert the .docx file to a .pdf file
+    pdf_filename = f'{file_path}/{frequency}_report.pdf'
+    convert(docx_filename, pdf_filename)
+    print(f"{frequency.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
+
+    # Delete the .docx file after conversion
+    os.remove(docx_filename)
+    print(f"{docx_filename} has been deleted")

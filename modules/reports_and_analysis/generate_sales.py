@@ -1,13 +1,13 @@
 import configparser
 import pandas as pd
 from datetime import datetime, timedelta
-
 from PyQt5.QtCore import QDateTime
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
-from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
+from docx2pdf import convert
+import os
 
 from server.create_engine import get_db_engine
 from validator.user_manager import userManager
@@ -173,15 +173,13 @@ def plot_reports(report_data, frequency, file_path):
     plt.savefig(f'{file_path}/sales_category_{frequency.lower()}.png')
     plt.close()
 
-
 def save_report_to_excel(report_data, report_type, file_path):
     filename = f'{file_path}/{report_type}_report.xlsx'
     report_data.to_excel(filename, index=False)
     print(f"{report_type.capitalize()} report has been generated and saved to '{filename}'")
 
-
-# Function to save report to Word document
-def save_report_to_word(report_data, report_type, file_path):
+# Function to save report to PDF document
+def save_report_to_pdf(report_data, report_type, file_path):
     document = Document()
 
     # Set up sections and headers
@@ -268,7 +266,16 @@ def save_report_to_word(report_data, report_type, file_path):
         document.add_heading(f"{title} ({report_type})", level=2)
         document.add_picture(path, width=Inches(6))
 
-    filename = f'{file_path}/{report_type}_report.docx'
-    document.save(filename)
-    print(f"{report_type.capitalize()} report has been generated and saved to '{filename}'")
+    # Save the document as a .docx file
+    docx_filename = f'{file_path}/{report_type}_Sales_report_{date}.docx'
+    document.save(docx_filename)
+    print(f"{report_type.capitalize()} report has been generated and saved to '{docx_filename}'")
 
+    # Convert the .docx file to a .pdf file
+    pdf_filename = f'{file_path}/{report_type}_report.pdf'
+    convert(docx_filename, pdf_filename)
+    print(f"{report_type.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
+
+    # Delete the .docx file after conversion
+    os.remove(docx_filename)
+    print(f"{docx_filename} has been deleted")
