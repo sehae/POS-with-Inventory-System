@@ -332,21 +332,21 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         payment_method = self.payment_method
 
         try:
+
             cursor = conn.cursor()
+
             cursor.execute("""
                 SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type, o.Senior_Count
                 FROM `order` o
                 LEFT JOIN package p ON o.Package_ID = p.Package_ID
                 WHERE o.Order_ID = %s AND o.Payment_Status = 'Pending'
             """, (order_id,))
-            order_details = cursor.fetchone()
 
-            if not order_details:
-                QMessageBox.warning(self, "Data Error", "Provide Order ID / No data found for the selected order.")
-                return
+            order_details = cursor.fetchone()
 
             customer_name, guest_pax, package_name, package_price, order_type, senior_count = order_details
 
+            # Handle senior_count being None
             senior_count = senior_count if senior_count is not None else 0
 
             # Set the retrieved values to the corresponding UI elements
@@ -577,9 +577,12 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             return
 
         try:
+            self.print_receipt()
+
             cashier_name = self.user_manager.get_first_name()
             # Update the order table with relevant fields
             cursor = conn.cursor()
+
             # Insert or update order details in the database
             cursor.execute("""
                 UPDATE `order` SET 
@@ -594,8 +597,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
             conn.commit()
 
-            self.print_receipt()
-            self.reset_checkout()
         except Exception as e:
             print(f"Error updating order details: {e}")  # Debug statement
             QMessageBox.warning(self, "Error", f"Error in updating data: {str(e)}")
@@ -607,11 +608,12 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         try:
             cursor = conn.cursor()
+            # Fetch basic order details
             cursor.execute("""
                 SELECT o.Customer_Name, o.Guest_Pax, p.Package_Name, p.Package_Price, o.Order_Type
                 FROM `order` o
                 LEFT JOIN package p ON o.Package_ID = p.Package_ID
-                WHERE o.Order_ID = %s 
+                WHERE o.Order_ID = %s
             """, (order_id,))
             order_details = cursor.fetchone()
 
@@ -620,58 +622,60 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                 return
 
             customer_name, guest_pax, package_name, package_price, order_type = order_details
+            customer_name = customer_name if customer_name is not None else ''
+            guest_pax = guest_pax if guest_pax is not None else 0
+            package_price = float(package_price) if package_price else 0.00
 
-            # Define constants and width for the receipt
-            business_name = "MOON HEY HOTPOT AND GRILL"
-            business_address = "848"
-            business_contact1 = "0917 123 4567"
-
-            receipt_width = 46
-
-            # Start building the receipt text
-            receipt_header = f"""
-    {business_name.center(receipt_width)}
-    {business_address.center(receipt_width)}
-    Contact Number: {business_contact1}
-    {'=' * receipt_width}
-    Sales Invoice
-    """
-
-            receipt_text = receipt_header + f"""
-    Date & Time: {self.label_11.text()}
-    Order ID: {self.orderidFIELD.text()}
-    Customer Name: {customer_name}
-    """
+            receipt_lines = [
+                "MOON HEY HOTPOT AND GRILL",
+                "848A Banawe St, Quezon City, 1114 Metro Manila",
+                "Contact Number: 0917 123 4567",
+                '=' * 48,
+                "Sales Invoice",
+                f"Date & Time: {QDateTime.currentDateTime().toString('MMMM d, yyyy, hh:mm:ss AP')}",
+                f"Order ID: {order_id}",
+                f"Customer Name: {customer_name}",
+            ]
 
             if order_type == "Package":
-                receipt_text += f"""
-    Package Details
-    {"Package Type":<15} {"Guest Pax":<11} {"Price":<10} {"Total":>10}
-    {package_name:<17} {guest_pax:<13} {self.packageAmountDISPLAY.text():<10} {package_price:>10.2f}
-    """
+                receipt_lines.extend([
+                    "Package Details",
+                    f"{'Package Type':<20}: {package_name}",
+                    f"{'Guest Pax':<20}: {guest_pax}",
+                    f"{'Price':<20}: {package_price:.2f}",
+                ])
 
-            elif order_type == 'Add-ons only':
-                receipt_text += f"""
-    Add-ons Details
-    {"Product Name":<15} {"Quantity":<10} {"Price":<10} {"Total":>10}
-    """
+            # Fetch add-ons details from the JSON column in the add_on table
+            cursor.execute("SELECT Product_Details FROM add_on WHERE Order_ID = %s", (order_id,))
+            result = cursor.fetchone()
+            add_ons_data = json.loads(result[0]) if result else []
 
-                # Append each add-on row to the receipt text
-                for product_name, quantity, selling_cost, total_amount in self.add_ons_rows:
-                    receipt_text += f"{product_name:<15} {quantity:<10} {selling_cost:.2f} {total_amount:.2f}\n"
+            if add_ons_data:
+                receipt_lines.append("Add-ons:")
+                for add_on in add_ons_data:
+                    product_id = add_on['product_id']
+                    quantity = add_on['quantity']
+                    cursor.execute("""
+                        SELECT p.Name, i.Selling_Cost
+                        FROM product p
+                        JOIN inventory i ON p.Product_ID = i.Product_ID
+                        WHERE p.Product_ID = %s
+                    """, (product_id,))
+                    product_info = cursor.fetchone()
+                    if product_info:
+                        product_name, selling_cost = product_info
+                        receipt_lines.append(f"{product_name:<20} x {quantity:<3} @ {selling_cost:.2f} each")
 
-            receipt_text += f"""
-    {"VAT (12%):":} {self.vat_amount:.2f}
-    {"Discount (" + self.discount_type + "):":} {self.discount_amount:.2f}
-    {"Leftover Cost:":} {self.penalty_fee:>.2f}
-    {"Payment Method:":} {self.payment_method}
-    {"Cash Amount:":} {self.cash_amount if self.cash_amount is not None else "0.00"}
-    {"Change Amount:":} {self.change_amount}
+            receipt_lines.extend([
+                f"VAT (12%): {self.vat_amount:.2f}",
+                f"Discount: {self.discount_amount:.2f}",
+                f"Total Amount: {self.totalamountDISPLAY.text()}",
+                '=' * 48
+            ])
 
-    {"Total Amount:":} {self.totalamountDISPLAY.text():}
-    """
+            receipt_text = '\n'.join(receipt_lines)
 
-            # Show receipt in dialog
+            # Show receipt in a dialog
             dialog = CheckoutReceiptDialog(receipt_text)
             dialog.exec_()
 

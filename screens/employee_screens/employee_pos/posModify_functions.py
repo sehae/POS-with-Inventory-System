@@ -123,8 +123,10 @@ class posModify(QMainWindow, Ui_MainWindow):
                            CASE WHEN o.Guest_Pax = 'None' THEN '-' ELSE o.Guest_Pax END AS Guest_Pax, 
                            o.Priority_Order,
                            CASE
-                               WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 120 THEN 'Good'
-                               ELSE 'Exceeding'
+                               WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 30 THEN 'Last 30 Minutes'
+                               WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 60 THEN 'Last 1 Hour'
+                               WHEN TIMESTAMPDIFF(MINUTE, CONCAT(o.Date, ' ', o.Time), NOW()) < 120 THEN '2 Hours Left'
+                               ELSE 'More Than 2 Hours'
                            END AS Time_Status
                     FROM `order` o
                     JOIN `package` p ON o.Package_ID = p.Package_ID
@@ -159,10 +161,14 @@ class posModify(QMainWindow, Ui_MainWindow):
 
                             # Apply conditional formatting for the "Time Status" column
                             if column_names[j] == "Time Status":
-                                if col == "Good":
+                                if col == "2 Hours Left":
                                     item.setBackground(QtGui.QColor(144, 238, 144))  # Light green
-                                elif col == "Exceeding":
+                                elif col == "More Than 2 Hours":
                                     item.setBackground(QtGui.QColor(255, 99, 71))  # Light red
+                                elif col == "Last 30 Minutes":
+                                    item.setBackground(QtGui.QColor(255, 215, 0))  # Yellow for last 30 minutes
+                                elif col == "Last 1 Hour":
+                                    item.setBackground(QtGui.QColor(154, 205, 50))  # Yellow green for last 1 hour
 
                             # Apply conditional formatting for the "Priority Order" column
                             if column_names[j] == "Priority Order" and col == "Priority":

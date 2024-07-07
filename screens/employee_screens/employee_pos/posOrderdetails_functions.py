@@ -10,6 +10,8 @@ from PyQt5.QtGui import QIntValidator, QRegularExpressionValidator
 from PyQt5.QtCore import QRegularExpression
 from validator.user_manager import userManager
 
+user_manager = userManager()
+
 class posOrderdetails(QMainWindow, Ui_MainWindow):
     back_signal = QtCore.pyqtSignal()
     back_cashier_signal = QtCore.pyqtSignal()
@@ -225,7 +227,7 @@ class posOrderdetails(QMainWindow, Ui_MainWindow):
 
                 OR#: {order_id}
                 DATE/TIME: {current_date}  {current_time}
-                CASHIER: 
+                CASHIER: {self.user_manager.get_first_name()}
                 CUSTOMER NAME: {customer_name}
 
                 DESCRIPTION
@@ -423,7 +425,7 @@ class AddOrderDialog(QDialog):
 
         self.radioButton_4.setChecked(True)
 
-        self.int_validator = QIntValidator()
+        self.int_validator = QIntValidator(1, 6)
         self.lineEdit_7.setValidator(self.int_validator)
 
         # Initialize QRegExpValidator for letter-only input

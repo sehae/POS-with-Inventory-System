@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.admin_screens.admin_inventory.inventorySupplier import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
+from PyQt5.QtGui import QIntValidator
 
 class adminSupplier(QMainWindow, Ui_MainWindow):
     add_signal = QtCore.pyqtSignal()
@@ -28,6 +29,7 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
         self.populate_table()
         self.populate_comboBox()
         self.populate_comboBox_2()
+        self.comboBox_2.setCurrentIndex(0)
 
         # Create a QTimer object
         self.timer = QTimer()
@@ -38,6 +40,28 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
 
         # Connect the search field
         self.searchFIELD.returnPressed.connect(self.search_table)
+        self.tableWidget.itemSelectionChanged.connect(self.on_table_item_selected)
+
+        int_validator = QIntValidator()
+        self.lineEdit_7.setValidator(int_validator)
+
+    def on_table_item_selected(self):
+        selected_items = self.tableWidget.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            supplier_name = self.tableWidget.item(selected_row, 0).text()
+            contact_number = self.tableWidget.item(selected_row, 1).text()
+            email = self.tableWidget.item(selected_row, 2).text()
+            address = self.tableWidget.item(selected_row, 3).text()
+
+            # Set values in ModifyDialog fields
+            self.comboBox.setCurrentIndex(self.comboBox.findText(supplier_name))
+            self.lineEdit_7.setText(contact_number)
+            self.lineEdit_8.setText(email)
+            self.lineEdit_9.setText(address)
+
+        else:
+            QMessageBox.warning(self, 'Warning', 'Please select an item to modify.')
 
     def updateDateTimeAndTable(self):
         self.updateDateTime()
@@ -210,7 +234,7 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
         self.lineEdit_9.clear()
         self.reset_styles()
         self.comboBox.setCurrentIndex(-1)
-        self.comboBox_2.setCurrentIndex(-1)
+        self.comboBox_2.setCurrentIndex(0)
 
     def reset_styles(self):
         self.lineEdit_13.setStyleSheet("")
@@ -328,3 +352,4 @@ class adminSupplier(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(self, "Warning", "Please fill in all fields correctly.")
 
         return valid1
+

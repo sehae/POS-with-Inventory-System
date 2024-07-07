@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posModify.ui'
+# Form implementation generated from reading ui file 'posModify.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -410,15 +410,5 @@ class Ui_MainWindow(object):
         self.pushButton_8.setText(_translate("MainWindow", "Modify Product"))
         self.pushButton_9.setText(_translate("MainWindow", "Discard"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Order"))
-        self.orderLabel_2.setText(_translate("MainWindow", "Orders List"))
+        self.orderLabel_2.setText(_translate("MainWindow", "Orders List (Order Type: Package)"))
 import assets.resourceFile_rc
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

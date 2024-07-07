@@ -207,8 +207,6 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
                     break
             self.tableWidget.setRowHidden(i, not match_found)
 
-
-
 class AddDialog(QDialog):
     product_update_signal = QtCore.pyqtSignal()
 
@@ -233,7 +231,7 @@ class AddDialog(QDialog):
         self.dateEdit.setDate(default_date)
 
         # Integer only in quantity and threshold value
-        int_validator = QIntValidator()
+        int_validator = QIntValidator(0, 99)
         self.lineEdit_4.setValidator(int_validator)
         self.lineEdit_7.setValidator(int_validator)
 
