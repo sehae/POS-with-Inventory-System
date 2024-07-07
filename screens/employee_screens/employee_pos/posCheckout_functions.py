@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtGui import QDoubleValidator
+from PyQt5.QtGui import QDoubleValidator, QIntValidator
 from PyQt5.QtWidgets import QMessageBox, QInputDialog,  QHeaderView
 from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
@@ -153,6 +153,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             )
 
             conn.commit()
+            QMessageBox.information(self, "Success", "Regular Discount saved successfully!")
             self.check_order_details()
 
         except Exception as e:
@@ -577,7 +578,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             return
 
         try:
-            self.print_receipt()
+            #self.print_receipt()
 
             cashier_name = self.user_manager.get_first_name()
             # Update the order table with relevant fields
@@ -596,6 +597,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                   self.cash_amount, self.reference_id, self.payment_method, cashier_name, 'Completed', order_id))
 
             conn.commit()
+
+            self.reset_checkout()
 
         except Exception as e:
             print(f"Error updating order details: {e}")  # Debug statement
@@ -734,6 +737,10 @@ class IDInputDialog(QDialog):
         self.setWindowTitle("Enter ID")
         self.id_input = QLineEdit()
         self.pax_input = QLineEdit()
+
+        pax_validator = QIntValidator(1, 9)
+        self.pax_input.setValidator(pax_validator)
+
         self.save_button = QPushButton("Save")
         self.cancel_button = QPushButton("Cancel")
 

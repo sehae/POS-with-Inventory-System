@@ -94,6 +94,9 @@ class posMenu(QMainWindow, Ui_MainWindow):
                 """
                 cursor.execute(query)
                 records_2 = cursor.fetchall()
+
+                self.tableWidget_3.setRowCount(0)
+
                 self.display_records_2(records_2)
                 self.tableWidget_3.setColumnWidth(3, 60)
                 self.tableWidget_3.setColumnWidth(4, 120)
