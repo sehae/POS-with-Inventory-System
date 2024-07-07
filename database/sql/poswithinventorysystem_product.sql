@@ -44,7 +44,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('PRD001','2024-07-05','22:52','Coke (330ml)',52,10,'2024-11-12','In Stock','Beverage','Active',52),('PRD002','2024-07-05','22:53','Coke Zero (330ml)',64,10,'2024-12-17','In Stock','Beverage','Active',64),('PRD003','2024-07-05','22:54','Sprite',94,10,'2025-02-22','In Stock','Beverage','Active',94),('PRD004','2024-07-05','22:56','Pig liver (1kg)',52,5,'2024-01-01','In Stock','Ingredient','Active',52);
+INSERT INTO `product` VALUES ('PRD001','2024-07-05','22:52','Coke (330ml)',39,10,'2024-11-12','In Stock','Beverage','Active',52),('PRD002','2024-07-05','22:53','Coke Zero (330ml)',40,10,'2024-12-17','In Stock','Beverage','Active',64),('PRD003','2024-07-05','22:54','Sprite',81,10,'2025-02-22','In Stock','Beverage','Active',94),('PRD004','2024-07-05','22:56','Pig liver (1kg)',52,5,'2024-01-01','In Stock','Ingredient','Active',52);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-06  0:22:45
+-- Dump completed on 2024-07-07 18:07:56
