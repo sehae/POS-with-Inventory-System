@@ -269,13 +269,11 @@ def save_report_to_pdf(report_data, report_type, file_path):
     # Save the document as a .docx file
     docx_filename = f'{file_path}/{report_type}_Sales_report_{date}.docx'
     document.save(docx_filename)
-    print(f"{report_type.capitalize()} report has been generated and saved to '{docx_filename}'")
 
     # Convert the .docx file to a .pdf file
-    pdf_filename = f'{file_path}/{report_type}_report.pdf'
+    pdf_filename = f'{file_path}/{report_type}_Sales_report_{date}.pdf'
     convert(docx_filename, pdf_filename)
     print(f"{report_type.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
 
     # Delete the .docx file after conversion
     os.remove(docx_filename)
-    print(f"{docx_filename} has been deleted")

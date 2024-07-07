@@ -320,13 +320,11 @@ def save_report_to_word(df, frequency, file_path, avg_guest_pax, preferred_soup_
     # Save the document as a .docx file
     docx_filename = f'{file_path}/{frequency}_trend_report_{date}.docx'
     document.save(docx_filename)
-    print(f"{frequency.capitalize()} report has been generated and saved to '{docx_filename}'")
 
     # Convert the .docx file to a .pdf file
-    pdf_filename = f'{file_path}/{frequency}_report.pdf'
+    pdf_filename = f'{file_path}/{frequency}_trend_report_{date}.pdf'
     convert(docx_filename, pdf_filename)
     print(f"{frequency.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
 
     # Delete the .docx file after conversion
     os.remove(docx_filename)
-    print(f"{docx_filename} has been deleted")

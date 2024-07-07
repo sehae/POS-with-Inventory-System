@@ -72,8 +72,8 @@ class salesReport(QMainWindow, Ui_MainWindow):
 
     def generate_report(self):
         if not self.directory:
-            # If no directory is selected, show a warning message or handle the case accordingly
-            print("Please select a directory to save the reports.")
+            QMessageBox.warning(self, "Report Generation Error",
+                                "Please select a directory to save the report.")
             return
 
         frequency = self.frequencyBOX.currentText()
