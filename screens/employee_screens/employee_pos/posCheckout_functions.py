@@ -53,6 +53,8 @@ class posCheckout(QMainWindow, Ui_MainWindow):
 
         self.populate_leftoverBOX()
 
+        self.leftoverBOX.setCurrentIndex(1)
+
         # Create a QTimer object
         self.timer = QTimer()
 
@@ -329,10 +331,6 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         discount_type = self.discount_type
         payment_method = self.payment_method
 
-        if not order_id:
-            QMessageBox.warning(self, "Input Error", "Please select an order ID.")
-            return
-
         try:
             cursor = conn.cursor()
             cursor.execute("""
@@ -344,7 +342,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             order_details = cursor.fetchone()
 
             if not order_details:
-                QMessageBox.warning(self, "Data Error", "No data found for the selected order.")
+                QMessageBox.warning(self, "Data Error", "Provide Order ID / No data found for the selected order.")
                 return
 
             customer_name, guest_pax, package_name, package_price, order_type, senior_count = order_details
@@ -595,7 +593,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
                   self.cash_amount, self.reference_id, self.payment_method, cashier_name, 'Completed', order_id))
 
             conn.commit()
-            self.populate_table_2()
+
             self.print_receipt()
             self.reset_checkout()
         except Exception as e:
@@ -694,6 +692,10 @@ class posCheckout(QMainWindow, Ui_MainWindow):
         self.orderidFIELD.clear()
 
         self.leftoverBOX.setCurrentIndex(1)
+
+        # Clear only the rows in the table widget
+        self.orderList_2.setRowCount(0)
+        self.orderList_2.clearContents()
 
         self.orderList.clearContents()
         self.orderList.setRowCount(0)
