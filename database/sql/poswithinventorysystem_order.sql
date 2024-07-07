@@ -47,6 +47,8 @@ CREATE TABLE `order` (
   `Package_Total_Amount` decimal(10,2) DEFAULT NULL,
   `Add_Ons_Total_Amount` varchar(45) DEFAULT NULL,
   `Cash_Register` varchar(45) DEFAULT NULL,
+  `Discount_ID` varchar(255) DEFAULT NULL,
+  `senior_count` int DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   KEY `fk_Package_ID` (`Package_ID`),
   KEY `fk_leftover_id` (`Leftover_ID`),
@@ -73,4 +75,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-06  0:22:45
+-- Dump completed on 2024-07-07 18:07:56

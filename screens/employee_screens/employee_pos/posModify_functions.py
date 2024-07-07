@@ -37,15 +37,13 @@ class posModify(QMainWindow, Ui_MainWindow):
 
         # Create QTimer objects
         self.timer = QTimer()
-        self.table_update_timer = QTimer()
 
         # Connect the timeout signal of the timers to the respective slots
         self.timer.timeout.connect(self.updateDateTime)
-        self.table_update_timer.timeout.connect(self.populate_table)
+        self.timer.timeout.connect(self.populate_table)
 
         # Set the interval for the timers (in milliseconds)
         self.timer.start(1000)  # Update date and time every second
-        self.table_update_timer.start(1000)  # Update table every second
 
         self.searchFIELD.returnPressed.connect(self.search_table)
 
@@ -140,6 +138,8 @@ class posModify(QMainWindow, Ui_MainWindow):
 
                 # Fetch all the records
                 self.records = cursor.fetchall()
+
+                self.tableWidget_2.clearContents()
 
                 if self.records:  # Check if records is not empty
                     # Set the number of rows and columns in the table widget
