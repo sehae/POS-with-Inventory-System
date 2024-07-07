@@ -76,6 +76,20 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             self.deptBox.setEnabled(True)
             self.deptBox.setStyleSheet(COMBOBOX_STYLE)
 
+    def is_contact_number_unique(self, contact_number):
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM user WHERE contact_number = %s", (contact_number,))
+        count = cursor.fetchone()[0]
+        cursor.close()
+        return count == 0
+
+    def is_email_unique(self, email):
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM user WHERE email = %s", (email,))
+        count = cursor.fetchone()[0]
+        cursor.close()
+        return count == 0
+
     def add_user(self):
         first_name = self.firstName.text().strip()
         last_name = self.lastName.text().strip()
@@ -113,6 +127,15 @@ class adminMaintenance(QMainWindow, Ui_MainWindow):  # Inherit from QMainWindow
             all_fields_valid = False
         else:
             self.contactNum.setStyleSheet(VALID_FIELD_STYLE)
+
+        if not self.is_contact_number_unique(contact_number):
+            create_dialog_box("This contact number is already in use.", "Error")
+            self.contactNum.setStyleSheet(INVALID_FIELD_STYLE)
+            return
+        if not self.is_email_unique(email):
+            create_dialog_box("This email is already in use.", "Error")
+            self.email.setStyleSheet(INVALID_FIELD_STYLE)
+            return
 
         # Function to check if required fields are filled
         def are_fields_filled(fields):

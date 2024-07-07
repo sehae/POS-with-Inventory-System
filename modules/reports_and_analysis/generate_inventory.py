@@ -9,6 +9,7 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
 from docx2pdf import convert
+from matplotlib.dates import date2num, DateFormatter
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
@@ -44,6 +45,7 @@ SELECT
     p.Time,
     p.Name, 
     p.Original_Quantity, 
+    p.Quantity,
     p.Threshold_Value, 
     p.Expiry_Date, 
     p.Availability, 
@@ -51,11 +53,11 @@ SELECT
     p.Status,
     i.Selling_Cost,
     i.Buying_Cost,
-    s.Supplier_Name,
-    s.Contact_Number,
-    s.Email,
-    s.Address,
-    s.Status AS Supplier_Status
+    COALESCE(s.Supplier_Name, 'Unknown') as Supplier_Name,
+    COALESCE(s.Contact_Number, 'Unknown') as Contact_Number,
+    COALESCE(s.Email, 'Unknown') as Email,
+    COALESCE(s.Address, 'Unknown') as Address,
+    COALESCE(s.Status, 'Unknown') as Supplier_Status
 FROM 
     product p
 LEFT JOIN 
@@ -63,6 +65,7 @@ LEFT JOIN
 LEFT JOIN 
     supplier s ON i.Supplier_ID = s.Supplier_ID
 """
+
 
 dataframe = pd.read_sql(query, engine)
 
@@ -72,9 +75,23 @@ dataframe['DateTime'] = dataframe['Date'].astype(str) + ' ' + dataframe['Time'].
 # Function to generate a daily report
 def generate_daily_report():
     data = dataframe.copy()
-    data['Date'] = pd.to_datetime(data['DateTime'])
+    # Ensure the DateTime column is in the correct format
+    data['Date'] = pd.to_datetime(data['DateTime'], errors='coerce')
+
+    # Debugging: Check the date range in the dataset
+    print(f"Data date range: {data['Date'].min()} to {data['Date'].max()}")
+
+    # Get today's date
     today = datetime.now().date()
-    daily_data = data[data['Date'] == pd.to_datetime(today)]
+    print(f"Today's date: {today}")
+
+    # Filter data for today
+    daily_data = data[data['Date'].dt.date == today]
+    print(f"Total records for today ({today}): {len(daily_data)}")
+
+    # Debugging: Print a few records to ensure correctness
+    print(daily_data.head())
+
     return daily_data
 
 
@@ -109,7 +126,7 @@ def plot_reports(report_data, frequency, file_path):
 
     # Inventory Levels by Product
     plt.figure(figsize=(10, 6))
-    plt.bar(report_data['Name'], report_data['Original_Quantity'], color='blue')
+    plt.bar(report_data['Name'], report_data['Quantity'], color='orange', zorder=2)
     plt.xlabel('Product Name')
     plt.ylabel('Quantity')
     plt.title(f'Inventory Levels by Product ({frequency})')
@@ -124,6 +141,7 @@ def plot_reports(report_data, frequency, file_path):
     plt.xticks(rotation=45)
     plt.plot(True)
     plt.tight_layout()
+    plt.grid(True, zorder=1)
     plt.savefig(f'{file_path}/inventory_levels_{frequency.lower()}.png')
     plt.close()
 
@@ -150,9 +168,11 @@ def plot_reports(report_data, frequency, file_path):
     upcoming_expiry['Expiry_Date'] = upcoming_expiry['Expiry_Date'].dt.date  # Convert to date for clarity
     expiry_counts = upcoming_expiry['Expiry_Date'].value_counts().sort_index()
 
+    expiry_dates_num = date2num(expiry_counts.index)
+
     # Plotting
     plt.figure(figsize=(12, 6))
-    plt.plot(expiry_counts.index, expiry_counts.values, marker='o', linestyle='-')
+    plt.plot(expiry_dates_num, expiry_counts.values, marker='o', linestyle='-')
     plt.xlabel('Expiry Date')
     plt.ylabel('Number of Products')
     if frequency == 'Daily':
@@ -161,6 +181,10 @@ def plot_reports(report_data, frequency, file_path):
         plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_week_range})')
     else:
         plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_month_range})')
+
+    # Format the x-ticks as requested
+    date_format = DateFormatter('%B %d, %Y')
+    plt.gca().xaxis.set_major_formatter(date_format)
 
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -259,13 +283,11 @@ def save_report_to_word(report_data, report_type, file_path):
     # Save the document as a .docx file
     docx_filename = f'{file_path}/{report_type}_Inventory_report_{date}.docx'
     document.save(docx_filename)
-    print(f"{report_type.capitalize()} report has been generated and saved to '{docx_filename}'")
 
     # Convert the .docx file to a .pdf file
-    pdf_filename = f'{file_path}/{report_type}_report.pdf'
+    pdf_filename = f'{file_path}/{report_type}_Inventory_report_{date}.pdf'
     convert(docx_filename, pdf_filename)
     print(f"{report_type.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
 
     # Delete the .docx file after conversion
     os.remove(docx_filename)
-    print(f"{docx_filename} has been deleted")

@@ -1,4 +1,7 @@
 # checkout_receipt_dialog.py
+from PyQt5.QtCore import QSizeF
+from PyQt5.QtGui import QPainter
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox
 
 class CheckoutReceiptDialog(QDialog):
@@ -28,18 +31,22 @@ class CheckoutReceiptDialog(QDialog):
         self.setLayout(main_layout)
 
     def print_order(self):
-        try:
-            printer_name = "Gprinter GP-1424D"
-            with open(printer_name, "w") as printer:
-                printer.write(self.order_details)
-            QMessageBox.information(self, "Printing", "Order receipt sent to printer.")
-            self.accept()  # Close the dialog after printing
+        printer = QPrinter(QPrinter.HighResolution)
+        # Set a default page size or adjust based on content
+        printer.setPageSizeMM(QSizeF(80, 200))  # Example size, adjust as needed
 
-        except FileNotFoundError:
-            QMessageBox.critical(self, "Error", f"Printer '{printer_name}' not found.")
+        dialog = QPrintDialog(printer, self)
+        if dialog.exec_() == QPrintDialog.Accepted:
+            painter = QPainter(printer)
 
-        except PermissionError:
-            QMessageBox.critical(self, "Error", "Permission denied to access printer.")
+            # Optional: Adjust page size based on the length of the order_details
+            # This step is more complex with text than images because you need to calculate the text height.
+            # For simplicity, this example uses a fixed page size.
 
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Error printing: {str(e)}")
+            # Draw the text
+            rect = painter.viewport()  # Get the drawable area's rectangle
+            painter.drawText(rect, 0, self.order_details)  # Draw the order details within the rectangle
+
+            painter.end()
+        else:
+            print('Print cancelled')

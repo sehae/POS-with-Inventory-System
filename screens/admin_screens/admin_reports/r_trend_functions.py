@@ -70,7 +70,8 @@ class trendReport(QMainWindow, Ui_MainWindow):
 
     def generate_report(self):
         if not self.directory:
-            print("Please select a directory to save the report.")
+            QMessageBox.warning(self, "Report Generation Error",
+                                "Please select a directory to save the report.")
             return
 
         frequency = self.frequencyBOX.currentText()

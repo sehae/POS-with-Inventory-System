@@ -4,7 +4,7 @@ import os
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QDateTime, QTimer
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 
 from modules.maintenance.backup_restore import backup_db, load_config, save_config, restore_backup
 from modules.maintenance.user_logs import user_log
@@ -114,6 +114,9 @@ class adminMaintenanceBACKUP(QMainWindow, Ui_MainWindow):
         print(f"Timer is active: {self.backup_timer.isActive()}")  # Check if the timer is active
 
     def perform_backup(self, backup_path):
+        if not backup_path:
+            QMessageBox.critical(self, "Error", "No backup location set")
+            return
         # Perform the backup
         backup_db(backup_path)
 

@@ -40,7 +40,6 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
         self.discardBTN.clicked.connect(self.discard)
         self.rightcontent.hide()
         self.edituserCONTENT.hide()
-        self.userRESULTS.hide()
         self.userRESULTS.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.errorLBL.hide()
 
@@ -84,11 +83,12 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
                 return
             try:
                 cursor.execute(CHANGE_USER_TYPE, ('Admin', email,))
+                cursor.execute(CHANGE_DEPARTMENT, ('Admin', email,))
                 conn.commit()
                 cursor.close()
                 print(f"User {email} changed to Admin successfully.")
                 self.log_edit(11, f"of user {email} to Admin")
-                print(f"Successfully Logged user action.")
+                QMessageBox.information(self, "User Role Changed", f"User {email} has been successfully changed to Admin.")
             except Exception as e:
                 print(f"An error occurred: {e}")
 
@@ -110,6 +110,7 @@ class adminMaintenanceEDIT(QMainWindow, Ui_MainWindow):
                 print(f"User {email} changed to Staff and {department} successfully.")
                 self.log_edit(11, f"of user {email} to Staff and {department}")
                 print(f"Successfully Logged user action.")
+                QMessageBox.information(self, "User Role Changed", f"User {email} has been successfully changed to Staff and {department}.")
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
