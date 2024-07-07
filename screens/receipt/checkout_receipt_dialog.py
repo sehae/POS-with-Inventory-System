@@ -1,4 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtCore import QSizeF
+from PyQt5.QtGui import QPainter, QFont
+from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QMessageBox, QGridLayout
 
 class CheckoutReceiptDialog(QDialog):
@@ -66,12 +69,83 @@ class CheckoutReceiptDialog(QDialog):
         self.move(frame_geometry.topLeft())
 
     def print_order(self):
-        try:
-            printer_name = "Gprinter GP-1424D"
-            with open(printer_name, "w") as printer:
-                printer.write(self.order_details)
-            QMessageBox.information(self, "Printing", "Order receipt sent to printer.")
-            self.accept()  # Close the dialog after printing
-        except Exception as e:
-            QMessageBox.critical(self, "Error", "Error printing: {str(e)}")
+        printer = QPrinter(QPrinter.HighResolution)
+        printer.setPaperSize(QPrinter.Custom)
+        printer.setFullPage(True)
+
+        # Initialize painter to calculate content height
+        painter = QPainter()
+        painter.begin(printer)
+        painter.setFont(QFont('Arial', 10))
+
+        # Define margins in mm
+        left_margin_mm = 5
+        right_margin_mm = 5
+        top_margin_mm = 5
+        bottom_margin_mm = 5
+
+        # Convert margins from mm to pixels
+        resolution = printer.resolution()
+        left_margin = int(left_margin_mm / 25.4 * resolution)
+        right_margin = int(right_margin_mm / 25.4 * resolution)
+        top_margin = int(top_margin_mm / 25.4 * resolution)
+        bottom_margin = int(bottom_margin_mm / 25.4 * resolution)
+
+        # Set the custom page size (e.g., 80mm x 200mm initially)
+        page_width_mm = 80
+        page_height_mm = 200
+        printer.setPageSizeMM(QSizeF(page_width_mm, page_height_mm))
+
+        # Calculate content height and split into chunks
+        content_rect = printer.pageRect(QPrinter.DevicePixel)
+        content_rect.adjust(left_margin, top_margin, -right_margin, -bottom_margin)
+
+        line_spacing = painter.fontMetrics().lineSpacing()
+        lines = self.order_details.split('\n')
+        chunks = []
+        chunk = []
+        current_height = 0
+        max_height = int(40 / 25.4 * resolution)  # Convert 40mm to pixels
+
+        for line in lines:
+            bounding_rect = painter.boundingRect(content_rect, QtCore.Qt.TextWordWrap, line)
+            line_height = bounding_rect.height() + line_spacing
+            if current_height + line_height > max_height:
+                chunks.append(chunk)
+                chunk = []
+                current_height = 0
+            chunk.append(line)
+            current_height += line_height
+        if chunk:
+            chunks.append(chunk)
+
+        painter.end()
+
+        # Debugging: Log the number of chunks
+        print(f"Number of Chunks: {len(chunks)}")
+
+        dialog = QPrintDialog(printer, self)
+        if dialog.exec_() == QPrintDialog.Accepted:
+            painter.begin(printer)
+            painter.setFont(QFont('Arial', 10))
+
+            # Print each chunk as a separate page
+            for chunk_index, chunk in enumerate(chunks):
+                if chunk_index > 0:
+                    printer.newPage()
+                y_position = content_rect.top()
+                for line in chunk:
+                    bounding_rect = painter.boundingRect(content_rect, QtCore.Qt.TextWordWrap, line)
+                    painter.drawText(content_rect.adjusted(0, y_position - content_rect.top(), 0, 0),
+                                     QtCore.Qt.TextWordWrap, line)
+                    y_position += bounding_rect.height() + line_spacing
+
+                    # Debugging: Log coordinates and dimensions
+                    print(f"Chunk: {chunk_index}, Line: {line}")
+                    print(f"Bounding Rect: {bounding_rect}")
+                    print(f"Y Position: {y_position}")
+
+            painter.end()
+        else:
+            QMessageBox.information(self, "Print Cancelled", "The print job was cancelled.")
 

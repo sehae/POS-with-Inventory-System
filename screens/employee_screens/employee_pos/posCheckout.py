@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'posCheckout.ui'
+# Form implementation generated from reading ui file 'screens/ui/employee_ui/employee_pos/posCheckout.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1801, 872)
+        MainWindow.resize(1801, 902)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -197,18 +197,8 @@ class Ui_MainWindow(object):
         self.mainContent_2 = QtWidgets.QWidget(self.contentContainer_2)
         self.mainContent_2.setObjectName("mainContent_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.mainContent_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label_7 = QtWidgets.QLabel(self.mainContent_2)
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
-        self.horizontalLayout_2.addWidget(self.label_7)
-        self.orderList_2 = QtWidgets.QTableWidget(self.mainContent_2)
-        self.orderList_2.setObjectName("orderList_2")
-        self.orderList_2.setColumnCount(0)
-        self.orderList_2.setRowCount(0)
-        self.horizontalLayout_2.addWidget(self.orderList_2)
         self.Checkout = QtWidgets.QWidget(self.mainContent_2)
         self.Checkout.setMinimumSize(QtCore.QSize(500, 0))
         self.Checkout.setMaximumSize(QtCore.QSize(500, 16777215))
@@ -226,7 +216,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        font.setWeight(75)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_8)
@@ -234,7 +223,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        font.setWeight(75)
         self.label_4.setFont(font)
         self.label_4.setText("")
         self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -365,7 +353,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        font.setWeight(75)
         self.label_17.setFont(font)
         self.label_17.setObjectName("label_17")
         self.formLayout_2.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_17)
@@ -373,7 +360,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        font.setWeight(75)
         self.totalamountDISPLAY.setFont(font)
         self.totalamountDISPLAY.setText("")
         self.totalamountDISPLAY.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -388,6 +374,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.orderidFIELD = QtWidgets.QLineEdit(self.frame_2)
+        self.orderidFIELD.setMinimumSize(QtCore.QSize(0, 40))
+        self.orderidFIELD.setMaximumSize(QtCore.QSize(16777215, 40))
         self.orderidFIELD.setStyleSheet("QLineEdit {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #67B99A;\n"
@@ -443,22 +431,35 @@ class Ui_MainWindow(object):
         self.PaymentMethod.setMinimumSize(QtCore.QSize(500, 0))
         self.PaymentMethod.setMaximumSize(QtCore.QSize(500, 16777215))
         self.PaymentMethod.setObjectName("PaymentMethod")
-        self.label_9 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_9.setGeometry(QtCore.QRect(20, 190, 179, 29))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_9.setFont(font)
-        self.label_9.setObjectName("label_9")
+        self.formLayout_3 = QtWidgets.QFormLayout(self.PaymentMethod)
+        self.formLayout_3.setObjectName("formLayout_3")
         self.label_21 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_21.setGeometry(QtCore.QRect(13, 8, 252, 29))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.label_21.setFont(font)
         self.label_21.setObjectName("label_21")
-        self.pwdBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.pwdBTN.setGeometry(QtCore.QRect(120, 50, 100, 35))
-        self.pwdBTN.setMinimumSize(QtCore.QSize(100, 35))
-        self.pwdBTN.setMaximumSize(QtCore.QSize(100, 35))
+        self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.SpanningRole, self.label_21)
+        self.label_31 = QtWidgets.QLabel(self.PaymentMethod)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_31.sizePolicy().hasHeightForWidth())
+        self.label_31.setSizePolicy(sizePolicy)
+        self.label_31.setObjectName("label_31")
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_31)
+        self.widget = QtWidgets.QWidget(self.PaymentMethod)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.pwdBTN = QtWidgets.QPushButton(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pwdBTN.sizePolicy().hasHeightForWidth())
+        self.pwdBTN.setSizePolicy(sizePolicy)
+        self.pwdBTN.setMinimumSize(QtCore.QSize(50, 75))
+        self.pwdBTN.setMaximumSize(QtCore.QSize(250, 75))
         self.pwdBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
@@ -475,10 +476,15 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.pwdBTN.setObjectName("pwdBTN")
-        self.seniorBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.seniorBTN.setGeometry(QtCore.QRect(230, 50, 100, 35))
-        self.seniorBTN.setMinimumSize(QtCore.QSize(100, 35))
-        self.seniorBTN.setMaximumSize(QtCore.QSize(100, 35))
+        self.horizontalLayout_3.addWidget(self.pwdBTN)
+        self.seniorBTN = QtWidgets.QPushButton(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.seniorBTN.sizePolicy().hasHeightForWidth())
+        self.seniorBTN.setSizePolicy(sizePolicy)
+        self.seniorBTN.setMinimumSize(QtCore.QSize(50, 75))
+        self.seniorBTN.setMaximumSize(QtCore.QSize(250, 75))
         self.seniorBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
@@ -495,10 +501,15 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.seniorBTN.setObjectName("seniorBTN")
-        self.regularBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.regularBTN.setGeometry(QtCore.QRect(350, 50, 100, 35))
-        self.regularBTN.setMinimumSize(QtCore.QSize(100, 35))
-        self.regularBTN.setMaximumSize(QtCore.QSize(100, 35))
+        self.horizontalLayout_3.addWidget(self.seniorBTN)
+        self.regularBTN = QtWidgets.QPushButton(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.regularBTN.sizePolicy().hasHeightForWidth())
+        self.regularBTN.setSizePolicy(sizePolicy)
+        self.regularBTN.setMinimumSize(QtCore.QSize(50, 75))
+        self.regularBTN.setMaximumSize(QtCore.QSize(250, 75))
         self.regularBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
@@ -515,21 +526,14 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.regularBTN.setObjectName("regularBTN")
-        self.label_31 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_31.setGeometry(QtCore.QRect(14, 58, 86, 16))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_31.sizePolicy().hasHeightForWidth())
-        self.label_31.setSizePolicy(sizePolicy)
-        self.label_31.setObjectName("label_31")
+        self.horizontalLayout_3.addWidget(self.regularBTN)
+        self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.widget)
         self.label_18 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_18.setGeometry(QtCore.QRect(14, 94, 68, 16))
         self.label_18.setObjectName("label_18")
+        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_18)
         self.leftoverBOX = QtWidgets.QComboBox(self.PaymentMethod)
-        self.leftoverBOX.setGeometry(QtCore.QRect(120, 94, 200, 25))
-        self.leftoverBOX.setMinimumSize(QtCore.QSize(200, 25))
-        self.leftoverBOX.setMaximumSize(QtCore.QSize(200, 25))
+        self.leftoverBOX.setMinimumSize(QtCore.QSize(0, 40))
+        self.leftoverBOX.setMaximumSize(QtCore.QSize(16777215, 40))
         self.leftoverBOX.setStyleSheet("QComboBox {\n"
 "    padding: 5px;\n"
 "    border: 2px solid #07BEB8;\n"
@@ -553,10 +557,66 @@ class Ui_MainWindow(object):
 "    height: 20px;\n"
 "}")
         self.leftoverBOX.setObjectName("leftoverBOX")
+        self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.leftoverBOX)
+        self.label_9 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_9.setFont(font)
+        self.label_9.setObjectName("label_9")
+        self.formLayout_3.setWidget(6, QtWidgets.QFormLayout.SpanningRole, self.label_9)
+        self.label_30 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.label_30.setFont(font)
+        self.label_30.setObjectName("label_30")
+        self.formLayout_3.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.label_30)
+        self.label_23 = QtWidgets.QLabel(self.PaymentMethod)
+        self.label_23.setObjectName("label_23")
+        self.formLayout_3.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_23)
+        self.amountFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.amountFIELD.sizePolicy().hasHeightForWidth())
+        self.amountFIELD.setSizePolicy(sizePolicy)
+        self.amountFIELD.setMinimumSize(QtCore.QSize(0, 40))
+        self.amountFIELD.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.amountFIELD.setSizeIncrement(QtCore.QSize(0, 0))
+        self.amountFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.amountFIELD.setObjectName("amountFIELD")
+        self.formLayout_3.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.amountFIELD)
+        self.label_24 = QtWidgets.QLabel(self.PaymentMethod)
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.label_24.setFont(font)
+        self.label_24.setObjectName("label_24")
+        self.formLayout_3.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_24)
+        self.label_25 = QtWidgets.QLabel(self.PaymentMethod)
+        self.label_25.setObjectName("label_25")
+        self.formLayout_3.setWidget(13, QtWidgets.QFormLayout.LabelRole, self.label_25)
+        self.referenceFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
+        self.referenceFIELD.setMinimumSize(QtCore.QSize(0, 40))
+        self.referenceFIELD.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.referenceFIELD.setStyleSheet("QLineEdit {\n"
+"    padding: 5px;\n"
+"    border: 2px solid #67B99A;\n"
+"    border-radius: 6px;\n"
+"    background-color: #FFFFFF;\n"
+"    selection-background-color: darkgray;\n"
+"}\n"
+"")
+        self.referenceFIELD.setObjectName("referenceFIELD")
+        self.formLayout_3.setWidget(13, QtWidgets.QFormLayout.FieldRole, self.referenceFIELD)
         self.setBTN = QtWidgets.QPushButton(self.PaymentMethod)
-        self.setBTN.setGeometry(QtCore.QRect(120, 340, 200, 35))
-        self.setBTN.setMinimumSize(QtCore.QSize(200, 35))
-        self.setBTN.setSizeIncrement(QtCore.QSize(200, 35))
+        self.setBTN.setMinimumSize(QtCore.QSize(0, 0))
+        self.setBTN.setSizeIncrement(QtCore.QSize(0, 0))
         self.setBTN.setStyleSheet("QPushButton {\n"
 "    background-color: #67B99A;\n"
 "    color: white;\n"
@@ -573,54 +633,26 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.setBTN.setObjectName("setBTN")
-        self.label_30 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_30.setGeometry(QtCore.QRect(24, 230, 27, 16))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_30.setFont(font)
-        self.label_30.setObjectName("label_30")
-        self.label_23 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_23.setGeometry(QtCore.QRect(24, 249, 86, 16))
-        self.label_23.setObjectName("label_23")
-        self.label_24 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_24.setGeometry(QtCore.QRect(24, 285, 34, 16))
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_24.setFont(font)
-        self.label_24.setObjectName("label_24")
-        self.amountFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
-        self.amountFIELD.setGeometry(QtCore.QRect(120, 240, 200, 25))
-        self.amountFIELD.setMinimumSize(QtCore.QSize(200, 25))
-        self.amountFIELD.setMaximumSize(QtCore.QSize(200, 25))
-        self.amountFIELD.setSizeIncrement(QtCore.QSize(0, 0))
-        self.amountFIELD.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.amountFIELD.setObjectName("amountFIELD")
-        self.referenceFIELD = QtWidgets.QLineEdit(self.PaymentMethod)
-        self.referenceFIELD.setGeometry(QtCore.QRect(120, 300, 200, 25))
-        self.referenceFIELD.setMinimumSize(QtCore.QSize(200, 25))
-        self.referenceFIELD.setMaximumSize(QtCore.QSize(200, 25))
-        self.referenceFIELD.setStyleSheet("QLineEdit {\n"
-"    padding: 5px;\n"
-"    border: 2px solid #67B99A;\n"
-"    border-radius: 6px;\n"
-"    background-color: #FFFFFF;\n"
-"    selection-background-color: darkgray;\n"
-"}\n"
-"")
-        self.referenceFIELD.setObjectName("referenceFIELD")
-        self.label_25 = QtWidgets.QLabel(self.PaymentMethod)
-        self.label_25.setGeometry(QtCore.QRect(24, 304, 90, 16))
-        self.label_25.setObjectName("label_25")
+        self.formLayout_3.setWidget(14, QtWidgets.QFormLayout.FieldRole, self.setBTN)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.formLayout_3.setItem(15, QtWidgets.QFormLayout.FieldRole, spacerItem2)
         self.horizontalLayout_2.addWidget(self.PaymentMethod)
+        self.widget_2 = QtWidgets.QWidget(self.mainContent_2)
+        self.widget_2.setObjectName("widget_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_2)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label_7 = QtWidgets.QLabel(self.widget_2)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.verticalLayout_2.addWidget(self.label_7)
+        self.orderList_2 = QtWidgets.QTableWidget(self.widget_2)
+        self.orderList_2.setObjectName("orderList_2")
+        self.orderList_2.setColumnCount(0)
+        self.orderList_2.setRowCount(0)
+        self.verticalLayout_2.addWidget(self.orderList_2)
+        self.horizontalLayout_2.addWidget(self.widget_2)
         self.verticalLayout_8.addWidget(self.mainContent_2)
         self.gridLayout_2.addWidget(self.contentContainer_2, 1, 1, 1, 1)
         self.header_2 = QtWidgets.QWidget(self.frame)
@@ -643,8 +675,8 @@ class Ui_MainWindow(object):
         self.label_10.setScaledContents(False)
         self.label_10.setObjectName("label_10")
         self.horizontalLayout_5.addWidget(self.label_10)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem3)
         self.label_11 = QtWidgets.QLabel(self.header_2)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -670,7 +702,6 @@ class Ui_MainWindow(object):
         self.checkoutBTN.setText(_translate("MainWindow", "Checkout"))
         self.historyBTN_2.setText(_translate("MainWindow", "History"))
         self.backBTN.setText(_translate("MainWindow", "Back"))
-        self.label_7.setText(_translate("MainWindow", "Order queue"))
         self.label_8.setText(_translate("MainWindow", "Order ID"))
         self.label_12.setText(_translate("MainWindow", "Package Name"))
         self.label.setText(_translate("MainWindow", "Cashier"))
@@ -690,20 +721,31 @@ class Ui_MainWindow(object):
         self.orderidFIELD.setPlaceholderText(_translate("MainWindow", "Select Order ID From Queue"))
         self.checkoutBTN_3.setText(_translate("MainWindow", "Check Order ID"))
         self.checkoutBTN_2.setText(_translate("MainWindow", "Checkout"))
-        self.label_9.setText(_translate("MainWindow", "Payment Method"))
         self.label_21.setText(_translate("MainWindow", "Apply Discount/Leftover"))
+        self.label_31.setText(_translate("MainWindow", "Discount               "))
         self.pwdBTN.setText(_translate("MainWindow", "PWD"))
         self.seniorBTN.setText(_translate("MainWindow", "Senior"))
         self.regularBTN.setText(_translate("MainWindow", "Regular"))
-        self.label_31.setText(_translate("MainWindow", "Discount               "))
         self.label_18.setText(_translate("MainWindow", "Leftover         "))
-        self.setBTN.setText(_translate("MainWindow", "Enter"))
+        self.label_9.setText(_translate("MainWindow", "Payment Method"))
         self.label_30.setText(_translate("MainWindow", "Cash"))
         self.label_23.setText(_translate("MainWindow", "Amount Tendered"))
-        self.label_24.setText(_translate("MainWindow", "Gcash"))
         self.amountFIELD.setPlaceholderText(_translate("MainWindow", "Enter Amount"))
-        self.referenceFIELD.setPlaceholderText(_translate("MainWindow", "Enter Gcash Reference Number"))
+        self.label_24.setText(_translate("MainWindow", "Gcash"))
         self.label_25.setText(_translate("MainWindow", "Reference Number"))
+        self.referenceFIELD.setPlaceholderText(_translate("MainWindow", "Enter Gcash Reference Number"))
+        self.setBTN.setText(_translate("MainWindow", "Enter"))
+        self.label_7.setText(_translate("MainWindow", "Order queue"))
         self.label_10.setText(_translate("MainWindow", "POS"))
         self.label_11.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
