@@ -578,7 +578,7 @@ class posCheckout(QMainWindow, Ui_MainWindow):
             return
 
         try:
-            #self.print_receipt()
+            self.print_receipt()
 
             cashier_name = self.user_manager.get_first_name()
             # Update the order table with relevant fields
