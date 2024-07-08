@@ -1,8 +1,9 @@
+import sys
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QSizeF
-from PyQt5.QtGui import QPainter
-from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QGridLayout
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QGridLayout, QMessageBox
+from docx import Document
+from docx.shared import Inches
+import os
 
 class CheckoutReceiptDialog(QDialog):
     def __init__(self, order_details, parent=None):
@@ -69,15 +70,53 @@ class CheckoutReceiptDialog(QDialog):
         self.move(frame_geometry.topLeft())
 
     def print_order(self):
-        printer = QPrinter(QPrinter.HighResolution)
-        printer.setPageSizeMM(QSizeF(80, 200))  # Initial page size
+        # Create a Word document
+        document = Document()
 
-        dialog = QPrintDialog(printer, self)
-        if dialog.exec_() == QPrintDialog.Accepted:
-            painter = QPainter(printer)
+        # Set the page width to 80mm and height to a reasonable size
+        section = document.sections[0]
+        section.page_width = Inches(3.14961)  # 80mm to inches
+        section.page_height = Inches(11.69)  # Arbitrary height, can be adjusted
 
-            # Adjust page size based on content
-            self.render(painter)
-            painter.end()
+        # Remove the margins
+        section.left_margin = Inches(0.19685)
+        section.right_margin = Inches(0.19685)
+        section.top_margin = Inches(0)
+        section.bottom_margin = Inches(0)
+
+        # Add header
+        header_paragraph = document.add_paragraph()
+        header_paragraph.alignment = 1  # Center alignment
+        header_paragraph.add_run("MOON HEY HOTPOT AND GRILL\n848A Banawe St, Quezon City, 1114 Metro Manila\nContact Number: 0917 123 4567").bold = True
+
+        # Add order details
+        details_lines = self.order_details.split('\n')[3:]  # Skipping the first three lines which are used in the header
+        for line in details_lines:
+            if ':' in line:
+                label, value = line.split(':', 1)
+                p = document.add_paragraph()
+                p.add_run(label.strip() + ': ').bold = True
+                p.add_run(value.strip())
+            else:
+                p = document.add_paragraph(line)
+                p.alignment = 1  # Center alignment
+
+        # Add thank you note
+        thank_you_paragraph = document.add_paragraph()
+        thank_you_paragraph.alignment = 1  # Center alignment
+        thank_you_paragraph.add_run("Thank you for your visit!")
+
+        # Save the document
+        file_path = os.path.join(os.getcwd(), 'receipt.docx')
+        document.save(file_path)
+
+        # Open the document for printing (platform-dependent)
+        if sys.platform == "win32":
+            os.startfile(file_path, "print")
+        elif sys.platform == "darwin":
+            os.system(f"open -a 'Preview' {file_path}")
         else:
-            print('Print cancelled')
+            os.system(f"libreoffice --headless --print-to-file --printer-name=PrinterName {file_path}")
+
+        # Inform the user that the receipt has been generated
+        QMessageBox.information(self, "Receipt Generated", "The receipt has been generated and sent to the printer.")
