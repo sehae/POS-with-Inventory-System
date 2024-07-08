@@ -88,10 +88,14 @@ class trendReport(QMainWindow, Ui_MainWindow):
         preferred_soup_variations = analyze_preferred_soup_variations(dataframe, frequency.lower())
         best_selling_product = analyze_best_selling_product(dataframe, frequency.lower())
 
-        # Generate and save report
-        save_report_to_word(dataframe, frequency, self.directory, avg_guest_pax, preferred_soup_variations,
-                            best_selling_product)
-        success = True
+        # Add check for empty dataframe before plotting
+        if best_selling_product.empty:
+            print(f"No data available for best selling product for {frequency.lower()} frequency.")
+        else:
+            # Generate and save report
+            save_report_to_word(dataframe, frequency, self.directory, avg_guest_pax, preferred_soup_variations,
+                                best_selling_product)
+            success = True
 
         if success:
             print("Report generated successfully.")

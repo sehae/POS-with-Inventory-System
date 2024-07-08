@@ -211,7 +211,7 @@ def save_report_to_word(report_data, report_type, file_path):
         "Moon Hey Hotpot and Grill",
         "848A Banawe St, Quezon City, 1114 Metro Manila",
         "0917 624 9289",
-        f"Trend Analysis {report_type} Report",
+        f"Inventory {report_type} Report",
         f"({month_year_today})",
     ]
     for content_h in content_header:
