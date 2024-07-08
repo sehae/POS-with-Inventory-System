@@ -81,7 +81,7 @@ class CheckoutReceiptDialog(QDialog):
         # Remove the margins
         section.left_margin = Inches(0.19685)
         section.right_margin = Inches(0.19685)
-        section.top_margin = Inches(0)
+        section.top_margin = Inches(0.19685)
         section.bottom_margin = Inches(0)
 
         # Add header

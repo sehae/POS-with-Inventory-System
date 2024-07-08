@@ -132,7 +132,8 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
                         supplier.Supplier_Name,
                         product.Expiry_Date,
                         product.Status,
-                        product.Availability
+                        product.Availability,
+                        inventory.Barcode
                     FROM inventory
                     JOIN product ON inventory.Product_ID = product.Product_ID
                     JOIN supplier ON inventory.Supplier_ID = supplier.Supplier_ID
@@ -162,7 +163,8 @@ class adminInventoryViewProduct(QMainWindow, Ui_MainWindow):
             "Supplier Name",
             "Expiry Date",
             "Status",
-            "Availability"
+            "Availability",
+            "Barcode"  # Add Barcode column
         ]
 
         if records:

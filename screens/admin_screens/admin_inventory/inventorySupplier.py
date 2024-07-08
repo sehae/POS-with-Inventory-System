@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inventorySupplier.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_inventory/inventorySupplier.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1485, 944)
+        MainWindow.resize(1485, 955)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -165,6 +165,7 @@ class Ui_MainWindow(object):
         self.widget.setObjectName("widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setSpacing(15)
         self.verticalLayout.setObjectName("verticalLayout")
         self.searchLBL = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -564,3 +565,13 @@ class Ui_MainWindow(object):
         self.pushButton_6.setText(_translate("MainWindow", "Modify Supplier"))
         self.pushButton_7.setText(_translate("MainWindow", "Discard"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

@@ -37,7 +37,7 @@ CREATE TABLE `package` (
 
 LOCK TABLES `package` WRITE;
 /*!40000 ALTER TABLE `package` DISABLE KEYS */;
-INSERT INTO `package` VALUES (1,'Hotpot',709.00),(2,'Grill',709.00),(3,'Hotpot and Grill',1009.00);
+
 /*!40000 ALTER TABLE `package` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

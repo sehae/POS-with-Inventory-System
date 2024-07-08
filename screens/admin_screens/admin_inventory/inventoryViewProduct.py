@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inventoryViewProduct.ui'
+# Form implementation generated from reading ui file 'screens/ui/admin_ui/admin_inventory/inventoryViewProduct.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -158,16 +158,25 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.Content = QtWidgets.QFrame(self.frame)
         self.Content.setObjectName("Content")
-        self.searchLBL = QtWidgets.QLabel(self.Content)
-        self.searchLBL.setGeometry(QtCore.QRect(25, 25, 163, 24))
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.Content)
+        self.verticalLayout.setContentsMargins(25, 25, 25, 25)
+        self.verticalLayout.setSpacing(15)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.widget = QtWidgets.QWidget(self.Content)
+        self.widget.setObjectName("widget")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3.setSpacing(15)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.searchLBL = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(18)
         self.searchLBL.setFont(font)
         self.searchLBL.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
         self.searchLBL.setIndent(0)
         self.searchLBL.setObjectName("searchLBL")
-        self.searchFIELD = QtWidgets.QLineEdit(self.Content)
-        self.searchFIELD.setGeometry(QtCore.QRect(30, 60, 800, 46))
+        self.verticalLayout_3.addWidget(self.searchLBL)
+        self.searchFIELD = QtWidgets.QLineEdit(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -183,17 +192,17 @@ class Ui_MainWindow(object):
 "    selection-background-color: darkgray;\n"
 "}")
         self.searchFIELD.setObjectName("searchFIELD")
-        self.widget = QtWidgets.QWidget(self.Content)
-        self.widget.setGeometry(QtCore.QRect(25, 114, 1391, 511))
-        self.widget.setObjectName("widget")
+        self.verticalLayout_3.addWidget(self.searchFIELD)
         self.tableWidget = QtWidgets.QTableWidget(self.widget)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 0, 1361, 511))
         self.tableWidget.setStyleSheet("")
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
+        self.verticalLayout_3.addWidget(self.tableWidget)
+        self.verticalLayout.addWidget(self.widget)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.Content)
-        self.pushButton_4.setGeometry(QtCore.QRect(30, 690, 500, 50))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -217,8 +226,8 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.pushButton_4.setObjectName("pushButton_4")
+        self.horizontalLayout_3.addWidget(self.pushButton_4)
         self.pushButton_5 = QtWidgets.QPushButton(self.Content)
-        self.pushButton_5.setGeometry(QtCore.QRect(680, 690, 500, 50))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -242,6 +251,8 @@ class Ui_MainWindow(object):
 "    border: 2px solid #4D9C7F;\n"
 "}")
         self.pushButton_5.setObjectName("pushButton_5")
+        self.horizontalLayout_3.addWidget(self.pushButton_5)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -261,3 +272,13 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "Add Product"))
         self.pushButton_5.setText(_translate("MainWindow", "Update Product"))
 import assets.resourceFile_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

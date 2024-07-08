@@ -73,14 +73,16 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
                 # Execute the query to retrieve data for specific columns
                 query = """
-                    SELECT Name, Quantity, Threshold_Value, Expiry_Date, Category,
+                    SELECT p.Name, p.Quantity, p.Threshold_Value, p.Expiry_Date, p.Category,
                         CASE
-                            WHEN Quantity = 0 THEN 'Out of Stock'
-                            WHEN Quantity <= Threshold_Value THEN 'Low Stock'
+                            WHEN p.Quantity = 0 THEN 'Out of Stock'
+                            WHEN p.Quantity <= p.Threshold_Value THEN 'Low Stock'
                             ELSE 'In Stock'
-                        END AS Availability
-                    FROM product
-                    WHERE Status = 'active'
+                        END AS Availability,
+                        i.Barcode
+                    FROM product p
+                    JOIN inventory i ON p.Product_ID = i.Product_ID
+                    WHERE p.Status = 'active'
                 """
                 cursor.execute(query)
 
@@ -148,3 +150,4 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                         item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
 
                 self.tableWidget_2.setItem(i, j, item)
+

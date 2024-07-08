@@ -36,7 +36,7 @@ CREATE TABLE `inventory` (
   CONSTRAINT `fk_ProductID_inventory` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   CONSTRAINT `fk_supplier` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`),
   CONSTRAINT `fk_SupplierID_inventory` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier` (`Supplier_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

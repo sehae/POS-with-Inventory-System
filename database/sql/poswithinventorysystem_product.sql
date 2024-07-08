@@ -44,7 +44,6 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('PRD001','2024-07-05','22:52','Coke (330ml)',39,10,'2024-11-12','In Stock','Beverage','Active',52),('PRD002','2024-07-05','22:53','Coke Zero (330ml)',40,10,'2024-12-17','In Stock','Beverage','Active',64),('PRD003','2024-07-05','22:54','Sprite',81,10,'2025-02-22','In Stock','Beverage','Active',94),('PRD004','2024-07-05','22:56','Pig liver (1kg)',52,5,'2024-01-01','In Stock','Ingredient','Active',52);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
