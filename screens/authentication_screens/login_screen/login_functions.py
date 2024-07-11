@@ -68,7 +68,8 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
 
                 # Verify the provided password against the stored password
                 if verify_password(stored_password, provided_password):
-                    if is_active:
+                    if is_active == "Enabled":
+                        print("verify_password is True.")
                         cursor.execute(GET_USER_NAME, (user_id,))
                         first_name, last_name = cursor.fetchone()
                         full_name = f"{first_name} {last_name}"
@@ -94,11 +95,11 @@ class myLoginScreen(QMainWindow, Ui_MainWindow):
                             self.clear_fields()
                             self.login_successful_kitchen.emit()
                         return
-                    else:
+                    elif is_active == "Disabled":
                         self.disabledAcc()
                         return
                 else:
-                    print("Incorrect password.")
+                    print("verify_password is False.")
                     user_log(user_id, failed_login_action, username)
                     self.invalidCredentials()
 
