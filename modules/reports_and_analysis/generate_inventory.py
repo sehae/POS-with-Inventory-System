@@ -1,4 +1,6 @@
 import configparser
+import os
+
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -6,9 +8,12 @@ from PyQt5.QtCore import QDateTime
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
+from docx2pdf import convert
+from matplotlib.dates import date2num, DateFormatter
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
+from server.create_engine import get_db_engine
 from validator.user_manager import userManager
 
 
@@ -30,9 +35,7 @@ def save_config(report_path):
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
 
-
-# Replace 'username', 'password', 'localhost', 'dbname' with your actual MySQL credentials and database name
-engine = create_engine('mysql+pymysql://root:root@localhost/poswithinventorysystem')
+engine = get_db_engine()
 
 # Query to join product, supplier, and inventory tables
 query = """
@@ -41,7 +44,8 @@ SELECT
     p.Date,
     p.Time,
     p.Name, 
-    p.Quantity, 
+    p.Original_Quantity, 
+    p.Quantity,
     p.Threshold_Value, 
     p.Expiry_Date, 
     p.Availability, 
@@ -49,11 +53,11 @@ SELECT
     p.Status,
     i.Selling_Cost,
     i.Buying_Cost,
-    s.Supplier_Name,
-    s.Contact_Number,
-    s.Email,
-    s.Address,
-    s.Status AS Supplier_Status
+    COALESCE(s.Supplier_Name, 'Unknown') as Supplier_Name,
+    COALESCE(s.Contact_Number, 'Unknown') as Contact_Number,
+    COALESCE(s.Email, 'Unknown') as Email,
+    COALESCE(s.Address, 'Unknown') as Address,
+    COALESCE(s.Status, 'Unknown') as Supplier_Status
 FROM 
     product p
 LEFT JOIN 
@@ -61,6 +65,7 @@ LEFT JOIN
 LEFT JOIN 
     supplier s ON i.Supplier_ID = s.Supplier_ID
 """
+
 
 dataframe = pd.read_sql(query, engine)
 
@@ -70,9 +75,23 @@ dataframe['DateTime'] = dataframe['Date'].astype(str) + ' ' + dataframe['Time'].
 # Function to generate a daily report
 def generate_daily_report():
     data = dataframe.copy()
-    data['Date'] = pd.to_datetime(data['DateTime'])
+    # Ensure the DateTime column is in the correct format
+    data['Date'] = pd.to_datetime(data['DateTime'], errors='coerce')
+
+    # Debugging: Check the date range in the dataset
+    print(f"Data date range: {data['Date'].min()} to {data['Date'].max()}")
+
+    # Get today's date
     today = datetime.now().date()
-    daily_data = data[data['Date'] == pd.to_datetime(today)]
+    print(f"Today's date: {today}")
+
+    # Filter data for today
+    daily_data = data[data['Date'].dt.date == today]
+    print(f"Total records for today ({today}): {len(daily_data)}")
+
+    # Debugging: Print a few records to ensure correctness
+    print(daily_data.head())
+
     return daily_data
 
 
@@ -107,7 +126,7 @@ def plot_reports(report_data, frequency, file_path):
 
     # Inventory Levels by Product
     plt.figure(figsize=(10, 6))
-    plt.bar(report_data['Name'], report_data['Quantity'], color='blue')
+    plt.bar(report_data['Name'], report_data['Quantity'], color='orange', zorder=2)
     plt.xlabel('Product Name')
     plt.ylabel('Quantity')
     plt.title(f'Inventory Levels by Product ({frequency})')
@@ -122,6 +141,7 @@ def plot_reports(report_data, frequency, file_path):
     plt.xticks(rotation=45)
     plt.plot(True)
     plt.tight_layout()
+    plt.grid(True, zorder=1)
     plt.savefig(f'{file_path}/inventory_levels_{frequency.lower()}.png')
     plt.close()
 
@@ -148,9 +168,11 @@ def plot_reports(report_data, frequency, file_path):
     upcoming_expiry['Expiry_Date'] = upcoming_expiry['Expiry_Date'].dt.date  # Convert to date for clarity
     expiry_counts = upcoming_expiry['Expiry_Date'].value_counts().sort_index()
 
+    expiry_dates_num = date2num(expiry_counts.index)
+
     # Plotting
     plt.figure(figsize=(12, 6))
-    plt.plot(expiry_counts.index, expiry_counts.values, marker='o', linestyle='-')
+    plt.plot(expiry_dates_num, expiry_counts.values, marker='o', linestyle='-')
     plt.xlabel('Expiry Date')
     plt.ylabel('Number of Products')
     if frequency == 'Daily':
@@ -159,6 +181,10 @@ def plot_reports(report_data, frequency, file_path):
         plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_week_range})')
     else:
         plt.title(f'{frequency} Upcoming Expiry Date Analysis ({last_month_range})')
+
+    # Format the x-ticks as requested
+    date_format = DateFormatter('%B %d, %Y')
+    plt.gca().xaxis.set_major_formatter(date_format)
 
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -176,17 +202,18 @@ def save_report_to_excel(report_data, report_type, file_path):
 def save_report_to_word(report_data, report_type, file_path):
     document = Document()
 
+    # Set up sections and headers
     section = document.sections[0]
     header = section.header
-    month = datetime.now().strftime("%B")
+    today = datetime.today()
+    month_year_today = today.strftime("%B %Y")
     content_header = [
         "Moon Hey Hotpot and Grill",
         "848A Banawe St, Quezon City, 1114 Metro Manila",
         "0917 624 9289",
         f"Inventory {report_type} Report",
-        f"({month})",
+        f"({month_year_today})",
     ]
-
     for content_h in content_header:
         header_paragraph = header.add_paragraph(content_h)
         run = header_paragraph.runs[0]
@@ -212,7 +239,7 @@ def save_report_to_word(report_data, report_type, file_path):
     supplier_totals = {}
     for supplier in suppliers:
         supplier_data = report_data[report_data['Supplier_Name'] == supplier]
-        total_spent = (supplier_data['Buying_Cost'] * supplier_data['Quantity']).sum()
+        total_spent = (supplier_data['Buying_Cost'] * supplier_data['Original_Quantity']).sum()
         supplier_totals[supplier] = total_spent
 
     # Add supplier-wise information
@@ -225,7 +252,7 @@ def save_report_to_word(report_data, report_type, file_path):
         products = supplier_data['Name'].unique()
         for product in products:
             product_data = supplier_data[supplier_data['Name'] == product]
-            total_product_spent = (product_data['Buying_Cost'] * product_data['Quantity']).sum()
+            total_product_spent = (product_data['Buying_Cost'] * product_data['Original_Quantity']).sum()
             price = product_data['Buying_Cost'].iloc[0]
 
             # Include expiry date and date of purchase
@@ -235,7 +262,7 @@ def save_report_to_word(report_data, report_type, file_path):
             document.add_paragraph(f"Product: {product}")
             document.add_paragraph(f"Total spent on this product: ₱{total_product_spent:,.2f}")
             document.add_paragraph(f"Price per unit: ₱{price:,.2f}")
-            document.add_paragraph(f"Quantity bought: {product_data['Quantity'].sum()}")
+            document.add_paragraph(f"Quantity bought: {product_data['Original_Quantity'].sum()}")
             document.add_paragraph(f"Expiry Date: {expiry_date}")
             document.add_paragraph(f"Date of Purchase: {date_of_purchase}\n")
 
@@ -246,14 +273,21 @@ def save_report_to_word(report_data, report_type, file_path):
     plot_paths = {
         'Inventory Levels': f'{file_path}/inventory_levels_{report_type.lower()}.png',
         'Inventory Status': f'{file_path}/inventory_status_{report_type.lower()}.png',
-        'Expiry Date Analysis': f'{file_path}/expiry_date_{report_type.lower()}.png'
+        'Expiry Date Analysis': f'{file_path}/expiry_date_time_series_{report_type.lower()}.png'
     }
 
     for title, path in plot_paths.items():
         document.add_heading(f"{title} ({report_type})", level=1)
         document.add_picture(path, width=Inches(6))
 
-    # Save the document
-    filename = f'{file_path}/{report_type}_report.docx'
-    document.save(filename)
-    print(f"{report_type.capitalize()} report has been generated and saved to '{filename}'")
+    # Save the document as a .docx file
+    docx_filename = f'{file_path}/{report_type}_Inventory_report_{date}.docx'
+    document.save(docx_filename)
+
+    # Convert the .docx file to a .pdf file
+    pdf_filename = f'{file_path}/{report_type}_Inventory_report_{date}.pdf'
+    convert(docx_filename, pdf_filename)
+    print(f"{report_type.capitalize()} report has been converted to PDF and saved to '{pdf_filename}'")
+
+    # Delete the .docx file after conversion
+    os.remove(docx_filename)

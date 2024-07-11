@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(972, 726)
+        MainWindow.resize(1551, 931)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -70,48 +70,6 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_11.setObjectName("pushButton_11")
         self.verticalLayout_2.addWidget(self.pushButton_11)
-        self.pushButton_2 = QtWidgets.QPushButton(self.navbar)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
-        self.pushButton_10 = QtWidgets.QPushButton(self.navbar)
-        self.pushButton_10.setMinimumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setMaximumSize(QtCore.QSize(100, 100))
-        self.pushButton_10.setStyleSheet("QPushButton {\n"
-"    background-color: white;\n"
-"    border: 2px solid #67B99A;\n"
-"    color: black;\n"
-"    padding: 8px 16px;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    border: 2px solid #4D926D;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #F0F0F0;\n"
-"    border: 2px solid #265C42;\n"
-"}")
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.verticalLayout_2.addWidget(self.pushButton_10)
         self.pushButton_12 = QtWidgets.QPushButton(self.navbar)
         self.pushButton_12.setMinimumSize(QtCore.QSize(100, 100))
         self.pushButton_12.setMaximumSize(QtCore.QSize(100, 100))
@@ -200,18 +158,25 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.header, 0, 0, 1, 2)
         self.Content = QtWidgets.QFrame(self.frame)
         self.Content.setObjectName("Content")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Content)
-        self.verticalLayout_4.setContentsMargins(25, 25, 25, 25)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.searchLBL = QtWidgets.QLabel(self.Content)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.Content)
+        self.verticalLayout.setContentsMargins(25, 25, 25, 25)
+        self.verticalLayout.setSpacing(15)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.widget = QtWidgets.QWidget(self.Content)
+        self.widget.setObjectName("widget")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3.setSpacing(15)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.searchLBL = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(18)
         self.searchLBL.setFont(font)
         self.searchLBL.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
         self.searchLBL.setIndent(0)
         self.searchLBL.setObjectName("searchLBL")
-        self.verticalLayout_4.addWidget(self.searchLBL)
-        self.searchFIELD = QtWidgets.QLineEdit(self.Content)
+        self.verticalLayout_3.addWidget(self.searchLBL)
+        self.searchFIELD = QtWidgets.QLineEdit(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -227,22 +192,67 @@ class Ui_MainWindow(object):
 "    selection-background-color: darkgray;\n"
 "}")
         self.searchFIELD.setObjectName("searchFIELD")
-        self.verticalLayout_4.addWidget(self.searchFIELD)
-        spacerItem3 = QtWidgets.QSpacerItem(17, 27, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_4.addItem(spacerItem3)
-        self.widget = QtWidgets.QWidget(self.Content)
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget)
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_4.setSpacing(7)
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.verticalLayout_3.addWidget(self.searchFIELD)
         self.tableWidget = QtWidgets.QTableWidget(self.widget)
         self.tableWidget.setStyleSheet("")
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
-        self.horizontalLayout_4.addWidget(self.tableWidget)
-        self.verticalLayout_4.addWidget(self.widget)
+        self.verticalLayout_3.addWidget(self.tableWidget)
+        self.verticalLayout.addWidget(self.widget)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.pushButton_4 = QtWidgets.QPushButton(self.Content)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
+        self.pushButton_4.setSizePolicy(sizePolicy)
+        self.pushButton_4.setMinimumSize(QtCore.QSize(500, 50))
+        self.pushButton_4.setMaximumSize(QtCore.QSize(500, 50))
+        self.pushButton_4.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.horizontalLayout_3.addWidget(self.pushButton_4)
+        self.pushButton_5 = QtWidgets.QPushButton(self.Content)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
+        self.pushButton_5.setSizePolicy(sizePolicy)
+        self.pushButton_5.setMinimumSize(QtCore.QSize(500, 50))
+        self.pushButton_5.setMaximumSize(QtCore.QSize(500, 50))
+        self.pushButton_5.setStyleSheet("QPushButton {\n"
+"    background-color: #67B99A;\n"
+"    color: white;\n"
+"    border: 2px solid #67B99A;\n"
+"    padding: 8px 16px;\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5CAE8B;\n"
+"    border: 2px solid #5CAE8B;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #4D9C7F;\n"
+"    border: 2px solid #4D9C7F;\n"
+"}")
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.horizontalLayout_3.addWidget(self.pushButton_5)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.gridLayout.addWidget(self.Content, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -254,13 +264,13 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_11.setText(_translate("MainWindow", "Inventory"))
-        self.pushButton_2.setText(_translate("MainWindow", "Add"))
-        self.pushButton_10.setText(_translate("MainWindow", "Modify"))
         self.pushButton_12.setText(_translate("MainWindow", "Supplier"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", "INVENTORY"))
         self.label_2.setText(_translate("MainWindow", "November 28th 2023, 12:07AM"))
         self.searchLBL.setText(_translate("MainWindow", "Search for Product"))
+        self.pushButton_4.setText(_translate("MainWindow", "Add Product"))
+        self.pushButton_5.setText(_translate("MainWindow", "Update Product"))
 import assets.resourceFile_rc
 
 

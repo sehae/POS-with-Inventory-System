@@ -40,7 +40,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         # Set the interval for the timer (in milliseconds)
         self.timer.start(1000)  # Update every second
 
-        self.check_action = None
         self.saveBTN.clicked.connect(self.change_password)
         self.cancelBTN.clicked.connect(self.cancel)
         self.cp_visibility.clicked.connect(lambda: self.toggle_visibility(self.currentPassFIELD, self.cp_visibility))
@@ -71,10 +70,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.retypeFIELD.setEchoMode(QtWidgets.QLineEdit.Password)
         self.unFIELD.setReadOnly(True)
 
-        # Connect the check_password_match method to the textChanged events of the password fields
-        self.newPassFIELD.textChanged.connect(self.check_password_match)
-        self.retypeFIELD.textChanged.connect(self.check_password_match)
-
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOff.png"), QIcon.Normal, QIcon.Off)
         icon.addPixmap(QtGui.QPixmap("assets/Icons/visibilityOn.png"), QIcon.Normal, QIcon.On)
@@ -90,24 +85,8 @@ class changePassword(QMainWindow, Ui_MainWindow):
             field.setEchoMode(QtWidgets.QLineEdit.Password)
             button.setIcon(QtGui.QIcon("assets/Icons/visibilityOff.png"))
 
-    def check_password_match(self):
-        new_password = self.newPassFIELD.text().strip()
-        retype_password = self.retypeFIELD.text().strip()
-
-        # Ensure both fields are not empty and match each other
-        if new_password and retype_password and new_password == retype_password:
-            check_icon = QIcon("assets/Icons/check.png")
-            self.check_action = QAction(check_icon, "Passwords Match", self.newPassFIELD)
-            self.newPassFIELD.addAction(self.check_action, QtWidgets.QLineEdit.TrailingPosition)
-            self.retypeFIELD.addAction(self.check_action, QtWidgets.QLineEdit.TrailingPosition)
-        else:
-            if hasattr(self, 'check_action') and self.check_action:
-                self.newPassFIELD.removeAction(self.check_action)
-                self.retypeFIELD.removeAction(self.check_action)
-                self.check_action = None  # Reset the check_action attribute
-
     def change_password(self):
-        username = self.usernameFIELD.text().strip()
+        username = self.unFIELD.text().strip()
         current_password = self.currentPassFIELD.text().strip()
         new_password = self.newPassFIELD.text().strip()
         retype_password = self.retypeFIELD.text().strip()
@@ -141,9 +120,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         else:
             self.retypeFIELD.setStyleSheet(VALID_FIELD_STYLE_WITH_ICON)
             self.rp_visibility.setStyleSheet(VALID_FIELD_STYLE_WITH_ICON_RIGHT)
-
-        # Check if passwords match
-        self.check_password_match()
 
         if not all_fields_valid:
             return
@@ -192,11 +168,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.newPassFIELD.clear()
         self.retypeFIELD.clear()
 
-        if hasattr(self, 'check_action') and self.check_action:
-            self.newPassFIELD.removeAction(self.check_action)
-            self.retypeFIELD.removeAction(self.check_action)
-            self.check_action = None
-
         self.log_action()
         cursor.close()
 
@@ -210,11 +181,6 @@ class changePassword(QMainWindow, Ui_MainWindow):
         self.cp_visibility.setStyleSheet(VALID_FIELD_STYLE_WITH_ICON_RIGHT)
         self.np_visibility.setStyleSheet(VALID_FIELD_STYLE_WITH_ICON_RIGHT)
         self.rp_visibility.setStyleSheet(VALID_FIELD_STYLE_WITH_ICON_RIGHT)
-
-        if hasattr(self, 'check_action') and self.check_action:
-            self.newPassFIELD.removeAction(self.check_action)
-            self.retypeFIELD.removeAction(self.check_action)
-            self.check_action = None
 
     def log_action(self):
         user_id = self.user_manager.get_current_user_id()

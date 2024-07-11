@@ -29,13 +29,13 @@ def generate_barcode(name):
     last_three_digits = product[1][-3:]
 
     # Format the expiry date in the YYMMDD format
-    expiry_date = datetime.strptime(product[3], "%Y-%m-%d").strftime("%y%m%d")
+    date = datetime.strptime(product[3], "%Y-%m-%d").strftime("%y%m%d")
 
     # Ensure the batch number is always two digits
     batch_number = f"{len(products):02d}"
 
     # Combine parts to form the first 12 digits of the barcode
-    barcode_without_check_digit = f"{category_number}{last_three_digits}{batch_number}{expiry_date}"
+    barcode_without_check_digit = f"{category_number}{last_three_digits}{batch_number}{date}"
 
     # Calculate the check digit
     check_digit = calculate_ean13_check_digit(barcode_without_check_digit)

@@ -4,7 +4,7 @@ from PyQt5.QtCore import QDateTime, QTimer, Qt
 from modules.maintenance.user_logs import user_log
 from screens.admin_screens.admin_dashboard.adminDashboard import Ui_MainWindow
 from screens.admin_screens.admin_maintenance.m_ADDuser_functions import adminMaintenance
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
+from screens.admin_screens.admin_inventory.inventoryViewProduct_functions import adminInventoryViewProduct
 from screens.about_screen.about_devCredits_functions import aboutdevCredits
 from screens.help_screen.help_FAQ_functions import helpFAQ
 from screens.password_screen.changePassword_functions import changePassword
@@ -27,7 +27,7 @@ class myAdminDashboard(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.admin_maintenance = adminMaintenance()
-        self.admin_inventory = adminInventoryAddProduct()
+        self.admin_inventory = adminInventoryViewProduct()
         self.admin_aboutdevCredits = aboutdevCredits()
         self.admin_helpFAQ = helpFAQ()
         self.change_password = changePassword()

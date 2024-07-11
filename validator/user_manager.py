@@ -10,6 +10,7 @@ class userManager(QtCore.QObject):
     user_type_updated = QtCore.pyqtSignal(str)  # Create a signal
     username_updated = QtCore.pyqtSignal(str)
     fullname_updated = QtCore.pyqtSignal(str)
+    first_name_updated = QtCore.pyqtSignal(str)
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -23,6 +24,7 @@ class userManager(QtCore.QObject):
         self.current_id = None
         self.current_department = None
         self.current_fullname = None  # Initialize current_fullname to None
+        self.first_name = None
         self.current_email = None
 
     def set_department(self, department):
@@ -87,11 +89,17 @@ class userManager(QtCore.QObject):
 
     def set_current_fullname(self, fullname):
         self.current_fullname = fullname
-        print(f"USERMANAGER: Current fullname set to: {self.current_fullname}")
         self.fullname_updated.emit(fullname)
 
     def get_current_fullname(self):
         return self.current_fullname
+
+    def set_first_name(self, first_name):
+        self.first_name = first_name
+        self.first_name_updated.emit(first_name)
+
+    def get_first_name(self):
+        return self.first_name
 
     def set_current_email(self, email):
         self.current_email = email

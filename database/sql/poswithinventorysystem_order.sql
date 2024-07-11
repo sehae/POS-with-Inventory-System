@@ -35,11 +35,20 @@ CREATE TABLE `order` (
   `Guest_Pax` int DEFAULT NULL,
   `Time_Status` varchar(45) DEFAULT NULL,
   `Order_Type` varchar(45) DEFAULT NULL,
-  `Payment_Method` varchar(45) NOT NULL,
+  `Payment_Method` varchar(45) DEFAULT NULL,
   `Cash_Amount` decimal(10,2) DEFAULT NULL,
-  `Reference_ID` int DEFAULT NULL,
+  `reference_id` varchar(45) DEFAULT NULL,
   `Discount_Type` varchar(45) DEFAULT NULL,
   `Priority_Order` varchar(45) DEFAULT NULL,
+  `Subtotal_Amount` decimal(10,2) DEFAULT NULL,
+  `VAT_Amount` decimal(10,2) DEFAULT NULL,
+  `Discount_Amount` decimal(10,2) DEFAULT NULL,
+  `Change_Amount` decimal(10,2) DEFAULT NULL,
+  `Package_Total_Amount` decimal(10,2) DEFAULT NULL,
+  `Add_Ons_Total_Amount` varchar(45) DEFAULT NULL,
+  `Cash_Register` varchar(45) DEFAULT NULL,
+  `Discount_ID` varchar(255) DEFAULT NULL,
+  `senior_count` int DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
   KEY `fk_Package_ID` (`Package_ID`),
   KEY `fk_leftover_id` (`Leftover_ID`),
@@ -54,7 +63,6 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('POS20240627001','2024-06-27','22:44',NULL,'Cancelled',NULL,NULL,'','',NULL,NULL,'Package','Pending',NULL,NULL,NULL,'Non-priority');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -67,4 +75,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-28  9:45:02
+-- Dump completed on 2024-07-07 18:07:56

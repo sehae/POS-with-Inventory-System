@@ -5,11 +5,13 @@ from PyQt5.QtCore import QTimer, QDateTime
 from PyQt5.QtWidgets import QMainWindow, QGraphicsPixmapItem, QGraphicsScene, QFileDialog, QMessageBox
 from PyQt5.QtGui import QPixmap
 
+from modules.maintenance.user_logs import user_log
 from modules.reports_and_analysis.generate_inventory import save_config, save_report_to_word
 from screens.admin_screens.admin_reports.report_inventory import Ui_MainWindow
 from modules.reports_and_analysis.generate_inventory import generate_daily_report, generate_weekly_report, \
     generate_monthly_report, plot_reports, save_report_to_excel, load_config
 from styles.universalStyles import COMBOBOX_STYLE, COMBOBOX_STYLE_VIEW
+from validator.user_manager import userManager
 
 
 class inventoryReport(QMainWindow, Ui_MainWindow):
@@ -70,8 +72,8 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
 
     def generateReport(self):
         if not self.directory:
-            # If no directory is selected, show a warning message or handle the case accordingly
-            print("Please select a directory to save the reports.")
+            QMessageBox.warning(self, "Report Generation Error",
+                                "Please select a directory to save the report.")
             return
 
         frequency = self.frequencyBOX.currentText()
@@ -96,7 +98,13 @@ class inventoryReport(QMainWindow, Ui_MainWindow):
             success = True
 
         if success:
-            QMessageBox.information(self, "Success", f"{frequency.capitalize()} report has been generated and saved to '{self.directory}'")
+            QMessageBox.information(self, "Report Generated",
+                                    f"{frequency} Inventory Report: Successfully generated and saved.")
+
+            user_manager = userManager._instance
+            current_id = user_manager.get_current_user_id()
+            username = user_manager.get_current_username()
+            user_log(current_id, 18, username, f"Inventory Report ({frequency})")
 
         self.displayReport(frequency)
 

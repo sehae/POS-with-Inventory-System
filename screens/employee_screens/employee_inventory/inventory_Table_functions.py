@@ -5,9 +5,6 @@ from PyQt5.QtWidgets import QMainWindow
 from screens.employee_screens.employee_inventory.inventory_Table import Ui_MainWindow
 from styles.universalStyles import ACTIVE_BUTTON_STYLE, INACTIVE_BUTTON_STYLE
 from server.local_server import conn
-from screens.employee_screens.employee_inventory.inventory_Modify_functions import inventoryModify
-from screens.admin_screens.admin_inventory.inventoryModify_functions import adminInventoryModifyProduct
-from screens.admin_screens.admin_inventory.inventoryAddProduct_functions import adminInventoryAddProduct
 from validator.user_manager import userManager
 
 user_manager = userManager()
@@ -22,14 +19,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
         self.pushButton_2.clicked.connect(self.navigate_modify)
         self.pushButton.clicked.connect(self.back)
-
-        self.inventory_modify = inventoryModify()
-        self.admin_inventory_modify = adminInventoryModifyProduct()
-        self.admin_inventory_add = adminInventoryAddProduct()
-
-        self.inventory_modify.product_update_signal.connect(self.populate_table)
-        self.admin_inventory_modify.admin_product_update_signal.connect(self.populate_table)
-        self.admin_inventory_add.admin_product_update_signal.connect(self.populate_table)
 
         self.populate_table()
 
@@ -84,14 +73,16 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
 
                 # Execute the query to retrieve data for specific columns
                 query = """
-                    SELECT Name, Quantity, Threshold_Value, Expiry_Date, Category,
+                    SELECT p.Name, p.Quantity, p.Threshold_Value, p.Expiry_Date, p.Category,
                         CASE
-                            WHEN Quantity = 0 THEN 'Out of Stock'
-                            WHEN Quantity <= Threshold_Value THEN 'Low Stock'
+                            WHEN p.Quantity = 0 THEN 'Out of Stock'
+                            WHEN p.Quantity <= p.Threshold_Value THEN 'Low Stock'
                             ELSE 'In Stock'
-                        END AS Availability
-                    FROM product
-                    WHERE Status = 'active'
+                        END AS Availability,
+                        i.Barcode
+                    FROM product p
+                    JOIN inventory i ON p.Product_ID = i.Product_ID
+                    WHERE p.Status = 'active'
                 """
                 cursor.execute(query)
 
@@ -131,9 +122,6 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                     name_column_index = column_names.index("Name")
                     self.tableWidget_2.setColumnWidth(name_column_index, 200)
 
-                else:
-                    print("No records found in the inventory table.")
-
         except Exception as e:
             print("Error occurred while populating table:", e)
 
@@ -162,3 +150,4 @@ class inventoryTable(QMainWindow, Ui_MainWindow):
                         item.setBackground(QtGui.QColor(255, 99, 71))   # Light red
 
                 self.tableWidget_2.setItem(i, j, item)
+
