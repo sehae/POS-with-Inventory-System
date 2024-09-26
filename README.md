@@ -1,8 +1,8 @@
 <h1 align="center" id="title">POS-with-Inventory-System</h1>
 
-<p id="description">The Point of Sales (POS) with Inventory System is a software solution designed to improve a company's restaurant operations such as managing inventory and processing orders. The software is specifically built to meet the company's needs with several essential modules tailored to support its operations. This project was developed as the final requirement for the Software Engineering 1 and 2 course. </p>
+<p id="description">The Point of Sales (POS) with Inventory System is a software solution designed to improve a company's restaurant operations such as managing inventory and processing orders. The software is specifically built to meet the company's needs with several essential modules tailored to support its operations. </p>
 
-  
+This project was developed as the final requirement for the Software Engineering 1 and 2 course. 
   
 <h2>🧐 Features</h2>
 
